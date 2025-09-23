@@ -1,0 +1,200 @@
+---
+title: Who Shot First?
+subtitle: Categorical Data Application Activity
+format:
+  html:
+    self-contained: true
+    embed-resources: true
+editor: 
+  markdown: 
+    wrap: sentence
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE, message = FALSE, warning = FALSE, error = TRUE)
+```
+
+# Introduction
+
+Use the Star Wars dataset to answer the following questions:
+
+1.  Do less than 20% of respondents feel Very Favorably towards Emperor Palpatine? (1-sample Z test for proportion)
+2.  What is the difference in proportions of females and males who are Very Favorable towards Jar-Jar Binks? (2-sample Proportion)
+3.  Come up with one other 2-sample proportion test using anything from the Star Wars dataset.
+4.  Test to see if income and response to "Which Character Shot First?" are Independent (Chi-square)
+
+For the proportion tests:
+
+1.  Define the null and alternative hypotheses
+2.  Include an explanation and conclusion for hypothesis tests
+3.  Include Confidence intervals and a sentence explaining each
+4.  Check the requirements for the hypothesis test and the confidence intervals
+
+For the Chi-square test:
+
+1.  Define the null and alternative hypotheses
+2.  Include an explanation of the conclusion for
+3.  Be sure to check the hypothesis requirements for a test of independence
+
+# Report
+
+Turn in the HTML file created when you knit/render the rmd file.
+
+# Data and Analysis
+
+Load the data
+
+```{r}
+library(tidyverse)
+library(mosaic)
+library(rio)
+library(ggplot2)
+
+sw <- import('https://raw.githubusercontent.com/byuistats/Math221D_Cannon/master/Data/StarWarsData_clean.csv')
+
+```
+
+## Explore the data
+
+```{r}
+names(sw)
+
+table(sw$`Favorability_Han Solo`)
+
+addmargins(table(sw$`Favorability_Han Solo`, sw$Gender))
+
+addmargins(table(sw$`Favorability_Emperor Palpatine`))
+
+```
+
+## One-sample Proportion Test
+
+## ho: phat = 20% 
+
+## h1: phat \< 20%
+
+What proportion of respondents are very favorable towards Emperor Palpatine?
+
+13.19%
+
+```{r}
+
+n = 834
+phat = (110/834)
+
+n*phat >= 10
+
+n*(1-phat) >= 10
+
+prop.test(x = 110, n = 834, p = .2, alternative = "less" ,conf.level = .99)
+```
+
+Is this significantly less than 20%?
+Yes, with a 99% confidence that the true proportion is within 0.0000000 and 0.1621884, which doesn't include 0.2
+
+## Two-sample Proportion Test
+
+$$H_0: p_{male} =  p_{female}$$ 
+$$H_0: p_{male} !=  p_{female}$$
+
+What percent of female respondents are favorable towards Jar-Jar Binks?
+
+33.33333%
+
+```{r}
+table(sw$`Favorability_Jar Jar Binks`, sw$Gender)
+count(sw$Gender %in% "Female")
+count(sw$Gender %in% "Male")
+((62+70)/396) * 100
+((47+133)/422) * 100
+```
+
+What percent of male respondents are favorable towards Jar-Jar Binks?
+
+42.65403%
+
+```{r}
+n = 396
+phat = (62+70) / 396
+
+n*phat >= 10
+
+n*(1-phat) >= 10
+
+
+n2 = 422
+phat2 = (47+133)
+
+n2*phat2 >= 10
+
+n2*(1-phat2) >= 10
+(0.4265403-0.3333333) * 100
+prop.test(x = c((62+70),(47+133)), n = c(396, 422), alternative = "two.sided")
+```
+
+Are they significantly different?
+
+Yes, because a p-value of 0.00757 at a 0.05 alpha implies that similarity is unlikely.
+Therefore, we reject the null and conclude that the proportions of females and males who are Very Favorable towards Jar-Jar Binks is different, by a difference of 9.3207%.
+
+## Choose your own adventure
+
+# are the proportions of females who are Very Favorable towards Jar-Jar Binks less than males?
+
+Compare 2 proportions of your choosing and perform a `prop.test()`.
+
+$$H_0: p_{male} =  p_{female}$$ 
+$$H_0: p_{male} <  p_{female}$$
+
+```{r}
+n = 396
+phat = (62+70) / 396
+
+n*phat >= 10
+
+n*(1-phat) >= 10
+
+
+n2 = 422
+phat2 = (47+133)
+
+n2*phat2 >= 10
+
+n2*(1-phat2) >= 10
+(0.4265403-0.3333333) * 100
+prop.test(x = c((62+70),(47+133)), n = c(396, 422), alternative = "less")
+```
+Conclusion: the p-value is less than my alpha of 0.05, therefore we reject the null and conclude that the proportions of females who are Very Favorable towards Jar-Jar Binks is less than males. at 
+
+## Chi-square Test for Independence
+
+Test to see if how you responded to the question "Who Shot First" is independent of income category.
+
+## h0: Who Shot First is independent from income 
+
+## h1: Who Shot First is not independent from income
+
+```{r}
+chart <- sw %>% select(who_shot_first, Household.Income) %>%
+  filter(!who_shot_first %in% "", !Household.Income %in% "") %>%
+  group_by(who_shot_first, Household.Income) %>%
+  summarise(count = n())
+View(chart)
+
+ggplot(chart, mapping = aes(x = who_shot_first, y = count, fill = Household.Income)) + geom_col()
+```
+
+```{r}
+ki <- sw %>% select(who_shot_first, Household.Income) %>%
+  filter(!who_shot_first %in% "", !Household.Income %in% "", ) %>%
+  group_by(who_shot_first, Household.Income) %>%
+  summarise(count = n()) %>%
+  pivot_wider(names_from = Household.Income, values_from = count) %>%
+  as.tibble(ki)
+
+test <- ki %>% select(-`who_shot_first`)
+chisq.test(test)
+chisq.test(test)$expected >= 10
+```
+
+State your conclusion: The P-value of 0.5726 is bigger than my alpha value of 0.05, therefore there isn't enough evidece to reject the null or make the conclusion of who Shot First is not independent from income.

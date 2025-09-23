@@ -1,0 +1,122 @@
+---
+title: "High School Seniors t Test"
+output: 
+  html_document:
+    theme: flatly
+    code_folding: hide
+---
+
+```{r, message=FALSE, warning=FALSE}
+library(tidyverse)
+library(DT)
+library(pander)
+library(readr)
+library(mosaic)
+library(ggthemes)
+library(car)
+
+HSS <- read_csv("../../Data/HighSchoolSeniors.csv")
+#If this code does not work: 
+#Use the top menu from RStudio's window to select "Session, Set Working Directory, To Source File Location", and then play this R-chunk into your console to read the HSS data into R. 
+
+## In your Console run View(HSS) to ensure the data has loaded correctly
+```
+
+## Background
+
+In the US Census at High Schools 2020, there was a survey given to each student to fill out and gather information about the statistics of students' lives and personal information, such as Gender, the number of texts received the day before, height, and many other details. Which sets the stage to answer the stereotypical question:
+
+## Do Females tend to receive more text messages on average than Males in high school?
+
+$$   H_0: \mu femals = \mu males $$
+
+$$ H_a: \mu females > \mu males $$
+
+The significance level will be tested at a 0.05 alpha(α).
+
+## Analysis
+
+After filtering data by gender groups and text received below 250 to obtain a reasonable sample, the graph displays that females do have a higher median number of texts received than males, implying that the group sample of females doesn't rely on outliers receiving hundreds of messages to represent the overall number of texts received. Although the distributions of each gender aren't normal in the qqPlot because many data-points aren't normal (overlapping the blue range), the sample size of each group is above 30, representing an approximately normal sampling to perform test statistics due to the Central Limit Theorem. But, in terms of means, is the female mean significantly bigger than the male means?
+
+```{r}
+HSS_clean <- HSS %>% filter(Gender %in% c("Female","Male"),
+                    Text_Messages_Received_Yesterday < 250)
+```
+
+```{r, fig.height= 4, fig.width= 6, fig.align='center'}
+ggplot(HSS_clean, mapping = aes(x = Gender, y = Text_Messages_Received_Yesterday, fill = Gender)) + geom_boxplot() +
+  scale_y_continuous(breaks = seq(0,500,50)) +
+  labs(title = "Females receive more text messages on average than Males",
+       y = "Texts Received Count")
+```
+
+```{r, fig.height=5, fig.width=8}
+
+par(mfrow = c(1, 2))
+# QQ plot for males
+qqPlot(HSS_clean$Text_Messages_Received_Yesterday[HSS_clean$Gender == "Male"],
+       main = "QQ Plot for Males",
+       xlab = "Theoretical Quantiles",
+       ylab = "Text Messages Received",
+       id = FALSE)
+qqPlot(HSS_clean$Text_Messages_Received_Yesterday[HSS_clean$Gender == "Female"],
+       main = "QQ Plot for Females",
+       xlab = "Theoretical Quantiles",
+       ylab = "Text Messages Received",
+       id = FALSE)
+```
+
+```{r, fig.height= 4, fig.width= 5}
+
+# QQ plot for females
+
+```
+
+## Interpretation
+
+The QQPlots display the normality of data, with the purpose of showcasing wether the data is reliable to make conclusions to avoid biased or skewed data. By the dots within the blue range being represented as "normal" whereas the opposite applies to values outside the range. However, since we have more than 30 subjects for each group, the sampling distribution of the sample means can be assumed to be approximately normal to proceed with the a/b test.
+
+After performing a t-test, we can appreciate that although it is unlikely that the female means are the same as the males with a p-value of 0.1139, the p-value isn't significant at a 0.05 alpha level. Implying that we cannot reject the null, or conclude that females tend to receive more text messages on average than males in high school.
+
+```{r}
+Males <- HSS_clean %>% filter(Gender %in% "Male")
+Females <- HSS_clean %>% filter(Gender %in% "Female")
+
+pander(t.test(Females$Text_Messages_Received_Yesterday, 
+       Males$Text_Messages_Received_Yesterday, 
+       alternative = "greater"))
+```
+
+```{r}
+pander(favstats(HSS_clean$Text_Messages_Received_Yesterday ~ HSS_clean$Gender))
+```
+
+Given our statistics that females tend to have about 6 (Female_mean - Male_mean) more text messages than males on average, a higher median of 20 messages received by females than males, and about 200 subjects from each gender to represent the results. All showing that although the stereotype of females receiving more texts than males is real, the margin isn't significant enough to be consistent insight throughout all high scholers.
+
+````{=html}
+<!-- Instructions
+
+1. Use the HSS dataset in R to come up with a question that can be answered with a t Test. 
+
+Here is a link to the survey given to the students that participated in the study:
+https://ww2.amstat.org/censusatschool/pdfs/C@SQuestionnaire.pdf
+(Use the link to learn about what each column of data in the data set represents.)
+
+2. Establish why your question is interesting and rephrase the question using a statistical "null" and "alternative" hypothesis. (Hint, see the "Math 325 Notebook -> R Help -> R-Markdown Hints" page of your textbook for instructions on how to write mathematical hypotheses.)
+
+
+
+3. Clearly answer your question using statistics. Be sure to compute a p-value and provide supporting numerical and graphical summaries. If your conclusions don't have numbers in them, they likely are not detailed enough to be meaningful conclusions.
+
+Note: you can create "groups" from the data in many ways. For example, suppose you wanted to create a variable that grouped people according to whether they thought recycling was more important than conserving water. You could do this by:
+
+```{r}
+HSS <- HSS %>%
+  mutate(recycling_than_water = ifelse(Importance_recycling_rubbish >	Importance_conserving_water, "Recycling More Important", "Water Conservation More Important"))
+```
+
+4. Include Q-Q Plots checking the normality of the data and discuss if the requirements of the test are satisfied for your data or not. Note that Q-Q Plots are not graphics, they are diagnostic plots diagnosing the normality of the data.
+
+
+-->
+````

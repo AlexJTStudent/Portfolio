@@ -1,0 +1,144 @@
+---
+title: "Analysis - Consulting Project"
+output: 
+  html_document:
+    theme: flatly
+    code_folding: hide
+---
+
+```{r, include=FALSE}
+library(mosaic)
+library(tidyverse)
+library(pander)
+library(lubridate)
+library(ggthemes)
+library(scales)
+library(car)
+
+data <- read.csv("C://Users//Alex//Documents//GitHub//IntStats//Statistics-Notebook-master//Analyses//campaign_data.csv")
+datatime <- ymd_hms(data$Date)
+data$Date <- as_date(datatime)
+data <- data %>%  mutate(Month = format(floor_date(Date, "month"), "%Y-%m"))
+data <- data %>%
+  mutate(Month = month(Date, label = TRUE, abbr = FALSE))
+```
+
+## Background
+
+I asked ChatGPT to roleplay as the business owner of an online store that sells home fitness equipment. The "owner", as one of the tasks, asked if "our ads are even working", after implementing Google and Facebook ads on March 20, 2025. 
+
+## Question and Hypothesis
+
+Since we are comparing the profits of "before" vs "after" March 20, 2025, we'll have to perform a Paired Samples t Test to keep the analysis simple and compare if:
+
+The company's profits "after" March 20, 2025 were significantly affected by the ad campaign
+
+$$
+H_0: \mu_d = 0 \\
+H_a: \mu_d \neq 0 \\
+\alpha:0.05
+$$
+
+
+## Analysis
+
+```{r, warning=FALSE}
+ggplot(data, aes(x = Date, y = Profit)) +
+  geom_line(color = "#2c7fb8", size = 1) +
+  geom_point(color = "#2c7fb8", size = 1.5) +  # optional: adds points for clarity
+  scale_y_continuous(
+    breaks = seq(-500, 2000, 150),
+    labels = dollar_format(prefix = "$"),
+    expand = expansion(mult = c(0.01, 0.05))
+  ) +
+  geom_vline(
+    xintercept = as.numeric(as.Date("2025-03-20")),
+    color = "firebrick", linetype = "dashed", linewidth = 1
+  ) +
+  annotate(
+    "text",
+    x = as.Date("2025-03-20"),
+    y = 1900,
+    label = "Ad Stimulus",
+    color = "firebrick",
+    angle = 90,
+    vjust = -0.5,
+    hjust = 0.8,
+    size = 4.5,
+    fontface = "italic"
+  ) +
+  labs(
+    title = "Net Profit Over Time",
+    x = "Date",
+    y = "Profit"
+  ) +
+  theme_minimal(base_size = 14) +
+  theme(
+    plot.title = element_text(face = "bold", hjust = 0.5, size = 16),
+    axis.title = element_text(face = "bold"),
+    axis.text = element_text(color = "gray30"),
+    panel.grid.minor = element_blank(),
+    panel.grid.major.x = element_line(color = "gray90")
+  )
+```
+
+```{r}
+ggplot(data, aes(x = Month, y = Profit, fill = Month)) + 
+  geom_boxplot(width = 0.5, color = "gray30", outlier.shape = 16, outlier.size = 2) +
+  scale_y_continuous(breaks = seq(-600, 2200, 200), expand = expansion(mult = c(0, 0.05))) +
+  scale_fill_manual(values = c("March" = "#8da0cb", "Apr–Jul" = "#fc8d62")) +
+  labs(y = "Net Profit", x = "Month", title = "Net Profit: Before vs After Ads") +
+  theme_minimal(base_size = 14) +
+  theme(
+    legend.position = "none",
+    panel.grid.major.y = element_line(color = "gray85"),
+    panel.grid.minor = element_blank(),
+    axis.text = element_text(color = "gray20"),
+    axis.title = element_text(face = "bold"),
+    plot.title = element_text(hjust = 0.5, face = "bold")
+  )
+```
+
+```{r}
+data$Date <- as.Date(data$Date)
+
+# Define cutoff
+cutoff_date <- as.Date("2025-03-20")
+
+# Before ads (March 1–19)
+before_ads <- data$Profit[data$Date < cutoff_date]
+
+# After ads (March 20–July)
+after_ads <- data$Profit[data$Date >= cutoff_date]
+```
+
+```{r, warning=FALSE}
+boxplot(before_ads, after_ads,
+        names = c("March", "Apr–Jul"),
+        ylab = "Profit",
+        main = "Profit Before vs After Ads",
+        col = c("#66c2a5", "#fc8d62"),     # Soft, contrasting colors
+        border = "gray30",                 # Darker box border
+        boxwex = 0.6,                      # Box width
+        notch = TRUE,                      # Add notch for median comparison
+        medlwd = 2,                        # Thicker median line
+        cex.axis = 1.2,                    # Larger axis labels
+        cex.lab = 1.3,                     # Larger y-axis label
+        cex.main = 1.5)                    # Larger title
+grid(nx = NA, ny = NULL, col = "gray90", lty = "dotted")  # Add horizontal grid lines
+```
+
+```{r}
+pander(t.test(before_ads, after_ads, mu = 0, alternative = "less"))
+```
+
+## Interpretation
+
+At the end of the day, there isn't enough evidence to believe that comparing the profits of "before" vs "after" March 20, 2025 were significantly affected by the company's ad campaign. Given that the P value was 0.1054, which is bigger than our 0.05 alpha, thus failing to reject the null. Therefore, future marketing campaigns must have a change of strategy to fully convince customers of the value of the company.
+
+## References/Credits
+
+I personally wouldn't recommend future students use generated Data, it lacks patterns and trends that are connected to the real world. Instead, I would recommend looking at Kaggle datasets that existed prior to AI, to avoid any chance of the data being constructed. And only ask AI to make smart questions about the data or research field the analysis is on.
+
+[ChatGPT Conversation](https://chatgpt.com/share/6881bf25-de04-800c-b58e-f4fa1b16eed8)
+

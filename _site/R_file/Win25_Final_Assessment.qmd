@@ -1,0 +1,311 @@
+---
+title: "Winter 2025 Final Assessment"
+author: "[your name]"
+format:
+  html:
+    self-contained: true
+    code-fold: true
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE, message = FALSE, warning = FALSE, error = TRUE)
+```
+
+
+# Introduction
+
+This assessment is designed as a practice of several analyses we have covered throughout the semester.  Each example will give background for the research questions.  
+
+You are responsible for determining the appropriate alternative hypothesis for each question **based on context**.  Unless otherwise specified, use $\alpha = 0.05$.
+
+Do all work __ON YOUR OWN__.  
+
+You may use class notes and assignments but not internet searches, Artificial Intelligence or other people.  
+
+Don't forget to load the libraries.
+
+```{r, include=FALSE}
+
+library(tidyverse)
+library(rio)
+library(mosaic)
+library(car)
+
+```
+
+
+
+# Diet and Exercise
+
+A health nutritionist wanted to study the effects of three different diets on people's ability to run a mile.  He randomly chose 43 individuals who were willing to participate in the study and randomly assigned them to be fed a certain kind of diet. After two weeks of being on the diet, each person ran a mile and the time it took to run a mile was recorded. 
+
+## Load the Data
+
+```{r}
+
+running <- import('https://github.com/byuistats/Math221D_Cannon/raw/master/Data/Running.xlsx') %>% mutate(Diet = factor(Diet))
+View(running)
+```
+
+
+__QUESTION__:  What is the response variable?  
+__ANSWER__:  miles runned
+
+__QUESTION__:  What is the explanatory variable?  
+__ANSWER__:  diet
+
+
+## Visualization
+
+Create a side-by-side boxplot using `ggplot()`.  Be sure to give it a title.  Color the boxes based on Diet.  
+
+```{r}
+boxplot(running$minutes_to_run_mile ~ running$Diet)
+```
+
+
+## Hypothesis Test
+
+__QUESTION__:  What type of test is appropriate for this data?  
+__ANSWER__:  ANOVA to test for variance
+
+
+__QUESTION__:  State your null and alternative hypotheses:  
+
+Ho:   u1 = u2 = u3
+Ha:  There is at least one u different
+alpha: 0.05
+
+Perform the appropriate test to determine if diet has any effect on the time it takes individuals to run a mile.  
+
+```{r}
+sds <- favstats(running$minutes_to_run_mile ~ running$Diet)$sd
+max(sds) / min(sds)
+
+running_auth_aov <- aov(running$minutes_to_run_mile ~ running$Diet)
+summary(running_auth_aov)
+
+```
+
+
+__Question__:  What is the P-value?  
+__Answer__:  0.00395 
+
+__QUESTION__:  State your conclusion.  Include the technical (decision based on P-value and alpha) and the contextual conclusion.   
+__ANSWER__: the P-value is less than an alpha of 0.05, therefore there is enough evidence to reject the null and conclude that there is an variance between runned miles by diets.
+
+
+### Test Requirements
+
+Check all the requirements for the appropriateness of the statistical test:  
+
+```{r}
+qqPlot(running_auth_aov)
+
+```
+
+
+__QUESTION__:  Explain each of the requirements and whether or not they are satisfied.  
+__ANSWER__:  independence, subjects were randomly assigned, therefore is met and bias is reduced.
+
+Normality: The qqPlot displays that the values are normally distributed, therefore the results aren't skewed.
+
+
+
+
+# Location, Location, Location!
+
+You are thinking of moving to British Columbia. You wanted to study the estimated sale price for a one-bedroom apartment in Nelson, BC. You collected a sample of 12 apartments located within the certain distance from downtown and record their price. You would like to predict the price of an apartment (in thousands of dollars) based on how far it is from downtown (in kilometers)
+
+
+## Load the Data
+
+```{r}
+
+apartments <- import('https://github.com/byuistats/Math221D_Cannon/raw/master/Data/Appartments.xlsx')
+View(apartments)
+```
+
+
+__QUESTION__:  What is the response variable?  
+__ANSWER__:  price of an apartment
+
+__QUESTION__:  What is the explanatory variable?  
+__ANSWER__:  how far the house is from downtown
+
+
+## Visualization
+
+Use `ggplot()` to create a scatter plot with a regression line.
+
+```{r}
+ggplot(apartments, mapping = aes(x = kilometers_from_downtown, y = price)) + geom_point()
+
+```
+
+
+__QUESTION__:  Does the relationship between x and y appear roughly linear?  
+__ANSWER__:  Yes, even though there aren't many data points you could draw a line representing the pattern.
+
+__QUESTION__:  What is the correlation coefficient?  
+__ANSWER__:  -0.7100981
+
+```{r}
+cor(apartments$price ~ apartments$kilometers_from_downtown,data = apartments)
+```
+
+__QUESTION__:  Describe in words what the correlation coefficient shows us about this relationship?  
+__ANSWER__:  There appears to be a strong and negative linear relationship between price and distance. In other words, the further the apartment is from downtown, the lower the price tends to be.
+
+
+
+## Hypothesis Test
+
+__QUESTION__:  State the null and alternative hypotheses for the relevant statistical test:  
+
+Ho:   B1 = 0 
+Ha:   B1 != 0
+
+Perform the appropriate analysis:  
+
+```{r}
+out <- lm(apartments$price ~ apartments$kilometers_from_downtown)
+summary(out)
+```
+
+
+__Question__:  What is the P-value?  
+__Answer__:  0.009667
+
+__QUESTION__:  State your conclusion.  Include the technical (decision based on P-value and alpha) and the contextual conclusion.   
+__ANSWER__:   The p-value is smaller than an alpha of 0.05, therefore, there is enough evidence to reject the null and conclude that there is an negative linear relationship between price and distance.
+
+
+__QUESTION__:  Interpret the slope of the regression line *in context of the research question*.    
+__ANSWER__:  the further the apartment is from downtown, the lower the price tends to be.
+
+__QUESTION__:  Interpret the intercept of the regression line *in context of the research question*.   
+__ANSWER__:  prices of apartments close to downtown tend to cost above 70000 dollars.
+
+## Confidence Interval
+
+Create a confidence interval for the slope.
+
+```{r}
+confint(out, level = 0.95)
+
+```
+
+__QUESTION__:  Interpret the confidence interval for the slope in context of the research question.    
+__ANSWER__:  I have 95% confidece that the true price of the apartment tend to decrease whitin(-9136.587 and -1620.879) dollars per every kilometer traveled.
+
+
+### Test Requirements
+
+Check all the requirements for the appropriateness of the analysis.  
+
+```{r}
+qqPlot(out$residuals)
+plot(out, which = 1)
+```
+
+__QUESTION__:  Explain each of the requirements and whether or not they are satisfied.  
+__ANSWER__:  Normality: qqPlot checks if the data is normal to avoid skewed results, of which is met.
+Linearity: Checks the relationship between price and distance to see discrepancies in correlations, of which is met.
+
+
+
+
+# Ahhh choo!
+
+A college health center conducted an experiment to determine the degree of relief provided by three cough remedies.  Each cough remedy was tried on 50 randomly selected students and the following counts were recorded.  We want to test the hypothesis that the three cough remedies are equally effective.
+
+```{r}
+
+cough <- import('https://raw.githubusercontent.com/byuistats/Math221D_Cannon/refs/heads/master/Data/cough_relief.csv')# %>% mutate(Relief = factor(Relief, levels = c("No relief", "Some relief", "Complete relief")))
+View(cough)
+```
+
+
+## Clean the Data
+
+Create a clean dataset that removes any missing values from Relief and Remedy columns:
+
+```{r}
+clean <- cough %>%
+  select(Relief, Remedy) %>%
+  filter(!Relief %in% "",
+         !Remedy %in% "") %>%
+  group_by(Relief, Remedy) %>%
+  summarise(count = n())
+View(clean)
+
+```
+
+
+## Visualization
+
+Use `ggplot()` and the clean dataset to create a bar chart that groups bars by remedy and has different colors for each of the levels of relief:
+
+```{r}
+
+ggplot(clean, mapping = aes(x = Remedy, y = count, fill = Relief)) + geom_col()
+```
+
+## Summary Statistics
+
+Create a contingency table of counts for Relief by Remedy.
+
+```{r}
+contingency_table <- xtabs(count ~ Relief + Remedy, data = clean)
+contingency_table
+```
+
+
+Create a proportion table for the percent of Relief for the different types of Remedies. (Proportions should sum to 1 for each Remedy type.)
+
+```{r}
+prop_tab <- prop.table(contingency_table, margin = 2) * 100
+prop_tab
+```
+
+__QUESTION__:  Which remedy has the highest proportion of Complete Relief?  
+__ANSWER__:  Triaminic
+
+__QUESTION__:  What is the proportion of respondents who felt Complete Relief from taking NyQuil?  
+__ANSWER__:  14%
+
+
+## Hypothesis Test
+
+Perform a Chi-square test of independence.  
+
+__QUESTION__:  State the Null and Alternative Hypotheses.  
+
+Ho:  relief is independent from remedy
+Ha:   relief is not independent from remedy
+
+Perform the appropriate analysis:  
+
+```{r}
+chisq.test(contingency_table)
+```
+
+__Question__:  What is the P-value?  
+__Answer__:  0.1318
+
+__QUESTION__:  State your conclusion.  Include the technical (decision based on P-value and alpha) and the contextual conclusion.   
+__ANSWER__: The p-value is not smaller than an alpha of 0.05, therefore we fail to reject the null, and cannot conclude the remedy taken does not appear to significantly affect how much relief a person experiences.
+
+
+### Test Requirements
+
+Check the requirements for the appropriateness of the Chi-square test:    
+
+```{r}
+chisq.test(contingency_table)$expected >= 5
+```
+
+__QUESTION__:  Are the requirements satisfied?    
+__ANSWER__:  Yes, we can expect all the row totals to be proportionally distributed across the column groups.
+
