@@ -1,10 +1,30 @@
 ---
 title: "My Two-way ANOVA"
-output: 
+output_dir: "Analyses/ANOVA"
+output:
   html_document:
     theme: flatly
-    code_folding: hide
+    css: ../../styles.css
+    highlight: tango
+    include:
+      in-header: ../../header.html
+navbar:
+  title: "<img src='../../Images/snlogo.png' alt='Statistics Notebook Logo' style='height: 30px; margin: -5px 0px'>"
+  left:
+    - text: "R Help"
+      menu:
+        - text: "R Commands"
+          href: ../../RCommands.html
+        - text: "R Markdown Hints"
+          href: ../../RMarkdownHints.html
+    - text: "Analyses"
+      menu:
+        - text: "My Logistic Regression"
+          href: "../LogisticRegression/MyLogisticRegression.html"
+        - text: "My Two-way ANOVA"
+          href: MyTwoWayANOVA.html
 ---
+
 
 ```{r, warning=FALSE, message=FALSE}
 library(mosaic)
