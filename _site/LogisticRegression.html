@@ -16,7 +16,7 @@
 <script src="site_libs/header-attrs-2.29/header-attrs.js"></script>
 <script src="site_libs/jquery-3.6.0/jquery-3.6.0.min.js"></script>
 <meta name="viewport" content="width=device-width, initial-scale=1" />
-<link href="site_libs/bootstrap-3.3.5/css/bootstrap.min.css" rel="stylesheet" />
+<link href="site_libs/bootstrap-3.3.5/css/flatly.min.css" rel="stylesheet" />
 <script src="site_libs/bootstrap-3.3.5/js/bootstrap.min.js"></script>
 <script src="site_libs/bootstrap-3.3.5/shim/html5shiv.min.js"></script>
 <script src="site_libs/bootstrap-3.3.5/shim/respond.min.js"></script>
@@ -30,8 +30,6 @@
        code {color: inherit; background-color: rgba(0, 0, 0, 0.04);}
        pre:not([class]) { background-color: white }</style>
 <script src="site_libs/navigation-1.1/tabsets.js"></script>
-<link href="site_libs/highlightjs-9.12.0/default.css" rel="stylesheet" />
-<script src="site_libs/highlightjs-9.12.0/highlight.js"></script>
 
 <style type="text/css">
   code{white-space: pre-wrap;}
@@ -42,22 +40,115 @@
   ul.task-list{list-style: none;}
     </style>
 
-<style type="text/css">code{white-space: pre;}</style>
-<script type="text/javascript">
-if (window.hljs) {
-  hljs.configure({languages: []});
-  hljs.initHighlightingOnLoad();
-  if (document.readyState && document.readyState === "complete") {
-    window.setTimeout(function() { hljs.initHighlighting(); }, 0);
+
+
+<style type="text/css">
+  code {
+    white-space: pre;
   }
+  .sourceCode {
+    overflow: visible;
+  }
+</style>
+<style type="text/css" data-origin="pandoc">
+html { -webkit-text-size-adjust: 100%; }
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
 }
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+    color: #aaaaaa;
+  }
+pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa;  padding-left: 4px; }
+div.sourceCode
+  {  background-color: #f8f8f8; }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+code span.al { color: #ef2929; } /* Alert */
+code span.an { color: #8f5902; font-weight: bold; font-style: italic; } /* Annotation */
+code span.at { color: #204a87; } /* Attribute */
+code span.bn { color: #0000cf; } /* BaseN */
+code span.cf { color: #204a87; font-weight: bold; } /* ControlFlow */
+code span.ch { color: #4e9a06; } /* Char */
+code span.cn { color: #8f5902; } /* Constant */
+code span.co { color: #8f5902; font-style: italic; } /* Comment */
+code span.cv { color: #8f5902; font-weight: bold; font-style: italic; } /* CommentVar */
+code span.do { color: #8f5902; font-weight: bold; font-style: italic; } /* Documentation */
+code span.dt { color: #204a87; } /* DataType */
+code span.dv { color: #0000cf; } /* DecVal */
+code span.er { color: #a40000; font-weight: bold; } /* Error */
+code span.ex { } /* Extension */
+code span.fl { color: #0000cf; } /* Float */
+code span.fu { color: #204a87; font-weight: bold; } /* Function */
+code span.im { } /* Import */
+code span.in { color: #8f5902; font-weight: bold; font-style: italic; } /* Information */
+code span.kw { color: #204a87; font-weight: bold; } /* Keyword */
+code span.op { color: #ce5c00; font-weight: bold; } /* Operator */
+code span.ot { color: #8f5902; } /* Other */
+code span.pp { color: #8f5902; font-style: italic; } /* Preprocessor */
+code span.sc { color: #ce5c00; font-weight: bold; } /* SpecialChar */
+code span.ss { color: #4e9a06; } /* SpecialString */
+code span.st { color: #4e9a06; } /* String */
+code span.va { color: #000000; } /* Variable */
+code span.vs { color: #4e9a06; } /* VerbatimString */
+code span.wa { color: #8f5902; font-weight: bold; font-style: italic; } /* Warning */
+
+</style>
+<script>
+// apply pandoc div.sourceCode style to pre.sourceCode instead
+(function() {
+  var sheets = document.styleSheets;
+  for (var i = 0; i < sheets.length; i++) {
+    if (sheets[i].ownerNode.dataset["origin"] !== "pandoc") continue;
+    try { var rules = sheets[i].cssRules; } catch (e) { continue; }
+    var j = 0;
+    while (j < rules.length) {
+      var rule = rules[j];
+      // check if there is a div.sourceCode rule
+      if (rule.type !== rule.STYLE_RULE || rule.selectorText !== "div.sourceCode") {
+        j++;
+        continue;
+      }
+      var style = rule.style.cssText;
+      // check if color or background-color is set
+      if (rule.style.color === '' && rule.style.backgroundColor === '') {
+        j++;
+        continue;
+      }
+      // replace div.sourceCode by a pre.sourceCode rule
+      sheets[i].deleteRule(j);
+      sheets[i].insertRule('pre.sourceCode{' + style + '}', j);
+    }
+  }
+})();
 </script>
 
 
 
 
-
-
+<link rel="stylesheet" href="styles.css" type="text/css" />
 
 
 
@@ -298,10 +389,28 @@ $(document).ready(function () {
   </a>
   <ul class="dropdown-menu" role="menu">
     <li>
-      <a href="ANOVA/MyTwoWayANOVA.html">My Two-way ANOVA</a>
+      <a href="MyTwoWayANOVA.html">My Two-way ANOVA</a>
     </li>
     <li>
-      <a href="Logistic Regression/MyLogisticRegression.html">My Logistic Regression</a>
+      <a href="MyLogisticRegression.html">My Logistic Regression</a>
+    </li>
+    <li>
+      <a href="MySimpleLinearRegression.html">My Simple Linear Regression</a>
+    </li>
+    <li>
+      <a href="HighSchoolSeniors.html">High School Seniors</a>
+    </li>
+    <li>
+      <a href="RecallingWords.html">Recalling Words</a>
+    </li>
+    <li>
+      <a href="Food.html">Food (Kruskal-Wallis Test)</a>
+    </li>
+    <li>
+      <a href="CarPrices.html">Car Prices</a>
+    </li>
+    <li>
+      <a href="MyChiSquaredTest.html">My Chi-squared Test</a>
     </li>
   </ul>
 </li>
@@ -824,7 +933,8 @@ you are interested.</span> </span></p>
 <p></a></p>
 <div id="goodnessoffit2" style="display:none;">
 <pre><code>## 
-##  Hosmer and Lemeshow goodness of fit (GOF) test
+##  Hosmer and Lemeshow goodness of fit (GOF)
+##  test
 ## 
 ## data:  myglm$y, myglm$fitted
 ## X-squared = 5.7327, df = 8, p-value = 0.6771</code></pre>
@@ -867,11 +977,15 @@ more extreme than the observed value of residual deviance.</span>
 ## glm(formula = am ~ disp, family = binomial, data = mtcars)
 ## 
 ## Coefficients:
-##              Estimate Std. Error z value Pr(&gt;|z|)   
-## (Intercept)  2.630849   1.050170   2.505  0.01224 * 
-## disp        -0.014604   0.005168  -2.826  0.00471 **
+##              Estimate Std. Error z value Pr(&gt;|z|)
+## (Intercept)  2.630849   1.050170   2.505  0.01224
+## disp        -0.014604   0.005168  -2.826  0.00471
+##               
+## (Intercept) * 
+## disp        **
 ## ---
-## Signif. codes:  0 &#39;***&#39; 0.001 &#39;**&#39; 0.01 &#39;*&#39; 0.05 &#39;.&#39; 0.1 &#39; &#39; 1
+## Signif. codes:  
+## 0 &#39;***&#39; 0.001 &#39;**&#39; 0.01 &#39;*&#39; 0.05 &#39;.&#39; 0.1 &#39; &#39; 1
 ## 
 ## (Dispersion parameter for binomial family taken to be 1)
 ## 
@@ -1039,8 +1153,8 @@ want predicted probabilities. There are other options available. See
 </div>
 <p></a></p>
 <div id="LogisticPredict" style="display:none;">
-<pre class="r"><code>myglm &lt;- glm(am ~ disp, data = mtcars, family = binomial)
-predict(myglm, newdata = data.frame(disp = 200), type = &quot;response&quot;)</code></pre>
+<div class="sourceCode" id="cb6"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb6-1"><a href="#cb6-1" tabindex="-1"></a>myglm <span class="ot">&lt;-</span> <span class="fu">glm</span>(am <span class="sc">~</span> disp, <span class="at">data =</span> mtcars, <span class="at">family =</span> binomial)</span>
+<span id="cb6-2"><a href="#cb6-2" tabindex="-1"></a><span class="fu">predict</span>(myglm, <span class="at">newdata =</span> <span class="fu">data.frame</span>(<span class="at">disp =</span> <span class="dv">200</span>), <span class="at">type =</span> <span class="st">&quot;response&quot;</span>)</span></code></pre></div>
 <pre><code>##         1 
 ## 0.4280016</code></pre>
 </div>
@@ -1806,7 +1920,8 @@ you are interested.</span> </span></p>
 <p></a></p>
 <div id="goodnessoffit2" style="display:none;">
 <pre><code>## 
-##  Hosmer and Lemeshow goodness of fit (GOF) test
+##  Hosmer and Lemeshow goodness of fit (GOF)
+##  test
 ## 
 ## data:  myglm$y, myglm$fitted
 ## X-squared = 18.212, df = 8, p-value = 0.0197</code></pre>
@@ -1842,25 +1957,35 @@ more extreme than the observed value of residual deviance.</span>
 </div>
 <p></a></p>
 <div id="multipleGOF2" style="display:none;">
-<pre class="r"><code>myglm &lt;- glm(weight&gt;100 ~ Time*Diet, data = ChickWeight, family = binomial)
-summary(myglm)</code></pre>
+<div class="sourceCode" id="cb9"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb9-1"><a href="#cb9-1" tabindex="-1"></a>myglm <span class="ot">&lt;-</span> <span class="fu">glm</span>(weight<span class="sc">&gt;</span><span class="dv">100</span> <span class="sc">~</span> Time<span class="sc">*</span>Diet, <span class="at">data =</span> ChickWeight, <span class="at">family =</span> binomial)</span>
+<span id="cb9-2"><a href="#cb9-2" tabindex="-1"></a><span class="fu">summary</span>(myglm)</span></code></pre></div>
 <pre><code>## 
 ## Call:
 ## glm(formula = weight &gt; 100 ~ Time * Diet, family = binomial, 
 ##     data = ChickWeight)
 ## 
 ## Coefficients:
-##               Estimate Std. Error z value Pr(&gt;|z|)    
-## (Intercept)   -4.97603    0.65316  -7.618 2.57e-14 ***
-## Time           0.39111    0.04979   7.854 4.02e-15 ***
-## Diet2          0.58283    1.04061   0.560   0.5754    
-## Diet3         -8.44476    4.32324  -1.953   0.0508 .  
-## Diet4        -67.41995 3768.10023  -0.018   0.9857    
-## Time:Diet2     0.02391    0.08679   0.275   0.7830    
-## Time:Diet3     1.20955    0.51249   2.360   0.0183 *  
-## Time:Diet4     8.83168  471.01259   0.019   0.9850    
+##               Estimate Std. Error z value Pr(&gt;|z|)
+## (Intercept)   -4.97603    0.65316  -7.618 2.57e-14
+## Time           0.39111    0.04979   7.854 4.02e-15
+## Diet2          0.58283    1.04061   0.560   0.5754
+## Diet3         -8.44476    4.32324  -1.953   0.0508
+## Diet4        -67.41995 3768.10023  -0.018   0.9857
+## Time:Diet2     0.02391    0.08679   0.275   0.7830
+## Time:Diet3     1.20955    0.51249   2.360   0.0183
+## Time:Diet4     8.83168  471.01259   0.019   0.9850
+##                
+## (Intercept) ***
+## Time        ***
+## Diet2          
+## Diet3       .  
+## Diet4          
+## Time:Diet2     
+## Time:Diet3  *  
+## Time:Diet4     
 ## ---
-## Signif. codes:  0 &#39;***&#39; 0.001 &#39;**&#39; 0.01 &#39;*&#39; 0.05 &#39;.&#39; 0.1 &#39; &#39; 1
+## Signif. codes:  
+## 0 &#39;***&#39; 0.001 &#39;**&#39; 0.01 &#39;*&#39; 0.05 &#39;.&#39; 0.1 &#39; &#39; 1
 ## 
 ## (Dispersion parameter for binomial family taken to be 1)
 ## 
@@ -1869,7 +1994,7 @@ summary(myglm)</code></pre>
 ## AIC: 272.3
 ## 
 ## Number of Fisher Scoring iterations: 20</code></pre>
-<pre class="r"><code>pchisq(256.30, 570, lower.tail = TRUE)</code></pre>
+<div class="sourceCode" id="cb11"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb11-1"><a href="#cb11-1" tabindex="-1"></a><span class="fu">pchisq</span>(<span class="fl">256.30</span>, <span class="dv">570</span>, <span class="at">lower.tail =</span> <span class="cn">TRUE</span>)</span></code></pre></div>
 <pre><code>## [1] 6.585816e-33</code></pre>
 </div>
 <p>The null hypothesis of the goodness-of-fit test is that the logistic
@@ -2007,15 +2132,15 @@ drawn around the legend.</span> </span></p>
 </div>
 <p></a></p>
 <div id="MultipleLogisticBaseplot2" style="display:none;">
-<pre class="r"><code>myglm &lt;- glm(weight&gt;100 ~ Time*Diet, data = ChickWeight, family = binomial)
-palette(c(&quot;firebrick&quot;, &quot;green&quot;, &quot;skyblue&quot;, &quot;darkorchid4&quot;))
-b &lt;- myglm$coefficients
-plot(weight&gt;100 ~ Time, data = ChickWeight, pch=16)
-curve(exp(b[1]+b[2]*x)/(1+exp(b[1]+b[2]*x)), add=TRUE, col = palette()[1])
-curve(exp((b[1]+b[3])+(b[2]+b[6])*x)/(1+exp((b[1]+b[3])+(b[2]+b[6])*x)), add=TRUE, col = palette()[2])
-curve(exp((b[1]+b[4])+(b[2]+b[7])*x)/(1+exp((b[1]+b[4])+(b[2]+b[7])*x)), add=TRUE, col = palette()[3])
-curve(exp((b[1]+b[5])+(b[2]+b[8])*x)/(1+exp((b[1]+b[5])+(b[2]+b[8])*x)), add=TRUE, col = palette()[4])
-legend(&quot;topleft&quot;, legend = c(&quot;Diet 1&quot;, &quot;Diet 2&quot;, &quot;Diet 3&quot;, &quot;Diet 4&quot;), col = palette(), lty = 1, bty = &#39;n&#39;)</code></pre>
+<div class="sourceCode" id="cb14"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb14-1"><a href="#cb14-1" tabindex="-1"></a>myglm <span class="ot">&lt;-</span> <span class="fu">glm</span>(weight<span class="sc">&gt;</span><span class="dv">100</span> <span class="sc">~</span> Time<span class="sc">*</span>Diet, <span class="at">data =</span> ChickWeight, <span class="at">family =</span> binomial)</span>
+<span id="cb14-2"><a href="#cb14-2" tabindex="-1"></a><span class="fu">palette</span>(<span class="fu">c</span>(<span class="st">&quot;firebrick&quot;</span>, <span class="st">&quot;green&quot;</span>, <span class="st">&quot;skyblue&quot;</span>, <span class="st">&quot;darkorchid4&quot;</span>))</span>
+<span id="cb14-3"><a href="#cb14-3" tabindex="-1"></a>b <span class="ot">&lt;-</span> myglm<span class="sc">$</span>coefficients</span>
+<span id="cb14-4"><a href="#cb14-4" tabindex="-1"></a><span class="fu">plot</span>(weight<span class="sc">&gt;</span><span class="dv">100</span> <span class="sc">~</span> Time, <span class="at">data =</span> ChickWeight, <span class="at">pch=</span><span class="dv">16</span>)</span>
+<span id="cb14-5"><a href="#cb14-5" tabindex="-1"></a><span class="fu">curve</span>(<span class="fu">exp</span>(b[<span class="dv">1</span>]<span class="sc">+</span>b[<span class="dv">2</span>]<span class="sc">*</span>x)<span class="sc">/</span>(<span class="dv">1</span><span class="sc">+</span><span class="fu">exp</span>(b[<span class="dv">1</span>]<span class="sc">+</span>b[<span class="dv">2</span>]<span class="sc">*</span>x)), <span class="at">add=</span><span class="cn">TRUE</span>, <span class="at">col =</span> <span class="fu">palette</span>()[<span class="dv">1</span>])</span>
+<span id="cb14-6"><a href="#cb14-6" tabindex="-1"></a><span class="fu">curve</span>(<span class="fu">exp</span>((b[<span class="dv">1</span>]<span class="sc">+</span>b[<span class="dv">3</span>])<span class="sc">+</span>(b[<span class="dv">2</span>]<span class="sc">+</span>b[<span class="dv">6</span>])<span class="sc">*</span>x)<span class="sc">/</span>(<span class="dv">1</span><span class="sc">+</span><span class="fu">exp</span>((b[<span class="dv">1</span>]<span class="sc">+</span>b[<span class="dv">3</span>])<span class="sc">+</span>(b[<span class="dv">2</span>]<span class="sc">+</span>b[<span class="dv">6</span>])<span class="sc">*</span>x)), <span class="at">add=</span><span class="cn">TRUE</span>, <span class="at">col =</span> <span class="fu">palette</span>()[<span class="dv">2</span>])</span>
+<span id="cb14-7"><a href="#cb14-7" tabindex="-1"></a><span class="fu">curve</span>(<span class="fu">exp</span>((b[<span class="dv">1</span>]<span class="sc">+</span>b[<span class="dv">4</span>])<span class="sc">+</span>(b[<span class="dv">2</span>]<span class="sc">+</span>b[<span class="dv">7</span>])<span class="sc">*</span>x)<span class="sc">/</span>(<span class="dv">1</span><span class="sc">+</span><span class="fu">exp</span>((b[<span class="dv">1</span>]<span class="sc">+</span>b[<span class="dv">4</span>])<span class="sc">+</span>(b[<span class="dv">2</span>]<span class="sc">+</span>b[<span class="dv">7</span>])<span class="sc">*</span>x)), <span class="at">add=</span><span class="cn">TRUE</span>, <span class="at">col =</span> <span class="fu">palette</span>()[<span class="dv">3</span>])</span>
+<span id="cb14-8"><a href="#cb14-8" tabindex="-1"></a><span class="fu">curve</span>(<span class="fu">exp</span>((b[<span class="dv">1</span>]<span class="sc">+</span>b[<span class="dv">5</span>])<span class="sc">+</span>(b[<span class="dv">2</span>]<span class="sc">+</span>b[<span class="dv">8</span>])<span class="sc">*</span>x)<span class="sc">/</span>(<span class="dv">1</span><span class="sc">+</span><span class="fu">exp</span>((b[<span class="dv">1</span>]<span class="sc">+</span>b[<span class="dv">5</span>])<span class="sc">+</span>(b[<span class="dv">2</span>]<span class="sc">+</span>b[<span class="dv">8</span>])<span class="sc">*</span>x)), <span class="at">add=</span><span class="cn">TRUE</span>, <span class="at">col =</span> <span class="fu">palette</span>()[<span class="dv">4</span>])</span>
+<span id="cb14-9"><a href="#cb14-9" tabindex="-1"></a><span class="fu">legend</span>(<span class="st">&quot;topleft&quot;</span>, <span class="at">legend =</span> <span class="fu">c</span>(<span class="st">&quot;Diet 1&quot;</span>, <span class="st">&quot;Diet 2&quot;</span>, <span class="st">&quot;Diet 3&quot;</span>, <span class="st">&quot;Diet 4&quot;</span>), <span class="at">col =</span> <span class="fu">palette</span>(), <span class="at">lty =</span> <span class="dv">1</span>, <span class="at">bty =</span> <span class="st">&#39;n&#39;</span>)</span></code></pre></div>
 <p><img src="LogisticRegression_files/figure-html/unnamed-chunk-10-1.png" width="672" /></p>
 </div>
 </p>
@@ -2055,11 +2180,11 @@ class="tooltiprtext">Add a black and white them to the plot.</span>
 </div>
 <p></a></p>
 <div id="MultipleLogisticggplot2" style="display:none;">
-<pre class="r"><code>ggplot(ChickWeight, aes(Time, as.numeric(weight&gt;100))) +
-  geom_point() +
-  stat_smooth(aes(color = Diet), method = &quot;glm&quot;, method.args = list(family = &quot;binomial&quot;), se = FALSE) +
-  theme_bw() +
-  labs(y = &quot;weight&gt;100&quot;)</code></pre>
+<div class="sourceCode" id="cb15"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb15-1"><a href="#cb15-1" tabindex="-1"></a><span class="fu">ggplot</span>(ChickWeight, <span class="fu">aes</span>(Time, <span class="fu">as.numeric</span>(weight<span class="sc">&gt;</span><span class="dv">100</span>))) <span class="sc">+</span></span>
+<span id="cb15-2"><a href="#cb15-2" tabindex="-1"></a>  <span class="fu">geom_point</span>() <span class="sc">+</span></span>
+<span id="cb15-3"><a href="#cb15-3" tabindex="-1"></a>  <span class="fu">stat_smooth</span>(<span class="fu">aes</span>(<span class="at">color =</span> Diet), <span class="at">method =</span> <span class="st">&quot;glm&quot;</span>, <span class="at">method.args =</span> <span class="fu">list</span>(<span class="at">family =</span> <span class="st">&quot;binomial&quot;</span>), <span class="at">se =</span> <span class="cn">FALSE</span>) <span class="sc">+</span></span>
+<span id="cb15-4"><a href="#cb15-4" tabindex="-1"></a>  <span class="fu">theme_bw</span>() <span class="sc">+</span></span>
+<span id="cb15-5"><a href="#cb15-5" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">y =</span> <span class="st">&quot;weight&gt;100&quot;</span>)</span></code></pre></div>
 <pre><code>## `geom_smooth()` using formula = &#39;y ~ x&#39;</code></pre>
 <p><img src="LogisticRegression_files/figure-html/unnamed-chunk-11-1.png" width="672" /></p>
 </div>

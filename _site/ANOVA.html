@@ -16,7 +16,7 @@
 <script src="site_libs/header-attrs-2.29/header-attrs.js"></script>
 <script src="site_libs/jquery-3.6.0/jquery-3.6.0.min.js"></script>
 <meta name="viewport" content="width=device-width, initial-scale=1" />
-<link href="site_libs/bootstrap-3.3.5/css/bootstrap.min.css" rel="stylesheet" />
+<link href="site_libs/bootstrap-3.3.5/css/flatly.min.css" rel="stylesheet" />
 <script src="site_libs/bootstrap-3.3.5/js/bootstrap.min.js"></script>
 <script src="site_libs/bootstrap-3.3.5/shim/html5shiv.min.js"></script>
 <script src="site_libs/bootstrap-3.3.5/shim/respond.min.js"></script>
@@ -31,8 +31,6 @@
        pre:not([class]) { background-color: white }</style>
 <script src="site_libs/navigation-1.1/tabsets.js"></script>
 <script src="site_libs/navigation-1.1/codefolding.js"></script>
-<link href="site_libs/highlightjs-9.12.0/default.css" rel="stylesheet" />
-<script src="site_libs/highlightjs-9.12.0/highlight.js"></script>
 
 <style type="text/css">
   code{white-space: pre-wrap;}
@@ -43,22 +41,13 @@
   ul.task-list{list-style: none;}
     </style>
 
-<style type="text/css">code{white-space: pre;}</style>
-<script type="text/javascript">
-if (window.hljs) {
-  hljs.configure({languages: []});
-  hljs.initHighlightingOnLoad();
-  if (document.readyState && document.readyState === "complete") {
-    window.setTimeout(function() { hljs.initHighlighting(); }, 0);
-  }
-}
-</script>
 
 
 
 
 
 
+<link rel="stylesheet" href="styles.css" type="text/css" />
 
 
 
@@ -302,10 +291,28 @@ $(document).ready(function () {
   </a>
   <ul class="dropdown-menu" role="menu">
     <li>
-      <a href="ANOVA/MyTwoWayANOVA.html">My Two-way ANOVA</a>
+      <a href="MyTwoWayANOVA.html">My Two-way ANOVA</a>
     </li>
     <li>
-      <a href="Logistic Regression/MyLogisticRegression.html">My Logistic Regression</a>
+      <a href="MyLogisticRegression.html">My Logistic Regression</a>
+    </li>
+    <li>
+      <a href="MySimpleLinearRegression.html">My Simple Linear Regression</a>
+    </li>
+    <li>
+      <a href="HighSchoolSeniors.html">High School Seniors</a>
+    </li>
+    <li>
+      <a href="RecallingWords.html">Recalling Words</a>
+    </li>
+    <li>
+      <a href="Food.html">Food (Kruskal-Wallis Test)</a>
+    </li>
+    <li>
+      <a href="CarPrices.html">Car Prices</a>
+    </li>
+    <li>
+      <a href="MyChiSquaredTest.html">My Chi-squared Test</a>
     </li>
   </ul>
 </li>
@@ -467,7 +474,8 @@ Output.</span> </span></p>
 ## feed         5 231129   46226   15.37 5.94e-10 ***
 ## Residuals   65 195556    3009                     
 ## ---
-## Signif. codes:  0 &#39;***&#39; 0.001 &#39;**&#39; 0.01 &#39;*&#39; 0.05 &#39;.&#39; 0.1 &#39; &#39; 1</code></pre>
+## Signif. codes:  
+## 0 &#39;***&#39; 0.001 &#39;**&#39; 0.01 &#39;*&#39; 0.05 &#39;.&#39; 0.1 &#39; &#39; 1</code></pre>
 </div>
 <p><br/></p>
 <p><em>Diagnose the ANOVA</em></p>
@@ -1106,13 +1114,19 @@ Output.</span> </span></p>
 </div>
 </a>
 <div id="twoWayAnova" style="display:none;">
-<pre><code>##              Df Sum Sq Mean Sq F value   Pr(&gt;F)    
-## wool          1    451   450.7   3.765 0.058213 .  
-## tension       2   2034  1017.1   8.498 0.000693 ***
-## wool:tension  2   1003   501.4   4.189 0.021044 *  
-## Residuals    48   5745   119.7                     
+<pre><code>##              Df Sum Sq Mean Sq F value   Pr(&gt;F)
+## wool          1    451   450.7   3.765 0.058213
+## tension       2   2034  1017.1   8.498 0.000693
+## wool:tension  2   1003   501.4   4.189 0.021044
+## Residuals    48   5745   119.7                 
+##                 
+## wool         .  
+## tension      ***
+## wool:tension *  
+## Residuals       
 ## ---
-## Signif. codes:  0 &#39;***&#39; 0.001 &#39;**&#39; 0.01 &#39;*&#39; 0.05 &#39;.&#39; 0.1 &#39; &#39; 1</code></pre>
+## Signif. codes:  
+## 0 &#39;***&#39; 0.001 &#39;**&#39; 0.01 &#39;*&#39; 0.05 &#39;.&#39; 0.1 &#39; &#39; 1</code></pre>
 </div>
 <a href="javascript:showhide('twoWayAnovaCheck')">
 <div class="hoverchunk">
