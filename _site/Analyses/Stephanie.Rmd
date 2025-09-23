@@ -1,0 +1,98 @@
+---
+title: "Stephanie's Housing Request"
+output: 
+  html_document:
+    theme: flatly
+    code_folding: hide
+    toc: true
+    toc_float: true
+---
+
+**Week 2 Analysis**
+
+```{r, message=FALSE, warning=FALSE}
+library(mosaic)
+library(tidyverse)
+library(pander)
+library(DT)
+library(ggthemes)
+library(png)
+library(grid)
+library(ggrepel)# If you get an error stating: 
+            # Error in library(DT): there is no package called 'DT'
+            # You will need to run: install.packages("DT") 
+            # in your Console, then try "Knit HTML" again.
+Rent <- read_csv("../Data/Rent.csv")
+View(Rent)
+```
+
+<br />
+
+## Background
+
+Stephanie[^1] is a student that will be starting school at BYU-Idaho next semester. Suppose she sent you the following email.
+
+[^1]: Note that Stephanie is a fictional character who is based on real experiences of many faculty and staff here at BYU-Idaho.
+
+------------------------------------------------------------------------
+
+"Hi. My name is Stephanie. I would like to learn about what housing options I have for living at BYU-Idaho next semester. It will be my first semester there, so I would like to find something that is close to campus and around \$300 a month in rent. I'm not too picky on roommates, but I would like somewhere that has a lot of people around so I can get to know as many people as possible. Thanks in advance!"
+
+------------------------------------------------------------------------
+
+Write your response to Stephanie below. Use the "Rent" dataset, good statistical analysis, and clear writing to make some well supported suggestions to her about apartments that meet her stated criterions. You are free to use other criterion that you think she might find more meaningful as well.
+
+## Response
+
+Hi Stephanie, I see your best housing depends on these 3 factors: about a "\$300 a month in rent", "close to campus", and "lots of people" for socializing. Therefore, I'll filter apartments by Gender and price to determine which ones are optimal for your budget. Which begs the question:
+
+## **Which apartment is under \$300, has the most residents, and is a short distance from campus?**
+
+Therefore, I took the "Average Floor Plan Cost" of each apartment and divided it by 3.5 months, which is the average span of a college semester. The graph below will display the filtered options available for your budget request.
+
+```{r}
+female <- Rent %>% filter(Gender %in% "F",
+                          AvgFloorPlanCost/3.5 < 300) %>%
+  arrange(AvgFloorPlanCost)
+```
+
+```{r}
+ggplot(female, mapping = aes(y = reorder(Name,Residents), x = Residents, fill = Name)) + 
+  geom_col() +
+  theme(legend.position = "none") +
+  scale_x_continuous(breaks = seq(0,400,20)) + 
+  labs(x = "Resident Count",
+  title = "Female apartments under 300 dollars")
+```
+
+```{r}
+pander(favstats(female$Residents))
+```
+
+```{r, fig.align='center'}
+pnorm(340, mean = 77.83333, sd = 95.88898)
+```
+
+As shown by the graph above, [Royal Crest](https://findmyplace.co/student-housing/rexburg-id/royal-crest/) meets your rent budget and stands out in terms of resident count by a wide margin of 256 more residents than the average of 77 residents. Which places Royal Crest at the 99% percentile, or in other words, [Royal Crest](https://findmyplace.co/student-housing/rexburg-id/royal-crest/) has more residents than 99% of female apartments under 300 dollars. But the question follows: Is Royal Crest close to campus?
+
+```{r}
+img <- readPNG("C:/Users/Alex/Downloads/map.png")
+p <- rasterGrob(img, width = unit(1,"npc"), height = unit(1,"npc"))
+
+ggplot(female, mapping = aes(y = Latitude, x = Longitude, size = Residents, color = Name)) +
+  annotation_custom(p, xmin=-Inf, xmax=Inf, ymin=-Inf, ymax=Inf)+
+  geom_point() +
+  geom_label_repel(label = female$Name) +
+  theme(axis.text = element_blank(),
+        axis.title = element_blank(),
+        plot.title = element_text(hjust = 0.5, face = "bold")) +
+labs(title = "Is Royal Crest close to campus?") +  guides(color = "none")
+```
+
+The Answer is yes, relative to the other apartment, Royal Crest is fairly close with 2 blocks away from campus, and the other, closer to campus, tends to have lower counts of residents. Therefore, [Royal Crest](https://findmyplace.co/student-housing/rexburg-id/royal-crest/) fits your criteria of a nearby option to live near the Campus.
+
+## Conclusion
+
+Dear Stephanie, I'm excited to present the best options for apartments based on your criteria. Since you requested a monthly rent of around 300\$ a month, lots of people, and close to campus, I recommend you go with [Royal Crest](https://findmyplace.co/student-housing/rexburg-id/royal-crest/) because it stays in budget, has more residents than the of the other options available, and is a relatively short distance to school every day.
+
+<!-- Hint, you should probably subset the Rent dataset to only show the "Approved Women's Housing" since Stephanie won't be interested in Male Housing options. Notice how this text in green doesn't show up in the HTML output because we used the HTML comment tags around this text. -->

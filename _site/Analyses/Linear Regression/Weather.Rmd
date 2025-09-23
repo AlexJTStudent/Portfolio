@@ -1,0 +1,82 @@
+---
+title: "Weather"
+output: 
+  html_document:
+    theme: flatly
+    code_folding: hide
+---
+
+```{r, warning=FALSE, message=FALSE, ev}
+library(GSODR) #run: install.packages("GSODR")
+library(mosaic)
+library(car)
+library(DT)
+library(pander)
+# to get the GSODR package. You'll need this package to pull in your weather data.
+load(system.file("extdata", "isd_history.rda", package = "GSODR"))
+```
+
+```{r}
+#Run: View(rexburg)
+#To see what columns mean, go here: https://cran.r-project.org/web/packages/GSODR/vignettes/GSODR.html#appendices
+
+#Then run a similar code to get your station information for your weather stations.
+#(If you want to use rexburg, then just use one of the following codes)
+KYOTO <- get_GSOD(years = 2023, station = "477590-99999")
+OSAKA <- get_GSOD(years = 2023, station = "476620-99999")
+Rexburg <- get_GSOD(years = 2023, station = "726818-94194")
+
+#Finally, join your two datasets together into one dataset:
+weather <- rbind(KYOTO, Rexburg)
+```
+
+## Background
+
+For this week's assignment, I decided to compare the temperature correlations between the Japanese city of KYOTO and Rexburg. Using the "month" variable to achieve the goal of finding which city is hotter for tourists with preferences towards hotter regions.
+
+## ![](images/clipboard-85240408.png)The Data
+
+To make the comparison fair, both cities' data come from the same source, the US National Centers for Environmental Information (NCEI)", to ensure consistent equipment is used in collecting the data.
+
+## Analysis
+
+$$   
+\underbrace{Y_i}_\text{Temperature} = \overbrace{\beta_0+\beta_1 {X_i1}}^\text{Two-Line Model} + \text{slope} 
+\underbrace{X_i}_\text{Some Label} + \epsilon_i \quad \text{where} \ \epsilon_i \sim N(0, \sigma^2) 
+$$
+
+If β2 is zero for both regression model, then the y-intercepts, which is the average temperature of a city, are the same for KYOTO and Rexburg. If β2 is greater than zero, then Rexburgis more hotter on average than KYOTO, and if β2 is less than zero, then the KYOTO is colder. These hypotheses will be judged at the α=0.05 significance level.
+
+$$
+H_0: \beta\_0 = 0 \text{ Equal Average Temperatures}\\
+H_a: \beta\_1 \neq 0 \text{ Non-Equal Average Temperatures}
+$$
+
+If β3 is zero, then the slopes of the two lines are the same. This would imply that the temperature rates of both cities are the same for both the KYOTO and Rexburg. However, if the slopes differ, i.e., β3≠0, then one city get hotter faster than the other. These hypotheses will be judged at the α=0.05 significance level. \$\$
+
+$$
+H_0: \beta\_1 = 0 \text{ Equal rates of Temperatures} \\
+H_a: \beta\_1 \neq 0 \text{ Non-Equal rates of Temperatures}
+$$
+
+```{r}
+temp_lm <- lm(TEMP ~ MONTH + CTRY + MONTH:CTRY, data=weather)
+plot(TEMP ~ MONTH, data = weather)
+abline(10.31, 0.8558, col="gray55") #abline(intercept, slope, ...)
+abline(10.31-11.02, 0.8558+0.3847, col=palette()[2])
+```
+
+```{r}
+pander(temp_lm)
+```
+
+```{r}
+par(mfrow=c(1,3))
+plot(temp_lm, which=1)
+qqPlot(temp_lm$residuals)
+mtext(side=3,text="Q-Q Plot of Residuals")
+plot(temp_lm$residuals, type="b")
+mtext(side=3, text="Residuals vs. Order")
+```
+
+<!-- Now write up an analysis that studies something like how well the MIN temperature predicts the MAX temperature of the day in the two cities you selected. Of course, you are welcome to do any multiple regression you want with the data, but the recommendation would be to just run a "two-lines" model with the x=MIN, y=MAX, and color of the dots the NAME column. -->

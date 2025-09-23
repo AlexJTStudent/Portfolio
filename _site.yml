@@ -1,6 +1,6 @@
 name: "statistics-notebook"
 navbar:
-  title: "<img src='Images/snlogo.png' alt='Statistics Notebook Logo' style='height: 30px; margin: -5px 0px'>"
+  title: "<img src='Images/snlogo.png' alt='Statistics Notebook Logo' style='height:30px; margin:-5px 0px'>"
   left:
     - text: "R Help"
       menu:
@@ -14,37 +14,21 @@ navbar:
           href: DataSources.html
     - text: "Analyses"
       menu:
-        - text: "Good Example Analysis"
-          href: Analyses/StudentHousing.html
-        - text: "Poor Example Analysis"
-          href: Analyses/StudentHousingPOOR.html
-        - text: "Rent"
-          href: Analyses/Rent.html
-        - text: "Stephanie"
-          href: Analyses/Stephanie.html
-        - text: "High School Seniors"
-          href: "Analyses/t Tests/HighSchoolSeniors.html"
-        - text: "Recalling Words"
-          href: "Analyses/Wilcoxon Tests/RecallingWords.html"
+        - text: "ANOVA"
+          href: ANOVA.html
+        - text: "Logistic Regression"
+          href: LogisticRegression.html
+        - text: "Linear Regression"
+          href: LinearRegression.html
+        - text: "Kruskal-Wallis Test"
+          href: Kruskal.html
+        - text: "Permutation Tests"
+          href: PermutationTests.html
+        - text: "Wilcoxon Tests"
+          href: WilcoxonTests.html
+    - text: "My Work"
+      menu:
         - text: "My Two-way ANOVA"
-          href: Analyses/ANOVA/MyTwoWayANOVA.html
-        - text: "Food"
-          href: "Analyses/Kruskal-Wallis Test/Food.html"
-        - text: "My Simple Linear Regression"
-          href: "Analyses/Linear Regression/MySimpleLinearRegression.html"
-        - text: "Car Prices"
-          href: "Analyses/Linear Regression/CarPrices.html"
+          href: "ANOVA/MyTwoWayANOVA.html"
         - text: "My Logistic Regression"
-          href: "Analyses/Logistic Regression/MyLogisticRegression.html"
-        - text: "My Chi-squared Test"
-          href: "Analyses/Chi Squared Tests/MyChiSquaredTest.html"
-
-output_dir: "_site"   # <- place all generated HTML here
-
-output: 
-  html_document:
-    theme: flatly
-    css: styles.css
-    highlight: tango
-    include:
-      in-header: header.html   # <- no leading slash
+          href: "Logistic Regression/MyLogisticRegression.html"

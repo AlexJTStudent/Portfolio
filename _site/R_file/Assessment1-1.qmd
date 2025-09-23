@@ -1,0 +1,205 @@
+---
+title: "Assessment 1"
+subtitle: "Units 1 and 2"
+author: "insert name"
+format:
+  html:
+    self-contained: true
+    embed-resources: true
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE, message = FALSE, warning = FALSE, error = TRUE)
+```
+
+# Introduction
+
+In this assessment, you will use survey data collected on High School seniors. Here is a [link](https://ww2.amstat.org/censusatschool/pdfs/C@SQuestionnaire.pdf) to the survey given to the students that participated in the study.
+
+(Use the link to learn about what each column of data in the data set represents.) 
+
+In this activity, you will practice the process for approaching a dataset outlined in  [class](https://byuistats.github.io/Math221D_Course/2-Tidy_Data/05-Exploring_New_Data_with_Tidyverse.html):  
+
+  1. Load the data and libraries
+  2. Explore the data and generate hypotheses
+  3. Prepare the data for analysis
+  4. Perform the appropriate analysis
+  
+Data preparation will include using the `filter()` function.  For now, analysis means creating good visualizations that tells a story using `ggplot()` and base R.  
+
+# 1 - Load the Data and Libraries
+
+Run the following code to load the necessary R libraries and import the high school survey data which we will call `hss`:  
+
+```{r}
+
+library(tidyverse)
+library(car)
+library(mosaic)
+library(rio)
+
+hss <- import("https://github.com/rdcromar/Math221D/raw/main/HighSchoolSeniors2.csv") %>% tibble()
+
+```
+
+# 2 - Explore the data and generate hypotheses
+
+In this section, you will explore the dataset including drilling down into individual columns.  
+
+Recall a few useful functions for data exploration:  
+
+  1. `dim()` to get the number of rows and columns in a dataset
+  2. `table()` for getting counts of categorical data
+  3. `unique()` for getting a list of each of the distinct values of categorical data
+  4. `favstats()` to get summary statistics for quantitative data
+  5. `histogram()` to visualize the distribution of a single quantitative variable
+  6. `boxplot()` and/or `ggplot()` to compare the distributions of a quantitative variable for different groups
+
+__NOTE__:  Unless specified, you may use base R functions OR GGPlot.
+
+```{r}
+#View(hss)
+dim(hss)
+favstats(hss$Reaction_time)
+
+```
+
+__QUESTION__:  How many students have responded to this survey? (i.e. how many rows)  
+__ANSWER__:  There was 500 students have responded to this survey
+
+__QUESTION__:  What is the maximum reaction time of respondents?  
+__ANSWER__:  409 is the maximum reaction time of respondents
+
+__QUESTION__:  Create a histogram of Height. Be sure to label your graph with a title and improved x and y axis labels.  
+
+```{r}
+# Put your histogram code here: 
+chart1 <- hss %>%
+  select(Height_cm) %>%
+  filter(Height_cm < 260, 
+         Height_cm > 80) %>%
+ggplot(chart1, mapping = aes(x = Height_cm)) + geom_histogram() +
+  labs(title = "Histogram of Height",
+       x = "Height in centimeters",
+       y = "Frequency")
+chart1
+```
+
+__QUESTION__:  What is the largest height in centimeters?  
+__ANSWER__:  After filtering outliers, the largest height in centimeters is about 240 according to the histogram.
+
+__QUESTION__:  What problems, if any, do you notice?  
+__ANSWER__:  The data had ourliers that had an height in cm beyond 260 in the data, and below 80 cm as well.
+
+__QUESTION__:  Make a table of the variable Handed:  
+
+```{r}
+# Answer
+Hand <- hss %>%
+  select(Handed) %>%
+  filter(!Handed %in% "#N/A") 
+table(Hand)
+```
+ 
+__QUESTION__:  Make a barplot of the variable Handed:  
+
+```{r}
+# Answer
+chart2 <- Hand %>%
+  ggplot(Hand, mapping = aes(x = Handed, fill = Handed)) + 
+  geom_bar() + 
+  labs(title = "Handed Variable")
+chart2
+```
+ 
+ 
+
+ 
+# 3 & 4 - Prepare data for analysis and Create Visualization
+
+In this section, you will be asked to create a clean dataset for each visualization.  
+
+Recall a few useful functions for data wrangling:  
+
+  1. `filter()` to include or exclude specific rows
+  2. `select()` to include specific columns
+
+## Height
+
+__QUESTION__:  Create a new dataset called `height` that includes only columns for height and handed.  Make sure it:  
+
+  1. Only has reasonable heights in CM  
+    *  Generally, it would be very unusual to find students taller than 275cm or shorter than 100cm.  
+  2. Only keep right handed, left handed and ambidextrous students.  
+  
+
+```{r}
+
+height <- hss %>%
+  select(Handed, Height_cm) %>%
+  filter(!Handed %in% "#N/A" &
+        Height_cm < 275, 
+         Height_cm > 100)
+head(height)
+```
+
+__QUESTION__:  **USE <u>GGPLOT**</u> to create a side-by-side boxplot of height by handedness.  Make your graphs presentable by adding color, a title, and any useful label changes.  
+
+```{r}
+
+ggplot(height, mapping = aes(y = Handed, x = Height_cm, fill = Handed)) + 
+  geom_boxplot() +
+  geom_vline(xintercept = 167, size = 1.5, color = "pink") +
+  labs(title = "side-by-side boxplot of height by handedness",
+       x = "Height in centimeters")
+```
+
+__QUESTION__:  Create a summary statistics table for "heights" using the clean dataset, `height`.  
+
+```{r}
+favstats(height$Height_cm ~ height$Handed)
+```
+
+
+__QUESTION__:  Based on the boxplot and/or favstats, which handedness group appears to be tallest?  Explain your reasoning.  
+__ANSWER__:  According to the summary statistics and boxplot, the left-handed group appears to be tallest. Determined solely on population distribution, as shown in the boxplot the left-Handed group has a higher proportion of its data towards taller heights. Furthermore, showned with a pink line displays the difference in proportion among groups in the first quarter at 167 centimeters of height of left-handed data.
+ 
+## Foot Length
+
+__QUESTION__:  Create a dataset called `foot` that:
+
+  1. Includes only the `Footlength_cm` and `Favourite_physical_activity` columns
+  2. It only has values that are real  
+    * Limit foot lengths to feet that are longer than 10cm and shorter than 30cm (about 12 inches). 
+  3. Only has students who prefer "Football (American)" and "Soccer".    
+
+
+```{r}
+
+foot <- hss %>%
+  select(Footlength_cm, Favourite_physical_activity) %>%
+  filter(Footlength_cm > 10,
+         Footlength_cm < 30,
+         Favourite_physical_activity %in% c("Football (American)", "Soccer")) %>%
+  rename("Favourite Physical activity" = Favourite_physical_activity)
+  foot
+```
+
+__QUESTION__:  **USE <u>GGPLOT**</u> to create a side-by-side boxplot comparing foot length between football (American) and Soccer.  Make your graphs presentable by adding color, a title, and any useful label changes.  
+
+```{r}
+ggplot(foot, mapping = aes(x = `Favourite Physical activity`,
+                           y = Footlength_cm, 
+                           fill = `Favourite Physical activity`)) + 
+  geom_boxplot() +
+  labs(title = "Foot length between football (American) and Soccer",
+       y = "Foot length in cm",
+       x = "")
+```
+
+__QUESTION__:    Based on the boxplot, which favorite activity between football (American) and Soccer appears to be the lowest foot length?  Explain your reasoning.  
+__ANSWER__:  It is reasonable to believe that Soccer has lowest foot length on average, due to having a lower median value and distribution compared to American football.
+
+
+__QUESTION__:  Explain why you think there are differences.  
+__ANSWER__:  I theorize to be that Soccer games tend to be less violent, and dependant on physical traits to be played. Thus, populations with low heights may prefer Soccer as their favorite sport, for the relatevely fair rules and game mechanics.

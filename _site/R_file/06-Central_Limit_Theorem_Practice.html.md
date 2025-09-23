@@ -1,0 +1,57 @@
+---
+title: CLT Practice
+subtitle: Practice Problems
+format:
+  html:
+    self-contained: true
+    embed-resources: true
+execute:
+  keep-md: TRUE
+---
+
+
+
+
+
+
+
+# Instructions
+
+Answer the following questions, render the document and submit the `.html` report.
+
+# Questions
+
+Suppose you take a sample of size $n=5$ from a right skewed distribution with a population mean, $\mu=125$ and a standard deviation, $\sigma=12$
+
+
+__Question__: What is the mean of the distribution of sample means ($\mu_{\bar{x}}$)?  
+__Answer__: 125
+
+
+::: {.cell}
+
+```{.r .cell-code}
+mu = 125
+sig = 12
+n = 5
+```
+:::
+
+
+
+__Question__: What is the standard deviation of sample means ($\sigma_{\bar{x}}$)?  
+__Answer__: 12 / sqrt(5) = 5.3666
+
+__Question__:  What is the *shape* of the distribution of sample means and why?  
+__Answer__: Is the same as the population distribution "right skewed", because the sample size is not large enough.
+
+
+Now suppose you increase the sample size to $n=100$.  What is:
+
+__Mean of sample means__:  125
+__Standard deviation of sample means__:  12/sqrt(100) = 1.2
+__Shape of the distribution of sample means__:  approximally distributed normally.
+
+
+Describe the difference between the Law of Large Numbers and the Central Limit Theorem.  
+__Answer__:  Law of Large Numbers implies that the bigger the sample, the closer it gets to the an approx normally distribution. Central Limit Theorem, the bigger the sample the closer it gets to to the true population mean.

@@ -1,0 +1,115 @@
+---
+title: "Final Report"
+format: html
+editor: visual
+execute:
+  keep-md: TRUE
+---
+
+# Semester Project
+
+Author Alex Tovar
+
+# Introduction
+
+I will be working with WECC's weather data from Data Science Society, to keep building insights for the company and because I'm familiarized with the data.
+
+# Define the Problem
+
+**What is the population of your research?** WECC wants us to investigate if there are any relationships between precipitation and humidity.
+
+**What do you think is the nature of the relationship you hope to discover?** The more Humidity is present, the more precipitation tends to be present.
+
+**What type of data are you looking for (quantitative? categorical?)** both quantitative
+
+**What type of analysis are you expecting to do (t-test, regression? ANOVA? Chi-square test for independence? etc.):** linear regression
+
+**What is the response/dependent variable?** Precipitation
+
+**What is the explanatory variable** Humidity
+
+```{r}
+library(tidyverse)
+library(mosaic)
+library(rio)
+library(car)
+library(downloader)
+library(ggthemes)
+```
+
+```{r}
+data <- read.csv("C:\\Users\\Alex\\Documents\\GitHub\\WECC\\2000-2020-rexburg.csv")
+
+data <- data %>%
+  rename(Temperature_f = Temperature..F.,
+         Precipitation_in = Precipitation..inches.,
+         Pressure_mb = Pressure..mb.,
+         Wind_Speed = Wind.Speed..mph.)
+```
+
+```{r}
+math_lm <- lm(Precipitation_in ~ Humidity, data = data)
+plot(Precipitation_in ~ Humidity, data = data)
+abline(math_lm)
+```
+
+# Describe the Data
+
+```{r}
+chart1 <- ggplot(data, mapping = aes(x = Humidity, y = Precipitation_in)) + 
+geom_point() +
+labs(title = "Humidity & Precipitation Trends",
+       y = "Precipitation (Inches)") +
+theme_solarized() 
+chart1 + geom_smooth(method = "lm")
+```
+
+**Does the relationship look linear?** Not Really, the relatioship looks very weak and with lots of variation at the end.
+
+# Analyze the Data
+
+### Requirements:
+
+```{r}
+qqPlot(math_lm$residuals)
+```
+
+```{r}
+plot(math_lm, which = 1)
+```
+
+**What is the correlation coefficient, r?** 0.3468858
+
+```{r}
+cor(Precipitation_in ~ Humidity, data = data)
+```
+
+**What does this r show?**
+
+There is an weak positive relationship between humidity and Precipitation.
+
+## Fit a Linear Regression Model
+
+```{r}
+lm_output <- lm(data$Precipitation_in ~ data$Humidity)
+```
+
+HO: B1 = 0 There is no linear relationship between humidity and precipitation
+
+HA: B1 != 0 There is linear relationship between humidity and precipitation
+
+```{r}
+summary(lm_output)
+```
+
+**What is your p-value?** less than 2e-16
+
+**What is the confidence interval for the slope?**
+
+```{r}
+confint(lm_output, level = 0.95)
+```
+
+**Interpret the confidence interval:** I have 95% confidence that the true population slope lies within (0.00792 and 0.00897)
+
+**What is your conclusion?** Although the p-value is less than alpha, suggesting a statistically significant relationship, the requirements of linear regression (such as linearity and normally distributed residuals) are not met. Therefore, the result may not be reliable, and we must write a report to WECC that the data is unreliable to make valid inferences and answers to conclude a relationship between Humidity and Precipitation.

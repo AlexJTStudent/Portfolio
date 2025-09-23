@@ -1,0 +1,104 @@
+---
+title: "Analysis - Consulting Project"
+output: 
+  html_document:
+    theme: flatly
+    code_folding: hide
+---
+
+```{r}
+library(mosaic)
+library(tidyverse)
+library(pander)
+library(lubridate)
+library(ggthemes)
+library(scales)
+library(car)
+
+data <- read.csv("C://Users//Alex//Documents//GitHub//IntStats//Statistics-Notebook-master//Analyses//campaign_data.csv")
+datatime <- ymd_hms(data$Date)
+data$Date <- as_date(datatime)
+data <- data %>%  mutate(Month = format(floor_date(Date, "month"), "%Y-%m"))
+data <- data %>%
+  mutate(Month = month(Date, label = TRUE, abbr = FALSE))
+```
+
+## Background
+
+I asked ChatGPT to roleplay as the business owner of an online store that sells home fitness equipment. The "owner", as one of the tasks, asked if "our ads are even working", after implementing Google and Facebook ads on March 20, 2025. Afterwards, I was given the data of the following data:
+
+**Date**
+
+**Profit**
+
+**Channel** (Google or Facebook)
+
+**Campaign ID/Name**
+
+**Clicks**
+
+**Impressions**
+
+**Spend**
+
+**CPA** (Cost Per Acquisition)
+
+**ROAS (**Return on Ad Spend**)**
+
+## Question and Hypothesis
+
+Since we are comparing the profits of "before" vs "after" March 20, 2025, we'll have to perform a two
+
+```{r}
+View(data)
+```
+
+## Analysis
+
+```{r}
+ggplot(data, aes(x = Date, y = Profit)) +
+  geom_line() +
+  scale_y_continuous(
+    breaks = seq(-500, 2000, 150),
+    labels = dollar_format(prefix = "$")
+  ) +
+  geom_vline(xintercept = as.numeric(as.Date("2025-03-20")), color = "red", linetype = "dashed") +
+  annotate("text", x = as.Date("2025-03-20"), y = 1900, label = "Ad Stimulus", color = "red", angle = 90, vjust = -0.5, hjust = 0.8)
+
+```
+
+```{r}
+ggplot(data, aes(x = Month, y = Profit)) + 
+  geom_boxplot() +
+  scale_y_continuous(breaks = seq(-600, 2200, 200)) +
+  labs(y = "Net Profit",
+       x = "Month",
+       title = "") 
+```
+
+```{r}
+data$Date <- as.Date(data$Date)
+
+# Define cutoff
+cutoff_date <- as.Date("2025-03-20")
+
+# Before ads (March 1–19)
+before_ads <- data$Profit[data$Date < cutoff_date]
+
+# After ads (March 20–July)
+after_ads <- data$Profit[data$Date >= cutoff_date]
+```
+
+```{r}
+boxplot(before_ads, after_ads,
+        names = c("March", "Apr–Jul"),
+        ylab = "Profit", main = "Profit Before vs After Ads")
+```
+
+```{r}
+t.test(before_ads, after_ads)
+```
+
+## Interpretation
+
+## References/Credits
