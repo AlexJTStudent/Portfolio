@@ -1,0 +1,50 @@
+name: "statistics-notebook"
+navbar:
+  title: "<img src='../../Images/snlogo.png' alt='Statistics Notebook Logo' style='height: 30px; margin: -5px 0px'>"
+  left:
+    - text: "R Help"
+      menu:
+        - text: "R Commands"
+          href: ../../RCommands.html
+        - text: "R Markdown Hints"
+          href: ../../RMarkdownHints.html
+        - text: "R Cheatsheets & Notes"
+          href: ../../RCheatSheetsAndNotes.html
+        - text: "Data Sources"
+          href: ../../DataSources.html
+    - text: "Analyses"
+      menu:
+        - text: "Good Example Analysis"
+          href: ../StudentHousing.html
+        - text: "Poor Example Analysis"
+          href: ../StudentHousingPOOR.html
+        - text: "Rent"
+          href: ../Rent.html
+        - text: "Stephanie"
+          href: ../Stephanie.html
+        - text: "High School Seniors"
+          href: ../t Tests/HighSchoolSeniors.html
+        - text: "Recalling Words"
+          href: ../Wilcoxon Tests/RecallingWords.html
+        - text: "My Two-way ANOVA"
+          href: ../MyTwoWayANOVA.html
+        - text: "Food"
+          href: ../Kruskal-Wallis Test/Food.html
+        - text: "My Simple Linear Regression"
+          href: ../Linear Regression/MySimpleLinearRegression.html
+        - text: "Car Prices"
+          href: ../Linear Regression/CarPrices.html
+        - text: "My Logistic Regression"
+          href: Logistic Regression/MyLogisticRegression.html
+        - text: "My Chi-sqaured Test"
+          href: ../Chi Squared Tests/MyChiSquaredTest.html
+
+output_dir: '.'
+
+output: 
+  html_document:
+    theme: flatly
+    css: ../../styles.css
+    highlight: tango
+    include:
+      in-header: ../../header.html
