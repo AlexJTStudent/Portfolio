@@ -2,17 +2,33 @@ project:
   type: website
 
 website:
-  title: "Quarto Website"
+  title: "Alex J. Tovar"
+  description: "Data Scientist"
   navbar:
     left:
       - href: index.qmd
         text: Home
-      - about.qmd
+      - text: "A/B TESTING"
+        menu:
+          - href: AB_TESTS/MyTwoWayANOVA.Rmd
+            text: "Two-way ANOVA"
+          - href: AB_TESTS/MyChiSquaredTest.Rmd
+            text: "Chi-Squared Test"
+          - href: AB_TESTS/MyLogisticRegression.Rmd
+            text: "Logistic Regression"
+          - href: AB_TESTS/HighSchoolSeniors.Rmd
+            text: "T-test"
+          - href: AB_TESTS/RecallingWords.Rmd
+            text: "Wilcoxon Rank Sum (Mann–Whitney) test"
+      - text: "ML Group Case Studies"
+        menu:
+          - href: Machine_Learning/Executive Case Summary Module 3 - Team 8.md
+            text: "Linear Regression"
 
 format:
   html:
     theme:
-      - cosmo
+      - flatly
       - brand
     css: styles.css
     toc: true
