@@ -1,0 +1,247 @@
+[
+  {
+    "objectID": "index.html",
+    "href": "index.html",
+    "title": "Quarto Website",
+    "section": "",
+    "text": "This is a Quarto website.\nTo learn more about Quarto websites visit https://quarto.org/docs/websites."
+  },
+  {
+    "objectID": "about.html",
+    "href": "about.html",
+    "title": "About",
+    "section": "",
+    "text": "About this site"
+  },
+  {
+    "objectID": "AB_TESTS/MyTwoWayANOVA.html",
+    "href": "AB_TESTS/MyTwoWayANOVA.html",
+    "title": "My Two-way ANOVA",
+    "section": "",
+    "text": "Today’s analysis will be performed using the “Salmon Catch (1952-2022)” dataset originated from Scotland, with the purpose to find insight on what affects the number of fish catches fisherman yields according to variables such as region and catching method. In this case, the fishing methods “Net and Coble” and “Fixed Engine” will be put to the test, to see if the Fishing Method affects the fish caught. It’s Important to understand, that “Net and Coble” refers to a boat in motion with nets and coble attached and the “Fixed Engine” refers to an stationary fishing net for clarification (refer to the background picture for vizuals).\nThe Kaggle dataset traces back to dates prior to AI tools to avoid the chance the data being artificially constructed."
+  },
+  {
+    "objectID": "AB_TESTS/MyTwoWayANOVA.html#background",
+    "href": "AB_TESTS/MyTwoWayANOVA.html#background",
+    "title": "My Two-way ANOVA",
+    "section": "",
+    "text": "Today’s analysis will be performed using the “Salmon Catch (1952-2022)” dataset originated from Scotland, with the purpose to find insight on what affects the number of fish catches fisherman yields according to variables such as region and catching method. In this case, the fishing methods “Net and Coble” and “Fixed Engine” will be put to the test, to see if the Fishing Method affects the fish caught. It’s Important to understand, that “Net and Coble” refers to a boat in motion with nets and coble attached and the “Fixed Engine” refers to an stationary fishing net for clarification (refer to the background picture for vizuals).\nThe Kaggle dataset traces back to dates prior to AI tools to avoid the chance the data being artificially constructed."
+  },
+  {
+    "objectID": "AB_TESTS/MyTwoWayANOVA.html#hypothesis",
+    "href": "AB_TESTS/MyTwoWayANOVA.html#hypothesis",
+    "title": "My Two-way ANOVA",
+    "section": "Hypothesis",
+    "text": "Hypothesis\nToday’s analysis will utilize a two-way ANOVA with the variable Fishing Method, Region to study their interactions. With the aim to find if there are significant results to reject any of nulls stated:\nDoes the type of Fishing Method affect the average number of catches?\n\\[\nH_0: \\mu_\\text{Fixed Engine} = \\mu_\\text{Net and Coble}=\\mu \\\\\nH_a: \\mu_\\text{Fixed Engine} \\neq \\mu_\\text{Net and Coble}\n\\] Does the Region affect the average number of catches?\n\\[\nH_0: \\text{All region mean catches are same}\n\\] \\[\nH_a: \\text{At least one region mean of catches is not same}\n\\] Does the effect of Region change the different type of Fishing Method?\n\\[\nH_0: \\text{The effect of Region is the same for all types of catching Methods}\n\\] \\[\nH_a: \\text{The effect of Region is not the same for all types of catching Methods}\n\\]\n\\[\n\\text{A significance level of α=0.05 will be used for this study.}\n\\]"
+  },
+  {
+    "objectID": "AB_TESTS/MyTwoWayANOVA.html#two-way-anova-analysis",
+    "href": "AB_TESTS/MyTwoWayANOVA.html#two-way-anova-analysis",
+    "title": "My Two-way ANOVA",
+    "section": "Two-way ANOVA Analysis",
+    "text": "Two-way ANOVA Analysis\nComputing the Two-way ANOVA yields the following results:\n\n\n\nAnalysis of Variance Model\n\n\n\n\n\n\n\n\n\n\n \nDf\nSum Sq\nMean Sq\nF value\nPr(&gt;F)\n\n\n\n\nMethod\n1\n1.03e+08\n1.03e+08\n235.4\n7.268e-53\n\n\nRegion\n8\n1.246e+09\n155692115\n355.9\n0\n\n\nMethod:Region\n8\n901326006\n112665751\n257.5\n0\n\n\nResiduals\n23081\n1.01e+10\n437475\nNA\nNA\n\n\n\n\n\nAll three tests in the ANOVA produced p-values far below our 0.05 cutoff (7.268×10⁻⁵³, essentially 0 for “Region” & “Method:Region”), confirming that both the fishing Method and the geographical Region independently affect catch counts. In addition, the significant interaction between “Method:Region” indicates that the impact of a given Fishing Method varies depending on the Region in which it’s applied. (The zeros reported for Region and Method:Region simply reflect extremely small p-values rounded down to 0)"
+  },
+  {
+    "objectID": "AB_TESTS/MyTwoWayANOVA.html#diagnostic-plots",
+    "href": "AB_TESTS/MyTwoWayANOVA.html#diagnostic-plots",
+    "title": "My Two-way ANOVA",
+    "section": "Diagnostic Plots",
+    "text": "Diagnostic Plots\nBecause the diagnostic plots reveal some concerning patterns, the validity of this ANOVA is debatable. In the Residuals vs. Fitted Values plot, there’s noticeable dispersion in the early fitted values, and the Q–Q plot exhibits pronounced skewness and unequal spread. Such behavior isn’t surprising—fish catches can be extremely erratic, with many zero-catch days punctuated by occasional large hauls. Although this variability may reflect a natural feature of the data rather than a flaw in the model, it does undermine the strict assumptions of ANOVA. Therefore, we’ll proceed with these results but attach a clear warning: Don’t consider the findings fully valid."
+  },
+  {
+    "objectID": "AB_TESTS/MyTwoWayANOVA.html#graphical-summaries-conclusions",
+    "href": "AB_TESTS/MyTwoWayANOVA.html#graphical-summaries-conclusions",
+    "title": "My Two-way ANOVA",
+    "section": "Graphical Summaries & Conclusions",
+    "text": "Graphical Summaries & Conclusions\nThe following graphics emphasize the results of each of the three hypothesis tests.\n\nMethod\nA side‑by‑side bar chart and summary table make it clear why Method matters so much: the “Net and Coble” approach captured 316 fish in total, whereas the “Fixed Engine” technique accounted for just 180. That gap—an increase of roughly 175% in total catches—drives the extremely low p‑value (7.268 × 10⁻⁵³), confirming that choice of method has a profound effect on average haul size.\n\n\n\n\n\n\n\n\n\n\n\n\nMean Fish Catche according to Method Type\n\n\n\n\n\n\nMethod\nMean Fish Catches\n\n\n\n\nFixed Engine: Retained\n180.4\n\n\nNet and Coble: Retained\n316.6"
+  },
+  {
+    "objectID": "AB_TESTS/MyTwoWayANOVA.html#region",
+    "href": "AB_TESTS/MyTwoWayANOVA.html#region",
+    "title": "My Two-way ANOVA",
+    "section": "Region",
+    "text": "Region\nA breakdown by location highlights the dramatic disparity in catch rates across regions. On average, anglers in the East land about 873.3 fish, whereas those on the West Coast manage only 28.7—a more than a 30x difference. Such a vast regional gap underpins the virtually zero p‑value for Region, underscoring that where you fish plays a decisive role in haul size.\n\n\n\n\n\n\n\n\n\n\n\n\nMean Fish Catches according to Region\n\n\n\n\n\n\nRegion\nMean Fish Catches\n\n\n\n\nClyde Coast\n46.3\n\n\nEast\n873.3\n\n\nMoray Firth\n271.8\n\n\nNorth\n182.5\n\n\nNorth East\n402.2\n\n\nNorth West\n67.05\n\n\nOuter Hebrides\n230.9\n\n\nSolway\n78.08\n\n\nWest Coast\n28.7"
+  },
+  {
+    "objectID": "AB_TESTS/MyTwoWayANOVA.html#method-choice-depending-on-region",
+    "href": "AB_TESTS/MyTwoWayANOVA.html#method-choice-depending-on-region",
+    "title": "My Two-way ANOVA",
+    "section": "Method Choice Depending on Region",
+    "text": "Method Choice Depending on Region\nPreferences for fishing techniques vary markedly by region. In most areas, the choice between Net and Coble versus Fixed Engine yields very different catch rates—but in a few locales like the Clyde Coast and West Coast, method makes little difference. Take the East Coast, for instance: boats using the Net and Coble pull in an average of 1,406 fish, whereas those relying on Fixed Engine average just 77. Such stark contrasts across regions drive the interaction’s p‑value down to essentially zero, confirming that the effect of Method on catch numbers depends strongly on Region.\n\n\n\n\n\n\n\n\n\n\n\n\nMean Warp Breaks according to Wool Type (A,B) and Tension Level (Low, Medium, High)\n\n\n\n\n\n\n\nRegion\nFixed Engine: Retained\nNet and Coble: Retained\n\n\n\n\nClyde Coast\n36.55\n57.21\n\n\nEast\n77.08\n1406\n\n\nMoray Firth\n281.8\n259.4\n\n\nNorth\n119.7\n293.6\n\n\nNorth East\n485\n251.6\n\n\nNorth West\n81.84\n43.06\n\n\nOuter Hebrides\n123.9\n238.7\n\n\nSolway\n95.32\n23.49\n\n\nWest Coast\n30.86\n26.13"
+  },
+  {
+    "objectID": "AB_TESTS/MyTwoWayANOVA.html#interpretation",
+    "href": "AB_TESTS/MyTwoWayANOVA.html#interpretation",
+    "title": "My Two-way ANOVA",
+    "section": "Interpretation",
+    "text": "Interpretation\nIt’s recommended Choosing an productive Region such as “East” to increase the likelihood of catching fish. While Also taking into consideration the most effective Method of fishing in that Region to optimize catchings. Our pick of choice for your next fishing trip would be"
+  },
+  {
+    "objectID": "AB_TESTS/MyTwoWayANOVA.html#creditreferences",
+    "href": "AB_TESTS/MyTwoWayANOVA.html#creditreferences",
+    "title": "My Two-way ANOVA",
+    "section": "Credit/References",
+    "text": "Credit/References\nThe Analysis abstained from the use of ChatBot assitant tools. Guide and inspiration was based on the course’s guide “Statistics Notebook” using the “warpbreaks” example for reference.\nKaggle Dataset Source"
+  },
+  {
+    "objectID": "AB_TESTS/MyLogisticRegression.html#fitting-the-model",
+    "href": "AB_TESTS/MyLogisticRegression.html#fitting-the-model",
+    "title": "My Simple Logistic Regression",
+    "section": "Fitting the Model",
+    "text": "Fitting the Model\n\n\n\n\n\n\n\n\n\n\n\n\n \nEstimate\nStd. Error\nz value\nPr(&gt;|z|)\n\n\n\n\n(Intercept)\n-7.617\n1.814\n-4.199\n2.684e-05\n\n\nAge\n0.1385\n0.03266\n4.24\n2.232e-05\n\n\n\n(Dispersion parameter for binomial family taken to be 1 )\n\n\n\n\n\n\n\nNull deviance:\n82.11 on 59 degrees of freedom\n\n\nResidual deviance:\n43.01 on 58 degrees of freedom\n\n\n\n\n\nThis gives the estimated model for πi as\n\\[\n  P(Y_i = 1|\\, x_i) = \\frac{e^{-7.617 + 0.1385x_i}}{1+e^{-7.617 + 0.1385x_i}} = \\pi_i\n\\]\nWhere b0 = -7.617 is our value of (Intercept) which estimates β0 and b1=0.1385 is the value of Age which estimates β1.\nThe p-value from Age shows significance with (p = 2.232e-05) giving sufficient evidence to conclude that Age affects the probability of a patient testing positive for diabetes in the study.\n\nVisualizing the Model\nThe plot shows how likely it is to be diagnosed with type 2 diabetes around the age of 55 years old.\n\n\n`geom_smooth()` using formula = 'y ~ x'\n\n\n\n\n\n\n\n\n\n\n\nDiagnosing the Model\nTo demonstrate that the logistic regression is a good fit to these data we apply the Hosmer-Lemeshow goodness of fit test\n\n\n\nHosmer and Lemeshow goodness of fit (GOF) test: model.glm$y, model.glm$fitted.values\n\n\n\n\n\n\n\nTest statistic\ndf\nP value\n\n\n\n\n1.081\n1\n0.2984\n\n\n\n\n\nSince the null hypothesis is that the logistic regression is a good fit for the data, we claim that the logistic regression is appropriate (p-value = 0.2984)."
+  },
+  {
+    "objectID": "AB_TESTS/MyLogisticRegression.html#conclusion",
+    "href": "AB_TESTS/MyLogisticRegression.html#conclusion",
+    "title": "My Simple Logistic Regression",
+    "section": "Conclusion",
+    "text": "Conclusion\nthe value of \\(e^{0.1385} \\approx 1.15\\) shows that the odds of being diagnosed with diabetes increases by a factor of 1.15 for every increase in Age. In other words, the odds of an diabetes diagnosis increases by 15% (1.15-1) for every increase in Age. To be more clear, for a Age of 55, our model puts the probability of a diabetes diagnosis at:\n\\[\n  P(Y_i = 1|\\, x_i) = \\frac{e^{-7.617 + 0.1385*55}}{1+e^{-7.617 + 0.1385*55}} = \\pi_i\n\\]\nThe probability of being diagnosed with type 2 diabetes at 55 years old is about 50% \\((\\hat{\\pi_i} \\approx 0.500035)\\), which supports Medical News Toda’s claim and the regressions probability rate as subjects get older."
+  },
+  {
+    "objectID": "AB_TESTS/MyLogisticRegression.html#referencescredits",
+    "href": "AB_TESTS/MyLogisticRegression.html#referencescredits",
+    "title": "My Simple Logistic Regression",
+    "section": "References/Credits",
+    "text": "References/Credits\nThe dataset used was constructed by AI for the purposes of this study. Further references are listed below:\nMedical News Today\nStatistics Notebook Example"
+  },
+  {
+    "objectID": "AB_TESTS/MyChiSquaredTest.html",
+    "href": "AB_TESTS/MyChiSquaredTest.html",
+    "title": "Chi Squared Test",
+    "section": "",
+    "text": "In today’s analysis, we’ll be exploring an “Used Cars” dataset from kaggle. The author collected data from various web resources in order to explore the used cars market, The data is scraped in Belarus (western Europe) on the 2nd of December 2019, so the dataset is collected in pre-ChatGpt times to avoid any instant of the data being fabricated by AI."
+  },
+  {
+    "objectID": "AB_TESTS/MyChiSquaredTest.html#background",
+    "href": "AB_TESTS/MyChiSquaredTest.html#background",
+    "title": "Chi Squared Test",
+    "section": "Background",
+    "text": "Background\nIn today’s analysis, we’ll be exploring an “Used Cars” dataset from kaggle. The author collected data from various web resources in order to explore the used cars market, The data is scraped in Belarus (western Europe) on the 2nd of December 2019, so the dataset is collected in pre-ChatGpt times to avoid any instant of the data being fabricated by AI."
+  },
+  {
+    "objectID": "AB_TESTS/MyChiSquaredTest.html#hypothesis",
+    "href": "AB_TESTS/MyChiSquaredTest.html#hypothesis",
+    "title": "Chi Squared Test",
+    "section": "Hypothesis",
+    "text": "Hypothesis\nOur question about the data is: Is car color associated with the manufacturer name? Aiming to find if manufacturers have tendencies to prefer a certain color for their cars.\n\\[\nH_0:\\text{Car color and manufacturer name are not associated}\n\\] \\[\nH_1:\\text{Car color and manufacturer name are associated}\n\\] \\[\n\\alpha:0.05\n\\]"
+  },
+  {
+    "objectID": "AB_TESTS/MyChiSquaredTest.html#analysis",
+    "href": "AB_TESTS/MyChiSquaredTest.html#analysis",
+    "title": "Chi Squared Test",
+    "section": "Analysis",
+    "text": "Analysis\nFor sake of simplicity and appropriateness, the data will filter only the most popular brands(Dodge, Honda, Volvo, BMW, Toyota) to have 10 observations per “combination-group”. Since many companies aren’t as popular and have big enough collection of cars with all colors in the market.\n\n\n\n\n\n\n\n\n\n\n\n\n\n \nBMW\nDodge\nHonda\nToyota\nVolvo\n\n\n\n\nblack\n968\n39\n195\n258\n218\n\n\nblue\n371\n40\n103\n121\n107\n\n\ngreen\n133\n27\n53\n60\n36\n\n\ngrey\n292\n26\n90\n164\n72\n\n\nother\n130\n42\n43\n84\n57\n\n\nred\n83\n24\n70\n83\n42\n\n\nsilver\n358\n62\n160\n311\n102\n\n\nwhite\n192\n25\n40\n133\n51\n\n\n\n\n\nWe can see our barplot shows some manufacturers have strong preferences to certain colors, such as BMW cars and the color black. However, we must run a test to get a p-value to determine if these preferences are significant.\n\n\n\n\n\n\n\n\n\nNow, we will run a Chi-Squared Test to determine if we reject our null hypothesis and conclude that the Car color and manufacturer name are associated. We will also look at our expected counts to determine if our Chi-Squared Test requirements are met.\n\n\n\nPearson’s Chi-squared test: x\n\n\n\n\n\n\n\nTest statistic\ndf\nP value\n\n\n\n\n331.9\n28\n1.08e-53 * * *\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n \nBMW\nDodge\nHonda\nToyota\nVolvo\n\n\n\n\nblack\n775.9\n87.51\n231.5\n372.8\n210.3\n\n\nblue\n343.1\n38.7\n102.4\n164.8\n93\n\n\ngreen\n142.9\n16.11\n42.63\n68.64\n38.73\n\n\ngrey\n297.8\n33.58\n88.85\n143.1\n80.72\n\n\nother\n164.6\n18.57\n49.12\n79.08\n44.62\n\n\nred\n139.6\n15.75\n41.67\n67.09\n37.85\n\n\nsilver\n459.2\n51.78\n137\n220.6\n124.5\n\n\nwhite\n203.9\n23\n60.84\n97.96\n55.28\n\n\n\n\n\nAll expected counts are greater than 10, so the requirements are met. Our test results show a p-value of 1.08e-53, which is much smaller than our level of significance α=0.05, so we reject our null hypothesis and conclude that the Car color and manufacturer name are associated.\nLet us look at our residuals to see how much our observed counts differ from the expected counts if our null hypothesis were true.\n\n\n\n\n\n\n\n\n\n\n\n\n\n \nBMW\nDodge\nHonda\nToyota\nVolvo\n\n\n\n\nblack\n6.896\n-5.185\n-2.4\n-5.944\n0.5292\n\n\nblue\n1.506\n0.2097\n0.06198\n-3.414\n1.451\n\n\ngreen\n-0.8266\n2.712\n1.588\n-1.043\n-0.4388\n\n\ngrey\n-0.3352\n-1.309\n0.1218\n1.751\n-0.9707\n\n\nother\n-2.698\n5.439\n-0.8728\n0.553\n1.853\n\n\nred\n-4.793\n2.079\n4.389\n1.943\n0.6739\n\n\nsilver\n-4.721\n1.42\n1.965\n6.088\n-2.014\n\n\nwhite\n-0.8345\n0.4174\n-2.672\n3.54\n-0.5752\n\n\n\n\n\nWe see the greatest difference is observed among BMW cars with a difference of 6.896 more counts. This is probably what contributed most to our test statistic and resulting p-value."
+  },
+  {
+    "objectID": "AB_TESTS/MyChiSquaredTest.html#interpretation",
+    "href": "AB_TESTS/MyChiSquaredTest.html#interpretation",
+    "title": "Chi Squared Test",
+    "section": "Interpretation",
+    "text": "Interpretation\nWe can interpret that the Belarus car data recorded in 2019 has an association between car colors and manufacturer name. with significant results highlighted from BMW, implying that the BMW Manufactures tend to consistently produce cars of the same color, in this case black. Possibly due to reduce costs, simplify logistics or a branding causes tied luxury or modest colors. Due to our results showing a p-value of 1.08e-53, which is much smaller than our level of significance α=0.05, so we reject our null hypothesis and conclude that the Car color and manufacturer name are associated."
+  },
+  {
+    "objectID": "AB_TESTS/MyChiSquaredTest.html#creditreferences",
+    "href": "AB_TESTS/MyChiSquaredTest.html#creditreferences",
+    "title": "Chi Squared Test",
+    "section": "Credit/References",
+    "text": "Credit/References\nThis Analysis used mild assistance from ChatGpt to properly display the Graphs and filter the data.\nKaggle Car Dataset"
+  },
+  {
+    "objectID": "AB_TESTS/HighSchoolSeniors.html",
+    "href": "AB_TESTS/HighSchoolSeniors.html",
+    "title": "High School Seniors t Test",
+    "section": "",
+    "text": "In the US Census at High Schools 2020, there was a survey given to each student to fill out and gather information about the statistics of students’ lives and personal information, such as Gender, the number of texts received the day before, height, and many other details. Which sets the stage to answer the stereotypical question:"
+  },
+  {
+    "objectID": "AB_TESTS/HighSchoolSeniors.html#background",
+    "href": "AB_TESTS/HighSchoolSeniors.html#background",
+    "title": "High School Seniors t Test",
+    "section": "Background",
+    "text": "Background\nIn the US Census at High Schools 2020, there was a survey given to each student to fill out and gather information about the statistics of students’ lives and personal information, such as Gender, the number of texts received the day before, height, and many other details. Which sets the stage to answer the stereotypical question:"
+  },
+  {
+    "objectID": "AB_TESTS/HighSchoolSeniors.html#do-females-tend-to-receive-more-text-messages-on-average-than-males-in-high-school",
+    "href": "AB_TESTS/HighSchoolSeniors.html#do-females-tend-to-receive-more-text-messages-on-average-than-males-in-high-school",
+    "title": "High School Seniors t Test",
+    "section": "Do Females tend to receive more text messages on average than Males in high school?",
+    "text": "Do Females tend to receive more text messages on average than Males in high school?\n\\[   H_0: \\mu femals = \\mu males \\]\n\\[ H_a: \\mu females &gt; \\mu males \\]\nThe significance level will be tested at a 0.05 alpha(α)."
+  },
+  {
+    "objectID": "AB_TESTS/HighSchoolSeniors.html#analysis",
+    "href": "AB_TESTS/HighSchoolSeniors.html#analysis",
+    "title": "High School Seniors t Test",
+    "section": "Analysis",
+    "text": "Analysis\nAfter filtering data by gender groups and text received below 250 to obtain a reasonable sample, the graph displays that females do have a higher median number of texts received than males, implying that the group sample of females doesn’t rely on outliers receiving hundreds of messages to represent the overall number of texts received. Although the distributions of each gender aren’t normal in the qqPlot because many data-points aren’t normal (overlapping the blue range), the sample size of each group is above 30, representing an approximately normal sampling to perform test statistics due to the Central Limit Theorem. But, in terms of means, is the female mean significantly bigger than the male means?"
+  },
+  {
+    "objectID": "AB_TESTS/HighSchoolSeniors.html#interpretation",
+    "href": "AB_TESTS/HighSchoolSeniors.html#interpretation",
+    "title": "High School Seniors t Test",
+    "section": "Interpretation",
+    "text": "Interpretation\nThe QQPlots display the normality of data, with the purpose of showcasing wether the data is reliable to make conclusions to avoid biased or skewed data. By the dots within the blue range being represented as “normal” whereas the opposite applies to values outside the range. However, since we have more than 30 subjects for each group, the sampling distribution of the sample means can be assumed to be approximately normal to proceed with the a/b test.\nAfter performing a t-test, we can appreciate that although it is unlikely that the female means are the same as the males with a p-value of 0.1139, the p-value isn’t significant at a 0.05 alpha level. Implying that we cannot reject the null, or conclude that females tend to receive more text messages on average than males in high school.\n\n\n\nWelch Two Sample t-test: Females$Text_Messages_Received_Yesterday and Males$Text_Messages_Received_Yesterday\n\n\n\n\n\n\n\n\n\n\nTest statistic\ndf\nP value\nAlternative hypothesis\nmean of x\nmean of y\n\n\n\n\n1.208\n393\n0.1139\ngreater\n54.44\n48.15\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\nHSS_clean$Gender\nmin\nQ1\nmedian\nQ3\nmax\nmean\nsd\nn\nmissing\n\n\n\n\nFemale\n0\n15\n40\n75\n230\n54.44\n50.55\n194\n0\n\n\nMale\n0\n10\n25\n75\n247\n48.15\n52.9\n201\n0\n\n\n\n\n\nGiven our statistics that females tend to have about 6 (Female_mean - Male_mean) more text messages than males on average, a higher median of 20 messages received by females than males, and about 200 subjects from each gender to represent the results. All showing that although the stereotype of females receiving more texts than males is real, the margin isn’t significant enough to be consistent insight throughout all high scholers."
+  },
+  {
+    "objectID": "AB_TESTS/RecallingWords.html#background",
+    "href": "AB_TESTS/RecallingWords.html#background",
+    "title": "Recalling Words",
+    "section": "Background",
+    "text": "Background\nMany teachers and other educators are interested in understanding how to best deliver new content to students. In general, they have two choices of how to do this.\n\nThe Meshed Approach\n\nDeliver new content while simultaneously reviewing previously understood content.\n\nThe Before Approach\n\nDeliver new content after fully reviewing previously understood content.\n\n\nA study was performed to determine whether the Meshed or Before approaches to delivering content had any positive benefits on memory recall.\nTherefore, we aim to determine whether the Meshed or Before methods provide any positive benefit to memory recall. To test this, we will perform a Wilcoxon “Rank Sum (Mann–Whitney) test” to evaluate whether the distribution of scores in either method is stochastically greater than that of the control group (SFR). This allows us to assess whether correct recalls from the Meshed and Before groups tend to be significantly higher than those from the control group, indicating a potential benefit from new memorization techniques. As a bonus, we’ll test whether the Before group tends to outperform the Meshed group using another Wilcoxon Rank Sum (Mann–Whitney) test, making the assumption that its scores are generally higher, to find if a method is better than the the other. Which begs the questions:\n\n\nIs the correctness of “before” and “meshed” stochastically greater than SFR?\n\n\nAnd\n\n\nIs correctness of “before” stochastically greater than “meshed”?\n\n\n\n\\[   \nH_0: \\text{distribution of before and meshed are stochastically equal to SFR}\n\\] \\[\nH_a: \\text{distribution of before and meshed are stochastically greater than SFR}\n\\]\n\\[   \nH_a: \\text{distribution of before is stochastically equal to meshed}\n\\] \\[\nH_a: \\text{distribution of before is stochastically greater than meshed}\n\\]\n\\[   \n\\alpha = 0.05\n\\]\n\nExperiment Details\nIndividuals were seated at a computer and shown a list of words. Words appeared on the screen one at a time, for two seconds each, until all words had been shown (40 total). After all words were shown, they were required to perform a few two-digit mathematical additions (like 15 + 25) for 15 seconds to avoid immediate memory recall of the words. They were then asked to write down as many of the 40 words as they could remember. They were given a maximum of 5.3 minutes to recall words.\nThe process of showing words and recalling words was repeated four times with the same list of words each time (four chances to get it right). The presentation of the first trial was the same for all treatment conditions. However, trials 2, 3, and 4 were slightly different for each treatment condition.\n\nThe SFR group (the control group) stands for Standard Free Recall. In all four trials the same list of 40 words was presented, in a random order each time.\nThe Before group also used the same 40 words during each trial. However, any words that were correctly recalled in a previous trial were presented first, or before the words that were not recalled in the last trial. After all the correct words were presented in random order, the non-recalled words were presented in a random order.\nThe Meshed group also used the same 40 words during each trial. However, words that were correctly recalled in a previous trial were alternated with a missed word during the next presentation order.\n\nThe data records the number of correctly recalled words (out of the 40 possible) from the fourth trial. Results were obtained for 30 students, 10 in each of the three treatment groups: SFR, Before, and Meshed.\n\n\nData\nThe results from the study can be found in the Friendly data set in R after loading library(car).\nClick the “Code” button to see the data."
+  },
+  {
+    "objectID": "AB_TESTS/RecallingWords.html#section",
+    "href": "AB_TESTS/RecallingWords.html#section",
+    "title": "Recalling Words",
+    "section": "",
+    "text": "Hide\n\n\nShow the Experiment Details\nIndividuals were seated at a computer and shown a list of words. Words appeared on the screen one at a time, for two seconds each, until all words had been shown (40 total). After all words were shown, they were required to perform a few two-digit mathematical additions (like 15 + 25) for 15 seconds to avoid immediate memory recall of the words. They were then asked to write down as many of the 40 words as they could remember. They were given a maximum of 5.3 minutes to recall words.\nThe process of showing words and recalling words was repeated four times with the same list of words each time (four chances to get it right). The presentation of the first trial was the same for all treatment conditions. However, trials 2, 3, and 4 were slightly different for each treatment condition.\n\nThe SFR group (the control group) stands for Standard Free Recall. In all four trials the same list of 40 words was presented, in a random order each time.\nThe Before group also used the same 40 words during each trial. However, any words that were correctly recalled in a previous trial were presented first, or before the words that were not recalled in the last trial. After all the correct words were presented in random order, the non-recalled words were presented in a random order.\nThe Meshed group also used the same 40 words during each trial. However, words that were correctly recalled in a previous trial were alternated with a missed word during the next presentation order.\n\nThe data records the number of correctly recalled words (out of the 40 possible) from the fourth trial. Results were obtained for 30 students, 10 in each of the three treatment groups: SFR, Before, and Meshed."
+  },
+  {
+    "objectID": "AB_TESTS/RecallingWords.html#section-1",
+    "href": "AB_TESTS/RecallingWords.html#section-1",
+    "title": "Recalling Words",
+    "section": "",
+    "text": "Hide\n\n\nShow the Data\nThe results from the study can be found in the Friendly data set in R after loading library(car).\nClick the “Code” button to see the data."
+  },
+  {
+    "objectID": "AB_TESTS/RecallingWords.html#analysis",
+    "href": "AB_TESTS/RecallingWords.html#analysis",
+    "title": "Recalling Words",
+    "section": "Analysis",
+    "text": "Analysis\n\nAs shown by the graph below, we compared the before and meshed groups relative to the control groups. It is visually clear that the before group has a higher median than the meshed group, implying that a higher percentage of the sample subjects of the before group have better recall than the meshed. But both before and meshed groups are substantially more effective than the control group(SFR) in obtaining higher scores, implying that memorization techniques do affect recall performance on subjects, than just memorizing randomly. Therefore, we must find statistical evidence if before and meshed have a significant difference in scores than SFR. Then find if the median of before is significantly more correct than meshed.\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\nFriendly$condition\nmin\nQ1\nmedian\nQ3\nmax\nmean\nsd\nn\nmissing\n\n\n\n\nBefore\n24\n37.25\n39\n39.75\n40\n36.6\n5.337\n10\n0\n\n\nMeshed\n30\n36\n36.5\n38.75\n40\n36.6\n3.026\n10\n0\n\n\nSFR\n21\n25\n27\n38.5\n39\n30.3\n7.334\n10\n0\n\n\n\n\n\nAfter performing the test, an approximation had to be used since there were ties present in the data and also because the distributions aren’t similarly shaped for medians. Yielding a p-value of 0.01644, which is smaller than a 0.05 alpha, which rejects the null. Concluding, both groups(before and meshed) are stochastically greater in correctness than the control group\n\\[   \nH_0: \\text{distribution of before and meshed are stochastically equal to SFR}\n\\] \\[\nH_a: \\text{distribution of before and meshed are stochastically greater than SFR}\n\\]\n\n\n\nWilcoxon rank sum test with continuity correction: BnF$correct and SNF$correct\n\n\n\n\n\n\n\nTest statistic\nP value\nAlternative hypothesis\n\n\n\n\n148.5\n0.01644 *\ngreater\n\n\n\n\n\nLastly, we approximate if before is stochastically greater than meshed since there are ties in present. The test outputs a p-value of 0.189, which is bigger than a 0.05, therefore we fail to reject the null, or conclude that the before is stochastically greater than meshed.\n\\[   \nH_a: \\text{distribution of before is stochastically equal to meshed}\n\\] \\[\nH_a: \\text{distribution of before is stochastically greater than meshed}\n\\]\n\n\n\nWilcoxon rank sum test with continuity correction: before$correct and meshed$correct\n\n\n\n\n\n\n\nTest statistic\nP value\nAlternative hypothesis\n\n\n\n\n62\n0.189\ngreater"
+  },
+  {
+    "objectID": "AB_TESTS/RecallingWords.html#interpretation",
+    "href": "AB_TESTS/RecallingWords.html#interpretation",
+    "title": "Recalling Words",
+    "section": "Interpretation",
+    "text": "Interpretation\nBoth methods, before and meshed benefit the results on memory recall relative to SFR. with both “before” and “meshed” having a higher distribution/median scores of (39 & 36.5) than SFR’s (27) resulting in stochastically greater results. However, among before and meshed, there isn’t a method that is significantly better, therefore leading to the conclusion that either one is has any positive benefit on memory recall.\nKey takeaways from this research would be to organize the document, in a way that perfoming multiple A/B testing doesn’t confuse the reader. As well that joining groups can help create more scenarios in which we can extract value from the data."
+  },
+  {
+    "objectID": "Machine_Learning/Executive Case Summary Module 3 - Team 8.html",
+    "href": "Machine_Learning/Executive Case Summary Module 3 - Team 8.html",
+    "title": "Alex J. Tovar",
+    "section": "",
+    "text": "Title Page 1\nBackground 2\nMethodology 3\nDiscussion Responses 4\nThe study intends to predict house pricing and provide quantifiable evidence that our predictions are reliable by studying the factors influencing the price, such as date, bedrooms, etc. Its purpose is to research and learn about the housing market’s trends and correlations to meet the interests of our customers.\nQuantifying our results using metrics such as “Mean Absolute Error” resulted in a score of $57,536.73, implying that our predictions were only off from the actual result by $57,536.73 on average. We also used metrics such as “Median Absolute Error,” with a score of “38663.0”, which takes the median of the results instead of the mean, thus yielding a result less sensitive to predictions that are very far from the target. In this case, our predictions are $38,663.0 away from the target on a median scale. As well as “RMSE(Root mean square error,”, which serves as a measure that emphasizes big mistakes by encouraging the model to reduce smaller errors.\nAs we examined the data, our first goal was to identify data features that influence the predictions’ accuracy and precision. To elaborate, the house’s attributes, such as view, year built, and living space, best predict its price. Thus, we deployed the machine-learning model and made predictions on all the features. First, we wrangle the data by creating the “Year Sold” feature in the data, to feature how the time sold of the house influences the price itself in the predictions.\nWe split the data with 20% of the values designed for the test, then trained the model with the other 80% of the data to predict the values in the test. Furthermore, we’ve tuned the model by testing different parameters/settings on the model to yield more accurate results. For example, we’ve implemented the “Root Mean Squared Error” as the metric due to the request not to overestimate houses that could be in the low-income bracket. It was followed by a moderate learning rate value that reduces the chances of inaccurate and inconsistent solutions/predictions. As well as modifying the subsample/data distributed to the model’s mini-training rounds reduces bias in memorizing the training data instead of making predictions of the test data. After the test, the model evaluated the results and displayed the most important features to properly and confidently predict the correct housing prices.\nThis is a supervised regression problem, which is based on structured data features, we predict a continuous variable (house price). The target variable is continuous which fits the regression criteria. We trained the model using historical housing data with labeled outcomes.\nTo quantify prediction reliability, we used multiple metrics:\nSelected Metric:\nThese metrics collectively provide empirical confidence in the model’s performance, illustrating the model’s capability to produce reliable predictions.\nWilliam (VP of Finance) raised concerns about adjusting home values for lower-income neighborhoods. After careful consideration, we strongly advise against manual price reductions, as this practice may violate Fair Housing laws. Instead, we propose:\nExplanation:\nJohnny (Data Science Intern) asked about feature scaling. Since XGBoost automatically handles different feature scales, no additional normalization was needed. However, standardization would be required for models like linear regression.\nAdditionally, we ensured that categorical features were appropriately encoded and irrelevant columns (like ‘id’) were removed to enhance model performance."
+  },
+  {
+    "objectID": "Machine_Learning/Executive Case Summary Module 3 - Team 8.html#house-price-case-study-project",
+    "href": "Machine_Learning/Executive Case Summary Module 3 - Team 8.html#house-price-case-study-project",
+    "title": "Alex J. Tovar",
+    "section": "",
+    "text": "Title Page 1\nBackground 2\nMethodology 3\nDiscussion Responses 4"
+  },
+  {
+    "objectID": "Machine_Learning/Executive Case Summary Module 3 - Team 8.html#methodology",
+    "href": "Machine_Learning/Executive Case Summary Module 3 - Team 8.html#methodology",
+    "title": "Alex J. Tovar",
+    "section": "Methodology",
+    "text": "Methodology"
+  },
+  {
+    "objectID": "Machine_Learning/Executive Case Summary Module 3 - Team 8.html#discussion-responses",
+    "href": "Machine_Learning/Executive Case Summary Module 3 - Team 8.html#discussion-responses",
+    "title": "Alex J. Tovar",
+    "section": "Discussion Responses",
+    "text": "Discussion Responses"
+  }
+]

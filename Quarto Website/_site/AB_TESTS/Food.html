@@ -1,0 +1,1208 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
+
+<meta charset="utf-8">
+<meta name="generator" content="quarto-1.8.25">
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+
+
+<title>Food at College – Quarto Website</title>
+<style>
+code{white-space: pre-wrap;}
+span.smallcaps{font-variant: small-caps;}
+div.columns{display: flex; gap: min(4vw, 1.5em);}
+div.column{flex: auto; overflow-x: auto;}
+div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+ul.task-list{list-style: none;}
+ul.task-list li input[type="checkbox"] {
+  width: 0.8em;
+  margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
+  vertical-align: middle;
+}
+/* CSS for syntax highlighting */
+html { -webkit-text-size-adjust: 100%; }
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+  }
+pre.numberSource { margin-left: 3em;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+</style>
+
+
+<script src="../site_libs/quarto-nav/quarto-nav.js"></script>
+<script src="../site_libs/quarto-nav/headroom.min.js"></script>
+<script src="../site_libs/clipboard/clipboard.min.js"></script>
+<script src="../site_libs/quarto-search/autocomplete.umd.js"></script>
+<script src="../site_libs/quarto-search/fuse.min.js"></script>
+<script src="../site_libs/quarto-search/quarto-search.js"></script>
+<meta name="quarto:offset" content="../">
+<script src="../site_libs/quarto-html/quarto.js" type="module"></script>
+<script src="../site_libs/quarto-html/tabsets/tabsets.js" type="module"></script>
+<script src="../site_libs/quarto-html/axe/axe-check.js" type="module"></script>
+<script src="../site_libs/quarto-html/popper.min.js"></script>
+<script src="../site_libs/quarto-html/tippy.umd.min.js"></script>
+<script src="../site_libs/quarto-html/anchor.min.js"></script>
+<link href="../site_libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="../site_libs/quarto-html/quarto-syntax-highlighting-7b89279ff1a6dce999919e0e67d4d9ec.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<script src="../site_libs/bootstrap/bootstrap.min.js"></script>
+<link href="../site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
+<link href="../site_libs/bootstrap/bootstrap-e31584831b205ffbb2d98406f31c2a5b.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
+<script id="quarto-search-options" type="application/json">{
+  "location": "navbar",
+  "copy-button": false,
+  "collapse-after": 3,
+  "panel-placement": "end",
+  "type": "overlay",
+  "limit": 50,
+  "keyboard-shortcut": [
+    "f",
+    "/",
+    "s"
+  ],
+  "show-item-context": false,
+  "language": {
+    "search-no-results-text": "No results",
+    "search-matching-documents-text": "matching documents",
+    "search-copy-link-title": "Copy link to search",
+    "search-hide-matches-text": "Hide additional matches",
+    "search-more-match-text": "more match in this document",
+    "search-more-matches-text": "more matches in this document",
+    "search-clear-button-title": "Clear",
+    "search-text-placeholder": "",
+    "search-detached-cancel-button-title": "Cancel",
+    "search-submit-button-title": "Submit",
+    "search-label": "Search"
+  }
+}</script>
+
+  <script src="https://cdnjs.cloudflare.com/polyfill/v3/polyfill.min.js?features=es6"></script>
+  <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml-full.js" type="text/javascript"></script>
+
+<script type="text/javascript">
+const typesetMath = (el) => {
+  if (window.MathJax) {
+    // MathJax Typeset
+    window.MathJax.typeset([el]);
+  } else if (window.katex) {
+    // KaTeX Render
+    var mathElements = el.getElementsByClassName("math");
+    var macros = [];
+    for (var i = 0; i < mathElements.length; i++) {
+      var texText = mathElements[i].firstChild;
+      if (mathElements[i].tagName == "SPAN" && texText && texText.data) {
+        window.katex.render(texText.data, mathElements[i], {
+          displayMode: mathElements[i].classList.contains('display'),
+          throwOnError: false,
+          macros: macros,
+          fleqn: false
+        });
+      }
+    }
+  }
+}
+window.Quarto = {
+  typesetMath
+};
+</script>
+
+<link rel="stylesheet" href="../styles.css">
+</head>
+
+<body class="nav-fixed quarto-light">
+
+<div id="quarto-search-results"></div>
+  <header id="quarto-header" class="headroom fixed-top">
+    <nav class="navbar navbar-expand-lg " data-bs-theme="dark">
+      <div class="navbar-container container-fluid">
+      <div class="navbar-brand-container mx-auto">
+    <a href="../index.html" class="navbar-brand navbar-brand-logo">
+    </a>
+    <a class="navbar-brand" href="../index.html">
+    <span class="navbar-title">Quarto Website</span>
+    </a>
+  </div>
+            <div id="quarto-search" class="" title="Search"></div>
+          <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarCollapse" aria-controls="navbarCollapse" role="menu" aria-expanded="false" aria-label="Toggle navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
+  <span class="navbar-toggler-icon"></span>
+</button>
+          <div class="collapse navbar-collapse" id="navbarCollapse">
+            <ul class="navbar-nav navbar-nav-scroll me-auto">
+  <li class="nav-item">
+    <a class="nav-link" href="../index.html"> 
+<span class="menu-text">Home</span></a>
+  </li>  
+  <li class="nav-item">
+    <a class="nav-link" href="../about.html"> 
+<span class="menu-text">About</span></a>
+  </li>  
+</ul>
+          </div> <!-- /navcollapse -->
+            <div class="quarto-navbar-tools">
+</div>
+      </div> <!-- /container-fluid -->
+    </nav>
+</header>
+<!-- content -->
+<div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-article page-navbar">
+<!-- sidebar -->
+<!-- margin-sidebar -->
+    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
+        <nav id="TOC" role="doc-toc" class="toc-active">
+    <h2 id="toc-title">On this page</h2>
+   
+  <ul>
+  <li><a href="#background" id="toc-background" class="nav-link active" data-scroll-target="#background">Background</a></li>
+  <li><a href="#analysis" id="toc-analysis" class="nav-link" data-scroll-target="#analysis">Analysis</a>
+  <ul class="collapse">
+  <li><a href="#interpretation" id="toc-interpretation" class="nav-link" data-scroll-target="#interpretation">Interpretation</a>
+  <ul class="collapse">
+  <li><a href="#creditsreferences" id="toc-creditsreferences" class="nav-link" data-scroll-target="#creditsreferences">Credits/References</a></li>
+  </ul></li>
+  <li><a href="#section" id="toc-section" class="nav-link" data-scroll-target="#section"></a></li>
+  </ul></li>
+  </ul>
+</nav>
+    </div>
+<!-- main -->
+<main class="content" id="quarto-document-content">
+
+<header id="title-block-header" class="quarto-title-block default">
+<div class="quarto-title">
+<h1 class="title">Food at College</h1>
+</div>
+
+
+
+<div class="quarto-title-meta">
+
+    
+  
+    
+  </div>
+  
+
+
+</header>
+
+
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="co"># From your file menu (at the top of R-Studio) select:</span></span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="co"># "Session -&gt; Set working directory -&gt; To source file location"</span></span>
+<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a><span class="co"># Then play this chunk to get the data into R.</span></span>
+<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(mosaic)</span>
+<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(car)</span>
+<span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(DT)</span>
+<span id="cb1-7"><a href="#cb1-7" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(pander)</span>
+<span id="cb1-8"><a href="#cb1-8" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(readr)</span>
+<span id="cb1-9"><a href="#cb1-9" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(ggthemes)</span>
+<span id="cb1-10"><a href="#cb1-10" aria-hidden="true" tabindex="-1"></a>food <span class="ot">&lt;-</span> <span class="fu">read_csv</span>(<span class="st">"C://Users/Alex/Documents/GitHub/IntStats/Statistics-Notebook-master/Data/food.csv"</span>) <span class="co">#food.csv is in the Data folder...</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+<hr>
+<section id="background" class="level2">
+<h2 class="anchored" data-anchor-id="background">Background</h2>
+<p>After taking a look at the data, I saw the presence of an weight column along with a eating out column. Then I wondered, is there at least one “weight” distribution of people with distinct “eating out” habits is stochastically different? Since I wanted to find out specifically if the subjects present in the data are affected by eating habits.</p>
+<p><span class="math display">\[
+H0: \text{All group samples are from the same distribution}
+\]</span></p>
+<p><span class="math display">\[
+Ha: \text{At least one group sample's distribution is stochastically different}
+\]</span></p>
+<p><span class="math display">\[
+Alpha = \text{0.05}
+\]</span></p>
+</section>
+<section id="analysis" class="level1">
+<h1>Analysis</h1>
+<p>Since we are comparing distributions among non-parmetric groups, a Kruskal-Wallis Rank Sum Test must be performed to since the data isn’t normal.</p>
+<div class="cell" data-layout-align="center">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb2"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a>food<span class="sc">$</span>weight <span class="ot">&lt;-</span> <span class="fu">as.numeric</span>(food<span class="sc">$</span>weight)</span>
+<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(food, <span class="at">mapping =</span> <span class="fu">aes</span>(<span class="at">x =</span> eating_out, <span class="at">y =</span> weight, <span class="at">fill =</span> eating_out)) <span class="sc">+</span> </span>
+<span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a><span class="fu">geom_boxplot</span>() <span class="sc">+</span> </span>
+<span id="cb2-4"><a href="#cb2-4" aria-hidden="true" tabindex="-1"></a><span class="fu">theme_fivethirtyeight</span>() <span class="sc">+</span></span>
+<span id="cb2-5"><a href="#cb2-5" aria-hidden="true" tabindex="-1"></a><span class="fu">labs</span>(<span class="at">title =</span> <span class="st">"The sample's distribution isn't stochastically different"</span>,</span>
+<span id="cb2-6"><a href="#cb2-6" aria-hidden="true" tabindex="-1"></a>     <span class="at">x =</span> <span class="st">"Eating Out"</span>,</span>
+<span id="cb2-7"><a href="#cb2-7" aria-hidden="true" tabindex="-1"></a>     <span class="at">y =</span> <span class="st">"Weight (LBS)"</span>) <span class="sc">+</span> </span>
+<span id="cb2-8"><a href="#cb2-8" aria-hidden="true" tabindex="-1"></a><span class="fu">theme</span>(<span class="at">axis.title =</span> <span class="fu">element_text</span>(<span class="at">size =</span> <span class="dv">12</span>, <span class="at">face =</span> <span class="st">"bold"</span>),</span>
+<span id="cb2-9"><a href="#cb2-9" aria-hidden="true" tabindex="-1"></a>      <span class="at">legend.title =</span> <span class="fu">element_blank</span>(),</span>
+<span id="cb2-10"><a href="#cb2-10" aria-hidden="true" tabindex="-1"></a>      <span class="at">title =</span> <span class="fu">element_text</span>(<span class="at">size =</span> <span class="dv">11</span>, <span class="at">face =</span> <span class="st">"bold"</span>))</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output-display">
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="Food_files/figure-html/unnamed-chunk-2-1.png" class="img-fluid quarto-figure quarto-figure-center figure-img" width="672"></p>
+</figure>
+</div>
+</div>
+</div>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb3"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="fu">pander</span>(<span class="fu">favstats</span>(weight <span class="sc">~</span> eating_out, <span class="at">data=</span>food))</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output-display">
+<table class="caption-top table table-sm table-striped small">
+<colgroup>
+<col style="width: 16%">
+<col style="width: 7%">
+<col style="width: 9%">
+<col style="width: 11%">
+<col style="width: 9%">
+<col style="width: 7%">
+<col style="width: 9%">
+<col style="width: 9%">
+<col style="width: 6%">
+<col style="width: 12%">
+</colgroup>
+<thead>
+<tr class="header">
+<th style="text-align: center;">eating_out</th>
+<th style="text-align: center;">min</th>
+<th style="text-align: center;">Q1</th>
+<th style="text-align: center;">median</th>
+<th style="text-align: center;">Q3</th>
+<th style="text-align: center;">max</th>
+<th style="text-align: center;">mean</th>
+<th style="text-align: center;">sd</th>
+<th style="text-align: center;">n</th>
+<th style="text-align: center;">missing</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: center;">1-2 times</td>
+<td style="text-align: center;">113</td>
+<td style="text-align: center;">135</td>
+<td style="text-align: center;">155</td>
+<td style="text-align: center;">170</td>
+<td style="text-align: center;">260</td>
+<td style="text-align: center;">157.6</td>
+<td style="text-align: center;">29.23</td>
+<td style="text-align: center;">58</td>
+<td style="text-align: center;">2</td>
+</tr>
+<tr class="even">
+<td style="text-align: center;">2-3 times</td>
+<td style="text-align: center;">112</td>
+<td style="text-align: center;">131.2</td>
+<td style="text-align: center;">140</td>
+<td style="text-align: center;">168.8</td>
+<td style="text-align: center;">265</td>
+<td style="text-align: center;">153</td>
+<td style="text-align: center;">35.79</td>
+<td style="text-align: center;">22</td>
+<td style="text-align: center;">2</td>
+</tr>
+<tr class="odd">
+<td style="text-align: center;">3-5 times</td>
+<td style="text-align: center;">105</td>
+<td style="text-align: center;">129</td>
+<td style="text-align: center;">170</td>
+<td style="text-align: center;">180</td>
+<td style="text-align: center;">200</td>
+<td style="text-align: center;">157.5</td>
+<td style="text-align: center;">29.33</td>
+<td style="text-align: center;">13</td>
+<td style="text-align: center;">0</td>
+</tr>
+<tr class="even">
+<td style="text-align: center;">every day</td>
+<td style="text-align: center;">130</td>
+<td style="text-align: center;">159</td>
+<td style="text-align: center;">177.5</td>
+<td style="text-align: center;">190.5</td>
+<td style="text-align: center;">210</td>
+<td style="text-align: center;">172.4</td>
+<td style="text-align: center;">26.5</td>
+<td style="text-align: center;">12</td>
+<td style="text-align: center;">0</td>
+</tr>
+<tr class="odd">
+<td style="text-align: center;">Never</td>
+<td style="text-align: center;">100</td>
+<td style="text-align: center;">140</td>
+<td style="text-align: center;">145</td>
+<td style="text-align: center;">187.5</td>
+<td style="text-align: center;">264</td>
+<td style="text-align: center;">159.9</td>
+<td style="text-align: center;">40.79</td>
+<td style="text-align: center;">15</td>
+<td style="text-align: center;">1</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+<div class="cell" data-layout-align="center">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb4"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="fu">pander</span>(<span class="fu">kruskal.test</span>(weight <span class="sc">~</span> eating_out, <span class="at">data=</span>food))</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output-display">
+<table class="caption-top table table-sm table-striped small">
+<caption>Kruskal-Wallis rank sum test: <code>weight</code> by <code>eating_out</code></caption>
+<colgroup>
+<col style="width: 23%">
+<col style="width: 6%">
+<col style="width: 13%">
+</colgroup>
+<thead>
+<tr class="header">
+<th style="text-align: center;">Test statistic</th>
+<th style="text-align: center;">df</th>
+<th style="text-align: center;">P value</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: center;">5.082</td>
+<td style="text-align: center;">4</td>
+<td style="text-align: center;">0.279</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+<section id="interpretation" class="level2">
+<h2 class="anchored" data-anchor-id="interpretation">Interpretation</h2>
+<p>Starting with the favstats, is evident that eating out groups do have some variance among weight values. For example the Q1 of people eating “3-5 times” is 129, whereas the “everyday” group have Q1 of 159 lbs, implying that there are groups that differ 30 lbs in the lower quartiles. This variance explains the average spread of weight values through groups, to see the distribution of the data throught the analysis. Additionally, people that eat out every day have a higher mean than other groups, with 172.4 lbs mean compared to an moderate 1-2 time group with 157.6 lbs average.</p>
+<p>But at the end of the day the Kruskal-Wallis Rank Sum compares the ranks given to each subject wand is compared to our given alpha. Of which we receive a P-value of 0.279 which is bigger than our alpha of 0.05. Therefore, failing to reject the null and conclude that least one “weight” distribution of people with distinct “eating out” habits is stochastically different. “stochastically” meaning that the results have a random chance of being different in the context of the analysis, since the data is assumed to be “non-parametric”.</p>
+<section id="creditsreferences" class="level3">
+<h3 class="anchored" data-anchor-id="creditsreferences">Credits/References</h3>
+<p>This analysis fully abstained from using AI, the only references used were the “Pig Birth Weights – Kruskal-Wallis” from the “Statistics Notebook” guide given by the course.</p>
+<!-- Instructions:
+
+ Use the Food dataset and a Kruskal-Wallis Test(s) to answer an interesting question(s) that you come up with.
+ 
+ About the dataset:
+ 
+  * GPA - numerical, self-reported current college GPA
+
+  
+  * weight - numerical, self-reported weight in lbs
+
+
+  * gender - "Female", "Male"
+
+
+  * breakfast - "Cereal", "Donut" 
+      The participants were shown a picture of "Cereal" and a "Donut" and asked which one of these pictures they associate with the word "breakfast."
+
+
+  * calories_chicken - guessing calories in chicken piadina from the options of:
+     1 - 265 
+     2 - 430 
+     3 - 610 
+     4 - 720
+    (the variable shows the actual number of calories participants selected)
+
+
+   * calories_day - Importance of consuming calories per day
+     1 - i dont know how many calories i should consume 
+     2 - it is not at all important 
+     3 - it is moderately important 
+     4 - it is very important
+
+
+   * comfort_food - List 3-5 comfort foods that come to mind. 
+     Open ended 
+
+
+   * comfort_food_reasons - What are some of the reasons that make you eat comfort food?      (i.e., anger, sadness, happiness, boredom, etc) - list up to three
+     Open ended
+
+
+   * comfort_food_reasons_coded
+     1 - stress
+     2 - boredom
+     3 - depression/sadness
+     4 - hunger
+     5 - laziness
+     6 - cold weather
+     7 - happiness 
+     8 - watching tv
+     9 - none 
+
+
+    * cook - how often do you cook?
+     1 - Every day 
+     2 - A couple of times a week 
+     3 - Whenever I can, but that is not very often  
+     4 - I only help a little during holidays 
+     5 - Never, I really do not know my way around a kitchen
+
+
+    * cuisine - what type of cuisine did you eat growing up?
+     1 - American
+     2 - Mexican.Spanish
+     3 - Korean/Asian
+     4 - Indian
+     5 - American inspired international dishes
+     6 - other
+
+
+    * diet_current - describe your current diet
+     open ended
+
+    
+    * diet_current_coded
+     1 - healthy/balanced/moderated/
+     2 - unhealthy/cheap/too much/random/
+     3 - the same thing over and over
+     4 - unclear
+
+
+    * drink - which picture do you associate with the word “drink”?
+     1 - orange juice
+     2 - soda 
+
+
+    * eating_changes  - Describe your eating changes since the moment you got into college?
+     Open ended 
+
+
+    * eating_changes_coded
+     1 - worse
+     2 - better
+     3 - the same
+     4 - unclear
+
+
+    * eating_changes_coded1
+     1 - eat faster
+     2 - bigger quantity
+     3 - worse quality 
+     4 - same food
+     5 - healthier
+     6 - unclear
+     7 - drink coffee 
+     8 - less food
+     9 - more sweets
+     10 - timing 
+     11 - more carbs or snacking
+     12 - drink more water
+     13 - more variety
+
+
+    * eating_out - frequency of eating out in a typical week 
+     1 - Never 
+     2 - 1-2 times 
+     3 - 2-3 times 
+     4 - 3-5 times 
+     5 - every day
+
+
+    * employment - do you work? 
+     1 - yes full time 
+     2 - yes part time 
+     3 - no
+     4  - other
+
+
+    * ethnic_food - How likely to eat ethnic food 
+     1 - very unlikely 
+     2 - unlikely 
+     3 - neutral 
+     4 - likely 
+     5 - very likely 
+
+
+    * exercise - how often do you exercise in a regular week?
+     1 - Everyday 
+     2 - Twice or three times per week 
+     3 - Once a week
+     4 - Sometimes 
+     5 - Never
+
+
+    * father_education - 
+     1 - less than high school 
+     2 - high school degree 
+     3 - some college degree 
+     4 - college degree 
+     5 - graduate degree 
+
+
+    * father_profession - what is your father profession?
+     Open ended
+
+
+    * fav_cuisine - What is your favorite cuisine?
+     Open ended
+
+
+    * fav_cuisine_coded
+     0-none
+     1 - Italian/French/greek
+     2 - Spanish/mexican
+     3 - Arabic/Turkish
+     4 - asian/chineses/thai/nepal
+     5 - American
+     6 - African 
+     7 - Jamaican
+     8 - indian
+
+
+    * fav_food - was your favorite food cooked at home or store bought? 
+     1 - cooked at home 
+     2 - store bought 
+     3 - both bought at store and cooked at home
+
+
+    * food_childhood - what was your favorite childhood food?
+     Open ended
+
+
+
+    * fries - which of these pictures you associate with word fries? 
+     1 - Mcdonald’s fries
+     2 - home fries
+
+ 
+    * fruit_day - How likely to eat fruit in a regular day 
+     1 - very unlikely 
+     2 - unlikely 
+     3 - neutral 
+     4 - likely 
+     5 - very likely 
+
+
+    * grade_level – 
+     1 - freshman 
+     2 -Sophomore 
+     3 - Junior 
+     4 - Senior
+     
+      
+    * greek_food - How likely to eat greek food when available?
+     1 - very unlikely 
+     2 - unlikely 
+     3 - neutral 
+     4 - likely 
+     5 - very likely 
+     
+      
+    * healthy_feel – how likely are you to agree with the following statement: “I feel very healthy!” ?
+      1 to 10 where 1 is strongly agree and 10 is strongly disagree - scale
+      
+      
+    * healthy_meal – what is a healthy meal? Describe in 2-3 sentences.
+      Open ended
+      
+      
+    * ideal_diet – describe your ideal diet in 2-3 sentences
+      Open ended
+      
+      
+    * Ideal_diet_coded
+      1 – portion control
+      2 – adding veggies/eating healthier food/adding fruit 
+      3 – balance
+      4 – less sugar
+      5 – home cooked/organic
+      6 – current diet
+      7 – more protein
+      8 – unclear
+      
+      
+     * income
+      1 - less than $15,000 
+      2 - $15,001 to $30,000 
+      3 - $30,001 to $50,000 
+      4 - $50,001 to $70,000 
+      5 - $70,001 to $100,000 
+      6 - higher than $100,000
+      
+     * indian_food – how likely are you to eat indian food when available
+      1 - very unlikely 
+      2 - unlikely 
+      3 - neutral 
+      4 - likely 
+      5 - very likely 
+      
+      
+     * Italian_food – how likely are you to eat Italian food when available?
+      1 - very unlikely 
+      2 - unlikely 
+      3 - neutral 
+      4 - likely 
+      5 - very likely 
+      
+      
+     * life_rewarding – how likely are you to agree with the following statement: “I feel life is very rewarding!” ?
+      1 to 10 where 1 is strongly agree and 10 is strongly disagree - scale
+      
+      
+     * marital_status
+      1 -Single 
+      2 - In a relationship 
+      3 - Cohabiting 
+      4 - Married 
+      5 - Divorced 
+      6 - Widowed
+      
+      
+     * meals_dinner_friend – What would you serve to a friend for dinner?
+      Open ended
+      
+      
+     * mothers_education 
+      1 - less than high school 
+      2 - high school degree 
+      3 - some college degree 
+      4 - college degree 
+      5 - graduate degree
+      
+      
+     * mothers_profession – what is your mother’s profession? 
+      
+      
+     * nutritional_check - checking nutritional values frequency 
+      1 - never 
+      2 - on certain products only 
+      3 - very rarely 
+      4 - on most products 
+      5 - on everything
+      
+      
+     * on_off_campus – living situation
+      1 - On campus 
+      2 - Rent out of campus 
+      3 - Live with my parents and commute 
+      4 - Own my own house
+      
+      
+     * parents_cook - Approximately how many days a week did your parents cook? 
+      1 - Almost everyday 
+      2 - 2-3 times a week 
+      3 - 1-2 times a week 
+      4 - on holidays only 
+      5 - never
+      
+      
+     * pay_meal_out - How much would you pay for meal out? 
+      1 - up to $5.00 
+      2 - $5.01 to $10.00 
+      3 - $10.01 to $20.00 
+      4 - $20.01 to $30.00 
+      5 - $30.01 to $40.00 
+      6 - more than $40.01 
+      
+      
+     * Persian_food - How likely to eat persian food when available?
+      1 - very unlikely 
+      2 - unlikely 
+      3 - neutral 
+      4 - likely 
+      5 - very likely 
+      
+      
+     * self_perception_weight - self perception of weight 
+      6 - i dont think myself in these terms 
+      5 - overweight 
+      4 - slightly overweight 
+      3 - just right 
+      2 - very fit 
+      1 - slim 
+      
+      
+     * Which of the two pictures you associate with the word soup?
+      1 – veggie soup
+      2 – creamy soup
+      
+      
+     * sports - sports – do you do any sporting activity?
+      1 - Yes 
+      2 - No 
+      99 – no answer
+      
+      
+     * thai_food - How likely to eat thai food when available?
+      1 - very unlikely 
+      2 - unlikely 
+      3 - neutral 
+      4 - likely 
+      5 - very likely 
+      
+      
+     * tortilla_calories - guessing calories in a burrito sandwhich from Chipolte?
+      1 - 580 
+      2 - 725 
+      3 - 940 
+      4 - 1165
+      
+     * turkey_calories - Can you guess how many calories are in the foods shown below?
+     (Panera Bread Roasted Turkey and Avocado BLT)
+      1 - 345 
+      2 - 500 
+      3 - 690 
+      4 - 850
+      
+      
+     * type_sports – what type of sports are you involved?
+      Open-ended
+      
+     * veggies_day - How likely to eat veggies in a day? 
+      1 - very unlikely 
+      2 - unlikely 
+      3 - neutral 
+      4- likely 
+      5 - very likely
+      
+     * vitamins – do you take any supplements or vitamins?
+      1 – yes
+      2 – no
+      
+     * waffle_calories - guessing calories in waffle potato sandwhich 
+      1 - 575 
+      2 - 760 
+      3 - 900 
+      4 - 1315
+
+
+Note this dataset and description come from: © 2020 Kaggle Inc for further details visit:
+
+[Food choices on Kaggle](https://www.kaggle.com/borapajo/food-choices?select=food_coded.csv)
+
+
+If you want to give your critiquers some ideas about what you have questions on and would like help with, place those details here.-->
+<!--End your comments to your critiquers before this line.-->
+<hr>
+<!--Begin writing your Analysis after this point.-->
+</section>
+</section>
+<section id="section" class="level2">
+<h2 class="anchored" data-anchor-id="section"></h2>
+
+
+</section>
+</section>
+
+</main> <!-- /main -->
+<script id="quarto-html-after-body" type="application/javascript">
+  window.document.addEventListener("DOMContentLoaded", function (event) {
+    const icon = "";
+    const anchorJS = new window.AnchorJS();
+    anchorJS.options = {
+      placement: 'right',
+      icon: icon
+    };
+    anchorJS.add('.anchored');
+    const isCodeAnnotation = (el) => {
+      for (const clz of el.classList) {
+        if (clz.startsWith('code-annotation-')) {                     
+          return true;
+        }
+      }
+      return false;
+    }
+    const onCopySuccess = function(e) {
+      // button target
+      const button = e.trigger;
+      // don't keep focus
+      button.blur();
+      // flash "checked"
+      button.classList.add('code-copy-button-checked');
+      var currentTitle = button.getAttribute("title");
+      button.setAttribute("title", "Copied!");
+      let tooltip;
+      if (window.bootstrap) {
+        button.setAttribute("data-bs-toggle", "tooltip");
+        button.setAttribute("data-bs-placement", "left");
+        button.setAttribute("data-bs-title", "Copied!");
+        tooltip = new bootstrap.Tooltip(button, 
+          { trigger: "manual", 
+            customClass: "code-copy-button-tooltip",
+            offset: [0, -8]});
+        tooltip.show();    
+      }
+      setTimeout(function() {
+        if (tooltip) {
+          tooltip.hide();
+          button.removeAttribute("data-bs-title");
+          button.removeAttribute("data-bs-toggle");
+          button.removeAttribute("data-bs-placement");
+        }
+        button.setAttribute("title", currentTitle);
+        button.classList.remove('code-copy-button-checked');
+      }, 1000);
+      // clear code selection
+      e.clearSelection();
+    }
+    const getTextToCopy = function(trigger) {
+      const outerScaffold = trigger.parentElement.cloneNode(true);
+      const codeEl = outerScaffold.querySelector('code');
+      for (const childEl of codeEl.children) {
+        if (isCodeAnnotation(childEl)) {
+          childEl.remove();
+        }
+      }
+      return codeEl.innerText;
+    }
+    const clipboard = new window.ClipboardJS('.code-copy-button:not([data-in-quarto-modal])', {
+      text: getTextToCopy
+    });
+    clipboard.on('success', onCopySuccess);
+    if (window.document.getElementById('quarto-embedded-source-code-modal')) {
+      const clipboardModal = new window.ClipboardJS('.code-copy-button[data-in-quarto-modal]', {
+        text: getTextToCopy,
+        container: window.document.getElementById('quarto-embedded-source-code-modal')
+      });
+      clipboardModal.on('success', onCopySuccess);
+    }
+      var localhostRegex = new RegExp(/^(?:http|https):\/\/localhost\:?[0-9]*\//);
+      var mailtoRegex = new RegExp(/^mailto:/);
+        var filterRegex = new RegExp('/' + window.location.host + '/');
+      var isInternal = (href) => {
+          return filterRegex.test(href) || localhostRegex.test(href) || mailtoRegex.test(href);
+      }
+      // Inspect non-navigation links and adorn them if external
+     var links = window.document.querySelectorAll('a[href]:not(.nav-link):not(.navbar-brand):not(.toc-action):not(.sidebar-link):not(.sidebar-item-toggle):not(.pagination-link):not(.no-external):not([aria-hidden]):not(.dropdown-item):not(.quarto-navigation-tool):not(.about-link)');
+      for (var i=0; i<links.length; i++) {
+        const link = links[i];
+        if (!isInternal(link.href)) {
+          // undo the damage that might have been done by quarto-nav.js in the case of
+          // links that we want to consider external
+          if (link.dataset.originalHref !== undefined) {
+            link.href = link.dataset.originalHref;
+          }
+        }
+      }
+    function tippyHover(el, contentFn, onTriggerFn, onUntriggerFn) {
+      const config = {
+        allowHTML: true,
+        maxWidth: 500,
+        delay: 100,
+        arrow: false,
+        appendTo: function(el) {
+            return el.parentElement;
+        },
+        interactive: true,
+        interactiveBorder: 10,
+        theme: 'quarto',
+        placement: 'bottom-start',
+      };
+      if (contentFn) {
+        config.content = contentFn;
+      }
+      if (onTriggerFn) {
+        config.onTrigger = onTriggerFn;
+      }
+      if (onUntriggerFn) {
+        config.onUntrigger = onUntriggerFn;
+      }
+      window.tippy(el, config); 
+    }
+    const noterefs = window.document.querySelectorAll('a[role="doc-noteref"]');
+    for (var i=0; i<noterefs.length; i++) {
+      const ref = noterefs[i];
+      tippyHover(ref, function() {
+        // use id or data attribute instead here
+        let href = ref.getAttribute('data-footnote-href') || ref.getAttribute('href');
+        try { href = new URL(href).hash; } catch {}
+        const id = href.replace(/^#\/?/, "");
+        const note = window.document.getElementById(id);
+        if (note) {
+          return note.innerHTML;
+        } else {
+          return "";
+        }
+      });
+    }
+    const xrefs = window.document.querySelectorAll('a.quarto-xref');
+    const processXRef = (id, note) => {
+      // Strip column container classes
+      const stripColumnClz = (el) => {
+        el.classList.remove("page-full", "page-columns");
+        if (el.children) {
+          for (const child of el.children) {
+            stripColumnClz(child);
+          }
+        }
+      }
+      stripColumnClz(note)
+      if (id === null || id.startsWith('sec-')) {
+        // Special case sections, only their first couple elements
+        const container = document.createElement("div");
+        if (note.children && note.children.length > 2) {
+          container.appendChild(note.children[0].cloneNode(true));
+          for (let i = 1; i < note.children.length; i++) {
+            const child = note.children[i];
+            if (child.tagName === "P" && child.innerText === "") {
+              continue;
+            } else {
+              container.appendChild(child.cloneNode(true));
+              break;
+            }
+          }
+          if (window.Quarto?.typesetMath) {
+            window.Quarto.typesetMath(container);
+          }
+          return container.innerHTML
+        } else {
+          if (window.Quarto?.typesetMath) {
+            window.Quarto.typesetMath(note);
+          }
+          return note.innerHTML;
+        }
+      } else {
+        // Remove any anchor links if they are present
+        const anchorLink = note.querySelector('a.anchorjs-link');
+        if (anchorLink) {
+          anchorLink.remove();
+        }
+        if (window.Quarto?.typesetMath) {
+          window.Quarto.typesetMath(note);
+        }
+        if (note.classList.contains("callout")) {
+          return note.outerHTML;
+        } else {
+          return note.innerHTML;
+        }
+      }
+    }
+    for (var i=0; i<xrefs.length; i++) {
+      const xref = xrefs[i];
+      tippyHover(xref, undefined, function(instance) {
+        instance.disable();
+        let url = xref.getAttribute('href');
+        let hash = undefined; 
+        if (url.startsWith('#')) {
+          hash = url;
+        } else {
+          try { hash = new URL(url).hash; } catch {}
+        }
+        if (hash) {
+          const id = hash.replace(/^#\/?/, "");
+          const note = window.document.getElementById(id);
+          if (note !== null) {
+            try {
+              const html = processXRef(id, note.cloneNode(true));
+              instance.setContent(html);
+            } finally {
+              instance.enable();
+              instance.show();
+            }
+          } else {
+            // See if we can fetch this
+            fetch(url.split('#')[0])
+            .then(res => res.text())
+            .then(html => {
+              const parser = new DOMParser();
+              const htmlDoc = parser.parseFromString(html, "text/html");
+              const note = htmlDoc.getElementById(id);
+              if (note !== null) {
+                const html = processXRef(id, note);
+                instance.setContent(html);
+              } 
+            }).finally(() => {
+              instance.enable();
+              instance.show();
+            });
+          }
+        } else {
+          // See if we can fetch a full url (with no hash to target)
+          // This is a special case and we should probably do some content thinning / targeting
+          fetch(url)
+          .then(res => res.text())
+          .then(html => {
+            const parser = new DOMParser();
+            const htmlDoc = parser.parseFromString(html, "text/html");
+            const note = htmlDoc.querySelector('main.content');
+            if (note !== null) {
+              // This should only happen for chapter cross references
+              // (since there is no id in the URL)
+              // remove the first header
+              if (note.children.length > 0 && note.children[0].tagName === "HEADER") {
+                note.children[0].remove();
+              }
+              const html = processXRef(null, note);
+              instance.setContent(html);
+            } 
+          }).finally(() => {
+            instance.enable();
+            instance.show();
+          });
+        }
+      }, function(instance) {
+      });
+    }
+        let selectedAnnoteEl;
+        const selectorForAnnotation = ( cell, annotation) => {
+          let cellAttr = 'data-code-cell="' + cell + '"';
+          let lineAttr = 'data-code-annotation="' +  annotation + '"';
+          const selector = 'span[' + cellAttr + '][' + lineAttr + ']';
+          return selector;
+        }
+        const selectCodeLines = (annoteEl) => {
+          const doc = window.document;
+          const targetCell = annoteEl.getAttribute("data-target-cell");
+          const targetAnnotation = annoteEl.getAttribute("data-target-annotation");
+          const annoteSpan = window.document.querySelector(selectorForAnnotation(targetCell, targetAnnotation));
+          const lines = annoteSpan.getAttribute("data-code-lines").split(",");
+          const lineIds = lines.map((line) => {
+            return targetCell + "-" + line;
+          })
+          let top = null;
+          let height = null;
+          let parent = null;
+          if (lineIds.length > 0) {
+              //compute the position of the single el (top and bottom and make a div)
+              const el = window.document.getElementById(lineIds[0]);
+              top = el.offsetTop;
+              height = el.offsetHeight;
+              parent = el.parentElement.parentElement;
+            if (lineIds.length > 1) {
+              const lastEl = window.document.getElementById(lineIds[lineIds.length - 1]);
+              const bottom = lastEl.offsetTop + lastEl.offsetHeight;
+              height = bottom - top;
+            }
+            if (top !== null && height !== null && parent !== null) {
+              // cook up a div (if necessary) and position it 
+              let div = window.document.getElementById("code-annotation-line-highlight");
+              if (div === null) {
+                div = window.document.createElement("div");
+                div.setAttribute("id", "code-annotation-line-highlight");
+                div.style.position = 'absolute';
+                parent.appendChild(div);
+              }
+              div.style.top = top - 2 + "px";
+              div.style.height = height + 4 + "px";
+              div.style.left = 0;
+              let gutterDiv = window.document.getElementById("code-annotation-line-highlight-gutter");
+              if (gutterDiv === null) {
+                gutterDiv = window.document.createElement("div");
+                gutterDiv.setAttribute("id", "code-annotation-line-highlight-gutter");
+                gutterDiv.style.position = 'absolute';
+                const codeCell = window.document.getElementById(targetCell);
+                const gutter = codeCell.querySelector('.code-annotation-gutter');
+                gutter.appendChild(gutterDiv);
+              }
+              gutterDiv.style.top = top - 2 + "px";
+              gutterDiv.style.height = height + 4 + "px";
+            }
+            selectedAnnoteEl = annoteEl;
+          }
+        };
+        const unselectCodeLines = () => {
+          const elementsIds = ["code-annotation-line-highlight", "code-annotation-line-highlight-gutter"];
+          elementsIds.forEach((elId) => {
+            const div = window.document.getElementById(elId);
+            if (div) {
+              div.remove();
+            }
+          });
+          selectedAnnoteEl = undefined;
+        };
+          // Handle positioning of the toggle
+      window.addEventListener(
+        "resize",
+        throttle(() => {
+          elRect = undefined;
+          if (selectedAnnoteEl) {
+            selectCodeLines(selectedAnnoteEl);
+          }
+        }, 10)
+      );
+      function throttle(fn, ms) {
+      let throttle = false;
+      let timer;
+        return (...args) => {
+          if(!throttle) { // first call gets through
+              fn.apply(this, args);
+              throttle = true;
+          } else { // all the others get throttled
+              if(timer) clearTimeout(timer); // cancel #2
+              timer = setTimeout(() => {
+                fn.apply(this, args);
+                timer = throttle = false;
+              }, ms);
+          }
+        };
+      }
+        // Attach click handler to the DT
+        const annoteDls = window.document.querySelectorAll('dt[data-target-cell]');
+        for (const annoteDlNode of annoteDls) {
+          annoteDlNode.addEventListener('click', (event) => {
+            const clickedEl = event.target;
+            if (clickedEl !== selectedAnnoteEl) {
+              unselectCodeLines();
+              const activeEl = window.document.querySelector('dt[data-target-cell].code-annotation-active');
+              if (activeEl) {
+                activeEl.classList.remove('code-annotation-active');
+              }
+              selectCodeLines(clickedEl);
+              clickedEl.classList.add('code-annotation-active');
+            } else {
+              // Unselect the line
+              unselectCodeLines();
+              clickedEl.classList.remove('code-annotation-active');
+            }
+          });
+        }
+    const findCites = (el) => {
+      const parentEl = el.parentElement;
+      if (parentEl) {
+        const cites = parentEl.dataset.cites;
+        if (cites) {
+          return {
+            el,
+            cites: cites.split(' ')
+          };
+        } else {
+          return findCites(el.parentElement)
+        }
+      } else {
+        return undefined;
+      }
+    };
+    var bibliorefs = window.document.querySelectorAll('a[role="doc-biblioref"]');
+    for (var i=0; i<bibliorefs.length; i++) {
+      const ref = bibliorefs[i];
+      const citeInfo = findCites(ref);
+      if (citeInfo) {
+        tippyHover(citeInfo.el, function() {
+          var popup = window.document.createElement('div');
+          citeInfo.cites.forEach(function(cite) {
+            var citeDiv = window.document.createElement('div');
+            citeDiv.classList.add('hanging-indent');
+            citeDiv.classList.add('csl-entry');
+            var biblioDiv = window.document.getElementById('ref-' + cite);
+            if (biblioDiv) {
+              citeDiv.innerHTML = biblioDiv.innerHTML;
+            }
+            popup.appendChild(citeDiv);
+          });
+          return popup.innerHTML;
+        });
+      }
+    }
+  });
+  </script>
+</div> <!-- /content -->
+
+
+
+
+</body></html>
