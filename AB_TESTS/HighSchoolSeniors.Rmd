@@ -18,11 +18,7 @@ library(mosaic)
 library(ggthemes)
 library(car)
 
-HSS <- read_csv("../../Data/HighSchoolSeniors.csv")
-#If this code does not work: 
-#Use the top menu from RStudio's window to select "Session, Set Working Directory, To Source File Location", and then play this R-chunk into your console to read the HSS data into R. 
-
-## In your Console run View(HSS) to ensure the data has loaded correctly
+HSS <- read_csv("HighSchoolSeniors.csv")
 ```
 
 ![](phones.png)
