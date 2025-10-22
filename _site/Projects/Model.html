@@ -7,7 +7,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
 
-<title>Food at College – Alex J. Tovar</title>
+<title>Insurance Claims Prediction Model – Alex J. Tovar</title>
 <style>
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
@@ -104,35 +104,6 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   }
 }</script>
 
-  <script src="https://cdnjs.cloudflare.com/polyfill/v3/polyfill.min.js?features=es6"></script>
-  <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml-full.js" type="text/javascript"></script>
-
-<script type="text/javascript">
-const typesetMath = (el) => {
-  if (window.MathJax) {
-    // MathJax Typeset
-    window.MathJax.typeset([el]);
-  } else if (window.katex) {
-    // KaTeX Render
-    var mathElements = el.getElementsByClassName("math");
-    var macros = [];
-    for (var i = 0; i < mathElements.length; i++) {
-      var texText = mathElements[i].firstChild;
-      if (mathElements[i].tagName == "SPAN" && texText && texText.data) {
-        window.katex.render(texText.data, mathElements[i], {
-          displayMode: mathElements[i].classList.contains('display'),
-          throwOnError: false,
-          macros: macros,
-          fleqn: false
-        });
-      }
-    }
-  }
-}
-window.Quarto = {
-  typesetMath
-};
-</script>
 
 <link rel="stylesheet" href="../styles.css">
 </head>
@@ -220,29 +191,15 @@ window.Quarto = {
 <div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-article page-navbar">
 <!-- sidebar -->
 <!-- margin-sidebar -->
-    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
-        <nav id="TOC" role="doc-toc" class="toc-active">
-    <h2 id="toc-title">On this page</h2>
-   
-  <ul>
-  <li><a href="#background" id="toc-background" class="nav-link active" data-scroll-target="#background">Background</a></li>
-  <li><a href="#analysis" id="toc-analysis" class="nav-link" data-scroll-target="#analysis">Analysis</a>
-  <ul class="collapse">
-  <li><a href="#interpretation" id="toc-interpretation" class="nav-link" data-scroll-target="#interpretation">Interpretation</a>
-  <ul class="collapse">
-  <li><a href="#creditsreferences" id="toc-creditsreferences" class="nav-link" data-scroll-target="#creditsreferences">Credits/References</a></li>
-  </ul></li>
-  <li><a href="#section" id="toc-section" class="nav-link" data-scroll-target="#section"></a></li>
-  </ul></li>
-  </ul>
-</nav>
+    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar zindex-bottom">
+        
     </div>
 <!-- main -->
 <main class="content" id="quarto-document-content">
 
 <header id="title-block-header" class="quarto-title-block default">
 <div class="quarto-title">
-<h1 class="title">Food at College</h1>
+<div class="quarto-title-block"><div><h1 class="title">Insurance Claims Prediction Model</h1><button type="button" class="btn code-tools-button" id="quarto-code-tools-source"><i class="bi"></i> Code</button></div></div>
 </div>
 
 
@@ -259,590 +216,29 @@ window.Quarto = {
 </header>
 
 
-<div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="co"># From your file menu (at the top of R-Studio) select:</span></span>
-<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="co"># "Session -&gt; Set working directory -&gt; To source file location"</span></span>
-<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a><span class="co"># Then play this chunk to get the data into R.</span></span>
-<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(mosaic)</span>
-<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(car)</span>
-<span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(DT)</span>
-<span id="cb1-7"><a href="#cb1-7" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(pander)</span>
-<span id="cb1-8"><a href="#cb1-8" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(readr)</span>
-<span id="cb1-9"><a href="#cb1-9" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(ggthemes)</span>
-<span id="cb1-10"><a href="#cb1-10" aria-hidden="true" tabindex="-1"></a>food <span class="ot">&lt;-</span> <span class="fu">read_csv</span>(<span class="st">"C://Users/Alex/Documents/GitHub/IntStats/Statistics-Notebook-master/Data/food.csv"</span>) <span class="co">#food.csv is in the Data folder...</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div id="d9e84977" class="cell" data-execution_count="2">
+<div class="cell-output cell-output-stdout">
+<pre><code>              precision  recall  f1-score  support
+0                  0.94    0.99      0.96  10969.0
+1                  0.07    0.01      0.01    750.0
+accuracy           0.93     NaN       NaN  11719.0
+macro avg          0.50    0.50      0.49  11719.0
+weighted avg       0.88    0.93      0.90  11719.0</code></pre>
 </div>
-<hr>
-<section id="background" class="level2">
-<h2 class="anchored" data-anchor-id="background">Background</h2>
-<p>After taking a look at the data, I saw the presence of an weight column along with a eating out column. Then I wondered, is there at least one “weight” distribution of people with distinct “eating out” habits is stochastically different? Since I wanted to find out specifically if the subjects present in the data are affected by eating habits.</p>
-<p><span class="math display">\[
-H0: \text{All group samples are from the same distribution}
-\]</span></p>
-<p><span class="math display">\[
-Ha: \text{At least one group sample's distribution is stochastically different}
-\]</span></p>
-<p><span class="math display">\[
-Alpha = \text{0.05}
-\]</span></p>
-</section>
-<section id="analysis" class="level1">
-<h1>Analysis</h1>
-<p>Since we are comparing distributions among non-parmetric groups, a Kruskal-Wallis Rank Sum Test must be performed to since the data isn’t normal.</p>
-<div class="cell" data-layout-align="center">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb2"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a>food<span class="sc">$</span>weight <span class="ot">&lt;-</span> <span class="fu">as.numeric</span>(food<span class="sc">$</span>weight)</span>
-<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(food, <span class="at">mapping =</span> <span class="fu">aes</span>(<span class="at">x =</span> eating_out, <span class="at">y =</span> weight, <span class="at">fill =</span> eating_out)) <span class="sc">+</span> </span>
-<span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a><span class="fu">geom_boxplot</span>() <span class="sc">+</span> </span>
-<span id="cb2-4"><a href="#cb2-4" aria-hidden="true" tabindex="-1"></a><span class="fu">theme_fivethirtyeight</span>() <span class="sc">+</span></span>
-<span id="cb2-5"><a href="#cb2-5" aria-hidden="true" tabindex="-1"></a><span class="fu">labs</span>(<span class="at">title =</span> <span class="st">"The sample's distribution isn't stochastically different"</span>,</span>
-<span id="cb2-6"><a href="#cb2-6" aria-hidden="true" tabindex="-1"></a>     <span class="at">x =</span> <span class="st">"Eating Out"</span>,</span>
-<span id="cb2-7"><a href="#cb2-7" aria-hidden="true" tabindex="-1"></a>     <span class="at">y =</span> <span class="st">"Weight (LBS)"</span>) <span class="sc">+</span> </span>
-<span id="cb2-8"><a href="#cb2-8" aria-hidden="true" tabindex="-1"></a><span class="fu">theme</span>(<span class="at">axis.title =</span> <span class="fu">element_text</span>(<span class="at">size =</span> <span class="dv">12</span>, <span class="at">face =</span> <span class="st">"bold"</span>),</span>
-<span id="cb2-9"><a href="#cb2-9" aria-hidden="true" tabindex="-1"></a>      <span class="at">legend.title =</span> <span class="fu">element_blank</span>(),</span>
-<span id="cb2-10"><a href="#cb2-10" aria-hidden="true" tabindex="-1"></a>      <span class="at">title =</span> <span class="fu">element_text</span>(<span class="at">size =</span> <span class="dv">11</span>, <span class="at">face =</span> <span class="st">"bold"</span>))</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
-<div class="cell-output-display">
-<div class="quarto-figure quarto-figure-center">
+</div>
+<div id="9221d4bf" class="cell" data-execution_count="3">
+<div class="cell-output cell-output-display">
+<div>
 <figure class="figure">
-<p><img src="Food_files/figure-html/unnamed-chunk-2-1.png" class="img-fluid quarto-figure quarto-figure-center figure-img" width="672"></p>
+<p><img src="Model_files/figure-html/cell-4-output-1.png" width="949" height="566" class="figure-img"></p>
 </figure>
 </div>
 </div>
 </div>
-<div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb3"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="fu">pander</span>(<span class="fu">favstats</span>(weight <span class="sc">~</span> eating_out, <span class="at">data=</span>food))</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
-<div class="cell-output-display">
-<table class="caption-top table table-sm table-striped small">
-<colgroup>
-<col style="width: 16%">
-<col style="width: 7%">
-<col style="width: 9%">
-<col style="width: 11%">
-<col style="width: 9%">
-<col style="width: 7%">
-<col style="width: 9%">
-<col style="width: 9%">
-<col style="width: 6%">
-<col style="width: 12%">
-</colgroup>
-<thead>
-<tr class="header">
-<th style="text-align: center;">eating_out</th>
-<th style="text-align: center;">min</th>
-<th style="text-align: center;">Q1</th>
-<th style="text-align: center;">median</th>
-<th style="text-align: center;">Q3</th>
-<th style="text-align: center;">max</th>
-<th style="text-align: center;">mean</th>
-<th style="text-align: center;">sd</th>
-<th style="text-align: center;">n</th>
-<th style="text-align: center;">missing</th>
-</tr>
-</thead>
-<tbody>
-<tr class="odd">
-<td style="text-align: center;">1-2 times</td>
-<td style="text-align: center;">113</td>
-<td style="text-align: center;">135</td>
-<td style="text-align: center;">155</td>
-<td style="text-align: center;">170</td>
-<td style="text-align: center;">260</td>
-<td style="text-align: center;">157.6</td>
-<td style="text-align: center;">29.23</td>
-<td style="text-align: center;">58</td>
-<td style="text-align: center;">2</td>
-</tr>
-<tr class="even">
-<td style="text-align: center;">2-3 times</td>
-<td style="text-align: center;">112</td>
-<td style="text-align: center;">131.2</td>
-<td style="text-align: center;">140</td>
-<td style="text-align: center;">168.8</td>
-<td style="text-align: center;">265</td>
-<td style="text-align: center;">153</td>
-<td style="text-align: center;">35.79</td>
-<td style="text-align: center;">22</td>
-<td style="text-align: center;">2</td>
-</tr>
-<tr class="odd">
-<td style="text-align: center;">3-5 times</td>
-<td style="text-align: center;">105</td>
-<td style="text-align: center;">129</td>
-<td style="text-align: center;">170</td>
-<td style="text-align: center;">180</td>
-<td style="text-align: center;">200</td>
-<td style="text-align: center;">157.5</td>
-<td style="text-align: center;">29.33</td>
-<td style="text-align: center;">13</td>
-<td style="text-align: center;">0</td>
-</tr>
-<tr class="even">
-<td style="text-align: center;">every day</td>
-<td style="text-align: center;">130</td>
-<td style="text-align: center;">159</td>
-<td style="text-align: center;">177.5</td>
-<td style="text-align: center;">190.5</td>
-<td style="text-align: center;">210</td>
-<td style="text-align: center;">172.4</td>
-<td style="text-align: center;">26.5</td>
-<td style="text-align: center;">12</td>
-<td style="text-align: center;">0</td>
-</tr>
-<tr class="odd">
-<td style="text-align: center;">Never</td>
-<td style="text-align: center;">100</td>
-<td style="text-align: center;">140</td>
-<td style="text-align: center;">145</td>
-<td style="text-align: center;">187.5</td>
-<td style="text-align: center;">264</td>
-<td style="text-align: center;">159.9</td>
-<td style="text-align: center;">40.79</td>
-<td style="text-align: center;">15</td>
-<td style="text-align: center;">1</td>
-</tr>
-</tbody>
-</table>
-</div>
-</div>
-<div class="cell" data-layout-align="center">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb4"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="fu">pander</span>(<span class="fu">kruskal.test</span>(weight <span class="sc">~</span> eating_out, <span class="at">data=</span>food))</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
-<div class="cell-output-display">
-<table class="caption-top table table-sm table-striped small">
-<caption>Kruskal-Wallis rank sum test: <code>weight</code> by <code>eating_out</code></caption>
-<colgroup>
-<col style="width: 23%">
-<col style="width: 6%">
-<col style="width: 13%">
-</colgroup>
-<thead>
-<tr class="header">
-<th style="text-align: center;">Test statistic</th>
-<th style="text-align: center;">df</th>
-<th style="text-align: center;">P value</th>
-</tr>
-</thead>
-<tbody>
-<tr class="odd">
-<td style="text-align: center;">5.082</td>
-<td style="text-align: center;">4</td>
-<td style="text-align: center;">0.279</td>
-</tr>
-</tbody>
-</table>
-</div>
-</div>
-<section id="interpretation" class="level2">
-<h2 class="anchored" data-anchor-id="interpretation">Interpretation</h2>
-<p>Starting with the favstats, is evident that eating out groups do have some variance among weight values. For example the Q1 of people eating “3-5 times” is 129, whereas the “everyday” group have Q1 of 159 lbs, implying that there are groups that differ 30 lbs in the lower quartiles. This variance explains the average spread of weight values through groups, to see the distribution of the data throught the analysis. Additionally, people that eat out every day have a higher mean than other groups, with 172.4 lbs mean compared to an moderate 1-2 time group with 157.6 lbs average.</p>
-<p>But at the end of the day the Kruskal-Wallis Rank Sum compares the ranks given to each subject wand is compared to our given alpha. Of which we receive a P-value of 0.279 which is bigger than our alpha of 0.05. Therefore, failing to reject the null and conclude that least one “weight” distribution of people with distinct “eating out” habits is stochastically different. “stochastically” meaning that the results have a random chance of being different in the context of the analysis, since the data is assumed to be “non-parametric”.</p>
-<section id="creditsreferences" class="level3">
-<h3 class="anchored" data-anchor-id="creditsreferences">Credits/References</h3>
-<p>This analysis fully abstained from using AI, the only references used were the “Pig Birth Weights – Kruskal-Wallis” from the “Statistics Notebook” guide given by the course.</p>
-<!-- Instructions:
 
- Use the Food dataset and a Kruskal-Wallis Test(s) to answer an interesting question(s) that you come up with.
- 
- About the dataset:
- 
-  * GPA - numerical, self-reported current college GPA
 
-  
-  * weight - numerical, self-reported weight in lbs
+<!-- -->
 
-
-  * gender - "Female", "Male"
-
-
-  * breakfast - "Cereal", "Donut" 
-      The participants were shown a picture of "Cereal" and a "Donut" and asked which one of these pictures they associate with the word "breakfast."
-
-
-  * calories_chicken - guessing calories in chicken piadina from the options of:
-     1 - 265 
-     2 - 430 
-     3 - 610 
-     4 - 720
-    (the variable shows the actual number of calories participants selected)
-
-
-   * calories_day - Importance of consuming calories per day
-     1 - i dont know how many calories i should consume 
-     2 - it is not at all important 
-     3 - it is moderately important 
-     4 - it is very important
-
-
-   * comfort_food - List 3-5 comfort foods that come to mind. 
-     Open ended 
-
-
-   * comfort_food_reasons - What are some of the reasons that make you eat comfort food?      (i.e., anger, sadness, happiness, boredom, etc) - list up to three
-     Open ended
-
-
-   * comfort_food_reasons_coded
-     1 - stress
-     2 - boredom
-     3 - depression/sadness
-     4 - hunger
-     5 - laziness
-     6 - cold weather
-     7 - happiness 
-     8 - watching tv
-     9 - none 
-
-
-    * cook - how often do you cook?
-     1 - Every day 
-     2 - A couple of times a week 
-     3 - Whenever I can, but that is not very often  
-     4 - I only help a little during holidays 
-     5 - Never, I really do not know my way around a kitchen
-
-
-    * cuisine - what type of cuisine did you eat growing up?
-     1 - American
-     2 - Mexican.Spanish
-     3 - Korean/Asian
-     4 - Indian
-     5 - American inspired international dishes
-     6 - other
-
-
-    * diet_current - describe your current diet
-     open ended
-
-    
-    * diet_current_coded
-     1 - healthy/balanced/moderated/
-     2 - unhealthy/cheap/too much/random/
-     3 - the same thing over and over
-     4 - unclear
-
-
-    * drink - which picture do you associate with the word “drink”?
-     1 - orange juice
-     2 - soda 
-
-
-    * eating_changes  - Describe your eating changes since the moment you got into college?
-     Open ended 
-
-
-    * eating_changes_coded
-     1 - worse
-     2 - better
-     3 - the same
-     4 - unclear
-
-
-    * eating_changes_coded1
-     1 - eat faster
-     2 - bigger quantity
-     3 - worse quality 
-     4 - same food
-     5 - healthier
-     6 - unclear
-     7 - drink coffee 
-     8 - less food
-     9 - more sweets
-     10 - timing 
-     11 - more carbs or snacking
-     12 - drink more water
-     13 - more variety
-
-
-    * eating_out - frequency of eating out in a typical week 
-     1 - Never 
-     2 - 1-2 times 
-     3 - 2-3 times 
-     4 - 3-5 times 
-     5 - every day
-
-
-    * employment - do you work? 
-     1 - yes full time 
-     2 - yes part time 
-     3 - no
-     4  - other
-
-
-    * ethnic_food - How likely to eat ethnic food 
-     1 - very unlikely 
-     2 - unlikely 
-     3 - neutral 
-     4 - likely 
-     5 - very likely 
-
-
-    * exercise - how often do you exercise in a regular week?
-     1 - Everyday 
-     2 - Twice or three times per week 
-     3 - Once a week
-     4 - Sometimes 
-     5 - Never
-
-
-    * father_education - 
-     1 - less than high school 
-     2 - high school degree 
-     3 - some college degree 
-     4 - college degree 
-     5 - graduate degree 
-
-
-    * father_profession - what is your father profession?
-     Open ended
-
-
-    * fav_cuisine - What is your favorite cuisine?
-     Open ended
-
-
-    * fav_cuisine_coded
-     0-none
-     1 - Italian/French/greek
-     2 - Spanish/mexican
-     3 - Arabic/Turkish
-     4 - asian/chineses/thai/nepal
-     5 - American
-     6 - African 
-     7 - Jamaican
-     8 - indian
-
-
-    * fav_food - was your favorite food cooked at home or store bought? 
-     1 - cooked at home 
-     2 - store bought 
-     3 - both bought at store and cooked at home
-
-
-    * food_childhood - what was your favorite childhood food?
-     Open ended
-
-
-
-    * fries - which of these pictures you associate with word fries? 
-     1 - Mcdonald’s fries
-     2 - home fries
-
- 
-    * fruit_day - How likely to eat fruit in a regular day 
-     1 - very unlikely 
-     2 - unlikely 
-     3 - neutral 
-     4 - likely 
-     5 - very likely 
-
-
-    * grade_level – 
-     1 - freshman 
-     2 -Sophomore 
-     3 - Junior 
-     4 - Senior
-     
-      
-    * greek_food - How likely to eat greek food when available?
-     1 - very unlikely 
-     2 - unlikely 
-     3 - neutral 
-     4 - likely 
-     5 - very likely 
-     
-      
-    * healthy_feel – how likely are you to agree with the following statement: “I feel very healthy!” ?
-      1 to 10 where 1 is strongly agree and 10 is strongly disagree - scale
-      
-      
-    * healthy_meal – what is a healthy meal? Describe in 2-3 sentences.
-      Open ended
-      
-      
-    * ideal_diet – describe your ideal diet in 2-3 sentences
-      Open ended
-      
-      
-    * Ideal_diet_coded
-      1 – portion control
-      2 – adding veggies/eating healthier food/adding fruit 
-      3 – balance
-      4 – less sugar
-      5 – home cooked/organic
-      6 – current diet
-      7 – more protein
-      8 – unclear
-      
-      
-     * income
-      1 - less than $15,000 
-      2 - $15,001 to $30,000 
-      3 - $30,001 to $50,000 
-      4 - $50,001 to $70,000 
-      5 - $70,001 to $100,000 
-      6 - higher than $100,000
-      
-     * indian_food – how likely are you to eat indian food when available
-      1 - very unlikely 
-      2 - unlikely 
-      3 - neutral 
-      4 - likely 
-      5 - very likely 
-      
-      
-     * Italian_food – how likely are you to eat Italian food when available?
-      1 - very unlikely 
-      2 - unlikely 
-      3 - neutral 
-      4 - likely 
-      5 - very likely 
-      
-      
-     * life_rewarding – how likely are you to agree with the following statement: “I feel life is very rewarding!” ?
-      1 to 10 where 1 is strongly agree and 10 is strongly disagree - scale
-      
-      
-     * marital_status
-      1 -Single 
-      2 - In a relationship 
-      3 - Cohabiting 
-      4 - Married 
-      5 - Divorced 
-      6 - Widowed
-      
-      
-     * meals_dinner_friend – What would you serve to a friend for dinner?
-      Open ended
-      
-      
-     * mothers_education 
-      1 - less than high school 
-      2 - high school degree 
-      3 - some college degree 
-      4 - college degree 
-      5 - graduate degree
-      
-      
-     * mothers_profession – what is your mother’s profession? 
-      
-      
-     * nutritional_check - checking nutritional values frequency 
-      1 - never 
-      2 - on certain products only 
-      3 - very rarely 
-      4 - on most products 
-      5 - on everything
-      
-      
-     * on_off_campus – living situation
-      1 - On campus 
-      2 - Rent out of campus 
-      3 - Live with my parents and commute 
-      4 - Own my own house
-      
-      
-     * parents_cook - Approximately how many days a week did your parents cook? 
-      1 - Almost everyday 
-      2 - 2-3 times a week 
-      3 - 1-2 times a week 
-      4 - on holidays only 
-      5 - never
-      
-      
-     * pay_meal_out - How much would you pay for meal out? 
-      1 - up to $5.00 
-      2 - $5.01 to $10.00 
-      3 - $10.01 to $20.00 
-      4 - $20.01 to $30.00 
-      5 - $30.01 to $40.00 
-      6 - more than $40.01 
-      
-      
-     * Persian_food - How likely to eat persian food when available?
-      1 - very unlikely 
-      2 - unlikely 
-      3 - neutral 
-      4 - likely 
-      5 - very likely 
-      
-      
-     * self_perception_weight - self perception of weight 
-      6 - i dont think myself in these terms 
-      5 - overweight 
-      4 - slightly overweight 
-      3 - just right 
-      2 - very fit 
-      1 - slim 
-      
-      
-     * Which of the two pictures you associate with the word soup?
-      1 – veggie soup
-      2 – creamy soup
-      
-      
-     * sports - sports – do you do any sporting activity?
-      1 - Yes 
-      2 - No 
-      99 – no answer
-      
-      
-     * thai_food - How likely to eat thai food when available?
-      1 - very unlikely 
-      2 - unlikely 
-      3 - neutral 
-      4 - likely 
-      5 - very likely 
-      
-      
-     * tortilla_calories - guessing calories in a burrito sandwhich from Chipolte?
-      1 - 580 
-      2 - 725 
-      3 - 940 
-      4 - 1165
-      
-     * turkey_calories - Can you guess how many calories are in the foods shown below?
-     (Panera Bread Roasted Turkey and Avocado BLT)
-      1 - 345 
-      2 - 500 
-      3 - 690 
-      4 - 850
-      
-      
-     * type_sports – what type of sports are you involved?
-      Open-ended
-      
-     * veggies_day - How likely to eat veggies in a day? 
-      1 - very unlikely 
-      2 - unlikely 
-      3 - neutral 
-      4- likely 
-      5 - very likely
-      
-     * vitamins – do you take any supplements or vitamins?
-      1 – yes
-      2 – no
-      
-     * waffle_calories - guessing calories in waffle potato sandwhich 
-      1 - 575 
-      2 - 760 
-      3 - 900 
-      4 - 1315
-
-
-Note this dataset and description come from: © 2020 Kaggle Inc for further details visit:
-
-[Food choices on Kaggle](https://www.kaggle.com/borapajo/food-choices?select=food_coded.csv)
-
-
-If you want to give your critiquers some ideas about what you have questions on and would like help with, place those details here.-->
-<!--End your comments to your critiquers before this line.-->
-<hr>
-<!--Begin writing your Analysis after this point.-->
-</section>
-</section>
-<section id="section" class="level2">
-<h2 class="anchored" data-anchor-id="section"></h2>
-
-
-</section>
-</section>
 
 </main> <!-- /main -->
 <script id="quarto-html-after-body" type="application/javascript">
@@ -915,6 +311,57 @@ If you want to give your critiquers some ideas about what you have questions on 
         container: window.document.getElementById('quarto-embedded-source-code-modal')
       });
       clipboardModal.on('success', onCopySuccess);
+    }
+    const viewSource = window.document.getElementById('quarto-view-source') ||
+                       window.document.getElementById('quarto-code-tools-source');
+    if (viewSource) {
+      const sourceUrl = viewSource.getAttribute("data-quarto-source-url");
+      viewSource.addEventListener("click", function(e) {
+        if (sourceUrl) {
+          // rstudio viewer pane
+          if (/\bcapabilities=\b/.test(window.location)) {
+            window.open(sourceUrl);
+          } else {
+            window.location.href = sourceUrl;
+          }
+        } else {
+          const modal = new bootstrap.Modal(document.getElementById('quarto-embedded-source-code-modal'));
+          modal.show();
+        }
+        return false;
+      });
+    }
+    function toggleCodeHandler(show) {
+      return function(e) {
+        const detailsSrc = window.document.querySelectorAll(".cell > details > .sourceCode");
+        for (let i=0; i<detailsSrc.length; i++) {
+          const details = detailsSrc[i].parentElement;
+          if (show) {
+            details.open = true;
+          } else {
+            details.removeAttribute("open");
+          }
+        }
+        const cellCodeDivs = window.document.querySelectorAll(".cell > .sourceCode");
+        const fromCls = show ? "hidden" : "unhidden";
+        const toCls = show ? "unhidden" : "hidden";
+        for (let i=0; i<cellCodeDivs.length; i++) {
+          const codeDiv = cellCodeDivs[i];
+          if (codeDiv.classList.contains(fromCls)) {
+            codeDiv.classList.remove(fromCls);
+            codeDiv.classList.add(toCls);
+          } 
+        }
+        return false;
+      }
+    }
+    const hideAllCode = window.document.getElementById("quarto-hide-all-code");
+    if (hideAllCode) {
+      hideAllCode.addEventListener("click", toggleCodeHandler(false));
+    }
+    const showAllCode = window.document.getElementById("quarto-show-all-code");
+    if (showAllCode) {
+      showAllCode.addEventListener("click", toggleCodeHandler(true));
     }
       var localhostRegex = new RegExp(/^(?:http|https):\/\/localhost\:?[0-9]*\//);
       var mailtoRegex = new RegExp(/^mailto:/);
@@ -1244,7 +691,125 @@ If you want to give your critiquers some ideas about what you have questions on 
       }
     }
   });
-  </script>
+  </script><div class="modal fade" id="quarto-embedded-source-code-modal" tabindex="-1" aria-labelledby="quarto-embedded-source-code-modal-label" aria-hidden="true"><div class="modal-dialog modal-dialog-scrollable"><div class="modal-content"><div class="modal-header"><h5 class="modal-title" id="quarto-embedded-source-code-modal-label">Source Code</h5><button class="btn-close" data-bs-dismiss="modal"></button></div><div class="modal-body"><div class="">
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb2" data-shortcodes="false"><pre class="sourceCode markdown code-with-copy"><code class="sourceCode markdown"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="co">---</span></span>
+<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a><span class="an">title:</span><span class="co"> "Insurance Claims Prediction Model"</span></span>
+<span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a><span class="an">execute:</span></span>
+<span id="cb2-4"><a href="#cb2-4" aria-hidden="true" tabindex="-1"></a><span class="co">  echo: false</span></span>
+<span id="cb2-5"><a href="#cb2-5" aria-hidden="true" tabindex="-1"></a><span class="an">format:</span></span>
+<span id="cb2-6"><a href="#cb2-6" aria-hidden="true" tabindex="-1"></a><span class="co">  html:</span></span>
+<span id="cb2-7"><a href="#cb2-7" aria-hidden="true" tabindex="-1"></a><span class="co">    theme: flatly</span></span>
+<span id="cb2-8"><a href="#cb2-8" aria-hidden="true" tabindex="-1"></a><span class="co">    code-fold: true  </span></span>
+<span id="cb2-9"><a href="#cb2-9" aria-hidden="true" tabindex="-1"></a><span class="co">    code-tools: true</span></span>
+<span id="cb2-10"><a href="#cb2-10" aria-hidden="true" tabindex="-1"></a><span class="co">---</span></span>
+<span id="cb2-11"><a href="#cb2-11" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-14"><a href="#cb2-14" aria-hidden="true" tabindex="-1"></a><span class="in">```{python}</span></span>
+<span id="cb2-15"><a href="#cb2-15" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> marimo <span class="im">as</span> mo</span>
+<span id="cb2-16"><a href="#cb2-16" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> pandas <span class="im">as</span> pd</span>
+<span id="cb2-17"><a href="#cb2-17" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> numpy <span class="im">as</span> np</span>
+<span id="cb2-18"><a href="#cb2-18" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> matplotlib.pyplot <span class="im">as</span> plt</span>
+<span id="cb2-19"><a href="#cb2-19" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> sklearn.model_selection <span class="im">import</span> train_test_split</span>
+<span id="cb2-20"><a href="#cb2-20" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> sklearn.preprocessing <span class="im">import</span> OneHotEncoder, StandardScaler</span>
+<span id="cb2-21"><a href="#cb2-21" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> sklearn.compose <span class="im">import</span> ColumnTransformer</span>
+<span id="cb2-22"><a href="#cb2-22" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> sklearn.pipeline <span class="im">import</span> Pipeline</span>
+<span id="cb2-23"><a href="#cb2-23" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> sklearn.ensemble <span class="im">import</span> RandomForestClassifier</span>
+<span id="cb2-24"><a href="#cb2-24" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> sklearn.metrics <span class="im">import</span> classification_report, accuracy_score</span>
+<span id="cb2-25"><a href="#cb2-25" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb2-26"><a href="#cb2-26" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-29"><a href="#cb2-29" aria-hidden="true" tabindex="-1"></a><span class="in">```{python}</span></span>
+<span id="cb2-30"><a href="#cb2-30" aria-hidden="true" tabindex="-1"></a><span class="co"># 1. Load and preprocess</span></span>
+<span id="cb2-31"><a href="#cb2-31" aria-hidden="true" tabindex="-1"></a>data <span class="op">=</span> pd.read_csv(<span class="st">"train.csv"</span>).drop(columns<span class="op">=</span>[<span class="st">"policy_id"</span>])</span>
+<span id="cb2-32"><a href="#cb2-32" aria-hidden="true" tabindex="-1"></a>data[<span class="st">'max_torque_value'</span>] <span class="op">=</span> data[<span class="st">'max_torque'</span>].<span class="bu">str</span>.extract(<span class="vs">r'</span><span class="kw">(</span><span class="pp">[</span><span class="dv">\d</span><span class="ch">\.</span><span class="pp">]</span><span class="op">+</span><span class="kw">)</span><span class="vs">Nm'</span>).astype(<span class="bu">float</span>)</span>
+<span id="cb2-33"><a href="#cb2-33" aria-hidden="true" tabindex="-1"></a>data[<span class="st">'max_power_value'</span>] <span class="op">=</span> data[<span class="st">'max_power'</span>].<span class="bu">str</span>.extract(<span class="vs">r'</span><span class="kw">(</span><span class="pp">[</span><span class="dv">\d</span><span class="ch">\.</span><span class="pp">]</span><span class="op">+</span><span class="kw">)</span><span class="vs">bhp'</span>).astype(<span class="bu">float</span>)</span>
+<span id="cb2-34"><a href="#cb2-34" aria-hidden="true" tabindex="-1"></a>data.drop(columns<span class="op">=</span>[<span class="st">'max_torque'</span>,<span class="st">'max_power'</span>], inplace<span class="op">=</span><span class="va">True</span>)</span>
+<span id="cb2-35"><a href="#cb2-35" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-36"><a href="#cb2-36" aria-hidden="true" tabindex="-1"></a><span class="co"># Convert Yes/No to 0/1</span></span>
+<span id="cb2-37"><a href="#cb2-37" aria-hidden="true" tabindex="-1"></a>binary_cols <span class="op">=</span> [c <span class="cf">for</span> c <span class="kw">in</span> data.columns <span class="cf">if</span> data[c].isin([<span class="st">'Yes'</span>,<span class="st">'No'</span>]).<span class="bu">all</span>()]</span>
+<span id="cb2-38"><a href="#cb2-38" aria-hidden="true" tabindex="-1"></a>data[binary_cols] <span class="op">=</span> data[binary_cols].<span class="bu">apply</span>(<span class="kw">lambda</span> x: x.<span class="bu">map</span>({<span class="st">'Yes'</span>:<span class="dv">1</span>,<span class="st">'No'</span>:<span class="dv">0</span>}))</span>
+<span id="cb2-39"><a href="#cb2-39" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-40"><a href="#cb2-40" aria-hidden="true" tabindex="-1"></a><span class="co"># 2. Features and target</span></span>
+<span id="cb2-41"><a href="#cb2-41" aria-hidden="true" tabindex="-1"></a>X <span class="op">=</span> data.drop(columns<span class="op">=</span>[<span class="st">'is_claim'</span>])</span>
+<span id="cb2-42"><a href="#cb2-42" aria-hidden="true" tabindex="-1"></a>y <span class="op">=</span> data[<span class="st">'is_claim'</span>]</span>
+<span id="cb2-43"><a href="#cb2-43" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-44"><a href="#cb2-44" aria-hidden="true" tabindex="-1"></a><span class="co"># 3. Column types</span></span>
+<span id="cb2-45"><a href="#cb2-45" aria-hidden="true" tabindex="-1"></a>categorical_cols <span class="op">=</span> X.select_dtypes(<span class="st">'object'</span>).columns.tolist()</span>
+<span id="cb2-46"><a href="#cb2-46" aria-hidden="true" tabindex="-1"></a>numeric_cols <span class="op">=</span> X.select_dtypes([<span class="st">'int64'</span>,<span class="st">'float64'</span>]).columns.tolist()</span>
+<span id="cb2-47"><a href="#cb2-47" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-48"><a href="#cb2-48" aria-hidden="true" tabindex="-1"></a><span class="co"># 4. Pipeline</span></span>
+<span id="cb2-49"><a href="#cb2-49" aria-hidden="true" tabindex="-1"></a>preprocessor <span class="op">=</span> ColumnTransformer([</span>
+<span id="cb2-50"><a href="#cb2-50" aria-hidden="true" tabindex="-1"></a>    (<span class="st">'num'</span>, StandardScaler(), numeric_cols),</span>
+<span id="cb2-51"><a href="#cb2-51" aria-hidden="true" tabindex="-1"></a>    (<span class="st">'cat'</span>, OneHotEncoder(handle_unknown<span class="op">=</span><span class="st">'ignore'</span>), categorical_cols)</span>
+<span id="cb2-52"><a href="#cb2-52" aria-hidden="true" tabindex="-1"></a>])</span>
+<span id="cb2-53"><a href="#cb2-53" aria-hidden="true" tabindex="-1"></a>rf_pipeline <span class="op">=</span> Pipeline([</span>
+<span id="cb2-54"><a href="#cb2-54" aria-hidden="true" tabindex="-1"></a>    (<span class="st">'preprocessor'</span>, preprocessor),</span>
+<span id="cb2-55"><a href="#cb2-55" aria-hidden="true" tabindex="-1"></a>    (<span class="st">'classifier'</span>, RandomForestClassifier(</span>
+<span id="cb2-56"><a href="#cb2-56" aria-hidden="true" tabindex="-1"></a>        n_estimators<span class="op">=</span><span class="dv">100</span>, random_state<span class="op">=</span><span class="dv">42</span>, n_jobs<span class="op">=-</span><span class="dv">1</span>, class_weight<span class="op">=</span><span class="st">'balanced'</span></span>
+<span id="cb2-57"><a href="#cb2-57" aria-hidden="true" tabindex="-1"></a>    ))</span>
+<span id="cb2-58"><a href="#cb2-58" aria-hidden="true" tabindex="-1"></a>])</span>
+<span id="cb2-59"><a href="#cb2-59" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-60"><a href="#cb2-60" aria-hidden="true" tabindex="-1"></a><span class="co"># 5. Split, train, predict</span></span>
+<span id="cb2-61"><a href="#cb2-61" aria-hidden="true" tabindex="-1"></a>X_train, X_eval, y_train, y_eval <span class="op">=</span> train_test_split(X, y, test_size<span class="op">=</span><span class="fl">0.2</span>, random_state<span class="op">=</span><span class="dv">42</span>, stratify<span class="op">=</span>y)</span>
+<span id="cb2-62"><a href="#cb2-62" aria-hidden="true" tabindex="-1"></a>rf_pipeline.fit(X_train, y_train)</span>
+<span id="cb2-63"><a href="#cb2-63" aria-hidden="true" tabindex="-1"></a>y_pred <span class="op">=</span> rf_pipeline.predict(X_eval)</span>
+<span id="cb2-64"><a href="#cb2-64" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-65"><a href="#cb2-65" aria-hidden="true" tabindex="-1"></a><span class="co"># 6. Metrics table</span></span>
+<span id="cb2-66"><a href="#cb2-66" aria-hidden="true" tabindex="-1"></a>metrics_df <span class="op">=</span> pd.DataFrame(classification_report(y_eval, y_pred, output_dict<span class="op">=</span><span class="va">True</span>)).transpose()</span>
+<span id="cb2-67"><a href="#cb2-67" aria-hidden="true" tabindex="-1"></a>metrics_df.loc[<span class="st">'accuracy'</span>, [<span class="st">'precision'</span>,<span class="st">'recall'</span>,<span class="st">'f1-score'</span>,<span class="st">'support'</span>]] <span class="op">=</span> [accuracy_score(y_eval, y_pred), <span class="va">None</span>, <span class="va">None</span>, <span class="bu">len</span>(y_eval)]</span>
+<span id="cb2-68"><a href="#cb2-68" aria-hidden="true" tabindex="-1"></a>metrics_df <span class="op">=</span> metrics_df[[<span class="st">'precision'</span>,<span class="st">'recall'</span>,<span class="st">'f1-score'</span>,<span class="st">'support'</span>]].<span class="bu">round</span>(<span class="dv">2</span>)</span>
+<span id="cb2-69"><a href="#cb2-69" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-70"><a href="#cb2-70" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(metrics_df)</span>
+<span id="cb2-71"><a href="#cb2-71" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb2-72"><a href="#cb2-72" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-75"><a href="#cb2-75" aria-hidden="true" tabindex="-1"></a><span class="in">```{python}</span></span>
+<span id="cb2-76"><a href="#cb2-76" aria-hidden="true" tabindex="-1"></a><span class="co"># Extract trained Random Forest and feature names</span></span>
+<span id="cb2-77"><a href="#cb2-77" aria-hidden="true" tabindex="-1"></a>rf_model <span class="op">=</span> rf_pipeline.named_steps[<span class="st">'classifier'</span>]</span>
+<span id="cb2-78"><a href="#cb2-78" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-79"><a href="#cb2-79" aria-hidden="true" tabindex="-1"></a><span class="co"># Numeric columns</span></span>
+<span id="cb2-80"><a href="#cb2-80" aria-hidden="true" tabindex="-1"></a>num_features <span class="op">=</span> numeric_cols</span>
+<span id="cb2-81"><a href="#cb2-81" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-82"><a href="#cb2-82" aria-hidden="true" tabindex="-1"></a><span class="co"># One-hot encoded categorical columns excluding area_cluster</span></span>
+<span id="cb2-83"><a href="#cb2-83" aria-hidden="true" tabindex="-1"></a>cat_features <span class="op">=</span> [</span>
+<span id="cb2-84"><a href="#cb2-84" aria-hidden="true" tabindex="-1"></a>    f <span class="cf">for</span> f <span class="kw">in</span> rf_pipeline.named_steps[<span class="st">'preprocessor'</span>]</span>
+<span id="cb2-85"><a href="#cb2-85" aria-hidden="true" tabindex="-1"></a>        .named_transformers_[<span class="st">'cat'</span>].get_feature_names_out(categorical_cols)</span>
+<span id="cb2-86"><a href="#cb2-86" aria-hidden="true" tabindex="-1"></a>    <span class="cf">if</span> <span class="kw">not</span> f.startswith(<span class="st">'area_cluster_'</span>)</span>
+<span id="cb2-87"><a href="#cb2-87" aria-hidden="true" tabindex="-1"></a>]</span>
+<span id="cb2-88"><a href="#cb2-88" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-89"><a href="#cb2-89" aria-hidden="true" tabindex="-1"></a><span class="co"># 1. Combine all feature names (including area_cluster)</span></span>
+<span id="cb2-90"><a href="#cb2-90" aria-hidden="true" tabindex="-1"></a>all_features <span class="op">=</span> np.concatenate([</span>
+<span id="cb2-91"><a href="#cb2-91" aria-hidden="true" tabindex="-1"></a>    numeric_cols,</span>
+<span id="cb2-92"><a href="#cb2-92" aria-hidden="true" tabindex="-1"></a>    rf_pipeline.named_steps[<span class="st">'preprocessor'</span>].named_transformers_[<span class="st">'cat'</span>].get_feature_names_out(categorical_cols)</span>
+<span id="cb2-93"><a href="#cb2-93" aria-hidden="true" tabindex="-1"></a>])</span>
+<span id="cb2-94"><a href="#cb2-94" aria-hidden="true" tabindex="-1"></a>importances <span class="op">=</span> rf_model.feature_importances_</span>
+<span id="cb2-95"><a href="#cb2-95" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-96"><a href="#cb2-96" aria-hidden="true" tabindex="-1"></a><span class="co"># 2. Create DataFrame</span></span>
+<span id="cb2-97"><a href="#cb2-97" aria-hidden="true" tabindex="-1"></a>feat_df <span class="op">=</span> pd.DataFrame({<span class="st">'feature'</span>: all_features, <span class="st">'importance'</span>: importances})</span>
+<span id="cb2-98"><a href="#cb2-98" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-99"><a href="#cb2-99" aria-hidden="true" tabindex="-1"></a><span class="co"># 3. Map one-hot columns to original feature</span></span>
+<span id="cb2-100"><a href="#cb2-100" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> map_original(col):</span>
+<span id="cb2-101"><a href="#cb2-101" aria-hidden="true" tabindex="-1"></a>    <span class="cf">for</span> c <span class="kw">in</span> categorical_cols:</span>
+<span id="cb2-102"><a href="#cb2-102" aria-hidden="true" tabindex="-1"></a>        <span class="cf">if</span> col.startswith(c <span class="op">+</span> <span class="st">'_'</span>):</span>
+<span id="cb2-103"><a href="#cb2-103" aria-hidden="true" tabindex="-1"></a>            <span class="cf">return</span> c</span>
+<span id="cb2-104"><a href="#cb2-104" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> col</span>
+<span id="cb2-105"><a href="#cb2-105" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-106"><a href="#cb2-106" aria-hidden="true" tabindex="-1"></a>feat_df[<span class="st">'original_feature'</span>] <span class="op">=</span> feat_df[<span class="st">'feature'</span>].<span class="bu">apply</span>(map_original)</span>
+<span id="cb2-107"><a href="#cb2-107" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-108"><a href="#cb2-108" aria-hidden="true" tabindex="-1"></a><span class="co"># 4. Exclude area_cluster</span></span>
+<span id="cb2-109"><a href="#cb2-109" aria-hidden="true" tabindex="-1"></a>feat_df <span class="op">=</span> feat_df[feat_df[<span class="st">'original_feature'</span>] <span class="op">!=</span> <span class="st">'area_cluster'</span>]</span>
+<span id="cb2-110"><a href="#cb2-110" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-111"><a href="#cb2-111" aria-hidden="true" tabindex="-1"></a><span class="co"># 5. Aggregate importances by original feature</span></span>
+<span id="cb2-112"><a href="#cb2-112" aria-hidden="true" tabindex="-1"></a>agg_feat_df <span class="op">=</span> feat_df.groupby(<span class="st">'original_feature'</span>)[<span class="st">'importance'</span>].<span class="bu">sum</span>().sort_values(ascending<span class="op">=</span><span class="va">False</span>).reset_index()</span>
+<span id="cb2-113"><a href="#cb2-113" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-114"><a href="#cb2-114" aria-hidden="true" tabindex="-1"></a><span class="co"># 6. Plot top 20</span></span>
+<span id="cb2-115"><a href="#cb2-115" aria-hidden="true" tabindex="-1"></a>top20 <span class="op">=</span> agg_feat_df.head(<span class="dv">20</span>)</span>
+<span id="cb2-116"><a href="#cb2-116" aria-hidden="true" tabindex="-1"></a>plt.figure(figsize<span class="op">=</span>(<span class="dv">10</span>,<span class="dv">6</span>))</span>
+<span id="cb2-117"><a href="#cb2-117" aria-hidden="true" tabindex="-1"></a>plt.barh(top20[<span class="st">'original_feature'</span>][::<span class="op">-</span><span class="dv">1</span>], top20[<span class="st">'importance'</span>][::<span class="op">-</span><span class="dv">1</span>], color<span class="op">=</span><span class="st">'skyblue'</span>)</span>
+<span id="cb2-118"><a href="#cb2-118" aria-hidden="true" tabindex="-1"></a>plt.xlabel(<span class="st">'Importance'</span>)</span>
+<span id="cb2-119"><a href="#cb2-119" aria-hidden="true" tabindex="-1"></a>plt.title(<span class="st">'Top 20 Feature Importances (Excluding area_cluster)'</span>)</span>
+<span id="cb2-120"><a href="#cb2-120" aria-hidden="true" tabindex="-1"></a>plt.tight_layout()</span>
+<span id="cb2-121"><a href="#cb2-121" aria-hidden="true" tabindex="-1"></a>plt.show()</span>
+<span id="cb2-122"><a href="#cb2-122" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+</code></pre></div><button title="Copy to Clipboard" class="code-copy-button" data-in-quarto-modal=""><i class="bi"></i></button></div>
+</div></div></div></div></div>
 </div> <!-- /content -->
 
 

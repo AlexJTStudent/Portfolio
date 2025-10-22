@@ -24,6 +24,10 @@ website:
         menu:
           - href: Machine_Learning/Executive Case Summary Module 3 - Team 8.md
             text: "Linear Regression"
+      - text: "Projects"
+        menu:
+          - href: Projects/Model.qmd
+            text: "Insurance Claims"
 
 format:
   html:
