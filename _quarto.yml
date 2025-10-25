@@ -28,6 +28,15 @@ website:
         menu:
           - href: Projects/Model.qmd
             text: "Insurance Claims"
+      - text: "Blogs"
+        menu:
+          - href: /blog/Linkedin_Reach_Tips.rmd
+            text: "Linkedin Reach Tips"
+          - href: /blog/Hosting_AWS.rmd
+            text: "Hosting Using AWS" 
+          - href: /blog/AWS_Cloud_Computing.rmd
+            text: "AWS Cloud Computing"
+
 
 format:
   html:
