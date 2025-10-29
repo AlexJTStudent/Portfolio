@@ -1,0 +1,56 @@
+---
+title: "Hosting My Professional Portfolio Using AWS Amplify"
+output: 
+  html_document:
+    theme: flatly
+    code_folding: hide
+---
+
+![](awsamplify.png)
+
+
+## Introduction
+
+When I first started building projects, I struggled with one big question: how do I show them off professionally? Uploading notebooks to GitHub was fine, but it did not really show my work. I wanted something that looked clean, professional, and easy to share with employers. That is when I discovered Quarto, an open-source publishing tool that turns Markdown and code into polished websites.
+Building the site was just half the journey. Hosting it somewhere reliable, where I had full control, was what really made it a professional portfolio. That is where AWS Amplify came in.
+
+## Why Quarto
+
+Quarto is simple but powerful. It lets you mix code, text, and visuals in one place, whether you are writing blog posts, data analyses, or research reports. For anyone in data science or analytics, it provides the perfect balance between documentation and presentation.
+
+With Quarto, I could take the same qmd files I used for analysis and render them directly into interactive, modern web pages. I did not need to learn web development from scratch because Quarto handled the formatting, navigation, and layout. Within minutes, I had a site that looked like a professional publication rather than a collection of notebooks.
+
+## Deploying to AWS Amplify
+
+After finishing my site locally using VSCode, I needed to host it. Free options like GitHub Pages worked fine, but I wanted to use paid services that required thoughtful resource management. To develop my management skills in cloud services and company resources.
+
+Hosting works by Amplify connecting directly to a GitHub repository, so every time I push an update, it automatically rebuilds and redeploys the site. That feature alone made it worth using. There are no manual uploads or complicated configuration steps. Version control and deployment work together seamlessly.
+
+At first, the setup felt intimidating. I had to configure an Amplify app, connect it to my GitHub repository, and make sure my site rendered correctly after each build. Once I got through the learning curve, I realized something important. Hosting your own website on AWS is not just about visibility; it’s about marketing.
+
+You control how your portfolio looks, loads, and scales. You are not limited to templates or platforms that restrict customization. That kind of technical independence is exactly how to show your employer that you take the extra mile, to display your professional skills.
+
+## Turning a Website Into a Portfolio
+
+![](laptop.png)
+
+Once my Quarto site went live, it instantly changed how I presented myself. Instead of sending links to separate notebooks, dashboards, or PDFs, I could share a single URL that served as a digital home for my entire body of work.
+
+I included sections for projects, blog posts, and an about page. Projects showcased my visualizations, models, and real-world analyses. Blog posts covered topics such as LinkedIn networking, cloud deployment, and cloud computing. The about page gave readers a sense of my professional journey and goals.
+
+These pieces came together to form a cohesive story. They did not just show what I had done. They showed how I think.
+
+## The Value It Adds Professionally
+
+Having a portfolio on AWS does more than showcase your projects. It demonstrates initiative. It shows that you can manage cloud infrastructure, deploy applications, and present data work in a professional format.
+
+For data science, analytics, or engineering roles, that makes a difference. Recruiters and hiring managers can instantly see your technical ability and your communication skills. These are two qualities that separate strong candidates from average ones.
+
+Because AWS is a real-world cloud platform, hosting your portfolio there also signals familiarity with deployment and scalability. Those are valuable skills that many entry-level candidates overlook.
+
+## Final Thoughts
+
+Hosting a Quarto website on AWS started as a small personal experiment, but it became one of the most powerful parts of my professional identity. It is not just a portfolio. It is a living record of growth, experimentation, and curiosity.
+
+If you are in data science, analytics, or any tech field, consider building one yourself. Quarto makes it simple, and AWS makes it professional. Together, they turn your work into something more than a résumé. They turn it into proof.
+

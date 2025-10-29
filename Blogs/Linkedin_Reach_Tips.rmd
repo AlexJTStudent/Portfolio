@@ -1,0 +1,54 @@
+---
+title: "How to Connect with DS professionals on LinkedIn"
+output: 
+  html_document:
+    theme: flatly
+    code_folding: hide
+---
+
+![](connecting.png)
+
+&nbsp;
+
+## The Challenge of Breaking In
+
+The market is rough for entry-level college graduates. Layoffs have flooded the applicant pool with senior professionals, graduate schools are more competitive due to students trying to get ahead, and the perception that AI can replace entry-level workers has plague the industry. In this environment, it’s easy to feel invisible. That’s why I learned to stand out, through connecting with professionals in the field.
+
+
+## Taking the First Step
+
+When I first started trying to break into data science, I had no idea where to begin. Everyone seemed to have more experience, better portfolios, or advanced degrees. I realized that if I wanted to stand out, I needed to learn directly from people already working in the field.
+So in the summer of 2025, I decided to reach out to hundreds of professionals on LinkedIn. By the end of the season, I had sent over 500 connection requests.
+
+## Learning Through Cold Connections
+
+At first, it felt awkward. Sending cold messages to strangers online can be intimidating. I worried people would ignore me or think I was just a waste of time due to being more inexperienced than they were. But I quickly learned to start strong and began with alumni from my university.
+My messages were simple: 
+
+" Hi [Name], 
+My name is Alex J. Tovar, and I’m also in the field of Data Science. I’d love to invest in our connection and grow our LinkedIn profiles together. Let’s connect!"
+
+Although short, the message displays a common interest (data science), and invites the connections like an investment that could benefit both parties. If it is beneficial, then why not accept? This is the type of psychological bargaining behind every reach message.
+
+## Small Numbers, Big Impact
+
+Out of those hundreds of connections, only a small percentage replied but that small group became incredibly valuable. Some offered to hop on Zoom or a phone call, sharing their stories and advice. I learned what hiring managers actually look for, how data teams are structured, and how different roles fit together knowledge I never would have found in a course description or job posting.
+One thing that stood out from those conversations was the power of intentional networking. It’s easy to get caught up in collecting connections for the sake of numbers, but what really matters is building strong ones. A few genuine relationships will take you much farther than a thousand shallow ones.
+
+![](banner.png)
+
+## From Conversations to Opportunities
+
+Sometimes, a connection would lead to a casual chat that turned into a brief mentorship. Other times, it was just a one-time conversation that gave me a new perspective. And yes, in a few cases, those relationships opened doors to interviews and opportunities.
+But the biggest reward wasn’t the job prospects it was the confidence that I was no longer navigating this path alone.
+
+## What Networking Really Means
+
+Networking isn’t about getting something from someone; it’s about learning from them. It’s about showing interest, listening carefully, and building mutual respect. In data science and really, in any field the people who thrive are the ones who combine technical skill with strong relationships.
+If I could give one piece of advice to anyone starting out, it would be this: don’t wait until you’re “qualified” to reach out. The best time to connect is now. You don’t need to have everything figured out to start conversations you just need curiosity and sincerity.
+
+## Final Thoughts
+
+Breaking into data science taught me that opportunities often come from unexpected directions. But those opportunities only appear when you put yourself out there.
+So craft your message, click “Connect,” and start building relationships that will follow you beyond school.
+
