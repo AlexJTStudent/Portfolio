@@ -375,7 +375,7 @@
     "href": "index.html",
     "title": "Quarto Website",
     "section": "",
-    "text": "Hello, welcome to my portfolio website"
+    "text": "Hello, welcome to my portfolio website\n\n Add 1"
   },
   {
     "objectID": "Projects/Crash_Detector/lambda_layer/python/numpy/random/LICENSE.html",

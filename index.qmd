@@ -3,3 +3,31 @@ title: "Quarto Website"
 ---
 
 Hello, welcome to my portfolio website
+
+<form id="addForm">
+  <input type="number" id="numInput" required />
+  <button type="submit">Add 1</button>
+</form>
+
+<div id="result"></div>
+
+<script>
+const API_URL = "https://cvmvfc2dfk.execute-api.us-west-2.amazonaws.com";
+
+document.getElementById("addForm").addEventListener("submit", async (e) => {
+  e.preventDefault();
+
+  const value = Number(document.getElementById("numInput").value);
+
+  const res = await fetch(API_URL, {
+    method: "POST",
+    headers: { "Content-Type": "application/json" },
+    body: JSON.stringify({ number: value })
+  });
+
+  const json = await res.json();
+  document.getElementById("result").innerText =
+    "Lambda returned: " + json.result;
+});
+</script>
+
