@@ -1,2 +1,8 @@
 /.quarto/
 **/*.quarto_ipynb
+crash/data/
+crash/models/
+lambda-docker/
+*.h5
+*.tflite
+.aws/
