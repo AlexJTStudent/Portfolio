@@ -195,36 +195,47 @@ ul.task-list li input[type="checkbox"] {
 </form>
 <p id="result">
 </p>
-<script src="your-js-file.js"></script>
 <script>
 const API_URL = "https://h2reuevfx3.execute-api.us-west-2.amazonaws.com/";
 
-document.getElementById("addForm").addEventListener("submit", async (e) => {
-  e.preventDefault();
+document.addEventListener("DOMContentLoaded", () => {
+  const form = document.getElementById("addForm");
+  const input = document.getElementById("numInput");
+  const resultEl = document.getElementById("result");
 
-  const value = Number(document.getElementById("numInput").value);
+  form.addEventListener("submit", async (e) => {
+    e.preventDefault();
+    const value = Number(input.value);
 
-  try {
-    // Call your Lambda via API Gateway
-    const res = await fetch(API_URL, {
-      method: "POST",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({ number: value })
-    });
+    try {
+      // Call Lambda via API Gateway
+      const res = await fetch(API_URL, {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ number: value })
+      });
 
-    // Parse the response
-    const json = await res.json();
-    const data = JSON.parse(json.body); // Lambda body is a JSON string
+      if (!res.ok) {
+        throw new Error(`HTTP error ${res.status}`);
+      }
 
-    // Display result
-    document.getElementById("result").innerText =
-      "Lambda returned: " + data.result;
+      const json = await res.json();
 
-  } catch (err) {
-    console.error("Error calling Lambda:", err);
-    document.getElementById("result").innerText =
-      "Error calling Lambda. Check console.";
-  }
+      // Parse Lambda body
+      let data;
+      try {
+        data = JSON.parse(json.body);
+      } catch {
+        throw new Error("Invalid JSON from Lambda: " + JSON.stringify(json));
+      }
+
+      resultEl.innerText = "Lambda returned: " + data.result;
+
+    } catch (err) {
+      console.error("Error calling Lambda:", err);
+      resultEl.innerText = "Error calling Lambda. Check console.";
+    }
+  });
 });
 </script>
 
