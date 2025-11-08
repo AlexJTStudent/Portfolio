@@ -373,9 +373,16 @@
   {
     "objectID": "index.html",
     "href": "index.html",
-    "title": "Quarto Website",
+    "title": "Number Incrementer",
     "section": "",
-    "text": "Hello, welcome to my portfolio website\n\n Add 1"
+    "text": "Enter a number below and click the button to add 1 to it.\n\n Add One"
+  },
+  {
+    "objectID": "index.html#add-one-to-your-number",
+    "href": "index.html#add-one-to-your-number",
+    "title": "Number Incrementer",
+    "section": "",
+    "text": "Enter a number below and click the button to add 1 to it.\n\n Add One"
   },
   {
     "objectID": "Projects/Crash_Detector/lambda_layer/python/numpy/random/LICENSE.html",
