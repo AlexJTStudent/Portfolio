@@ -196,46 +196,26 @@ ul.task-list li input[type="checkbox"] {
 <p id="result">
 </p>
 <script>
-const API_URL = "https://h2reuevfx3.execute-api.us-west-2.amazonaws.com/";
+const API_URL = "https://abc123.lambda-url.us-west-2.on.aws/"; // replace with your Lambda Function URL
 
-document.addEventListener("DOMContentLoaded", () => {
-  const form = document.getElementById("addForm");
-  const input = document.getElementById("numInput");
-  const resultEl = document.getElementById("result");
+document.getElementById("addForm").addEventListener("submit", async (e) => {
+  e.preventDefault();
+  const value = Number(document.getElementById("numInput").value);
 
-  form.addEventListener("submit", async (e) => {
-    e.preventDefault();
-    const value = Number(input.value);
+  try {
+    const res = await fetch(API_URL, {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ number: value })
+    });
 
-    try {
-      // Call Lambda via API Gateway
-      const res = await fetch(API_URL, {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ number: value })
-      });
+    const data = await res.json(); // Lambda response is already JSON
+    document.getElementById("result").innerText = "Lambda returned: " + data.result;
 
-      if (!res.ok) {
-        throw new Error(`HTTP error ${res.status}`);
-      }
-
-      const json = await res.json();
-
-      // Parse Lambda body
-      let data;
-      try {
-        data = JSON.parse(json.body);
-      } catch {
-        throw new Error("Invalid JSON from Lambda: " + JSON.stringify(json));
-      }
-
-      resultEl.innerText = "Lambda returned: " + data.result;
-
-    } catch (err) {
-      console.error("Error calling Lambda:", err);
-      resultEl.innerText = "Error calling Lambda. Check console.";
-    }
-  });
+  } catch (err) {
+    console.error("Error calling Lambda:", err);
+    document.getElementById("result").innerText = "Error calling Lambda.";
+  }
 });
 </script>
 
