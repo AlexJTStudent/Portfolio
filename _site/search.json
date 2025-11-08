@@ -7,123 +7,193 @@
     "text": "precision  recall  f1-score  support\n0                  0.94    0.99      0.96  10969.0\n1                  0.07    0.01      0.01    750.0\naccuracy           0.93     NaN       NaN  11719.0\nmacro avg          0.50    0.50      0.49  11719.0\nweighted avg       0.88    0.93      0.90  11719.0"
   },
   {
-    "objectID": "Machine_Learning/Executive Case Summary Module 3 - Team 8.html",
-    "href": "Machine_Learning/Executive Case Summary Module 3 - Team 8.html",
-    "title": "Alex J. Tovar",
+    "objectID": "index.html",
+    "href": "index.html",
+    "title": "Car Crash Detector",
     "section": "",
-    "text": "Title Page 1\nBackground 2\nMethodology 3\nDiscussion Responses 4\nThe study intends to predict house pricing and provide quantifiable evidence that our predictions are reliable by studying the factors influencing the price, such as date, bedrooms, etc. Its purpose is to research and learn about the housing market’s trends and correlations to meet the interests of our customers.\nQuantifying our results using metrics such as “Mean Absolute Error” resulted in a score of $57,536.73, implying that our predictions were only off from the actual result by $57,536.73 on average. We also used metrics such as “Median Absolute Error,” with a score of “38663.0”, which takes the median of the results instead of the mean, thus yielding a result less sensitive to predictions that are very far from the target. In this case, our predictions are $38,663.0 away from the target on a median scale. As well as “RMSE(Root mean square error,”, which serves as a measure that emphasizes big mistakes by encouraging the model to reduce smaller errors.\nAs we examined the data, our first goal was to identify data features that influence the predictions’ accuracy and precision. To elaborate, the house’s attributes, such as view, year built, and living space, best predict its price. Thus, we deployed the machine-learning model and made predictions on all the features. First, we wrangle the data by creating the “Year Sold” feature in the data, to feature how the time sold of the house influences the price itself in the predictions.\nWe split the data with 20% of the values designed for the test, then trained the model with the other 80% of the data to predict the values in the test. Furthermore, we’ve tuned the model by testing different parameters/settings on the model to yield more accurate results. For example, we’ve implemented the “Root Mean Squared Error” as the metric due to the request not to overestimate houses that could be in the low-income bracket. It was followed by a moderate learning rate value that reduces the chances of inaccurate and inconsistent solutions/predictions. As well as modifying the subsample/data distributed to the model’s mini-training rounds reduces bias in memorizing the training data instead of making predictions of the test data. After the test, the model evaluated the results and displayed the most important features to properly and confidently predict the correct housing prices.\nThis is a supervised regression problem, which is based on structured data features, we predict a continuous variable (house price). The target variable is continuous which fits the regression criteria. We trained the model using historical housing data with labeled outcomes.\nTo quantify prediction reliability, we used multiple metrics:\nSelected Metric:\nThese metrics collectively provide empirical confidence in the model’s performance, illustrating the model’s capability to produce reliable predictions.\nWilliam (VP of Finance) raised concerns about adjusting home values for lower-income neighborhoods. After careful consideration, we strongly advise against manual price reductions, as this practice may violate Fair Housing laws. Instead, we propose:\nExplanation:\nJohnny (Data Science Intern) asked about feature scaling. Since XGBoost automatically handles different feature scales, no additional normalization was needed. However, standardization would be required for models like linear regression.\nAdditionally, we ensured that categorical features were appropriately encoded and irrelevant columns (like ‘id’) were removed to enhance model performance."
+    "text": "Upload or take a photo of a car, and our AI will analyze whether it’s damaged or not.\n\n\n&lt;input type=\"file\" id=\"imageInput\" accept=\"image/*\" /&gt;\n&lt;button id=\"analyzeBtn\"&gt;Analyze Car&lt;/button&gt;\n\n\n&lt;h3&gt;Image Preview:&lt;/h3&gt;\n&lt;img id=\"imagePreview\" style=\"max-width: 100%; max-height: 400px; border-radius: 8px;\" /&gt;"
   },
   {
-    "objectID": "Machine_Learning/Executive Case Summary Module 3 - Team 8.html#house-price-case-study-project",
-    "href": "Machine_Learning/Executive Case Summary Module 3 - Team 8.html#house-price-case-study-project",
-    "title": "Alex J. Tovar",
+    "objectID": "index.html#is-this-car-crashed",
+    "href": "index.html#is-this-car-crashed",
+    "title": "Car Crash Detector",
     "section": "",
-    "text": "Title Page 1\nBackground 2\nMethodology 3\nDiscussion Responses 4"
+    "text": "Upload or take a photo of a car, and our AI will analyze whether it’s damaged or not.\n\n\n&lt;input type=\"file\" id=\"imageInput\" accept=\"image/*\" /&gt;\n&lt;button id=\"analyzeBtn\"&gt;Analyze Car&lt;/button&gt;\n\n\n&lt;h3&gt;Image Preview:&lt;/h3&gt;\n&lt;img id=\"imagePreview\" style=\"max-width: 100%; max-height: 400px; border-radius: 8px;\" /&gt;"
   },
   {
-    "objectID": "Machine_Learning/Executive Case Summary Module 3 - Team 8.html#methodology",
-    "href": "Machine_Learning/Executive Case Summary Module 3 - Team 8.html#methodology",
-    "title": "Alex J. Tovar",
-    "section": "Methodology",
-    "text": "Methodology"
-  },
-  {
-    "objectID": "Machine_Learning/Executive Case Summary Module 3 - Team 8.html#discussion-responses",
-    "href": "Machine_Learning/Executive Case Summary Module 3 - Team 8.html#discussion-responses",
-    "title": "Alex J. Tovar",
-    "section": "Discussion Responses",
-    "text": "Discussion Responses"
-  },
-  {
-    "objectID": "Blogs/Linkedin_Reach_Tips.html#the-challenge-of-breaking-in",
-    "href": "Blogs/Linkedin_Reach_Tips.html#the-challenge-of-breaking-in",
-    "title": "How to Connect with DS professionals on LinkedIn",
-    "section": "The Challenge of Breaking In",
-    "text": "The Challenge of Breaking In\nThe market is rough for entry-level college graduates. Layoffs have flooded the applicant pool with senior professionals, graduate schools are more competitive due to students trying to get ahead, and the perception that AI can replace entry-level workers has plague the industry. In this environment, it’s easy to feel invisible. That’s why I learned to stand out, through connecting with professionals in the field."
-  },
-  {
-    "objectID": "Blogs/Linkedin_Reach_Tips.html#taking-the-first-step",
-    "href": "Blogs/Linkedin_Reach_Tips.html#taking-the-first-step",
-    "title": "How to Connect with DS professionals on LinkedIn",
-    "section": "Taking the First Step",
-    "text": "Taking the First Step\nWhen I first started trying to break into data science, I had no idea where to begin. Everyone seemed to have more experience, better portfolios, or advanced degrees. I realized that if I wanted to stand out, I needed to learn directly from people already working in the field. So in the summer of 2025, I decided to reach out to hundreds of professionals on LinkedIn. By the end of the season, I had sent over 500 connection requests."
-  },
-  {
-    "objectID": "Blogs/Linkedin_Reach_Tips.html#learning-through-cold-connections",
-    "href": "Blogs/Linkedin_Reach_Tips.html#learning-through-cold-connections",
-    "title": "How to Connect with DS professionals on LinkedIn",
-    "section": "Learning Through Cold Connections",
-    "text": "Learning Through Cold Connections\nAt first, it felt awkward. Sending cold messages to strangers online can be intimidating. I worried people would ignore me or think I was just a waste of time due to being more inexperienced than they were. But I quickly learned to start strong and began with alumni from my university. My messages were simple:\n” Hi [Name], My name is Alex J. Tovar, and I’m also in the field of Data Science. I’d love to invest in our connection and grow our LinkedIn profiles together. Let’s connect!”\nAlthough short, the message displays a common interest (data science), and invites the connections like an investment that could benefit both parties. If it is beneficial, then why not accept? This is the type of psychological bargaining behind every reach message."
-  },
-  {
-    "objectID": "Blogs/Linkedin_Reach_Tips.html#small-numbers-big-impact",
-    "href": "Blogs/Linkedin_Reach_Tips.html#small-numbers-big-impact",
-    "title": "How to Connect with DS professionals on LinkedIn",
-    "section": "Small Numbers, Big Impact",
-    "text": "Small Numbers, Big Impact\nOut of those hundreds of connections, only a small percentage replied but that small group became incredibly valuable. Some offered to hop on Zoom or a phone call, sharing their stories and advice. I learned what hiring managers actually look for, how data teams are structured, and how different roles fit together knowledge I never would have found in a course description or job posting. One thing that stood out from those conversations was the power of intentional networking. It’s easy to get caught up in collecting connections for the sake of numbers, but what really matters is building strong ones. A few genuine relationships will take you much farther than a thousand shallow ones."
-  },
-  {
-    "objectID": "Blogs/Linkedin_Reach_Tips.html#from-conversations-to-opportunities",
-    "href": "Blogs/Linkedin_Reach_Tips.html#from-conversations-to-opportunities",
-    "title": "How to Connect with DS professionals on LinkedIn",
-    "section": "From Conversations to Opportunities",
-    "text": "From Conversations to Opportunities\nSometimes, a connection would lead to a casual chat that turned into a brief mentorship. Other times, it was just a one-time conversation that gave me a new perspective. And yes, in a few cases, those relationships opened doors to interviews and opportunities. But the biggest reward wasn’t the job prospects it was the confidence that I was no longer navigating this path alone."
-  },
-  {
-    "objectID": "Blogs/Linkedin_Reach_Tips.html#what-networking-really-means",
-    "href": "Blogs/Linkedin_Reach_Tips.html#what-networking-really-means",
-    "title": "How to Connect with DS professionals on LinkedIn",
-    "section": "What Networking Really Means",
-    "text": "What Networking Really Means\nNetworking isn’t about getting something from someone; it’s about learning from them. It’s about showing interest, listening carefully, and building mutual respect. In data science and really, in any field the people who thrive are the ones who combine technical skill with strong relationships. If I could give one piece of advice to anyone starting out, it would be this: don’t wait until you’re “qualified” to reach out. The best time to connect is now. You don’t need to have everything figured out to start conversations you just need curiosity and sincerity."
-  },
-  {
-    "objectID": "Blogs/Linkedin_Reach_Tips.html#final-thoughts",
-    "href": "Blogs/Linkedin_Reach_Tips.html#final-thoughts",
-    "title": "How to Connect with DS professionals on LinkedIn",
-    "section": "Final Thoughts",
-    "text": "Final Thoughts\nBreaking into data science taught me that opportunities often come from unexpected directions. But those opportunities only appear when you put yourself out there. So craft your message, click “Connect,” and start building relationships that will follow you beyond school."
-  },
-  {
-    "objectID": "Blogs/AWS_Cloud_Computing.html#introduction",
-    "href": "Blogs/AWS_Cloud_Computing.html#introduction",
-    "title": "Harnessing AWS Cloud Services for Big Data and Machine Learning",
+    "objectID": "Blogs/Hosting_Using_AWS.html#introduction",
+    "href": "Blogs/Hosting_Using_AWS.html#introduction",
+    "title": "Hosting My Professional Portfolio Using AWS Amplify",
     "section": "Introduction",
-    "text": "Introduction\nThe growth of data has completely changed how we approach machine learning. What used to be small, local experiments on laptops now involves massive datasets, scalable pipelines, and distributed computing. Cloud platforms have become the foundation for modern data science, and among them, AWS stands out for its flexibility and reach.\nWhen I first started learning about machine learning, I focused mainly on models. I thought performance was all about better algorithms and fine-tuning. It took me a while to realize that the real challenge was not just building models but managing data, scaling workloads, and deploying solutions efficiently. That realization led me straight into the world of cloud computing and big data."
+    "text": "Introduction\nWhen I first started building projects, I struggled with one big question: how do I show them off professionally? Uploading notebooks to GitHub was fine, but it did not really show my work. I wanted something that looked clean, professional, and easy to share with employers. That is when I discovered Quarto, an open-source publishing tool that turns Markdown and code into polished websites. Building the site was just half the journey. Hosting it somewhere reliable, where I had full control, was what really made it a professional portfolio. That is where AWS Amplify came in."
   },
   {
-    "objectID": "Blogs/AWS_Cloud_Computing.html#understanding-cloud-computing-for-machine-learning",
-    "href": "Blogs/AWS_Cloud_Computing.html#understanding-cloud-computing-for-machine-learning",
-    "title": "Harnessing AWS Cloud Services for Big Data and Machine Learning",
-    "section": "Understanding Cloud Computing for Machine Learning",
-    "text": "Understanding Cloud Computing for Machine Learning\nCloud computing gives us something that traditional local setups cannot: elastic resources. Instead of worrying about limited hardware, you can launch powerful virtual machines, train models on large instances, and shut them down when finished. This pay-as-you-go model is ideal for experimentation and production.\nAWS provides services that simplify every stage of the machine learning workflow. You can store raw data in Amazon S3 and train models using SageMaker, since everything is integrated, secure, and scalable. It lets data professionals focus on business solutions rather than infrastructure headaches.\nCloud computing also supports collaboration. Teams across regions can access the same datasets, notebooks, and environments. This makes it possible to work on large-scale machine learning projects without being tied to a single machine or network."
+    "objectID": "Blogs/Hosting_Using_AWS.html#why-quarto",
+    "href": "Blogs/Hosting_Using_AWS.html#why-quarto",
+    "title": "Hosting My Professional Portfolio Using AWS Amplify",
+    "section": "Why Quarto",
+    "text": "Why Quarto\nQuarto is simple but powerful. It lets you mix code, text, and visuals in one place, whether you are writing blog posts, data analyses, or research reports. For anyone in data science or analytics, it provides the perfect balance between documentation and presentation.\nWith Quarto, I could take the same qmd files I used for analysis and render them directly into interactive, modern web pages. I did not need to learn web development from scratch because Quarto handled the formatting, navigation, and layout. Within minutes, I had a site that looked like a professional publication rather than a collection of notebooks."
   },
   {
-    "objectID": "Blogs/AWS_Cloud_Computing.html#the-role-of-big-data",
-    "href": "Blogs/AWS_Cloud_Computing.html#the-role-of-big-data",
-    "title": "Harnessing AWS Cloud Services for Big Data and Machine Learning",
-    "section": "The Role of Big Data",
-    "text": "The Role of Big Data\nMachine learning models are only as good as the data they are trained on. Big data allows models to learn from bigger, more complex datasets, which leads to more accurate predictions. The challenge, however, is handling and processing that data efficiently.\nUsing these tools together transforms data from scattered sources into a clean, ready-to-use format. Once the data is prepared, it becomes much easier to train robust machine learning models."
+    "objectID": "Blogs/Hosting_Using_AWS.html#deploying-to-aws-amplify",
+    "href": "Blogs/Hosting_Using_AWS.html#deploying-to-aws-amplify",
+    "title": "Hosting My Professional Portfolio Using AWS Amplify",
+    "section": "Deploying to AWS Amplify",
+    "text": "Deploying to AWS Amplify\nAfter finishing my site locally using VSCode, I needed to host it. Free options like GitHub Pages worked fine, but I wanted to use paid services that required thoughtful resource management. To develop my management skills in cloud services and company resources.\nHosting works by Amplify connecting directly to a GitHub repository, so every time I push an update, it automatically rebuilds and redeploys the site. That feature alone made it worth using. There are no manual uploads or complicated configuration steps. Version control and deployment work together seamlessly.\nAt first, the setup felt intimidating. I had to configure an Amplify app, connect it to my GitHub repository, and make sure my site rendered correctly after each build. Once I got through the learning curve, I realized something important. Hosting your own website on AWS is not just about visibility; it’s about marketing.\nYou control how your portfolio looks, loads, and scales. You are not limited to templates or platforms that restrict customization. That kind of technical independence is exactly how to show your employer that you take the extra mile, to display your professional skills."
   },
   {
-    "objectID": "Blogs/AWS_Cloud_Computing.html#building-machine-learning-models-on-aws",
-    "href": "Blogs/AWS_Cloud_Computing.html#building-machine-learning-models-on-aws",
-    "title": "Harnessing AWS Cloud Services for Big Data and Machine Learning",
-    "section": "Building Machine Learning Models on AWS",
-    "text": "Building Machine Learning Models on AWS\nAWS SageMaker is one of the most valuable tools for deploying and managing machine learning models. It provides prebuilt environments for data exploration, training, and deployment. You can start with built-in algorithms or use your own code with frameworks such as TensorFlow, PyTorch, or Scikit-learn.\nThe biggest advantage is scalability. Training a large model locally could take days, but SageMaker can distribute the workload across multiple GPU or CPU instances and finish in a fraction of the time. Once trained, the model can be deployed directly as an endpoint for real-time predictions.\nBeyond SageMaker, AWS services such as Lambda and API Gateway can help automate workflows and serve models to users. This creates a smooth pipeline from data ingestion to prediction."
+    "objectID": "Blogs/Hosting_Using_AWS.html#turning-a-website-into-a-portfolio",
+    "href": "Blogs/Hosting_Using_AWS.html#turning-a-website-into-a-portfolio",
+    "title": "Hosting My Professional Portfolio Using AWS Amplify",
+    "section": "Turning a Website Into a Portfolio",
+    "text": "Turning a Website Into a Portfolio\n\nOnce my Quarto site went live, it instantly changed how I presented myself. Instead of sending links to separate notebooks, dashboards, or PDFs, I could share a single URL that served as a digital home for my entire body of work.\nI included sections for projects, blog posts, and an about page. Projects showcased my visualizations, models, and real-world analyses. Blog posts covered topics such as LinkedIn networking, cloud deployment, and cloud computing. The about page gave readers a sense of my professional journey and goals.\nThese pieces came together to form a cohesive story. They did not just show what I had done. They showed how I think."
   },
   {
-    "objectID": "Blogs/AWS_Cloud_Computing.html#the-real-value",
-    "href": "Blogs/AWS_Cloud_Computing.html#the-real-value",
-    "title": "Harnessing AWS Cloud Services for Big Data and Machine Learning",
-    "section": "The Real Value",
-    "text": "The Real Value\n\nLearning to use AWS for big data and machine learning taught me an important lesson. The best models are not just accurate but also practical. They need to handle real-world data volumes, integrate with other systems, and scale as demand grows. Cloud computing makes that possible.\nFor professionals in data science or analytics, understanding AWS is no longer optional. It bridges the gap between theory and production. Employers value not only your ability to build models but also your understanding of infrastructure and deployment."
+    "objectID": "Blogs/Hosting_Using_AWS.html#the-value-it-adds-professionally",
+    "href": "Blogs/Hosting_Using_AWS.html#the-value-it-adds-professionally",
+    "title": "Hosting My Professional Portfolio Using AWS Amplify",
+    "section": "The Value It Adds Professionally",
+    "text": "The Value It Adds Professionally\nHaving a portfolio on AWS does more than showcase your projects. It demonstrates initiative. It shows that you can manage cloud infrastructure, deploy applications, and present data work in a professional format.\nFor data science, analytics, or engineering roles, that makes a difference. Recruiters and hiring managers can instantly see your technical ability and your communication skills. These are two qualities that separate strong candidates from average ones.\nBecause AWS is a real-world cloud platform, hosting your portfolio there also signals familiarity with deployment and scalability. Those are valuable skills that many entry-level candidates overlook."
   },
   {
-    "objectID": "Blogs/AWS_Cloud_Computing.html#final-thoughts",
-    "href": "Blogs/AWS_Cloud_Computing.html#final-thoughts",
-    "title": "Harnessing AWS Cloud Services for Big Data and Machine Learning",
+    "objectID": "Blogs/Hosting_Using_AWS.html#final-thoughts",
+    "href": "Blogs/Hosting_Using_AWS.html#final-thoughts",
+    "title": "Hosting My Professional Portfolio Using AWS Amplify",
     "section": "Final Thoughts",
-    "text": "Final Thoughts\nCloud computing and big data are redefining what is possible in machine learning. AWS gives us the tools to handle enormous datasets, train complex models, and deploy them globally with ease. It turns abstract ideas into real, working systems that impact business and research.\nIf you are serious about machine learning, invest time in learning how to use the cloud. Explore S3 for data storage, EMR for processing, and SageMaker for training and deployment. These tools work together to create a powerful ecosystem that can take your models from concept to production.\nAWS is not just a platform. It is a bridge between data and intelligence, helping us move from experimentation to impact."
+    "text": "Final Thoughts\nHosting a Quarto website on AWS started as a small personal experiment, but it became one of the most powerful parts of my professional identity. It is not just a portfolio. It is a living record of growth, experimentation, and curiosity.\nIf you are in data science, analytics, or any tech field, consider building one yourself. Quarto makes it simple, and AWS makes it professional. Together, they turn your work into something more than a résumé. They turn it into proof."
+  },
+  {
+    "objectID": "AB_TESTS/RecallingWords.html#background",
+    "href": "AB_TESTS/RecallingWords.html#background",
+    "title": "Recalling Words",
+    "section": "Background",
+    "text": "Background\nMany teachers and other educators are interested in understanding how to best deliver new content to students. In general, they have two choices of how to do this.\n\nThe Meshed Approach\n\nDeliver new content while simultaneously reviewing previously understood content.\n\nThe Before Approach\n\nDeliver new content after fully reviewing previously understood content.\n\n\nA study was performed to determine whether the Meshed or Before approaches to delivering content had any positive benefits on memory recall.\nTherefore, we aim to determine whether the Meshed or Before methods provide any positive benefit to memory recall. To test this, we will perform a Wilcoxon “Rank Sum (Mann–Whitney) test” to evaluate whether the distribution of scores in either method is stochastically greater than that of the control group (SFR). This allows us to assess whether correct recalls from the Meshed and Before groups tend to be significantly higher than those from the control group, indicating a potential benefit from new memorization techniques. As a bonus, we’ll test whether the Before group tends to outperform the Meshed group using another Wilcoxon Rank Sum (Mann–Whitney) test, making the assumption that its scores are generally higher, to find if a method is better than the the other. Which begs the questions:\n\n\nIs the correctness of “before” and “meshed” stochastically greater than SFR?\n\n\nAnd\n\n\nIs correctness of “before” stochastically greater than “meshed”?\n\n\n\n\\[   \nH_0: \\text{distribution of before and meshed are stochastically equal to SFR}\n\\] \\[\nH_a: \\text{distribution of before and meshed are stochastically greater than SFR}\n\\]\n\\[   \nH_a: \\text{distribution of before is stochastically equal to meshed}\n\\] \\[\nH_a: \\text{distribution of before is stochastically greater than meshed}\n\\]\n\\[   \n\\alpha = 0.05\n\\]\n\nExperiment Details\nIndividuals were seated at a computer and shown a list of words. Words appeared on the screen one at a time, for two seconds each, until all words had been shown (40 total). After all words were shown, they were required to perform a few two-digit mathematical additions (like 15 + 25) for 15 seconds to avoid immediate memory recall of the words. They were then asked to write down as many of the 40 words as they could remember. They were given a maximum of 5.3 minutes to recall words.\nThe process of showing words and recalling words was repeated four times with the same list of words each time (four chances to get it right). The presentation of the first trial was the same for all treatment conditions. However, trials 2, 3, and 4 were slightly different for each treatment condition.\n\nThe SFR group (the control group) stands for Standard Free Recall. In all four trials the same list of 40 words was presented, in a random order each time.\nThe Before group also used the same 40 words during each trial. However, any words that were correctly recalled in a previous trial were presented first, or before the words that were not recalled in the last trial. After all the correct words were presented in random order, the non-recalled words were presented in a random order.\nThe Meshed group also used the same 40 words during each trial. However, words that were correctly recalled in a previous trial were alternated with a missed word during the next presentation order.\n\nThe data records the number of correctly recalled words (out of the 40 possible) from the fourth trial. Results were obtained for 30 students, 10 in each of the three treatment groups: SFR, Before, and Meshed.\n\n\nData\nThe results from the study can be found in the Friendly data set in R after loading library(car).\nClick the “Code” button to see the data."
+  },
+  {
+    "objectID": "AB_TESTS/RecallingWords.html#analysis",
+    "href": "AB_TESTS/RecallingWords.html#analysis",
+    "title": "Recalling Words",
+    "section": "Analysis",
+    "text": "Analysis\n\nAs shown by the graph below, we compared the before and meshed groups relative to the control groups. It is visually clear that the before group has a higher median than the meshed group, implying that a higher percentage of the sample subjects of the before group have better recall than the meshed. But both before and meshed groups are substantially more effective than the control group(SFR) in obtaining higher scores, implying that memorization techniques do affect recall performance on subjects, than just memorizing randomly. Therefore, we must find statistical evidence if before and meshed have a significant difference in scores than SFR. Then find if the median of before is significantly more correct than meshed.\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\nFriendly$condition\nmin\nQ1\nmedian\nQ3\nmax\nmean\nsd\nn\nmissing\n\n\n\n\nBefore\n24\n37.25\n39\n39.75\n40\n36.6\n5.337\n10\n0\n\n\nMeshed\n30\n36\n36.5\n38.75\n40\n36.6\n3.026\n10\n0\n\n\nSFR\n21\n25\n27\n38.5\n39\n30.3\n7.334\n10\n0\n\n\n\n\n\nAfter performing the test, an approximation had to be used since there were ties present in the data and also because the distributions aren’t similarly shaped for medians. Yielding a p-value of 0.01644, which is smaller than a 0.05 alpha, which rejects the null. Concluding, both groups(before and meshed) are stochastically greater in correctness than the control group\n\\[   \nH_0: \\text{distribution of before and meshed are stochastically equal to SFR}\n\\] \\[\nH_a: \\text{distribution of before and meshed are stochastically greater than SFR}\n\\]\n\n\n\nWilcoxon rank sum test with continuity correction: BnF$correct and SNF$correct\n\n\n\n\n\n\n\nTest statistic\nP value\nAlternative hypothesis\n\n\n\n\n148.5\n0.01644 *\ngreater\n\n\n\n\n\nLastly, we approximate if before is stochastically greater than meshed since there are ties in present. The test outputs a p-value of 0.189, which is bigger than a 0.05, therefore we fail to reject the null, or conclude that the before is stochastically greater than meshed.\n\\[   \nH_a: \\text{distribution of before is stochastically equal to meshed}\n\\] \\[\nH_a: \\text{distribution of before is stochastically greater than meshed}\n\\]\n\n\n\nWilcoxon rank sum test with continuity correction: before$correct and meshed$correct\n\n\n\n\n\n\n\nTest statistic\nP value\nAlternative hypothesis\n\n\n\n\n62\n0.189\ngreater"
+  },
+  {
+    "objectID": "AB_TESTS/RecallingWords.html#interpretation",
+    "href": "AB_TESTS/RecallingWords.html#interpretation",
+    "title": "Recalling Words",
+    "section": "Interpretation",
+    "text": "Interpretation\nBoth methods, before and meshed benefit the results on memory recall relative to SFR. with both “before” and “meshed” having a higher distribution/median scores of (39 & 36.5) than SFR’s (27) resulting in stochastically greater results. However, among before and meshed, there isn’t a method that is significantly better, therefore leading to the conclusion that either one is has any positive benefit on memory recall.\nKey takeaways from this research would be to organize the document, in a way that perfoming multiple A/B testing doesn’t confuse the reader. As well that joining groups can help create more scenarios in which we can extract value from the data."
+  },
+  {
+    "objectID": "AB_TESTS/MyLogisticRegression.html#fitting-the-model",
+    "href": "AB_TESTS/MyLogisticRegression.html#fitting-the-model",
+    "title": "My Simple Logistic Regression",
+    "section": "Fitting the Model",
+    "text": "Fitting the Model\n\n\n\n\n\n\n\n\n\n\n\n\n \nEstimate\nStd. Error\nz value\nPr(&gt;|z|)\n\n\n\n\n(Intercept)\n-7.617\n1.814\n-4.199\n2.684e-05\n\n\nAge\n0.1385\n0.03266\n4.24\n2.232e-05\n\n\n\n(Dispersion parameter for binomial family taken to be 1 )\n\n\n\n\n\n\n\nNull deviance:\n82.11 on 59 degrees of freedom\n\n\nResidual deviance:\n43.01 on 58 degrees of freedom\n\n\n\n\n\nThis gives the estimated model for πi as\n\\[\n  P(Y_i = 1|\\, x_i) = \\frac{e^{-7.617 + 0.1385x_i}}{1+e^{-7.617 + 0.1385x_i}} = \\pi_i\n\\]\nWhere b0 = -7.617 is our value of (Intercept) which estimates β0 and b1=0.1385 is the value of Age which estimates β1.\nThe p-value from Age shows significance with (p = 2.232e-05) giving sufficient evidence to conclude that Age affects the probability of a patient testing positive for diabetes in the study.\n\nVisualizing the Model\nThe plot shows how likely it is to be diagnosed with type 2 diabetes around the age of 55 years old.\n\n\n`geom_smooth()` using formula = 'y ~ x'\n\n\n\n\n\n\n\n\n\n\n\nDiagnosing the Model\nTo demonstrate that the logistic regression is a good fit to these data we apply the Hosmer-Lemeshow goodness of fit test\n\n\n\nHosmer and Lemeshow goodness of fit (GOF) test: model.glm$y, model.glm$fitted.values\n\n\n\n\n\n\n\nTest statistic\ndf\nP value\n\n\n\n\n1.081\n1\n0.2984\n\n\n\n\n\nSince the null hypothesis is that the logistic regression is a good fit for the data, we claim that the logistic regression is appropriate (p-value = 0.2984)."
+  },
+  {
+    "objectID": "AB_TESTS/MyLogisticRegression.html#conclusion",
+    "href": "AB_TESTS/MyLogisticRegression.html#conclusion",
+    "title": "My Simple Logistic Regression",
+    "section": "Conclusion",
+    "text": "Conclusion\nthe value of \\(e^{0.1385} \\approx 1.15\\) shows that the odds of being diagnosed with diabetes increases by a factor of 1.15 for every increase in Age. In other words, the odds of an diabetes diagnosis increases by 15% (1.15-1) for every increase in Age. To be more clear, for a Age of 55, our model puts the probability of a diabetes diagnosis at:\n\\[\n  P(Y_i = 1|\\, x_i) = \\frac{e^{-7.617 + 0.1385*55}}{1+e^{-7.617 + 0.1385*55}} = \\pi_i\n\\]\nThe probability of being diagnosed with type 2 diabetes at 55 years old is about 50% \\((\\hat{\\pi_i} \\approx 0.500035)\\), which supports Medical News Toda’s claim and the regressions probability rate as subjects get older."
+  },
+  {
+    "objectID": "AB_TESTS/MyLogisticRegression.html#referencescredits",
+    "href": "AB_TESTS/MyLogisticRegression.html#referencescredits",
+    "title": "My Simple Logistic Regression",
+    "section": "References/Credits",
+    "text": "References/Credits\nThe dataset used was constructed by AI for the purposes of this study. Further references are listed below:\nMedical News Today\nStatistics Notebook Example"
+  },
+  {
+    "objectID": "AB_TESTS/HighSchoolSeniors.html#background",
+    "href": "AB_TESTS/HighSchoolSeniors.html#background",
+    "title": "High School Seniors t Test",
+    "section": "Background",
+    "text": "Background\nIn the US Census at High Schools 2020, there was a survey given to each student to fill out and gather information about the statistics of students’ lives and personal information, such as Gender, the number of texts received the day before, height, and many other details. Which sets the stage to answer the stereotypical question:"
+  },
+  {
+    "objectID": "AB_TESTS/HighSchoolSeniors.html#do-females-tend-to-receive-more-text-messages-on-average-than-males-in-high-school",
+    "href": "AB_TESTS/HighSchoolSeniors.html#do-females-tend-to-receive-more-text-messages-on-average-than-males-in-high-school",
+    "title": "High School Seniors t Test",
+    "section": "Do Females tend to receive more text messages on average than Males in high school?",
+    "text": "Do Females tend to receive more text messages on average than Males in high school?\n\\[   H_0: \\mu femals = \\mu males \\]\n\\[ H_a: \\mu females &gt; \\mu males \\]\nThe significance level will be tested at a 0.05 alpha(α)."
+  },
+  {
+    "objectID": "AB_TESTS/HighSchoolSeniors.html#analysis",
+    "href": "AB_TESTS/HighSchoolSeniors.html#analysis",
+    "title": "High School Seniors t Test",
+    "section": "Analysis",
+    "text": "Analysis\nAfter filtering data by gender groups and text received below 250 to obtain a reasonable sample, the graph displays that females do have a higher median number of texts received than males, implying that the group sample of females doesn’t rely on outliers receiving hundreds of messages to represent the overall number of texts received. Although the distributions of each gender aren’t normal in the qqPlot because many data-points aren’t normal (overlapping the blue range), the sample size of each group is above 30, representing an approximately normal sampling to perform test statistics due to the Central Limit Theorem. But, in terms of means, is the female mean significantly bigger than the male means?"
+  },
+  {
+    "objectID": "AB_TESTS/HighSchoolSeniors.html#interpretation",
+    "href": "AB_TESTS/HighSchoolSeniors.html#interpretation",
+    "title": "High School Seniors t Test",
+    "section": "Interpretation",
+    "text": "Interpretation\nThe QQPlots display the normality of data, with the purpose of showcasing wether the data is reliable to make conclusions to avoid biased or skewed data. By the dots within the blue range being represented as “normal” whereas the opposite applies to values outside the range. However, since we have more than 30 subjects for each group, the sampling distribution of the sample means can be assumed to be approximately normal to proceed with the a/b test.\nAfter performing a t-test, we can appreciate that although it is unlikely that the female means are the same as the males with a p-value of 0.1139, the p-value isn’t significant at a 0.05 alpha level. Implying that we cannot reject the null, or conclude that females tend to receive more text messages on average than males in high school.\n\n\n\nWelch Two Sample t-test: Females$Text_Messages_Received_Yesterday and Males$Text_Messages_Received_Yesterday\n\n\n\n\n\n\n\n\n\n\nTest statistic\ndf\nP value\nAlternative hypothesis\nmean of x\nmean of y\n\n\n\n\n1.208\n393\n0.1139\ngreater\n54.44\n48.15\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\nHSS_clean$Gender\nmin\nQ1\nmedian\nQ3\nmax\nmean\nsd\nn\nmissing\n\n\n\n\nFemale\n0\n15\n40\n75\n230\n54.44\n50.55\n194\n0\n\n\nMale\n0\n10\n25\n75\n247\n48.15\n52.9\n201\n0\n\n\n\n\n\nGiven our statistics that females tend to have about 6 (Female_mean - Male_mean) more text messages than males on average, a higher median of 20 messages received by females than males, and about 200 subjects from each gender to represent the results. All showing that although the stereotype of females receiving more texts than males is real, the margin isn’t significant enough to be consistent insight throughout all high scholers."
+  },
+  {
+    "objectID": "about.html",
+    "href": "about.html",
+    "title": "About",
+    "section": "",
+    "text": "About this site"
+  },
+  {
+    "objectID": "AB_TESTS/Food.html",
+    "href": "AB_TESTS/Food.html",
+    "title": "Food at College",
+    "section": "",
+    "text": "# From your file menu (at the top of R-Studio) select:\n# \"Session -&gt; Set working directory -&gt; To source file location\"\n# Then play this chunk to get the data into R.\nlibrary(mosaic)\nlibrary(car)\nlibrary(DT)\nlibrary(pander)\nlibrary(readr)\nlibrary(ggthemes)\nfood &lt;- read_csv(\"C://Users/Alex/Documents/GitHub/IntStats/Statistics-Notebook-master/Data/food.csv\") #food.csv is in the Data folder..."
+  },
+  {
+    "objectID": "AB_TESTS/Food.html#background",
+    "href": "AB_TESTS/Food.html#background",
+    "title": "Food at College",
+    "section": "Background",
+    "text": "Background\nAfter taking a look at the data, I saw the presence of an weight column along with a eating out column. Then I wondered, is there at least one “weight” distribution of people with distinct “eating out” habits is stochastically different? Since I wanted to find out specifically if the subjects present in the data are affected by eating habits.\n\\[\nH0: \\text{All group samples are from the same distribution}\n\\]\n\\[\nHa: \\text{At least one group sample's distribution is stochastically different}\n\\]\n\\[\nAlpha = \\text{0.05}\n\\]"
+  },
+  {
+    "objectID": "AB_TESTS/Food.html#interpretation",
+    "href": "AB_TESTS/Food.html#interpretation",
+    "title": "Food at College",
+    "section": "Interpretation",
+    "text": "Interpretation\nStarting with the favstats, is evident that eating out groups do have some variance among weight values. For example the Q1 of people eating “3-5 times” is 129, whereas the “everyday” group have Q1 of 159 lbs, implying that there are groups that differ 30 lbs in the lower quartiles. This variance explains the average spread of weight values through groups, to see the distribution of the data throught the analysis. Additionally, people that eat out every day have a higher mean than other groups, with 172.4 lbs mean compared to an moderate 1-2 time group with 157.6 lbs average.\nBut at the end of the day the Kruskal-Wallis Rank Sum compares the ranks given to each subject wand is compared to our given alpha. Of which we receive a P-value of 0.279 which is bigger than our alpha of 0.05. Therefore, failing to reject the null and conclude that least one “weight” distribution of people with distinct “eating out” habits is stochastically different. “stochastically” meaning that the results have a random chance of being different in the context of the analysis, since the data is assumed to be “non-parametric”.\n\nCredits/References\nThis analysis fully abstained from using AI, the only references used were the “Pig Birth Weights – Kruskal-Wallis” from the “Statistics Notebook” guide given by the course."
+  },
+  {
+    "objectID": "AB_TESTS/MyChiSquaredTest.html#background",
+    "href": "AB_TESTS/MyChiSquaredTest.html#background",
+    "title": "Chi Squared Test",
+    "section": "Background",
+    "text": "Background\nIn today’s analysis, we’ll be exploring an “Used Cars” dataset from kaggle. The author collected data from various web resources in order to explore the used cars market, The data is scraped in Belarus (western Europe) on the 2nd of December 2019, so the dataset is collected in pre-ChatGpt times to avoid any instant of the data being fabricated by AI."
+  },
+  {
+    "objectID": "AB_TESTS/MyChiSquaredTest.html#hypothesis",
+    "href": "AB_TESTS/MyChiSquaredTest.html#hypothesis",
+    "title": "Chi Squared Test",
+    "section": "Hypothesis",
+    "text": "Hypothesis\nOur question about the data is: Is car color associated with the manufacturer name? Aiming to find if manufacturers have tendencies to prefer a certain color for their cars.\n\\[\nH_0:\\text{Car color and manufacturer name are not associated}\n\\] \\[\nH_1:\\text{Car color and manufacturer name are associated}\n\\] \\[\n\\alpha:0.05\n\\]"
+  },
+  {
+    "objectID": "AB_TESTS/MyChiSquaredTest.html#analysis",
+    "href": "AB_TESTS/MyChiSquaredTest.html#analysis",
+    "title": "Chi Squared Test",
+    "section": "Analysis",
+    "text": "Analysis\nFor sake of simplicity and appropriateness, the data will filter only the most popular brands(Dodge, Honda, Volvo, BMW, Toyota) to have 10 observations per “combination-group”. Since many companies aren’t as popular and have big enough collection of cars with all colors in the market.\n\n\n\n\n\n\n\n\n\n\n\n\n\n \nBMW\nDodge\nHonda\nToyota\nVolvo\n\n\n\n\nblack\n968\n39\n195\n258\n218\n\n\nblue\n371\n40\n103\n121\n107\n\n\ngreen\n133\n27\n53\n60\n36\n\n\ngrey\n292\n26\n90\n164\n72\n\n\nother\n130\n42\n43\n84\n57\n\n\nred\n83\n24\n70\n83\n42\n\n\nsilver\n358\n62\n160\n311\n102\n\n\nwhite\n192\n25\n40\n133\n51\n\n\n\n\n\nWe can see our barplot shows some manufacturers have strong preferences to certain colors, such as BMW cars and the color black. However, we must run a test to get a p-value to determine if these preferences are significant.\n\n\n\n\n\n\n\n\n\nNow, we will run a Chi-Squared Test to determine if we reject our null hypothesis and conclude that the Car color and manufacturer name are associated. We will also look at our expected counts to determine if our Chi-Squared Test requirements are met.\n\n\n\nPearson’s Chi-squared test: x\n\n\n\n\n\n\n\nTest statistic\ndf\nP value\n\n\n\n\n331.9\n28\n1.08e-53 * * *\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n \nBMW\nDodge\nHonda\nToyota\nVolvo\n\n\n\n\nblack\n775.9\n87.51\n231.5\n372.8\n210.3\n\n\nblue\n343.1\n38.7\n102.4\n164.8\n93\n\n\ngreen\n142.9\n16.11\n42.63\n68.64\n38.73\n\n\ngrey\n297.8\n33.58\n88.85\n143.1\n80.72\n\n\nother\n164.6\n18.57\n49.12\n79.08\n44.62\n\n\nred\n139.6\n15.75\n41.67\n67.09\n37.85\n\n\nsilver\n459.2\n51.78\n137\n220.6\n124.5\n\n\nwhite\n203.9\n23\n60.84\n97.96\n55.28\n\n\n\n\n\nAll expected counts are greater than 10, so the requirements are met. Our test results show a p-value of 1.08e-53, which is much smaller than our level of significance α=0.05, so we reject our null hypothesis and conclude that the Car color and manufacturer name are associated.\nLet us look at our residuals to see how much our observed counts differ from the expected counts if our null hypothesis were true.\n\n\n\n\n\n\n\n\n\n\n\n\n\n \nBMW\nDodge\nHonda\nToyota\nVolvo\n\n\n\n\nblack\n6.896\n-5.185\n-2.4\n-5.944\n0.5292\n\n\nblue\n1.506\n0.2097\n0.06198\n-3.414\n1.451\n\n\ngreen\n-0.8266\n2.712\n1.588\n-1.043\n-0.4388\n\n\ngrey\n-0.3352\n-1.309\n0.1218\n1.751\n-0.9707\n\n\nother\n-2.698\n5.439\n-0.8728\n0.553\n1.853\n\n\nred\n-4.793\n2.079\n4.389\n1.943\n0.6739\n\n\nsilver\n-4.721\n1.42\n1.965\n6.088\n-2.014\n\n\nwhite\n-0.8345\n0.4174\n-2.672\n3.54\n-0.5752\n\n\n\n\n\nWe see the greatest difference is observed among BMW cars with a difference of 6.896 more counts. This is probably what contributed most to our test statistic and resulting p-value."
+  },
+  {
+    "objectID": "AB_TESTS/MyChiSquaredTest.html#interpretation",
+    "href": "AB_TESTS/MyChiSquaredTest.html#interpretation",
+    "title": "Chi Squared Test",
+    "section": "Interpretation",
+    "text": "Interpretation\nWe can interpret that the Belarus car data recorded in 2019 has an association between car colors and manufacturer name. with significant results highlighted from BMW, implying that the BMW Manufactures tend to consistently produce cars of the same color, in this case black. Possibly due to reduce costs, simplify logistics or a branding causes tied luxury or modest colors. Due to our results showing a p-value of 1.08e-53, which is much smaller than our level of significance α=0.05, so we reject our null hypothesis and conclude that the Car color and manufacturer name are associated."
+  },
+  {
+    "objectID": "AB_TESTS/MyChiSquaredTest.html#creditreferences",
+    "href": "AB_TESTS/MyChiSquaredTest.html#creditreferences",
+    "title": "Chi Squared Test",
+    "section": "Credit/References",
+    "text": "Credit/References\nThis Analysis used mild assistance from ChatGpt to properly display the Graphs and filter the data.\nKaggle Car Dataset"
   },
   {
     "objectID": "AB_TESTS/MyTwoWayANOVA.html",
@@ -196,199 +266,122 @@
     "text": "Credit/References\nThe Analysis abstained from the use of ChatBot assitant tools. Guide and inspiration was based on the course’s guide “Statistics Notebook” using the “warpbreaks” example for reference.\nKaggle Dataset Source"
   },
   {
-    "objectID": "AB_TESTS/MyChiSquaredTest.html#background",
-    "href": "AB_TESTS/MyChiSquaredTest.html#background",
-    "title": "Chi Squared Test",
-    "section": "Background",
-    "text": "Background\nIn today’s analysis, we’ll be exploring an “Used Cars” dataset from kaggle. The author collected data from various web resources in order to explore the used cars market, The data is scraped in Belarus (western Europe) on the 2nd of December 2019, so the dataset is collected in pre-ChatGpt times to avoid any instant of the data being fabricated by AI."
-  },
-  {
-    "objectID": "AB_TESTS/MyChiSquaredTest.html#hypothesis",
-    "href": "AB_TESTS/MyChiSquaredTest.html#hypothesis",
-    "title": "Chi Squared Test",
-    "section": "Hypothesis",
-    "text": "Hypothesis\nOur question about the data is: Is car color associated with the manufacturer name? Aiming to find if manufacturers have tendencies to prefer a certain color for their cars.\n\\[\nH_0:\\text{Car color and manufacturer name are not associated}\n\\] \\[\nH_1:\\text{Car color and manufacturer name are associated}\n\\] \\[\n\\alpha:0.05\n\\]"
-  },
-  {
-    "objectID": "AB_TESTS/MyChiSquaredTest.html#analysis",
-    "href": "AB_TESTS/MyChiSquaredTest.html#analysis",
-    "title": "Chi Squared Test",
-    "section": "Analysis",
-    "text": "Analysis\nFor sake of simplicity and appropriateness, the data will filter only the most popular brands(Dodge, Honda, Volvo, BMW, Toyota) to have 10 observations per “combination-group”. Since many companies aren’t as popular and have big enough collection of cars with all colors in the market.\n\n\n\n\n\n\n\n\n\n\n\n\n\n \nBMW\nDodge\nHonda\nToyota\nVolvo\n\n\n\n\nblack\n968\n39\n195\n258\n218\n\n\nblue\n371\n40\n103\n121\n107\n\n\ngreen\n133\n27\n53\n60\n36\n\n\ngrey\n292\n26\n90\n164\n72\n\n\nother\n130\n42\n43\n84\n57\n\n\nred\n83\n24\n70\n83\n42\n\n\nsilver\n358\n62\n160\n311\n102\n\n\nwhite\n192\n25\n40\n133\n51\n\n\n\n\n\nWe can see our barplot shows some manufacturers have strong preferences to certain colors, such as BMW cars and the color black. However, we must run a test to get a p-value to determine if these preferences are significant.\n\n\n\n\n\n\n\n\n\nNow, we will run a Chi-Squared Test to determine if we reject our null hypothesis and conclude that the Car color and manufacturer name are associated. We will also look at our expected counts to determine if our Chi-Squared Test requirements are met.\n\n\n\nPearson’s Chi-squared test: x\n\n\n\n\n\n\n\nTest statistic\ndf\nP value\n\n\n\n\n331.9\n28\n1.08e-53 * * *\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n \nBMW\nDodge\nHonda\nToyota\nVolvo\n\n\n\n\nblack\n775.9\n87.51\n231.5\n372.8\n210.3\n\n\nblue\n343.1\n38.7\n102.4\n164.8\n93\n\n\ngreen\n142.9\n16.11\n42.63\n68.64\n38.73\n\n\ngrey\n297.8\n33.58\n88.85\n143.1\n80.72\n\n\nother\n164.6\n18.57\n49.12\n79.08\n44.62\n\n\nred\n139.6\n15.75\n41.67\n67.09\n37.85\n\n\nsilver\n459.2\n51.78\n137\n220.6\n124.5\n\n\nwhite\n203.9\n23\n60.84\n97.96\n55.28\n\n\n\n\n\nAll expected counts are greater than 10, so the requirements are met. Our test results show a p-value of 1.08e-53, which is much smaller than our level of significance α=0.05, so we reject our null hypothesis and conclude that the Car color and manufacturer name are associated.\nLet us look at our residuals to see how much our observed counts differ from the expected counts if our null hypothesis were true.\n\n\n\n\n\n\n\n\n\n\n\n\n\n \nBMW\nDodge\nHonda\nToyota\nVolvo\n\n\n\n\nblack\n6.896\n-5.185\n-2.4\n-5.944\n0.5292\n\n\nblue\n1.506\n0.2097\n0.06198\n-3.414\n1.451\n\n\ngreen\n-0.8266\n2.712\n1.588\n-1.043\n-0.4388\n\n\ngrey\n-0.3352\n-1.309\n0.1218\n1.751\n-0.9707\n\n\nother\n-2.698\n5.439\n-0.8728\n0.553\n1.853\n\n\nred\n-4.793\n2.079\n4.389\n1.943\n0.6739\n\n\nsilver\n-4.721\n1.42\n1.965\n6.088\n-2.014\n\n\nwhite\n-0.8345\n0.4174\n-2.672\n3.54\n-0.5752\n\n\n\n\n\nWe see the greatest difference is observed among BMW cars with a difference of 6.896 more counts. This is probably what contributed most to our test statistic and resulting p-value."
-  },
-  {
-    "objectID": "AB_TESTS/MyChiSquaredTest.html#interpretation",
-    "href": "AB_TESTS/MyChiSquaredTest.html#interpretation",
-    "title": "Chi Squared Test",
-    "section": "Interpretation",
-    "text": "Interpretation\nWe can interpret that the Belarus car data recorded in 2019 has an association between car colors and manufacturer name. with significant results highlighted from BMW, implying that the BMW Manufactures tend to consistently produce cars of the same color, in this case black. Possibly due to reduce costs, simplify logistics or a branding causes tied luxury or modest colors. Due to our results showing a p-value of 1.08e-53, which is much smaller than our level of significance α=0.05, so we reject our null hypothesis and conclude that the Car color and manufacturer name are associated."
-  },
-  {
-    "objectID": "AB_TESTS/MyChiSquaredTest.html#creditreferences",
-    "href": "AB_TESTS/MyChiSquaredTest.html#creditreferences",
-    "title": "Chi Squared Test",
-    "section": "Credit/References",
-    "text": "Credit/References\nThis Analysis used mild assistance from ChatGpt to properly display the Graphs and filter the data.\nKaggle Car Dataset"
-  },
-  {
-    "objectID": "AB_TESTS/Food.html",
-    "href": "AB_TESTS/Food.html",
-    "title": "Food at College",
-    "section": "",
-    "text": "# From your file menu (at the top of R-Studio) select:\n# \"Session -&gt; Set working directory -&gt; To source file location\"\n# Then play this chunk to get the data into R.\nlibrary(mosaic)\nlibrary(car)\nlibrary(DT)\nlibrary(pander)\nlibrary(readr)\nlibrary(ggthemes)\nfood &lt;- read_csv(\"C://Users/Alex/Documents/GitHub/IntStats/Statistics-Notebook-master/Data/food.csv\") #food.csv is in the Data folder..."
-  },
-  {
-    "objectID": "AB_TESTS/Food.html#background",
-    "href": "AB_TESTS/Food.html#background",
-    "title": "Food at College",
-    "section": "Background",
-    "text": "Background\nAfter taking a look at the data, I saw the presence of an weight column along with a eating out column. Then I wondered, is there at least one “weight” distribution of people with distinct “eating out” habits is stochastically different? Since I wanted to find out specifically if the subjects present in the data are affected by eating habits.\n\\[\nH0: \\text{All group samples are from the same distribution}\n\\]\n\\[\nHa: \\text{At least one group sample's distribution is stochastically different}\n\\]\n\\[\nAlpha = \\text{0.05}\n\\]"
-  },
-  {
-    "objectID": "AB_TESTS/Food.html#interpretation",
-    "href": "AB_TESTS/Food.html#interpretation",
-    "title": "Food at College",
-    "section": "Interpretation",
-    "text": "Interpretation\nStarting with the favstats, is evident that eating out groups do have some variance among weight values. For example the Q1 of people eating “3-5 times” is 129, whereas the “everyday” group have Q1 of 159 lbs, implying that there are groups that differ 30 lbs in the lower quartiles. This variance explains the average spread of weight values through groups, to see the distribution of the data throught the analysis. Additionally, people that eat out every day have a higher mean than other groups, with 172.4 lbs mean compared to an moderate 1-2 time group with 157.6 lbs average.\nBut at the end of the day the Kruskal-Wallis Rank Sum compares the ranks given to each subject wand is compared to our given alpha. Of which we receive a P-value of 0.279 which is bigger than our alpha of 0.05. Therefore, failing to reject the null and conclude that least one “weight” distribution of people with distinct “eating out” habits is stochastically different. “stochastically” meaning that the results have a random chance of being different in the context of the analysis, since the data is assumed to be “non-parametric”.\n\nCredits/References\nThis analysis fully abstained from using AI, the only references used were the “Pig Birth Weights – Kruskal-Wallis” from the “Statistics Notebook” guide given by the course."
-  },
-  {
-    "objectID": "about.html",
-    "href": "about.html",
-    "title": "About",
-    "section": "",
-    "text": "About this site"
-  },
-  {
-    "objectID": "AB_TESTS/HighSchoolSeniors.html#background",
-    "href": "AB_TESTS/HighSchoolSeniors.html#background",
-    "title": "High School Seniors t Test",
-    "section": "Background",
-    "text": "Background\nIn the US Census at High Schools 2020, there was a survey given to each student to fill out and gather information about the statistics of students’ lives and personal information, such as Gender, the number of texts received the day before, height, and many other details. Which sets the stage to answer the stereotypical question:"
-  },
-  {
-    "objectID": "AB_TESTS/HighSchoolSeniors.html#do-females-tend-to-receive-more-text-messages-on-average-than-males-in-high-school",
-    "href": "AB_TESTS/HighSchoolSeniors.html#do-females-tend-to-receive-more-text-messages-on-average-than-males-in-high-school",
-    "title": "High School Seniors t Test",
-    "section": "Do Females tend to receive more text messages on average than Males in high school?",
-    "text": "Do Females tend to receive more text messages on average than Males in high school?\n\\[   H_0: \\mu femals = \\mu males \\]\n\\[ H_a: \\mu females &gt; \\mu males \\]\nThe significance level will be tested at a 0.05 alpha(α)."
-  },
-  {
-    "objectID": "AB_TESTS/HighSchoolSeniors.html#analysis",
-    "href": "AB_TESTS/HighSchoolSeniors.html#analysis",
-    "title": "High School Seniors t Test",
-    "section": "Analysis",
-    "text": "Analysis\nAfter filtering data by gender groups and text received below 250 to obtain a reasonable sample, the graph displays that females do have a higher median number of texts received than males, implying that the group sample of females doesn’t rely on outliers receiving hundreds of messages to represent the overall number of texts received. Although the distributions of each gender aren’t normal in the qqPlot because many data-points aren’t normal (overlapping the blue range), the sample size of each group is above 30, representing an approximately normal sampling to perform test statistics due to the Central Limit Theorem. But, in terms of means, is the female mean significantly bigger than the male means?"
-  },
-  {
-    "objectID": "AB_TESTS/HighSchoolSeniors.html#interpretation",
-    "href": "AB_TESTS/HighSchoolSeniors.html#interpretation",
-    "title": "High School Seniors t Test",
-    "section": "Interpretation",
-    "text": "Interpretation\nThe QQPlots display the normality of data, with the purpose of showcasing wether the data is reliable to make conclusions to avoid biased or skewed data. By the dots within the blue range being represented as “normal” whereas the opposite applies to values outside the range. However, since we have more than 30 subjects for each group, the sampling distribution of the sample means can be assumed to be approximately normal to proceed with the a/b test.\nAfter performing a t-test, we can appreciate that although it is unlikely that the female means are the same as the males with a p-value of 0.1139, the p-value isn’t significant at a 0.05 alpha level. Implying that we cannot reject the null, or conclude that females tend to receive more text messages on average than males in high school.\n\n\n\nWelch Two Sample t-test: Females$Text_Messages_Received_Yesterday and Males$Text_Messages_Received_Yesterday\n\n\n\n\n\n\n\n\n\n\nTest statistic\ndf\nP value\nAlternative hypothesis\nmean of x\nmean of y\n\n\n\n\n1.208\n393\n0.1139\ngreater\n54.44\n48.15\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\nHSS_clean$Gender\nmin\nQ1\nmedian\nQ3\nmax\nmean\nsd\nn\nmissing\n\n\n\n\nFemale\n0\n15\n40\n75\n230\n54.44\n50.55\n194\n0\n\n\nMale\n0\n10\n25\n75\n247\n48.15\n52.9\n201\n0\n\n\n\n\n\nGiven our statistics that females tend to have about 6 (Female_mean - Male_mean) more text messages than males on average, a higher median of 20 messages received by females than males, and about 200 subjects from each gender to represent the results. All showing that although the stereotype of females receiving more texts than males is real, the margin isn’t significant enough to be consistent insight throughout all high scholers."
-  },
-  {
-    "objectID": "AB_TESTS/MyLogisticRegression.html#fitting-the-model",
-    "href": "AB_TESTS/MyLogisticRegression.html#fitting-the-model",
-    "title": "My Simple Logistic Regression",
-    "section": "Fitting the Model",
-    "text": "Fitting the Model\n\n\n\n\n\n\n\n\n\n\n\n\n \nEstimate\nStd. Error\nz value\nPr(&gt;|z|)\n\n\n\n\n(Intercept)\n-7.617\n1.814\n-4.199\n2.684e-05\n\n\nAge\n0.1385\n0.03266\n4.24\n2.232e-05\n\n\n\n(Dispersion parameter for binomial family taken to be 1 )\n\n\n\n\n\n\n\nNull deviance:\n82.11 on 59 degrees of freedom\n\n\nResidual deviance:\n43.01 on 58 degrees of freedom\n\n\n\n\n\nThis gives the estimated model for πi as\n\\[\n  P(Y_i = 1|\\, x_i) = \\frac{e^{-7.617 + 0.1385x_i}}{1+e^{-7.617 + 0.1385x_i}} = \\pi_i\n\\]\nWhere b0 = -7.617 is our value of (Intercept) which estimates β0 and b1=0.1385 is the value of Age which estimates β1.\nThe p-value from Age shows significance with (p = 2.232e-05) giving sufficient evidence to conclude that Age affects the probability of a patient testing positive for diabetes in the study.\n\nVisualizing the Model\nThe plot shows how likely it is to be diagnosed with type 2 diabetes around the age of 55 years old.\n\n\n`geom_smooth()` using formula = 'y ~ x'\n\n\n\n\n\n\n\n\n\n\n\nDiagnosing the Model\nTo demonstrate that the logistic regression is a good fit to these data we apply the Hosmer-Lemeshow goodness of fit test\n\n\n\nHosmer and Lemeshow goodness of fit (GOF) test: model.glm$y, model.glm$fitted.values\n\n\n\n\n\n\n\nTest statistic\ndf\nP value\n\n\n\n\n1.081\n1\n0.2984\n\n\n\n\n\nSince the null hypothesis is that the logistic regression is a good fit for the data, we claim that the logistic regression is appropriate (p-value = 0.2984)."
-  },
-  {
-    "objectID": "AB_TESTS/MyLogisticRegression.html#conclusion",
-    "href": "AB_TESTS/MyLogisticRegression.html#conclusion",
-    "title": "My Simple Logistic Regression",
-    "section": "Conclusion",
-    "text": "Conclusion\nthe value of \\(e^{0.1385} \\approx 1.15\\) shows that the odds of being diagnosed with diabetes increases by a factor of 1.15 for every increase in Age. In other words, the odds of an diabetes diagnosis increases by 15% (1.15-1) for every increase in Age. To be more clear, for a Age of 55, our model puts the probability of a diabetes diagnosis at:\n\\[\n  P(Y_i = 1|\\, x_i) = \\frac{e^{-7.617 + 0.1385*55}}{1+e^{-7.617 + 0.1385*55}} = \\pi_i\n\\]\nThe probability of being diagnosed with type 2 diabetes at 55 years old is about 50% \\((\\hat{\\pi_i} \\approx 0.500035)\\), which supports Medical News Toda’s claim and the regressions probability rate as subjects get older."
-  },
-  {
-    "objectID": "AB_TESTS/MyLogisticRegression.html#referencescredits",
-    "href": "AB_TESTS/MyLogisticRegression.html#referencescredits",
-    "title": "My Simple Logistic Regression",
-    "section": "References/Credits",
-    "text": "References/Credits\nThe dataset used was constructed by AI for the purposes of this study. Further references are listed below:\nMedical News Today\nStatistics Notebook Example"
-  },
-  {
-    "objectID": "AB_TESTS/RecallingWords.html#background",
-    "href": "AB_TESTS/RecallingWords.html#background",
-    "title": "Recalling Words",
-    "section": "Background",
-    "text": "Background\nMany teachers and other educators are interested in understanding how to best deliver new content to students. In general, they have two choices of how to do this.\n\nThe Meshed Approach\n\nDeliver new content while simultaneously reviewing previously understood content.\n\nThe Before Approach\n\nDeliver new content after fully reviewing previously understood content.\n\n\nA study was performed to determine whether the Meshed or Before approaches to delivering content had any positive benefits on memory recall.\nTherefore, we aim to determine whether the Meshed or Before methods provide any positive benefit to memory recall. To test this, we will perform a Wilcoxon “Rank Sum (Mann–Whitney) test” to evaluate whether the distribution of scores in either method is stochastically greater than that of the control group (SFR). This allows us to assess whether correct recalls from the Meshed and Before groups tend to be significantly higher than those from the control group, indicating a potential benefit from new memorization techniques. As a bonus, we’ll test whether the Before group tends to outperform the Meshed group using another Wilcoxon Rank Sum (Mann–Whitney) test, making the assumption that its scores are generally higher, to find if a method is better than the the other. Which begs the questions:\n\n\nIs the correctness of “before” and “meshed” stochastically greater than SFR?\n\n\nAnd\n\n\nIs correctness of “before” stochastically greater than “meshed”?\n\n\n\n\\[   \nH_0: \\text{distribution of before and meshed are stochastically equal to SFR}\n\\] \\[\nH_a: \\text{distribution of before and meshed are stochastically greater than SFR}\n\\]\n\\[   \nH_a: \\text{distribution of before is stochastically equal to meshed}\n\\] \\[\nH_a: \\text{distribution of before is stochastically greater than meshed}\n\\]\n\\[   \n\\alpha = 0.05\n\\]\n\nExperiment Details\nIndividuals were seated at a computer and shown a list of words. Words appeared on the screen one at a time, for two seconds each, until all words had been shown (40 total). After all words were shown, they were required to perform a few two-digit mathematical additions (like 15 + 25) for 15 seconds to avoid immediate memory recall of the words. They were then asked to write down as many of the 40 words as they could remember. They were given a maximum of 5.3 minutes to recall words.\nThe process of showing words and recalling words was repeated four times with the same list of words each time (four chances to get it right). The presentation of the first trial was the same for all treatment conditions. However, trials 2, 3, and 4 were slightly different for each treatment condition.\n\nThe SFR group (the control group) stands for Standard Free Recall. In all four trials the same list of 40 words was presented, in a random order each time.\nThe Before group also used the same 40 words during each trial. However, any words that were correctly recalled in a previous trial were presented first, or before the words that were not recalled in the last trial. After all the correct words were presented in random order, the non-recalled words were presented in a random order.\nThe Meshed group also used the same 40 words during each trial. However, words that were correctly recalled in a previous trial were alternated with a missed word during the next presentation order.\n\nThe data records the number of correctly recalled words (out of the 40 possible) from the fourth trial. Results were obtained for 30 students, 10 in each of the three treatment groups: SFR, Before, and Meshed.\n\n\nData\nThe results from the study can be found in the Friendly data set in R after loading library(car).\nClick the “Code” button to see the data."
-  },
-  {
-    "objectID": "AB_TESTS/RecallingWords.html#analysis",
-    "href": "AB_TESTS/RecallingWords.html#analysis",
-    "title": "Recalling Words",
-    "section": "Analysis",
-    "text": "Analysis\n\nAs shown by the graph below, we compared the before and meshed groups relative to the control groups. It is visually clear that the before group has a higher median than the meshed group, implying that a higher percentage of the sample subjects of the before group have better recall than the meshed. But both before and meshed groups are substantially more effective than the control group(SFR) in obtaining higher scores, implying that memorization techniques do affect recall performance on subjects, than just memorizing randomly. Therefore, we must find statistical evidence if before and meshed have a significant difference in scores than SFR. Then find if the median of before is significantly more correct than meshed.\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\nFriendly$condition\nmin\nQ1\nmedian\nQ3\nmax\nmean\nsd\nn\nmissing\n\n\n\n\nBefore\n24\n37.25\n39\n39.75\n40\n36.6\n5.337\n10\n0\n\n\nMeshed\n30\n36\n36.5\n38.75\n40\n36.6\n3.026\n10\n0\n\n\nSFR\n21\n25\n27\n38.5\n39\n30.3\n7.334\n10\n0\n\n\n\n\n\nAfter performing the test, an approximation had to be used since there were ties present in the data and also because the distributions aren’t similarly shaped for medians. Yielding a p-value of 0.01644, which is smaller than a 0.05 alpha, which rejects the null. Concluding, both groups(before and meshed) are stochastically greater in correctness than the control group\n\\[   \nH_0: \\text{distribution of before and meshed are stochastically equal to SFR}\n\\] \\[\nH_a: \\text{distribution of before and meshed are stochastically greater than SFR}\n\\]\n\n\n\nWilcoxon rank sum test with continuity correction: BnF$correct and SNF$correct\n\n\n\n\n\n\n\nTest statistic\nP value\nAlternative hypothesis\n\n\n\n\n148.5\n0.01644 *\ngreater\n\n\n\n\n\nLastly, we approximate if before is stochastically greater than meshed since there are ties in present. The test outputs a p-value of 0.189, which is bigger than a 0.05, therefore we fail to reject the null, or conclude that the before is stochastically greater than meshed.\n\\[   \nH_a: \\text{distribution of before is stochastically equal to meshed}\n\\] \\[\nH_a: \\text{distribution of before is stochastically greater than meshed}\n\\]\n\n\n\nWilcoxon rank sum test with continuity correction: before$correct and meshed$correct\n\n\n\n\n\n\n\nTest statistic\nP value\nAlternative hypothesis\n\n\n\n\n62\n0.189\ngreater"
-  },
-  {
-    "objectID": "AB_TESTS/RecallingWords.html#interpretation",
-    "href": "AB_TESTS/RecallingWords.html#interpretation",
-    "title": "Recalling Words",
-    "section": "Interpretation",
-    "text": "Interpretation\nBoth methods, before and meshed benefit the results on memory recall relative to SFR. with both “before” and “meshed” having a higher distribution/median scores of (39 & 36.5) than SFR’s (27) resulting in stochastically greater results. However, among before and meshed, there isn’t a method that is significantly better, therefore leading to the conclusion that either one is has any positive benefit on memory recall.\nKey takeaways from this research would be to organize the document, in a way that perfoming multiple A/B testing doesn’t confuse the reader. As well that joining groups can help create more scenarios in which we can extract value from the data."
-  },
-  {
-    "objectID": "Blogs/Hosting_Using_AWS.html#introduction",
-    "href": "Blogs/Hosting_Using_AWS.html#introduction",
-    "title": "Hosting My Professional Portfolio Using AWS Amplify",
+    "objectID": "Blogs/AWS_Cloud_Computing.html#introduction",
+    "href": "Blogs/AWS_Cloud_Computing.html#introduction",
+    "title": "Harnessing AWS Cloud Services for Big Data and Machine Learning",
     "section": "Introduction",
-    "text": "Introduction\nWhen I first started building projects, I struggled with one big question: how do I show them off professionally? Uploading notebooks to GitHub was fine, but it did not really show my work. I wanted something that looked clean, professional, and easy to share with employers. That is when I discovered Quarto, an open-source publishing tool that turns Markdown and code into polished websites. Building the site was just half the journey. Hosting it somewhere reliable, where I had full control, was what really made it a professional portfolio. That is where AWS Amplify came in."
+    "text": "Introduction\nThe growth of data has completely changed how we approach machine learning. What used to be small, local experiments on laptops now involves massive datasets, scalable pipelines, and distributed computing. Cloud platforms have become the foundation for modern data science, and among them, AWS stands out for its flexibility and reach.\nWhen I first started learning about machine learning, I focused mainly on models. I thought performance was all about better algorithms and fine-tuning. It took me a while to realize that the real challenge was not just building models but managing data, scaling workloads, and deploying solutions efficiently. That realization led me straight into the world of cloud computing and big data."
   },
   {
-    "objectID": "Blogs/Hosting_Using_AWS.html#why-quarto",
-    "href": "Blogs/Hosting_Using_AWS.html#why-quarto",
-    "title": "Hosting My Professional Portfolio Using AWS Amplify",
-    "section": "Why Quarto",
-    "text": "Why Quarto\nQuarto is simple but powerful. It lets you mix code, text, and visuals in one place, whether you are writing blog posts, data analyses, or research reports. For anyone in data science or analytics, it provides the perfect balance between documentation and presentation.\nWith Quarto, I could take the same qmd files I used for analysis and render them directly into interactive, modern web pages. I did not need to learn web development from scratch because Quarto handled the formatting, navigation, and layout. Within minutes, I had a site that looked like a professional publication rather than a collection of notebooks."
+    "objectID": "Blogs/AWS_Cloud_Computing.html#understanding-cloud-computing-for-machine-learning",
+    "href": "Blogs/AWS_Cloud_Computing.html#understanding-cloud-computing-for-machine-learning",
+    "title": "Harnessing AWS Cloud Services for Big Data and Machine Learning",
+    "section": "Understanding Cloud Computing for Machine Learning",
+    "text": "Understanding Cloud Computing for Machine Learning\nCloud computing gives us something that traditional local setups cannot: elastic resources. Instead of worrying about limited hardware, you can launch powerful virtual machines, train models on large instances, and shut them down when finished. This pay-as-you-go model is ideal for experimentation and production.\nAWS provides services that simplify every stage of the machine learning workflow. You can store raw data in Amazon S3 and train models using SageMaker, since everything is integrated, secure, and scalable. It lets data professionals focus on business solutions rather than infrastructure headaches.\nCloud computing also supports collaboration. Teams across regions can access the same datasets, notebooks, and environments. This makes it possible to work on large-scale machine learning projects without being tied to a single machine or network."
   },
   {
-    "objectID": "Blogs/Hosting_Using_AWS.html#deploying-to-aws-amplify",
-    "href": "Blogs/Hosting_Using_AWS.html#deploying-to-aws-amplify",
-    "title": "Hosting My Professional Portfolio Using AWS Amplify",
-    "section": "Deploying to AWS Amplify",
-    "text": "Deploying to AWS Amplify\nAfter finishing my site locally using VSCode, I needed to host it. Free options like GitHub Pages worked fine, but I wanted to use paid services that required thoughtful resource management. To develop my management skills in cloud services and company resources.\nHosting works by Amplify connecting directly to a GitHub repository, so every time I push an update, it automatically rebuilds and redeploys the site. That feature alone made it worth using. There are no manual uploads or complicated configuration steps. Version control and deployment work together seamlessly.\nAt first, the setup felt intimidating. I had to configure an Amplify app, connect it to my GitHub repository, and make sure my site rendered correctly after each build. Once I got through the learning curve, I realized something important. Hosting your own website on AWS is not just about visibility; it’s about marketing.\nYou control how your portfolio looks, loads, and scales. You are not limited to templates or platforms that restrict customization. That kind of technical independence is exactly how to show your employer that you take the extra mile, to display your professional skills."
+    "objectID": "Blogs/AWS_Cloud_Computing.html#the-role-of-big-data",
+    "href": "Blogs/AWS_Cloud_Computing.html#the-role-of-big-data",
+    "title": "Harnessing AWS Cloud Services for Big Data and Machine Learning",
+    "section": "The Role of Big Data",
+    "text": "The Role of Big Data\nMachine learning models are only as good as the data they are trained on. Big data allows models to learn from bigger, more complex datasets, which leads to more accurate predictions. The challenge, however, is handling and processing that data efficiently.\nUsing these tools together transforms data from scattered sources into a clean, ready-to-use format. Once the data is prepared, it becomes much easier to train robust machine learning models."
   },
   {
-    "objectID": "Blogs/Hosting_Using_AWS.html#turning-a-website-into-a-portfolio",
-    "href": "Blogs/Hosting_Using_AWS.html#turning-a-website-into-a-portfolio",
-    "title": "Hosting My Professional Portfolio Using AWS Amplify",
-    "section": "Turning a Website Into a Portfolio",
-    "text": "Turning a Website Into a Portfolio\n\nOnce my Quarto site went live, it instantly changed how I presented myself. Instead of sending links to separate notebooks, dashboards, or PDFs, I could share a single URL that served as a digital home for my entire body of work.\nI included sections for projects, blog posts, and an about page. Projects showcased my visualizations, models, and real-world analyses. Blog posts covered topics such as LinkedIn networking, cloud deployment, and cloud computing. The about page gave readers a sense of my professional journey and goals.\nThese pieces came together to form a cohesive story. They did not just show what I had done. They showed how I think."
+    "objectID": "Blogs/AWS_Cloud_Computing.html#building-machine-learning-models-on-aws",
+    "href": "Blogs/AWS_Cloud_Computing.html#building-machine-learning-models-on-aws",
+    "title": "Harnessing AWS Cloud Services for Big Data and Machine Learning",
+    "section": "Building Machine Learning Models on AWS",
+    "text": "Building Machine Learning Models on AWS\nAWS SageMaker is one of the most valuable tools for deploying and managing machine learning models. It provides prebuilt environments for data exploration, training, and deployment. You can start with built-in algorithms or use your own code with frameworks such as TensorFlow, PyTorch, or Scikit-learn.\nThe biggest advantage is scalability. Training a large model locally could take days, but SageMaker can distribute the workload across multiple GPU or CPU instances and finish in a fraction of the time. Once trained, the model can be deployed directly as an endpoint for real-time predictions.\nBeyond SageMaker, AWS services such as Lambda and API Gateway can help automate workflows and serve models to users. This creates a smooth pipeline from data ingestion to prediction."
   },
   {
-    "objectID": "Blogs/Hosting_Using_AWS.html#the-value-it-adds-professionally",
-    "href": "Blogs/Hosting_Using_AWS.html#the-value-it-adds-professionally",
-    "title": "Hosting My Professional Portfolio Using AWS Amplify",
-    "section": "The Value It Adds Professionally",
-    "text": "The Value It Adds Professionally\nHaving a portfolio on AWS does more than showcase your projects. It demonstrates initiative. It shows that you can manage cloud infrastructure, deploy applications, and present data work in a professional format.\nFor data science, analytics, or engineering roles, that makes a difference. Recruiters and hiring managers can instantly see your technical ability and your communication skills. These are two qualities that separate strong candidates from average ones.\nBecause AWS is a real-world cloud platform, hosting your portfolio there also signals familiarity with deployment and scalability. Those are valuable skills that many entry-level candidates overlook."
+    "objectID": "Blogs/AWS_Cloud_Computing.html#the-real-value",
+    "href": "Blogs/AWS_Cloud_Computing.html#the-real-value",
+    "title": "Harnessing AWS Cloud Services for Big Data and Machine Learning",
+    "section": "The Real Value",
+    "text": "The Real Value\n\nLearning to use AWS for big data and machine learning taught me an important lesson. The best models are not just accurate but also practical. They need to handle real-world data volumes, integrate with other systems, and scale as demand grows. Cloud computing makes that possible.\nFor professionals in data science or analytics, understanding AWS is no longer optional. It bridges the gap between theory and production. Employers value not only your ability to build models but also your understanding of infrastructure and deployment."
   },
   {
-    "objectID": "Blogs/Hosting_Using_AWS.html#final-thoughts",
-    "href": "Blogs/Hosting_Using_AWS.html#final-thoughts",
-    "title": "Hosting My Professional Portfolio Using AWS Amplify",
+    "objectID": "Blogs/AWS_Cloud_Computing.html#final-thoughts",
+    "href": "Blogs/AWS_Cloud_Computing.html#final-thoughts",
+    "title": "Harnessing AWS Cloud Services for Big Data and Machine Learning",
     "section": "Final Thoughts",
-    "text": "Final Thoughts\nHosting a Quarto website on AWS started as a small personal experiment, but it became one of the most powerful parts of my professional identity. It is not just a portfolio. It is a living record of growth, experimentation, and curiosity.\nIf you are in data science, analytics, or any tech field, consider building one yourself. Quarto makes it simple, and AWS makes it professional. Together, they turn your work into something more than a résumé. They turn it into proof."
+    "text": "Final Thoughts\nCloud computing and big data are redefining what is possible in machine learning. AWS gives us the tools to handle enormous datasets, train complex models, and deploy them globally with ease. It turns abstract ideas into real, working systems that impact business and research.\nIf you are serious about machine learning, invest time in learning how to use the cloud. Explore S3 for data storage, EMR for processing, and SageMaker for training and deployment. These tools work together to create a powerful ecosystem that can take your models from concept to production.\nAWS is not just a platform. It is a bridge between data and intelligence, helping us move from experimentation to impact."
   },
   {
-    "objectID": "index.html",
-    "href": "index.html",
-    "title": "Number Incrementer",
-    "section": "",
-    "text": "Enter a number below and click the button to add 1 to it.\n\n Add One"
+    "objectID": "Blogs/Linkedin_Reach_Tips.html#the-challenge-of-breaking-in",
+    "href": "Blogs/Linkedin_Reach_Tips.html#the-challenge-of-breaking-in",
+    "title": "How to Connect with DS professionals on LinkedIn",
+    "section": "The Challenge of Breaking In",
+    "text": "The Challenge of Breaking In\nThe market is rough for entry-level college graduates. Layoffs have flooded the applicant pool with senior professionals, graduate schools are more competitive due to students trying to get ahead, and the perception that AI can replace entry-level workers has plague the industry. In this environment, it’s easy to feel invisible. That’s why I learned to stand out, through connecting with professionals in the field."
   },
   {
-    "objectID": "index.html#add-one-to-your-number",
-    "href": "index.html#add-one-to-your-number",
-    "title": "Number Incrementer",
-    "section": "",
-    "text": "Enter a number below and click the button to add 1 to it.\n\n Add One"
+    "objectID": "Blogs/Linkedin_Reach_Tips.html#taking-the-first-step",
+    "href": "Blogs/Linkedin_Reach_Tips.html#taking-the-first-step",
+    "title": "How to Connect with DS professionals on LinkedIn",
+    "section": "Taking the First Step",
+    "text": "Taking the First Step\nWhen I first started trying to break into data science, I had no idea where to begin. Everyone seemed to have more experience, better portfolios, or advanced degrees. I realized that if I wanted to stand out, I needed to learn directly from people already working in the field. So in the summer of 2025, I decided to reach out to hundreds of professionals on LinkedIn. By the end of the season, I had sent over 500 connection requests."
   },
   {
-    "objectID": "Projects/Crash_Detector/lambda_layer/python/numpy/random/LICENSE.html",
-    "href": "Projects/Crash_Detector/lambda_layer/python/numpy/random/LICENSE.html",
-    "title": "NCSA Open Source License",
+    "objectID": "Blogs/Linkedin_Reach_Tips.html#learning-through-cold-connections",
+    "href": "Blogs/Linkedin_Reach_Tips.html#learning-through-cold-connections",
+    "title": "How to Connect with DS professionals on LinkedIn",
+    "section": "Learning Through Cold Connections",
+    "text": "Learning Through Cold Connections\nAt first, it felt awkward. Sending cold messages to strangers online can be intimidating. I worried people would ignore me or think I was just a waste of time due to being more inexperienced than they were. But I quickly learned to start strong and began with alumni from my university. My messages were simple:\n” Hi [Name], My name is Alex J. Tovar, and I’m also in the field of Data Science. I’d love to invest in our connection and grow our LinkedIn profiles together. Let’s connect!”\nAlthough short, the message displays a common interest (data science), and invites the connections like an investment that could benefit both parties. If it is beneficial, then why not accept? This is the type of psychological bargaining behind every reach message."
+  },
+  {
+    "objectID": "Blogs/Linkedin_Reach_Tips.html#small-numbers-big-impact",
+    "href": "Blogs/Linkedin_Reach_Tips.html#small-numbers-big-impact",
+    "title": "How to Connect with DS professionals on LinkedIn",
+    "section": "Small Numbers, Big Impact",
+    "text": "Small Numbers, Big Impact\nOut of those hundreds of connections, only a small percentage replied but that small group became incredibly valuable. Some offered to hop on Zoom or a phone call, sharing their stories and advice. I learned what hiring managers actually look for, how data teams are structured, and how different roles fit together knowledge I never would have found in a course description or job posting. One thing that stood out from those conversations was the power of intentional networking. It’s easy to get caught up in collecting connections for the sake of numbers, but what really matters is building strong ones. A few genuine relationships will take you much farther than a thousand shallow ones."
+  },
+  {
+    "objectID": "Blogs/Linkedin_Reach_Tips.html#from-conversations-to-opportunities",
+    "href": "Blogs/Linkedin_Reach_Tips.html#from-conversations-to-opportunities",
+    "title": "How to Connect with DS professionals on LinkedIn",
+    "section": "From Conversations to Opportunities",
+    "text": "From Conversations to Opportunities\nSometimes, a connection would lead to a casual chat that turned into a brief mentorship. Other times, it was just a one-time conversation that gave me a new perspective. And yes, in a few cases, those relationships opened doors to interviews and opportunities. But the biggest reward wasn’t the job prospects it was the confidence that I was no longer navigating this path alone."
+  },
+  {
+    "objectID": "Blogs/Linkedin_Reach_Tips.html#what-networking-really-means",
+    "href": "Blogs/Linkedin_Reach_Tips.html#what-networking-really-means",
+    "title": "How to Connect with DS professionals on LinkedIn",
+    "section": "What Networking Really Means",
+    "text": "What Networking Really Means\nNetworking isn’t about getting something from someone; it’s about learning from them. It’s about showing interest, listening carefully, and building mutual respect. In data science and really, in any field the people who thrive are the ones who combine technical skill with strong relationships. If I could give one piece of advice to anyone starting out, it would be this: don’t wait until you’re “qualified” to reach out. The best time to connect is now. You don’t need to have everything figured out to start conversations you just need curiosity and sincerity."
+  },
+  {
+    "objectID": "Blogs/Linkedin_Reach_Tips.html#final-thoughts",
+    "href": "Blogs/Linkedin_Reach_Tips.html#final-thoughts",
+    "title": "How to Connect with DS professionals on LinkedIn",
+    "section": "Final Thoughts",
+    "text": "Final Thoughts\nBreaking into data science taught me that opportunities often come from unexpected directions. But those opportunities only appear when you put yourself out there. So craft your message, click “Connect,” and start building relationships that will follow you beyond school."
+  },
+  {
+    "objectID": "Machine_Learning/Executive Case Summary Module 3 - Team 8.html",
+    "href": "Machine_Learning/Executive Case Summary Module 3 - Team 8.html",
+    "title": "Alex J. Tovar",
     "section": "",
-    "text": "This software is dual-licensed under the The University of Illinois/NCSA Open Source License (NCSA) and The 3-Clause BSD License\n\nNCSA Open Source License\nCopyright (c) 2019 Kevin Sheppard. All rights reserved.\nDeveloped by: Kevin Sheppard (kevin.sheppard@economics.ox.ac.uk, kevin.k.sheppard@gmail.com) http://www.kevinsheppard.com\nPermission is hereby granted, free of charge, to any person obtaining a copy of this software and associated documentation files (the “Software”), to deal with the Software without restriction, including without limitation the rights to use, copy, modify, merge, publish, distribute, sublicense, and/or sell copies of the Software, and to permit persons to whom the Software is furnished to do so, subject to the following conditions:\nRedistributions of source code must retain the above copyright notice, this list of conditions and the following disclaimers.\nRedistributions in binary form must reproduce the above copyright notice, this list of conditions and the following disclaimers in the documentation and/or other materials provided with the distribution.\nNeither the names of Kevin Sheppard, nor the names of any contributors may be used to endorse or promote products derived from this Software without specific prior written permission.\nTHE SOFTWARE IS PROVIDED “AS IS”, WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE CONTRIBUTORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS WITH THE SOFTWARE.\n\n\n3-Clause BSD License\nCopyright (c) 2019 Kevin Sheppard. All rights reserved.\nRedistribution and use in source and binary forms, with or without modification, are permitted provided that the following conditions are met:\n\nRedistributions of source code must retain the above copyright notice, this list of conditions and the following disclaimer.\nRedistributions in binary form must reproduce the above copyright notice, this list of conditions and the following disclaimer in the documentation and/or other materials provided with the distribution.\nNeither the name of the copyright holder nor the names of its contributors may be used to endorse or promote products derived from this software without specific prior written permission.\n\nTHIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS “AS IS” AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT HOLDER OR CONTRIBUTORS BE LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.\n\n\nComponents\nMany parts of this module have been derived from original sources, often the algorithm’s designer. Component licenses are located with the component code."
+    "text": "Title Page 1\nBackground 2\nMethodology 3\nDiscussion Responses 4\nThe study intends to predict house pricing and provide quantifiable evidence that our predictions are reliable by studying the factors influencing the price, such as date, bedrooms, etc. Its purpose is to research and learn about the housing market’s trends and correlations to meet the interests of our customers.\nQuantifying our results using metrics such as “Mean Absolute Error” resulted in a score of $57,536.73, implying that our predictions were only off from the actual result by $57,536.73 on average. We also used metrics such as “Median Absolute Error,” with a score of “38663.0”, which takes the median of the results instead of the mean, thus yielding a result less sensitive to predictions that are very far from the target. In this case, our predictions are $38,663.0 away from the target on a median scale. As well as “RMSE(Root mean square error,”, which serves as a measure that emphasizes big mistakes by encouraging the model to reduce smaller errors.\nAs we examined the data, our first goal was to identify data features that influence the predictions’ accuracy and precision. To elaborate, the house’s attributes, such as view, year built, and living space, best predict its price. Thus, we deployed the machine-learning model and made predictions on all the features. First, we wrangle the data by creating the “Year Sold” feature in the data, to feature how the time sold of the house influences the price itself in the predictions.\nWe split the data with 20% of the values designed for the test, then trained the model with the other 80% of the data to predict the values in the test. Furthermore, we’ve tuned the model by testing different parameters/settings on the model to yield more accurate results. For example, we’ve implemented the “Root Mean Squared Error” as the metric due to the request not to overestimate houses that could be in the low-income bracket. It was followed by a moderate learning rate value that reduces the chances of inaccurate and inconsistent solutions/predictions. As well as modifying the subsample/data distributed to the model’s mini-training rounds reduces bias in memorizing the training data instead of making predictions of the test data. After the test, the model evaluated the results and displayed the most important features to properly and confidently predict the correct housing prices.\nThis is a supervised regression problem, which is based on structured data features, we predict a continuous variable (house price). The target variable is continuous which fits the regression criteria. We trained the model using historical housing data with labeled outcomes.\nTo quantify prediction reliability, we used multiple metrics:\nSelected Metric:\nThese metrics collectively provide empirical confidence in the model’s performance, illustrating the model’s capability to produce reliable predictions.\nWilliam (VP of Finance) raised concerns about adjusting home values for lower-income neighborhoods. After careful consideration, we strongly advise against manual price reductions, as this practice may violate Fair Housing laws. Instead, we propose:\nExplanation:\nJohnny (Data Science Intern) asked about feature scaling. Since XGBoost automatically handles different feature scales, no additional normalization was needed. However, standardization would be required for models like linear regression.\nAdditionally, we ensured that categorical features were appropriately encoded and irrelevant columns (like ‘id’) were removed to enhance model performance."
+  },
+  {
+    "objectID": "Machine_Learning/Executive Case Summary Module 3 - Team 8.html#house-price-case-study-project",
+    "href": "Machine_Learning/Executive Case Summary Module 3 - Team 8.html#house-price-case-study-project",
+    "title": "Alex J. Tovar",
+    "section": "",
+    "text": "Title Page 1\nBackground 2\nMethodology 3\nDiscussion Responses 4"
+  },
+  {
+    "objectID": "Machine_Learning/Executive Case Summary Module 3 - Team 8.html#methodology",
+    "href": "Machine_Learning/Executive Case Summary Module 3 - Team 8.html#methodology",
+    "title": "Alex J. Tovar",
+    "section": "Methodology",
+    "text": "Methodology"
+  },
+  {
+    "objectID": "Machine_Learning/Executive Case Summary Module 3 - Team 8.html#discussion-responses",
+    "href": "Machine_Learning/Executive Case Summary Module 3 - Team 8.html#discussion-responses",
+    "title": "Alex J. Tovar",
+    "section": "Discussion Responses",
+    "text": "Discussion Responses"
   }
 ]
