@@ -6,7 +6,7 @@ format: html
 ## Is This Car Crashed?
 
 Upload or take a photo of a car, and our AI will analyze whether it's damaged or not.
-
+```{=html}
 <div class="car-detector-app">
   <div class="upload-section">
     <input type="file" id="imageInput" accept="image/*" />
@@ -21,7 +21,7 @@ Upload or take a photo of a car, and our AI will analyze whether it's damaged or
   <div id="result"></div>
 </div>
 
-```{=html}
+
 <style>
 .car-detector-app {
   margin: 20px 0;
