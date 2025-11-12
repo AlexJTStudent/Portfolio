@@ -125,7 +125,7 @@ Upload or take a photo of a car, and our AI will analyze whether it's damaged or
 
 <script>
 // Your actual API Gateway endpoint
-const API_URL = 'https://dj2755ab7h.execute-api.us-west-2.amazonaws.com/prod/analyze-car';
+const API_URL = 'https://car-crash-detector-800819952729.us-central1.run.app/predict';
 
 let selectedImage = null;
 
