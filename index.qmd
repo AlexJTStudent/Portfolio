@@ -29,7 +29,7 @@ Upload or take a photo of a car, and our AI will analyze whether it's damaged or
   </div>
   
   <div id="summary-section" style="display: none;">
-    <h3>AI Analysis:</h3>
+    <h3>Analysis:</h3>
     <div id="summaryText"></div>
   </div>
 </div>
