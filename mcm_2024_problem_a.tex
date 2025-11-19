@@ -1,0 +1,357 @@
+% Options for packages loaded elsewhere
+\PassOptionsToPackage{unicode}{hyperref}
+\PassOptionsToPackage{hyphens}{url}
+\documentclass[
+]{article}
+\usepackage{xcolor}
+\usepackage[margin=1in]{geometry}
+\usepackage{amsmath,amssymb}
+\setcounter{secnumdepth}{-\maxdimen} % remove section numbering
+\usepackage{iftex}
+\ifPDFTeX
+  \usepackage[T1]{fontenc}
+  \usepackage[utf8]{inputenc}
+  \usepackage{textcomp} % provide euro and other symbols
+\else % if luatex or xetex
+  \usepackage{unicode-math} % this also loads fontspec
+  \defaultfontfeatures{Scale=MatchLowercase}
+  \defaultfontfeatures[\rmfamily]{Ligatures=TeX,Scale=1}
+\fi
+\usepackage{lmodern}
+\ifPDFTeX\else
+  % xetex/luatex font selection
+\fi
+% Use upquote if available, for straight quotes in verbatim environments
+\IfFileExists{upquote.sty}{\usepackage{upquote}}{}
+\IfFileExists{microtype.sty}{% use microtype if available
+  \usepackage[]{microtype}
+  \UseMicrotypeSet[protrusion]{basicmath} % disable protrusion for tt fonts
+}{}
+\makeatletter
+\@ifundefined{KOMAClassName}{% if non-KOMA class
+  \IfFileExists{parskip.sty}{%
+    \usepackage{parskip}
+  }{% else
+    \setlength{\parindent}{0pt}
+    \setlength{\parskip}{6pt plus 2pt minus 1pt}}
+}{% if KOMA class
+  \KOMAoptions{parskip=half}}
+\makeatother
+\usepackage{color}
+\usepackage{fancyvrb}
+\newcommand{\VerbBar}{|}
+\newcommand{\VERB}{\Verb[commandchars=\\\{\}]}
+\DefineVerbatimEnvironment{Highlighting}{Verbatim}{commandchars=\\\{\}}
+% Add ',fontsize=\small' for more characters per line
+\usepackage{framed}
+\definecolor{shadecolor}{RGB}{248,248,248}
+\newenvironment{Shaded}{\begin{snugshade}}{\end{snugshade}}
+\newcommand{\AlertTok}[1]{\textcolor[rgb]{0.94,0.16,0.16}{#1}}
+\newcommand{\AnnotationTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{\textbf{\textit{#1}}}}
+\newcommand{\AttributeTok}[1]{\textcolor[rgb]{0.13,0.29,0.53}{#1}}
+\newcommand{\BaseNTok}[1]{\textcolor[rgb]{0.00,0.00,0.81}{#1}}
+\newcommand{\BuiltInTok}[1]{#1}
+\newcommand{\CharTok}[1]{\textcolor[rgb]{0.31,0.60,0.02}{#1}}
+\newcommand{\CommentTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{\textit{#1}}}
+\newcommand{\CommentVarTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{\textbf{\textit{#1}}}}
+\newcommand{\ConstantTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{#1}}
+\newcommand{\ControlFlowTok}[1]{\textcolor[rgb]{0.13,0.29,0.53}{\textbf{#1}}}
+\newcommand{\DataTypeTok}[1]{\textcolor[rgb]{0.13,0.29,0.53}{#1}}
+\newcommand{\DecValTok}[1]{\textcolor[rgb]{0.00,0.00,0.81}{#1}}
+\newcommand{\DocumentationTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{\textbf{\textit{#1}}}}
+\newcommand{\ErrorTok}[1]{\textcolor[rgb]{0.64,0.00,0.00}{\textbf{#1}}}
+\newcommand{\ExtensionTok}[1]{#1}
+\newcommand{\FloatTok}[1]{\textcolor[rgb]{0.00,0.00,0.81}{#1}}
+\newcommand{\FunctionTok}[1]{\textcolor[rgb]{0.13,0.29,0.53}{\textbf{#1}}}
+\newcommand{\ImportTok}[1]{#1}
+\newcommand{\InformationTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{\textbf{\textit{#1}}}}
+\newcommand{\KeywordTok}[1]{\textcolor[rgb]{0.13,0.29,0.53}{\textbf{#1}}}
+\newcommand{\NormalTok}[1]{#1}
+\newcommand{\OperatorTok}[1]{\textcolor[rgb]{0.81,0.36,0.00}{\textbf{#1}}}
+\newcommand{\OtherTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{#1}}
+\newcommand{\PreprocessorTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{\textit{#1}}}
+\newcommand{\RegionMarkerTok}[1]{#1}
+\newcommand{\SpecialCharTok}[1]{\textcolor[rgb]{0.81,0.36,0.00}{\textbf{#1}}}
+\newcommand{\SpecialStringTok}[1]{\textcolor[rgb]{0.31,0.60,0.02}{#1}}
+\newcommand{\StringTok}[1]{\textcolor[rgb]{0.31,0.60,0.02}{#1}}
+\newcommand{\VariableTok}[1]{\textcolor[rgb]{0.00,0.00,0.00}{#1}}
+\newcommand{\VerbatimStringTok}[1]{\textcolor[rgb]{0.31,0.60,0.02}{#1}}
+\newcommand{\WarningTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{\textbf{\textit{#1}}}}
+\usepackage{longtable,booktabs,array}
+\usepackage{calc} % for calculating minipage widths
+% Correct order of tables after \paragraph or \subparagraph
+\usepackage{etoolbox}
+\makeatletter
+\patchcmd\longtable{\par}{\if@noskipsec\mbox{}\fi\par}{}{}
+\makeatother
+% Allow footnotes in longtable head/foot
+\IfFileExists{footnotehyper.sty}{\usepackage{footnotehyper}}{\usepackage{footnote}}
+\makesavenoteenv{longtable}
+\usepackage{graphicx}
+\makeatletter
+\newsavebox\pandoc@box
+\newcommand*\pandocbounded[1]{% scales image to fit in text height/width
+  \sbox\pandoc@box{#1}%
+  \Gscale@div\@tempa{\textheight}{\dimexpr\ht\pandoc@box+\dp\pandoc@box\relax}%
+  \Gscale@div\@tempb{\linewidth}{\wd\pandoc@box}%
+  \ifdim\@tempb\p@<\@tempa\p@\let\@tempa\@tempb\fi% select the smaller of both
+  \ifdim\@tempa\p@<\p@\scalebox{\@tempa}{\usebox\pandoc@box}%
+  \else\usebox{\pandoc@box}%
+  \fi%
+}
+% Set default figure placement to htbp
+\def\fps@figure{htbp}
+\makeatother
+\setlength{\emergencystretch}{3em} % prevent overfull lines
+\providecommand{\tightlist}{%
+  \setlength{\itemsep}{0pt}\setlength{\parskip}{0pt}}
+\usepackage{bookmark}
+\IfFileExists{xurl.sty}{\usepackage{xurl}}{} % add URL line breaks if available
+\urlstyle{same}
+\hypersetup{
+  pdftitle={2024 MCM Problem A --- Resource Availability and Sex Ratios},
+  pdfauthor={Generated by ChatGPT},
+  hidelinks,
+  pdfcreator={LaTeX via pandoc}}
+
+\title{2024 MCM Problem A --- Resource Availability and Sex Ratios}
+\author{Generated by ChatGPT}
+\date{November 13, 2025}
+
+\begin{document}
+\maketitle
+
+\section{One-Page Summary}\label{one-page-summary}
+
+Question. Explore how variable sex ratios in sea lampreys, driven by
+larval growth rates which depend on food availability, affect lamprey
+population dynamics and the larger ecosystem. We investigate advantages
+and disadvantages of adaptive sex ratios, impacts on stability, and
+secondary effects on hosts and parasites.
+
+Approach. We build a stage-structured dynamical model with resource
+dynamics and a sex-determination function m(R) mapping resource
+availability to fraction male. The core model couples: host fish (F),
+lamprey population stages (eggs E, larvae L, adults A split by sex M and
+W), and resource pool (R). We analyze equilibria, perform stability and
+sensitivity analyses, and run numerical simulations under low and high
+resource regimes.
+
+Key results (summary).
+
+\begin{itemize}
+\tightlist
+\item
+  Adaptive sex ratio that produces more males under low food can protect
+  the lamprey population by reducing reproductive output when resources
+  are scarce, acting as a bet-hedging strategy and lowering the risk of
+  overshooting the resource base.
+\item
+  Variable sex ratios change ecosystem stability: in some parameter
+  regions they stabilize host-lamprey dynamics (damp oscillations) but
+  can destabilize when reproduction responds nonlinearly to resources.
+\item
+  Secondary effects: variable sex ratios can indirectly benefit
+  parasites (and other species) by smoothing lamprey-driven fish
+  mortality peaks, changing predation pressure timing.
+\end{itemize}
+
+Conclusions. Adaptive sex ratio variation is a plausible evolutionary
+response to variable resources; it mitigates boom-bust dynamics for
+lampreys and alters ecosystem resilience. Management implications:
+controlling resource availability (for example, habitat alteration) can
+shift sex ratios and thus population trajectories.
+
+\section{Model development}\label{model-development}
+
+\subsection{Model variables}\label{model-variables}
+
+R(t): dimensionless resource availability (normalized, 0 to 1). F(t):
+density of host fish (food source/hosts for adult lampreys). E(t): egg
+stock. L(t): larvae. M(t): adult males. W(t): adult females. A(t) = M(t)
++ W(t): total adult lampreys.
+
+\subsection{Resource-dependent sex
+ratio}\label{resource-dependent-sex-ratio}
+
+We define a simple linear mapping from resource level R in {[}0,1{]} to
+male fraction m(R) matching the observed endpoints:
+
+m(R) = 0.78 - 0.22 * R
+
+Thus m(0) = 0.78, m(1) = 0.56. Female fraction is 1 - m(R).
+
+\subsection{ODE system
+(stage-structured)}\label{ode-system-stage-structured}
+
+The model equations are presented here (derivatives):
+
+dR/dt = S - dR * R - cR * L - cA * A
+
+dF/dt = rF * F * (1 - F/K) - beta * A * F / (F + H)
+
+dE/dt = b * W - sigmaE * E - muE * E
+
+dL/dt = sigmaE * E - sigmaL * L - muL * L
+
+dM/dt = m(R) * sigmaL * L - muA * M
+
+dW/dt = (1 - m(R)) * sigmaL * L - muA * W
+
+Explanation of parameters
+
+S: resource supply rate (controls low/high regimes)
+
+dR: resource decay/loss
+
+cR, cA: consumption coefficients by larvae and adults
+
+rF: intrinsic growth rate of host fish, K carrying capacity
+
+beta: mortality rate of fish due to lamprey parasitism (functional
+response with half-saturation H)
+
+b: per-female effective reproductive contribution (eggs that contribute
+to E)
+
+sigmaE, sigmaL: progression rates from eggs to larvae and larvae to
+adults
+
+muE, muL, muA: stage-specific mortality rates
+
+\section{Numerical simulations}\label{numerical-simulations}
+
+We simulate under two resource-supply regimes: low and high. The R code
+below implements the ODE system using deSolve's ode solver.
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\CommentTok{\# Sex ratio function}
+\NormalTok{mR }\OtherTok{\textless{}{-}} \ControlFlowTok{function}\NormalTok{(R) \{}
+  \FunctionTok{pmax}\NormalTok{(}\DecValTok{0}\NormalTok{, }\FunctionTok{pmin}\NormalTok{(}\DecValTok{1}\NormalTok{, }\FloatTok{0.78} \SpecialCharTok{{-}} \FloatTok{0.22} \SpecialCharTok{*}\NormalTok{ R))}
+\NormalTok{\}}
+
+\CommentTok{\# Derivative function for deSolve}
+\NormalTok{lamprey\_model }\OtherTok{\textless{}{-}} \ControlFlowTok{function}\NormalTok{(t, state, params) \{}
+  \FunctionTok{with}\NormalTok{(}\FunctionTok{as.list}\NormalTok{(}\FunctionTok{c}\NormalTok{(state, params)), \{}
+\NormalTok{    A }\OtherTok{\textless{}{-}}\NormalTok{ M }\SpecialCharTok{+}\NormalTok{ W}
+\NormalTok{    dR }\OtherTok{\textless{}{-}}\NormalTok{ S }\SpecialCharTok{{-}}\NormalTok{ dR\_coef }\SpecialCharTok{*}\NormalTok{ R }\SpecialCharTok{{-}}\NormalTok{ cR }\SpecialCharTok{*}\NormalTok{ L }\SpecialCharTok{{-}}\NormalTok{ cA }\SpecialCharTok{*}\NormalTok{ A}
+\NormalTok{    dF }\OtherTok{\textless{}{-}}\NormalTok{ rF }\SpecialCharTok{*}\NormalTok{ F }\SpecialCharTok{*}\NormalTok{ (}\DecValTok{1} \SpecialCharTok{{-}}\NormalTok{ F }\SpecialCharTok{/}\NormalTok{ K) }\SpecialCharTok{{-}}\NormalTok{ beta }\SpecialCharTok{*}\NormalTok{ A }\SpecialCharTok{*}\NormalTok{ (F }\SpecialCharTok{/}\NormalTok{ (F }\SpecialCharTok{+}\NormalTok{ H))}
+\NormalTok{    dE }\OtherTok{\textless{}{-}}\NormalTok{ b }\SpecialCharTok{*}\NormalTok{ W }\SpecialCharTok{{-}}\NormalTok{ sigmaE }\SpecialCharTok{*}\NormalTok{ E }\SpecialCharTok{{-}}\NormalTok{ muE }\SpecialCharTok{*}\NormalTok{ E}
+\NormalTok{    dL }\OtherTok{\textless{}{-}}\NormalTok{ sigmaE }\SpecialCharTok{*}\NormalTok{ E }\SpecialCharTok{{-}}\NormalTok{ sigmaL }\SpecialCharTok{*}\NormalTok{ L }\SpecialCharTok{{-}}\NormalTok{ muL }\SpecialCharTok{*}\NormalTok{ L}
+\NormalTok{    mr }\OtherTok{\textless{}{-}} \FunctionTok{mR}\NormalTok{(R)}
+\NormalTok{    dM }\OtherTok{\textless{}{-}}\NormalTok{ mr }\SpecialCharTok{*}\NormalTok{ sigmaL }\SpecialCharTok{*}\NormalTok{ L }\SpecialCharTok{{-}}\NormalTok{ muA }\SpecialCharTok{*}\NormalTok{ M}
+\NormalTok{    dW }\OtherTok{\textless{}{-}}\NormalTok{ (}\DecValTok{1} \SpecialCharTok{{-}}\NormalTok{ mr) }\SpecialCharTok{*}\NormalTok{ sigmaL }\SpecialCharTok{*}\NormalTok{ L }\SpecialCharTok{{-}}\NormalTok{ muA }\SpecialCharTok{*}\NormalTok{ W}
+    \FunctionTok{list}\NormalTok{(}\FunctionTok{c}\NormalTok{(dR, dF, dE, dL, dM, dW))}
+\NormalTok{  \})}
+\NormalTok{\}}
+
+\CommentTok{\# Parameters and initial state}
+\NormalTok{common }\OtherTok{\textless{}{-}} \FunctionTok{list}\NormalTok{(}\AttributeTok{dR\_coef =} \FloatTok{0.2}\NormalTok{, }\AttributeTok{cR =} \FloatTok{0.01}\NormalTok{, }\AttributeTok{cA =} \FloatTok{0.02}\NormalTok{, }\AttributeTok{rF =} \FloatTok{0.5}\NormalTok{, }\AttributeTok{K =} \DecValTok{100}\NormalTok{,}
+               \AttributeTok{b =} \FloatTok{0.5}\NormalTok{, }\AttributeTok{beta =} \FloatTok{0.02}\NormalTok{, }\AttributeTok{H =} \DecValTok{10}\NormalTok{, }\AttributeTok{sigmaE =} \FloatTok{0.2}\NormalTok{, }\AttributeTok{sigmaL =} \FloatTok{0.1}\NormalTok{,}
+               \AttributeTok{muE =} \FloatTok{0.1}\NormalTok{, }\AttributeTok{muL =} \FloatTok{0.05}\NormalTok{, }\AttributeTok{muA =} \FloatTok{0.1}\NormalTok{)}
+\NormalTok{params\_low }\OtherTok{\textless{}{-}} \FunctionTok{c}\NormalTok{(}\AttributeTok{S =} \FloatTok{0.5}\NormalTok{, common)}
+\NormalTok{params\_high }\OtherTok{\textless{}{-}} \FunctionTok{c}\NormalTok{(}\AttributeTok{S =} \FloatTok{1.5}\NormalTok{, common)}
+
+\NormalTok{state0 }\OtherTok{\textless{}{-}} \FunctionTok{c}\NormalTok{(}\AttributeTok{R =} \FloatTok{0.5}\NormalTok{, }\AttributeTok{F =} \DecValTok{50}\NormalTok{, }\AttributeTok{E =} \DecValTok{10}\NormalTok{, }\AttributeTok{L =} \DecValTok{20}\NormalTok{, }\AttributeTok{M =} \DecValTok{5}\NormalTok{, }\AttributeTok{W =} \DecValTok{5}\NormalTok{)}
+
+\NormalTok{times }\OtherTok{\textless{}{-}} \FunctionTok{seq}\NormalTok{(}\DecValTok{0}\NormalTok{, }\DecValTok{400}\NormalTok{, }\AttributeTok{by =} \FloatTok{0.1}\NormalTok{)}
+
+\NormalTok{out\_low }\OtherTok{\textless{}{-}} \FunctionTok{ode}\NormalTok{(}\AttributeTok{y =}\NormalTok{ state0, }\AttributeTok{times =}\NormalTok{ times, }\AttributeTok{func =}\NormalTok{ lamprey\_model, }\AttributeTok{parms =}\NormalTok{ params\_low)}
+\NormalTok{out\_high }\OtherTok{\textless{}{-}} \FunctionTok{ode}\NormalTok{(}\AttributeTok{y =}\NormalTok{ state0, }\AttributeTok{times =}\NormalTok{ times, }\AttributeTok{func =}\NormalTok{ lamprey\_model, }\AttributeTok{parms =}\NormalTok{ params\_high)}
+
+\NormalTok{out\_low }\OtherTok{\textless{}{-}} \FunctionTok{as.data.frame}\NormalTok{(out\_low)}
+\NormalTok{out\_high }\OtherTok{\textless{}{-}} \FunctionTok{as.data.frame}\NormalTok{(out\_high)}
+
+\CommentTok{\# compute total adults and male fraction}
+\NormalTok{out\_low}\SpecialCharTok{$}\NormalTok{A }\OtherTok{\textless{}{-}}\NormalTok{ out\_low}\SpecialCharTok{$}\NormalTok{M }\SpecialCharTok{+}\NormalTok{ out\_low}\SpecialCharTok{$}\NormalTok{W}
+\NormalTok{out\_low}\SpecialCharTok{$}\NormalTok{m }\OtherTok{\textless{}{-}} \FloatTok{0.78} \SpecialCharTok{{-}} \FloatTok{0.22} \SpecialCharTok{*}\NormalTok{ out\_low}\SpecialCharTok{$}\NormalTok{R}
+\NormalTok{out\_high}\SpecialCharTok{$}\NormalTok{A }\OtherTok{\textless{}{-}}\NormalTok{ out\_high}\SpecialCharTok{$}\NormalTok{M }\SpecialCharTok{+}\NormalTok{ out\_high}\SpecialCharTok{$}\NormalTok{W}
+\NormalTok{out\_high}\SpecialCharTok{$}\NormalTok{m }\OtherTok{\textless{}{-}} \FloatTok{0.78} \SpecialCharTok{{-}} \FloatTok{0.22} \SpecialCharTok{*}\NormalTok{ out\_high}\SpecialCharTok{$}\NormalTok{R}
+
+\CommentTok{\# Save plots}
+\NormalTok{p1 }\OtherTok{\textless{}{-}} \FunctionTok{ggplot}\NormalTok{(out\_low, }\FunctionTok{aes}\NormalTok{(}\AttributeTok{x =}\NormalTok{ time)) }\SpecialCharTok{+}
+  \FunctionTok{geom\_line}\NormalTok{(}\FunctionTok{aes}\NormalTok{(}\AttributeTok{y =}\NormalTok{ F, }\AttributeTok{colour =} \StringTok{\textquotesingle{}Fish\textquotesingle{}}\NormalTok{)) }\SpecialCharTok{+}
+  \FunctionTok{geom\_line}\NormalTok{(}\FunctionTok{aes}\NormalTok{(}\AttributeTok{y =}\NormalTok{ A, }\AttributeTok{colour =} \StringTok{\textquotesingle{}Lampreys\textquotesingle{}}\NormalTok{)) }\SpecialCharTok{+}
+  \FunctionTok{labs}\NormalTok{(}\AttributeTok{title =} \StringTok{\textquotesingle{}Low{-}resource scenario\textquotesingle{}}\NormalTok{, }\AttributeTok{y =} \StringTok{\textquotesingle{}Population\textquotesingle{}}\NormalTok{) }\SpecialCharTok{+}
+  \FunctionTok{scale\_color\_manual}\NormalTok{(}\AttributeTok{values =} \FunctionTok{c}\NormalTok{(}\StringTok{\textquotesingle{}Fish\textquotesingle{}} \OtherTok{=} \StringTok{\textquotesingle{}black\textquotesingle{}}\NormalTok{, }\StringTok{\textquotesingle{}Lampreys\textquotesingle{}} \OtherTok{=} \StringTok{\textquotesingle{}grey\textquotesingle{}}\NormalTok{))}
+
+\NormalTok{p2 }\OtherTok{\textless{}{-}} \FunctionTok{ggplot}\NormalTok{(out\_high, }\FunctionTok{aes}\NormalTok{(}\AttributeTok{x =}\NormalTok{ time)) }\SpecialCharTok{+}
+  \FunctionTok{geom\_line}\NormalTok{(}\FunctionTok{aes}\NormalTok{(}\AttributeTok{y =}\NormalTok{ F, }\AttributeTok{colour =} \StringTok{\textquotesingle{}Fish\textquotesingle{}}\NormalTok{)) }\SpecialCharTok{+}
+  \FunctionTok{geom\_line}\NormalTok{(}\FunctionTok{aes}\NormalTok{(}\AttributeTok{y =}\NormalTok{ A, }\AttributeTok{colour =} \StringTok{\textquotesingle{}Lampreys\textquotesingle{}}\NormalTok{)) }\SpecialCharTok{+}
+  \FunctionTok{labs}\NormalTok{(}\AttributeTok{title =} \StringTok{\textquotesingle{}High{-}resource scenario\textquotesingle{}}\NormalTok{, }\AttributeTok{y =} \StringTok{\textquotesingle{}Population\textquotesingle{}}\NormalTok{) }\SpecialCharTok{+}
+  \FunctionTok{scale\_color\_manual}\NormalTok{(}\AttributeTok{values =} \FunctionTok{c}\NormalTok{(}\StringTok{\textquotesingle{}Fish\textquotesingle{}} \OtherTok{=} \StringTok{\textquotesingle{}black\textquotesingle{}}\NormalTok{, }\StringTok{\textquotesingle{}Lampreys\textquotesingle{}} \OtherTok{=} \StringTok{\textquotesingle{}grey\textquotesingle{}}\NormalTok{))}
+
+\NormalTok{p3 }\OtherTok{\textless{}{-}} \FunctionTok{ggplot}\NormalTok{() }\SpecialCharTok{+}
+  \FunctionTok{geom\_line}\NormalTok{(}\AttributeTok{data =}\NormalTok{ out\_low, }\FunctionTok{aes}\NormalTok{(}\AttributeTok{x =}\NormalTok{ time, }\AttributeTok{y =}\NormalTok{ m, }\AttributeTok{colour =} \StringTok{\textquotesingle{}Low\textquotesingle{}}\NormalTok{)) }\SpecialCharTok{+}
+  \FunctionTok{geom\_line}\NormalTok{(}\AttributeTok{data =}\NormalTok{ out\_high, }\FunctionTok{aes}\NormalTok{(}\AttributeTok{x =}\NormalTok{ time, }\AttributeTok{y =}\NormalTok{ m, }\AttributeTok{colour =} \StringTok{\textquotesingle{}High\textquotesingle{}}\NormalTok{)) }\SpecialCharTok{+}
+  \FunctionTok{labs}\NormalTok{(}\AttributeTok{title =} \StringTok{\textquotesingle{}Male fraction over time\textquotesingle{}}\NormalTok{, }\AttributeTok{y =} \StringTok{\textquotesingle{}Male fraction m(R)\textquotesingle{}}\NormalTok{) }\SpecialCharTok{+}
+  \FunctionTok{scale\_color\_manual}\NormalTok{(}\AttributeTok{values =} \FunctionTok{c}\NormalTok{(}\StringTok{\textquotesingle{}Low\textquotesingle{}} \OtherTok{=} \StringTok{\textquotesingle{}black\textquotesingle{}}\NormalTok{, }\StringTok{\textquotesingle{}High\textquotesingle{}} \OtherTok{=} \StringTok{\textquotesingle{}grey\textquotesingle{}}\NormalTok{))}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{p1}
+\end{Highlighting}
+\end{Shaded}
+
+\pandocbounded{\includegraphics[keepaspectratio]{mcm_2024_problem_a_files/figure-latex/unnamed-chunk-2-1.pdf}}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{p2}
+\end{Highlighting}
+\end{Shaded}
+
+\pandocbounded{\includegraphics[keepaspectratio]{mcm_2024_problem_a_files/figure-latex/unnamed-chunk-3-1.pdf}}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{p3}
+\end{Highlighting}
+\end{Shaded}
+
+\pandocbounded{\includegraphics[keepaspectratio]{mcm_2024_problem_a_files/figure-latex/unnamed-chunk-4-1.pdf}}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\CommentTok{\# Final summary table}
+\NormalTok{final\_low }\OtherTok{\textless{}{-}} \FunctionTok{tail}\NormalTok{(out\_low, }\DecValTok{1}\NormalTok{)}
+\NormalTok{final\_high }\OtherTok{\textless{}{-}} \FunctionTok{tail}\NormalTok{(out\_high, }\DecValTok{1}\NormalTok{)}
+\NormalTok{summary\_table }\OtherTok{\textless{}{-}} \FunctionTok{data.frame}\NormalTok{(}
+  \AttributeTok{scenario =} \FunctionTok{c}\NormalTok{(}\StringTok{\textquotesingle{}low\textquotesingle{}}\NormalTok{, }\StringTok{\textquotesingle{}high\textquotesingle{}}\NormalTok{),}
+  \AttributeTok{R =} \FunctionTok{c}\NormalTok{(final\_low}\SpecialCharTok{$}\NormalTok{R, final\_high}\SpecialCharTok{$}\NormalTok{R),}
+  \AttributeTok{F =} \FunctionTok{c}\NormalTok{(final\_low}\SpecialCharTok{$}\NormalTok{F, final\_high}\SpecialCharTok{$}\NormalTok{F),}
+  \AttributeTok{A =} \FunctionTok{c}\NormalTok{(final\_low}\SpecialCharTok{$}\NormalTok{A, final\_high}\SpecialCharTok{$}\NormalTok{A),}
+  \AttributeTok{m =} \FunctionTok{c}\NormalTok{(final\_low}\SpecialCharTok{$}\NormalTok{m, final\_high}\SpecialCharTok{$}\NormalTok{m)}
+\NormalTok{)}
+
+\NormalTok{knitr}\SpecialCharTok{::}\FunctionTok{kable}\NormalTok{(summary\_table, }\AttributeTok{digits =} \DecValTok{6}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{longtable}[]{@{}lrrrr@{}}
+\toprule\noalign{}
+scenario & R & F & A & m \\
+\midrule\noalign{}
+\endhead
+\bottomrule\noalign{}
+\endlastfoot
+low & 1.045455 & 99.64624 & 9.696967 & 0.550000 \\
+high & 1.800536 & 98.59535 & 36.939699 & 0.383882 \\
+\end{longtable}
+
+\section{Results and Discussion}\label{results-and-discussion}
+
+The R code above produces time series plots for fish and lamprey
+populations under low and high resource regimes, and a male fraction
+plot. It also prints a summary table with final values for R, F, A, and
+m under each scenario.
+
+\section{Appendix: Full code}\label{appendix-full-code}
+
+The R code used for the model is included in the model code chunk above.
+To render this file to PDF or HTML, knit as usual in RStudio or run.
+
+\end{document}

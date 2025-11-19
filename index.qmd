@@ -6,19 +6,32 @@ format: html
 ## Is This Car Crashed?
 
 Upload or take a photo of a car, and our AI will analyze whether it's damaged or not.
+
+**Note:** Please upload JPG or PNG images only.
+
 ```{=html}
 <div class="car-detector-app">
   <div class="upload-section">
-    <input type="file" id="imageInput" accept="image/*" />
+    <input type="file" id="imageInput" accept="image/jpeg,image/jpg,image/png" />
     <button id="analyzeBtn">Analyze Car</button>
   </div>
   
   <div id="preview-section" style="display: none;">
-    <h3>Image Preview:</h3>
+    <h3>Original Image:</h3>
     <img id="imagePreview" style="max-width: 100%; max-height: 400px; border-radius: 8px;" />
   </div>
   
   <div id="result"></div>
+  
+  <div id="overlay-section" style="display: none;">
+    <h3>Damage Analysis:</h3>
+    <img id="overlayImage" style="max-width: 100%; max-height: 400px; border-radius: 8px;" />
+  </div>
+  
+  <div id="summary-section" style="display: none;">
+    <h3>AI Analysis:</h3>
+    <div id="summaryText"></div>
+  </div>
 </div>
 
 
@@ -65,7 +78,7 @@ Upload or take a photo of a car, and our AI will analyze whether it's damaged or
   cursor: not-allowed;
 }
 
-#preview-section {
+#preview-section, #overlay-section, #summary-section {
   margin: 20px 0;
   padding: 15px;
   background-color: white;
@@ -92,12 +105,6 @@ Upload or take a photo of a car, and our AI will analyze whether it's damaged or
   color: #155724;
 }
 
-.result-not-car {
-  background-color: #fff3cd;
-  border: 2px solid #ffc107;
-  color: #856404;
-}
-
 .result-error {
   background-color: #f8d7da;
   border: 2px solid #dc3545;
@@ -108,6 +115,15 @@ Upload or take a photo of a car, and our AI will analyze whether it's damaged or
   background-color: #d1ecf1;
   border: 2px solid #17a2b8;
   color: #0c5460;
+}
+
+#summaryText {
+  padding: 15px;
+  background-color: #f8f9fa;
+  border-left: 4px solid #007bff;
+  border-radius: 4px;
+  line-height: 1.6;
+  font-size: 16px;
 }
 
 .confidence-section {
@@ -139,6 +155,8 @@ document.getElementById('imageInput').addEventListener('change', (e) => {
       document.getElementById('imagePreview').src = selectedImage;
       document.getElementById('preview-section').style.display = 'block';
       document.getElementById('result').innerHTML = '';
+      document.getElementById('overlay-section').style.display = 'none';
+      document.getElementById('summary-section').style.display = 'none';
     };
     reader.readAsDataURL(file);
   }
@@ -148,6 +166,8 @@ document.getElementById('imageInput').addEventListener('change', (e) => {
 document.getElementById('analyzeBtn').addEventListener('click', async () => {
   const resultDiv = document.getElementById('result');
   const analyzeBtn = document.getElementById('analyzeBtn');
+  const overlaySection = document.getElementById('overlay-section');
+  const summarySection = document.getElementById('summary-section');
   
   if (!selectedImage) {
     resultDiv.className = 'result-error';
@@ -160,6 +180,8 @@ document.getElementById('analyzeBtn').addEventListener('click', async () => {
   analyzeBtn.textContent = 'Analyzing...';
   resultDiv.className = 'result-loading';
   resultDiv.innerHTML = '🔍 Analyzing your car image with AI... This may take 10-20 seconds.';
+  overlaySection.style.display = 'none';
+  summarySection.style.display = 'none';
   
   try {
     const response = await fetch(API_URL, {
@@ -180,8 +202,6 @@ document.getElementById('analyzeBtn').addEventListener('click', async () => {
         className = 'result-crashed';
       } else if (data.status === 'not_crashed') {
         className = 'result-not-crashed';
-      } else {
-        className = 'result-not-car';
       }
       
       resultDiv.className = className;
@@ -191,13 +211,26 @@ document.getElementById('analyzeBtn').addEventListener('click', async () => {
       if (data.confidence) {
         html += `
           <div class="confidence-section">
-            <strong>Confidence:</strong>
+            <strong>ML Model Confidence:</strong>
             ${data.confidence}%
           </div>
         `;
       }
       
       resultDiv.innerHTML = html;
+      
+      // Show overlay image if available
+      if (data.overlay_image) {
+        document.getElementById('overlayImage').src = data.overlay_image;
+        overlaySection.style.display = 'block';
+      }
+      
+      // Show Claude's summary if available
+      if (data.claude_summary) {
+        document.getElementById('summaryText').textContent = data.claude_summary;
+        summarySection.style.display = 'block';
+      }
+      
     } else {
       resultDiv.className = 'result-error';
       resultDiv.innerHTML = `❌ Error: ${data.error || 'Unknown error occurred'}`;
