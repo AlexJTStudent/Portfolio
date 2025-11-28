@@ -6,7 +6,7 @@ website:
   description: "Data Scientist"
   navbar:
     left:
-      - href: index_nn.qmd
+      - href: index.qmd
         text: Home
       - text: "A/B TESTING"
         menu:

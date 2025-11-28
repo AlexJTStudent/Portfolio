@@ -39,7 +39,7 @@
     "href": "index.html",
     "title": "Car Crash Detector",
     "section": "",
-    "text": "Upload or take a photo of a car, and our AI will analyze whether it’s damaged or not.\nNote: Please upload JPG or PNG images only.\n\n  \n    \n    Analyze Car"
+    "text": "Upload or take a photo of a car, and our AI will analyze whether it’s damaged using advanced machine learning and explainable AI techniques.\n\n  \n    \n      \n      Accepts JPG and PNG formats\n      \n      \n        🔍\n        Analyze Car\n      \n    \n  \n  \n  \n    \n    \n      \n    \n  \n  \n  \n  \n  \n    \n    Red boundaries highlight the regions that most influenced the AI's decision"
   },
   {
     "objectID": "index.html#is-this-car-crashed",
@@ -432,5 +432,54 @@
     "title": "2024 MCM Problem A — Resource Availability and Sex Ratios",
     "section": "",
     "text": "The model equations are presented here (derivatives):\n\\[\n\\begin{aligned}\n\\frac{dR}{dt} &= S - d_R R - c_R L - c_A A, \\\\\\\\\n\\frac{dF}{dt} &= r_F F \\left(1 - \\frac{F}{K}\\right) - \\beta A \\frac{F}{F + H}, \\\\\\\\\n\\frac{dE}{dt} &= b W - \\sigma_E E - \\mu_E E, \\\\\\\\\n\\frac{dL}{dt} &= \\sigma_E E - \\sigma_L L - \\mu_L L, \\\\\\\\\n\\frac{dM}{dt} &= m(R)\\, \\sigma_L L - \\mu_A M, \\\\\\\\\n\\frac{dW}{dt} &= (1 - m(R))\\, \\sigma_L L - \\mu_A W.\n\\end{aligned}\n\\]\nExplanation of parameters\n\nS: resource supply rate (controls low/high regimes)\n\nd_R: resource decay/loss\n\nc_R, c_A: consumption coefficients by larvae and adults\n\nr_F: intrinsic growth rate of host fish, K carrying capacity\n\nβ: mortality rate of fish due to lamprey parasitism (functional response with half-saturation H)\n\nb: per-female effective reproductive contribution (eggs that contribute to E)\n\nσ_E, σ_L: progression rates from eggs to larvae and larvae to adults\n\nμ_E, μ_L, μ_A: stage-specific mortality rates"
+  },
+  {
+    "objectID": "index.html#ai-powered-car-crash-detection",
+    "href": "index.html#ai-powered-car-crash-detection",
+    "title": "Car Crash Detector - Neural Network",
+    "section": "",
+    "text": "Upload a photo of a car, and our neural network will analyze it with a heatmap showing which areas influenced the decision.\nNote: Please upload JPG or PNG images only.\n\n  \n    \n    Analyze Car\n  \n  \n  \n    \n    \n  \n  \n  \n  \n  \n    \n    \n      The heatmap shows which regions the neural network focused on when making its decision.\n      Red/yellow areas had the most influence on the prediction."
+  },
+  {
+    "objectID": "index_old.html",
+    "href": "index_old.html",
+    "title": "Car Crash Detector",
+    "section": "",
+    "text": "Upload or take a photo of a car, and our AI will analyze whether it’s damaged or not.\nNote: Please upload JPG or PNG images only.\n\n  \n    \n    Analyze Car"
+  },
+  {
+    "objectID": "index_old.html#is-this-car-crashed",
+    "href": "index_old.html#is-this-car-crashed",
+    "title": "Car Crash Detector",
+    "section": "",
+    "text": "Upload or take a photo of a car, and our AI will analyze whether it’s damaged or not.\nNote: Please upload JPG or PNG images only.\n\n  \n    \n    Analyze Car"
+  },
+  {
+    "objectID": "index_cnn.html",
+    "href": "index_cnn.html",
+    "title": "Car Crash Detector - Neural Network",
+    "section": "",
+    "text": "Upload a photo of a car, and our neural network will analyze it with a heatmap showing which areas influenced the decision.\nNote: Please upload JPG or PNG images only.\n\n  \n    \n    Analyze Car\n  \n  \n  \n    \n    \n  \n  \n  \n  \n  \n    \n    \n      The heatmap shows which regions the neural network focused on when making its decision.\n      Red/yellow areas had the most influence on the prediction."
+  },
+  {
+    "objectID": "index_cnn.html#ai-powered-car-crash-detection",
+    "href": "index_cnn.html#ai-powered-car-crash-detection",
+    "title": "Car Crash Detector - Neural Network",
+    "section": "",
+    "text": "Upload a photo of a car, and our neural network will analyze it with a heatmap showing which areas influenced the decision.\nNote: Please upload JPG or PNG images only.\n\n  \n    \n    Analyze Car\n  \n  \n  \n    \n    \n  \n  \n  \n  \n  \n    \n    \n      The heatmap shows which regions the neural network focused on when making its decision.\n      Red/yellow areas had the most influence on the prediction."
+  },
+  {
+    "objectID": "index.html#ai-powered-car-damage-detection",
+    "href": "index.html#ai-powered-car-damage-detection",
+    "title": "Car Crash Detector",
+    "section": "",
+    "text": "Upload or take a photo of a car, and our AI will analyze whether it’s damaged using advanced machine learning and explainable AI techniques.\n\n  \n    \n      \n      Accepts JPG and PNG formats\n      \n      \n        🔍\n        Analyze Car\n      \n    \n  \n  \n  \n    \n    \n      \n    \n  \n  \n  \n  \n  \n    \n    Red boundaries highlight the regions that most influenced the AI's decision"
+  },
+  {
+    "objectID": "index.html#how-this-project-was-built",
+    "href": "index.html#how-this-project-was-built",
+    "title": "Car Crash Detector",
+    "section": "🚗 How This Project Was Built",
+    "text": "🚗 How This Project Was Built\nThis car crash detector was built using a modern tech stack combining machine learning, explainable AI, and cloud infrastructure:\n\nSystem Architecture & Workflow\n\nFrontend & Hosting:\n\nBuilt with Quarto - a scientific publishing system that converts Markdown to beautiful HTML\nHosted on AWS Amplify with automatic deployments from GitHub\nResponsive design for desktop and mobile viewing\n\nMachine Learning Pipeline:\n\nRandom Forest Classifier trained on 5,000 car images\nAchieves ~85-90% accuracy in detecting vehicle damage\nExtracts 48 features: color histograms, edge gradients, and texture patterns\nModel size: 9.3 MB, inference time: &lt;1 second\n\nExplainability Layer:\n\nLIME (Local Interpretable Model-agnostic Explanations) generates visual explanations\nHighlights image regions that most influenced the AI’s decision\nRed boundaries show what the model was “looking at” when making predictions\n\nAI Analysis:\n\nClaude API (Anthropic) analyzes the LIME visualization\nProvides human-readable explanations of the model’s reasoning\nValidates predictions and identifies potential issues\n\nBackend Infrastructure:\n\nDeployed on Google Cloud Run (serverless container platform)\nHandles image preprocessing, prediction, and LIME generation\nAuto-scales based on demand with 2GB memory, 2 CPU cores\n\nComplete workflow: User uploads image → Cloud Run processes → Random Forest predicts → LIME explains → Claude analyzes → Results displayed with visual heatmap and AI commentary."
   }
 ]
