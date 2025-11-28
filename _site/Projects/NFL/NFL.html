@@ -1,0 +1,888 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
+
+<meta charset="utf-8">
+<meta name="generator" content="quarto-1.8.25">
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+
+<meta name="author" content="Alex Tovar">
+<meta name="dcterms.date" content="2025-11-28">
+
+<title>NFL Big Data Bowl 2026: Player Position Prediction – Alex J. Tovar</title>
+<style>
+code{white-space: pre-wrap;}
+span.smallcaps{font-variant: small-caps;}
+div.columns{display: flex; gap: min(4vw, 1.5em);}
+div.column{flex: auto; overflow-x: auto;}
+div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+ul.task-list{list-style: none;}
+ul.task-list li input[type="checkbox"] {
+  width: 0.8em;
+  margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
+  vertical-align: middle;
+}
+</style>
+
+
+<script src="../../site_libs/quarto-nav/quarto-nav.js"></script>
+<script src="../../site_libs/quarto-nav/headroom.min.js"></script>
+<script src="../../site_libs/clipboard/clipboard.min.js"></script>
+<script src="../../site_libs/quarto-search/autocomplete.umd.js"></script>
+<script src="../../site_libs/quarto-search/fuse.min.js"></script>
+<script src="../../site_libs/quarto-search/quarto-search.js"></script>
+<meta name="quarto:offset" content="../../">
+<script src="../../site_libs/quarto-html/quarto.js" type="module"></script>
+<script src="../../site_libs/quarto-html/tabsets/tabsets.js" type="module"></script>
+<script src="../../site_libs/quarto-html/axe/axe-check.js" type="module"></script>
+<script src="../../site_libs/quarto-html/popper.min.js"></script>
+<script src="../../site_libs/quarto-html/tippy.umd.min.js"></script>
+<script src="../../site_libs/quarto-html/anchor.min.js"></script>
+<link href="../../site_libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="../../site_libs/quarto-html/quarto-syntax-highlighting-7b89279ff1a6dce999919e0e67d4d9ec.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<script src="../../site_libs/bootstrap/bootstrap.min.js"></script>
+<link href="../../site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
+<link href="../../site_libs/bootstrap/bootstrap-ffa9a6279353761231ec249df0a7fdd3.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
+<script id="quarto-search-options" type="application/json">{
+  "location": "navbar",
+  "copy-button": false,
+  "collapse-after": 3,
+  "panel-placement": "end",
+  "type": "overlay",
+  "limit": 50,
+  "keyboard-shortcut": [
+    "f",
+    "/",
+    "s"
+  ],
+  "show-item-context": false,
+  "language": {
+    "search-no-results-text": "No results",
+    "search-matching-documents-text": "matching documents",
+    "search-copy-link-title": "Copy link to search",
+    "search-hide-matches-text": "Hide additional matches",
+    "search-more-match-text": "more match in this document",
+    "search-more-matches-text": "more matches in this document",
+    "search-clear-button-title": "Clear",
+    "search-text-placeholder": "",
+    "search-detached-cancel-button-title": "Cancel",
+    "search-submit-button-title": "Submit",
+    "search-label": "Search"
+  }
+}</script>
+
+
+<link rel="stylesheet" href="../../styles.css">
+</head>
+
+<body class="nav-fixed quarto-light">
+
+<div id="quarto-search-results"></div>
+  <header id="quarto-header" class="headroom fixed-top">
+    <nav class="navbar navbar-expand-lg " data-bs-theme="dark">
+      <div class="navbar-container container-fluid">
+      <div class="navbar-brand-container mx-auto">
+    <a href="../../index.html" class="navbar-brand navbar-brand-logo">
+    </a>
+    <a class="navbar-brand" href="../../index.html">
+    <span class="navbar-title">Alex J. Tovar</span>
+    </a>
+  </div>
+            <div id="quarto-search" class="" title="Search"></div>
+          <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarCollapse" aria-controls="navbarCollapse" role="menu" aria-expanded="false" aria-label="Toggle navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
+  <span class="navbar-toggler-icon"></span>
+</button>
+          <div class="collapse navbar-collapse" id="navbarCollapse">
+            <ul class="navbar-nav navbar-nav-scroll me-auto">
+  <li class="nav-item">
+    <a class="nav-link" href="../../index.html"> 
+<span class="menu-text">Home</span></a>
+  </li>  
+  <li class="nav-item dropdown ">
+    <a class="nav-link dropdown-toggle" href="#" id="nav-menu-ab-testing" role="link" data-bs-toggle="dropdown" aria-expanded="false">
+ <span class="menu-text">A/B TESTING</span>
+    </a>
+    <ul class="dropdown-menu" aria-labelledby="nav-menu-ab-testing">    
+        <li>
+    <a class="dropdown-item" href="../../AB_TESTS/MyTwoWayANOVA.html">
+ <span class="dropdown-text">Two-way ANOVA</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../../AB_TESTS/MyChiSquaredTest.html">
+ <span class="dropdown-text">Chi-Squared Test</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../../AB_TESTS/MyLogisticRegression.html">
+ <span class="dropdown-text">Logistic Regression</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../../AB_TESTS/HighSchoolSeniors.html">
+ <span class="dropdown-text">T-test</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../../AB_TESTS/RecallingWords.html">
+ <span class="dropdown-text">Wilcoxon Rank Sum (Mann–Whitney) test</span></a>
+  </li>  
+    </ul>
+  </li>
+  <li class="nav-item dropdown ">
+    <a class="nav-link dropdown-toggle" href="#" id="nav-menu-ml-group-case-studies" role="link" data-bs-toggle="dropdown" aria-expanded="false">
+ <span class="menu-text">ML Group Case Studies</span>
+    </a>
+    <ul class="dropdown-menu" aria-labelledby="nav-menu-ml-group-case-studies">    
+        <li>
+    <a class="dropdown-item" href="../../Machine_Learning/Executive Case Summary Module 3 - Team 8.html">
+ <span class="dropdown-text">Linear Regression</span></a>
+  </li>  
+    </ul>
+  </li>
+  <li class="nav-item dropdown ">
+    <a class="nav-link dropdown-toggle" href="#" id="nav-menu-projects" role="link" data-bs-toggle="dropdown" aria-expanded="false">
+ <span class="menu-text">Projects</span>
+    </a>
+    <ul class="dropdown-menu" aria-labelledby="nav-menu-projects">    
+        <li>
+    <a class="dropdown-item" href="../../Projects/NFL/NFL.html">
+ <span class="dropdown-text">NFL Data Analysis</span></a>
+  </li>  
+    </ul>
+  </li>
+  <li class="nav-item dropdown ">
+    <a class="nav-link dropdown-toggle" href="#" id="nav-menu-blogs" role="link" data-bs-toggle="dropdown" aria-expanded="false">
+ <span class="menu-text">Blogs</span>
+    </a>
+    <ul class="dropdown-menu" aria-labelledby="nav-menu-blogs">    
+        <li>
+    <a class="dropdown-item" href="../../Blogs/Linkedin_Reach_Tips.html">
+ <span class="dropdown-text">Linkedin Reach Tips</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../../Blogs/Hosting_Using_AWS.html">
+ <span class="dropdown-text">Hosting Using AWS</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../../Blogs/AWS_Cloud_Computing.html">
+ <span class="dropdown-text">AWS Cloud Computing</span></a>
+  </li>  
+    </ul>
+  </li>
+</ul>
+          </div> <!-- /navcollapse -->
+            <div class="quarto-navbar-tools">
+</div>
+      </div> <!-- /container-fluid -->
+    </nav>
+</header>
+<!-- content -->
+<div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-article page-navbar">
+<!-- sidebar -->
+<!-- margin-sidebar -->
+    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
+        <nav id="TOC" role="doc-toc" class="toc-active">
+    <h2 id="toc-title">On this page</h2>
+   
+  <ul>
+  <li><a href="#background" id="toc-background" class="nav-link active" data-scroll-target="#background">Background</a></li>
+  <li><a href="#methodology" id="toc-methodology" class="nav-link" data-scroll-target="#methodology">Methodology</a>
+  <ul class="collapse">
+  <li><a href="#model-architecture" id="toc-model-architecture" class="nav-link" data-scroll-target="#model-architecture">Model Architecture</a></li>
+  <li><a href="#performance-evaluation" id="toc-performance-evaluation" class="nav-link" data-scroll-target="#performance-evaluation">Performance Evaluation</a></li>
+  <li><a href="#key-visualizations" id="toc-key-visualizations" class="nav-link" data-scroll-target="#key-visualizations">Key Visualizations</a></li>
+  </ul></li>
+  <li><a href="#discussion-responses" id="toc-discussion-responses" class="nav-link" data-scroll-target="#discussion-responses">Discussion Responses</a>
+  <ul class="collapse">
+  <li><a href="#problem-type" id="toc-problem-type" class="nav-link" data-scroll-target="#problem-type">1. Problem Type</a></li>
+  <li><a href="#model-architecture-choice" id="toc-model-architecture-choice" class="nav-link" data-scroll-target="#model-architecture-choice">2. Model Architecture Choice</a></li>
+  <li><a href="#model-confidence-metrics" id="toc-model-confidence-metrics" class="nav-link" data-scroll-target="#model-confidence-metrics">3. Model Confidence Metrics</a></li>
+  <li><a href="#limitations-and-future-improvements" id="toc-limitations-and-future-improvements" class="nav-link" data-scroll-target="#limitations-and-future-improvements">4. Limitations and Future Improvements</a></li>
+  </ul></li>
+  <li><a href="#conclusion" id="toc-conclusion" class="nav-link" data-scroll-target="#conclusion">Conclusion</a></li>
+  <li><a href="#appendix-model-performance-metrics" id="toc-appendix-model-performance-metrics" class="nav-link" data-scroll-target="#appendix-model-performance-metrics">Appendix: Model Performance Metrics</a></li>
+  </ul>
+</nav>
+    </div>
+<!-- main -->
+<main class="content" id="quarto-document-content">
+
+<header id="title-block-header" class="quarto-title-block default">
+<div class="quarto-title">
+<h1 class="title">NFL Big Data Bowl 2026: Player Position Prediction</h1>
+</div>
+
+
+
+<div class="quarto-title-meta">
+
+    <div>
+    <div class="quarto-title-meta-heading">Author</div>
+    <div class="quarto-title-meta-contents">
+             <p>Alex Tovar </p>
+          </div>
+  </div>
+    
+    <div>
+    <div class="quarto-title-meta-heading">Published</div>
+    <div class="quarto-title-meta-contents">
+      <p class="date">November 28, 2025</p>
+    </div>
+  </div>
+  
+    
+  </div>
+  
+
+
+</header>
+
+
+<style>
+h1, h2, h3, h4, h5, h6 {
+  text-align: center;
+}
+</style>
+<p>&nbsp;</p>
+<p><img src="nfl_banner.jpg" class="img-fluid"></p>
+<section id="background" class="level1">
+<h1>Background</h1>
+<p>We will examine the NFL Big Data Bowl 2026 competition that encourages contestants to anticipate movements of players during pass plays while the ball is in the air. The idea is to enable the NFL to understand dynamic player positioning—from the moment when a quarterback releases the ball to the point at which it is caught or is ruled incomplete. This analysis has broad applications in several areas:</p>
+<ul>
+<li><strong>Coaching Strategy</strong>: Defensive position optimization and coverage scheme development</li>
+<li><strong>Player Evaluation</strong>: Understanding how a receiver tracks the ball and how a defender responds to a threat presented by an aerial shot</li>
+<li><strong>Broadcasting</strong>: Prediction graphics and improved game analysis for viewers in real time</li>
+<li><strong>Analytics Teams</strong>: Play design iterations and employee personnel decisions</li>
+<li><strong>Sports Analytics</strong>: Higher level metrics for assessing individual performance and situational awareness</li>
+</ul>
+<p>The competition dataset includes passing plays from the 2023 NFL season, which kept the ball suspended in the air for at least 0.5 seconds apart from deflected passes, throwaways, and passes with unknown targeted receivers, as defined by the data. Each play is recorded at 10 frames per second and the model has to predict (x, y) coordinates for each player at each of the frames of time while the ball is airborne.</p>
+<p>A feedforward neural network-based deep learning model was proposed to predict game positions for players by pre-snap positioning, player movement parameters, and ball trajectory data. Both x and y dimensions average Mean Absolute Error of approximately 3 yards, which is good prediction that can be also used as a real-time decision-making help and help later post-game analysis.</p>
+<hr>
+</section>
+<section id="methodology" class="level1">
+<h1>Methodology</h1>
+<p>Our methodology consisted of data preparation, feature engineering, model development, and performance evaluation.</p>
+<p>Analysis was performed with Week 1 2023 NFL season data, total 285,714 input rows (all players covered over all pre-throw frames) and 32,088 output rows (all players represented ball-in-air frames only). The data were divided with a random set of seeds (80-20 train-validation ratio) for reproducibility.</p>
+<p>We designed a feature set of 9 variables to account for player position and movement:</p>
+<p><strong>Positional Features:</strong></p>
+<ul>
+<li>Pre-snap X position (0-120 yards along the field)</li>
+<li>Pre-Snap Y position (0-53.3 yards across the field width)</li>
+<li>Absolute yardline number (field position context)</li>
+</ul>
+<p><strong>Movement Characteristics:</strong></p>
+<ul>
+<li>Speed (yards per second)</li>
+<li>Acceleration (yards per second²)</li>
+<li>Movement direction (degrees)</li>
+<li>Orientation/body angle (degrees)</li>
+</ul>
+<p><strong>Ball Trajectory Features:</strong></p>
+<ul>
+<li>Ball landing X coordinate</li>
+<li>Ball landing Y coordinate</li>
+</ul>
+<p>The most obvious limitation to our existing feature set is the lack of categorical features such as player role (targeted receiver, defensive coverage, passer, etc.), player side (offense/defense), and position designations. Such features would allow for the model to distinguish behavioral patterns across types of players and would identify an active candidate to enhance this performance as revealed in our case study analysis.</p>
+<section id="model-architecture" class="level2">
+<h2 class="anchored" data-anchor-id="model-architecture">Model Architecture</h2>
+<p>We first tried the Random Forest Regression method with two different models: one for X-coordinate prediction and the other for Y-coordinate prediction. We changed from this to a multivariate neural network architecture that jointly predicts both coordinates (e.g., diagonal trajectories where both dimensions change together) following faculty guidance.</p>
+<p>Our last model is a Feedforward Neural Network (Multi-Layer Perceptron) with the architecture:</p>
+<ul>
+<li><strong>Input Layer</strong>: 9 features</li>
+<li><strong>Hidden Layer 1</strong>: 256 neurons with ReLU activation, Batch Normalization, and 30% Dropout</li>
+<li><strong>Hidden Layer 2</strong>: 128 neurons with ReLU, Batch Normalization, 30% Dropout</li>
+<li><strong>Hidden Layer 3</strong>: 64 neurons with ReLU activation and 20% Dropout</li>
+<li><strong>Hidden Layer 4</strong>: 32 neurons using ReLU, 20% Dropout</li>
+<li><strong>Output Layer</strong>: 2 neurons (x_pos, y_pos predictions)</li>
+</ul>
+<p>The model features 46,754 trainable parameters and was optimized with an Adam optimizer with a learning rate of 0.001. In order to avoid overfitting and enhance generalization, we applied a few regularization procedures, these include:</p>
+<ul>
+<li>Dropout regularization (20-30% to the different layers)</li>
+<li>Batch Normalization for training to stabilize</li>
+<li>StandardScaler normalized input features (essentially useful for performance of neural networks)</li>
+<li>Early stopping with 15-epoch patience to stop training when validation loss flattens out</li>
+<li>Learning rate scheduling (ReduceLROnPlateau) to dynamically update learning rate and vary learning rate as training progresses</li>
+<li>Model checkpointing to save the best-performing model when the validation loss improves</li>
+</ul>
+<p>Training was done in a 512-size batch for up to a maximum of 100 epochs using early stopping to accelerate convergence without overfitting.</p>
+<center>
+<img src="training_loss.png" class="img-fluid">
+</center>
+</section>
+<section id="performance-evaluation" class="level2">
+<h2 class="anchored" data-anchor-id="performance-evaluation">Performance Evaluation</h2>
+<p>For model performance, we used different regression metrics to measure average error as well as model fit quality. Finally, we performed detailed case study analysis after a single play (Game ID: 2023091000, Play ID: 1240) and analyzed prediction accuracy in-depth, in order to trace systematic features in model behaviors.</p>
+</section>
+<section id="key-visualizations" class="level2">
+<h2 class="anchored" data-anchor-id="key-visualizations">Key Visualizations</h2>
+<p>Case study analysis provided visualizations which represent individual play based performance of the model:</p>
+<p><strong>Predicted vs Actual X &amp; Y Positions</strong>: The visualization overlays real positions of players (blue) on predicted positions (orange) on the background of the football field as red dashed lines in the image to show the difference in actual versus predicted position for each individual. The landing positions are indicated with a red X indicating that the model systematically predicts poorly at predicting player motion toward the ball, indicating that the model averages behavior across all player types without player role information from the player data; instead of recognizing which types of players have aggressively tracked the ball through the targeted receivers.</p>
+<center>
+<img src="field_example.png" class="img-fluid"> <img src="x-position.png" class="img-fluid"> <img src="y-predicted.png" class="img-fluid">
+</center>
+<p>&nbsp;</p>
+<p><strong>Pre-Snap and Post-Snap Comparison</strong>: A comparison of Pre-Snap and Post-Snap formations (left) with recorded and predicted locations (right) when a match is in progress and shows how players transition from initial positioning to their positions in flight of the ball.</p>
+<center>
+<img src="pre1.png" class="img-fluid"> <img src="pre2.png" class="img-fluid">
+</center>
+<p>&nbsp;</p>
+<p><strong>Movement Vectors</strong>: It shows player trajectories, where blue arrows show the players’ actual movement and orange dashed arrows represent predicted movement of the players, from pre-snap to post-snap position. The red line is the ball trajectory from line of scrimmage to landing position.</p>
+<center>
+<img src="pre3.png" class="img-fluid"> <img src="pre4.png" class="img-fluid">
+</center>
+<p>&nbsp;</p>
+<p><strong>Error Heatmap by Position</strong>: The players are color-coded according to value of prediction errors with the use of a yellow-orange-red colormap where spatial order of prediction error could be observed along the field.</p>
+<center>
+<img src="pre5.png" class="img-fluid">
+</center>
+<hr>
+</section>
+</section>
+<section id="discussion-responses" class="level1">
+<h1>Discussion Responses</h1>
+<section id="problem-type" class="level2">
+<h2 class="anchored" data-anchor-id="problem-type">1. Problem Type</h2>
+<p>I propose a supervised regression problem based on tabular data, which will then be processed further. The target variables player X and Y coordinates are continuous numbers, thus regression model is the best machine learning model. The model is trained on historical labeled data comprising known input features (pre-snap positions, movement attributes, ball trajectory) and output targets (observed position after snap). This enables the neural network to detect intricate non-linear relationships between player starting condition and the state of each player after ball flight.</p>
+<p>This is especially important considering the fact that the problem is multivariate. Instead of treating X and Y predictions as independent problems, our neural network architectures collaboratively predict both coordinates together. This design choice allows the model to discover diagonal movements contain correlating transformations in both dimensions, describing realistic physics associated with player movements better than two independent univariate models.</p>
+</section>
+<section id="model-architecture-choice" class="level2">
+<h2 class="anchored" data-anchor-id="model-architecture-choice">2. Model Architecture Choice</h2>
+<p>The decision to use a feedforward neural network instead of the early Random Forest method was motivated by the necessity to model multivariate output. Although Random Forest Regression has good performance on tabular data, it involved training a pair of models: one for X-coordinate prediction and one to predict Y-coordinate features. This method treats the two spatial dimensions as independent problems, ignoring the correlation between them.</p>
+<p>The output neurons in a neural network architecture can be found in two and, thus, when in space, the model learns joint representations of player movement. For instance, the X and Y coordinates of a receiver running up to the ball from a diagonal parallel changes side by side (or up to an adjacent direction). A neural network has shared hidden layers that can model these interdependencies, learning that some movement patterns involve certain X-Y coordinate combination and will not be captured by individual models.</p>
+<p>Neural networks also outperform in learning non-linear relationships through activation functions and deep layer structures. Player movement in football is highly non-linear—players speed, turn, turn, respond to the movement of the ball in ways that linear models or tree-based approaches may fail to accurately capture. The 4-layer architecture with ReLU activations provide enough representational capabilities that the complex spatial-temporal dynamics can be considered.</p>
+<p>The regularizations used (dropout, batch normalization, early stopping) enable the model to generalize to unseen plays rather than to memorize training examples despite its complexity. The high validation performance (R² of 0.974 for X and 0.910 for Y) indicates that the model has learned useful patterns and does not overfit to training noise.</p>
+</section>
+<section id="model-confidence-metrics" class="level2">
+<h2 class="anchored" data-anchor-id="model-confidence-metrics">3. Model Confidence Metrics</h2>
+<p>We assessed this model (or using its predictive power) by evaluating its dependability and precision through the use of three related scales: MAE, RMSE, and R².</p>
+<p><strong>Mean Absolute Error</strong> is an intuitive test of average predictive accuracy. Regarding X-position predictions, the MAE is 3.07 yards where the model’s X-coordinate predictions deviate from actual positions in all instances by an average of about 3 yards. For Y-position predictions, the MAE is 3.05 yards. These numbers carry significant weight in a dynamic environment like football plays where the player may make the jump down 10-15 yards or more in every single pass play so 3-yard errors suggest good predictive power. In practical terms, this precision is adequate for many analytical purposes, giving coaches a window into overall position trends and broadcasters the data they need to provide real-time projections of real-time position.</p>
+<p><strong>Root Mean Squared Error</strong> prioritizes larger mistakes over MAE due to the squaring operation, making it especially helpful for determining if the model produces occasional blundering. RMSE = 4.02 yards at X-position and 3.95 yards at Y-position. The small difference between MAE and RMSE (approximately one yard) indicates that the model’s errors are reasonably consistent, no extreme outliers or catastrophic errors in the prediction. If model errors were to occur extensively, we might see a much larger difference between RMSE and MAE.</p>
+<p><strong>R² Score</strong> represents the percentage of variance in the target variable explained with a model. The R² of 0.974 (for X-position) means that we have an extremely good model fit and is explaining 97.4% of the variance in player X-coordinates. For Y-position, with an R² of 0.910, 91.0% of the variance is accounted for. The lower Y-position R² still indicates lateral movement (side-to-side across the field) is harder to predict than downfield movement—but still good. That makes intuitive sense—downfield movement is primarily determined by the direction of the ball’s forward drive, while lateral movement involves more complex decisions of route running and individual tendencies in players.</p>
+<p>To provide further context to the data we provide a case study of one play (Game ID: 2023091000 and Play ID: 1240) on a specific play can help understand these metrics as well. This play comprised 8 observations from the player-frame area with a mean Euclidean error of 5.26 yards and maximum error of 6.25 yards for this play. The analysis also showed that a systematic trend was there: the model consistently underpredicts forward motion toward the ball landing position. Players in the example were 3.78 yards closer to the ball than the model predicted on average in the case study, with the actual average distance being 4.20 yards and the predicted distance being 7.98 yards.</p>
+<p>This systematic bias indicated that the model does not contain more information than a player role wise. The model simply gives an overall average for all players in terms of behavior without characteristics distinguishing between the receiver and defensive side of the cover on-the-field versus defensive coverage or between various other route runners. As such, the targeted receivers aggressively follow the ball and end up on the landing, while others can move away or stay still. By averaging these disparate behaviors, the model generates conservative predictions that lose sight of the ball-tracking intensity of key players.</p>
+<p>However, there are strong metrics for model confidence and this is a limitation. The low MAE (average errors are sub-3 yards), moderate RMSE (there are few extreme errors), and very high R² (more than 90% of variance) score indicates that this model effectively accounts for the basic play dynamics of play by play players during pass plays. For virtually all critical applications—whether evaluating defensive tactics, designing plays, or creating broadcast graphics—this degree of precision yields actionable insights.</p>
+</section>
+<section id="limitations-and-future-improvements" class="level2">
+<h2 class="anchored" data-anchor-id="limitations-and-future-improvements">4. Limitations and Future Improvements</h2>
+<p>Our model has strong predictability but there are several limitations with room for a promising design enhancements.</p>
+<p><strong>Missing Categorical Features</strong>: The greatest weakness of the model is the lack of player position information. We do not consider if a player is the receiver at play in the target, defensive coverage, passer or other runner running route. The case study analysis revealed that players display significantly different patterns according to the role, with certain receivers converging aggressively of receivers to the ball landing position and some players either moving away and leaving, remaining close to their pre-snap position. In this way however, the role-based movement patterns are not learned for any specific player type and the model averages out to all player types to an optimal prediction (e.g.&nbsp;in the case of player_role), and eventually results in systematic underprediction of any ball tracking behavior. Player_role, Player_side (offense/defense), specific position designations (QB, WR, CB, S, LB) should be included as categorical features in future versions as well (should be encoded in the neural network (more advanced) as embeddings with deep positions and that each category must be abstracted to represent their interaction with play characteristics in a meaningful way).</p>
+<p><strong>Training Data Limited</strong>: Our model is only trained on Week 1 of the 2023 season. The 2023 whole competition dataset has 18 weeks worth of training data (approximately 5.1 million input and 580,000 output rows). More samples of different game scenarios, weather, team strategies, patterns of player behavior, etc. would be possible by expanding to the entire dataset. This higher volume of data would enhance the model’s capacity on generic generalization and prevent the model from overfitting to game situations that were present only from Week 1.</p>
+<p><strong>Architecture Implications</strong>: In our feedforward neural network, spatial relationships are largely captured, however, it does not model player movement (the time-sequence of player movements) explicitly. Playing football happens over time and the players react to how the ball travels and to other players positions dynamically. A Recurrent Neural Network (RNN) or Long Short-Term Memory (LSTM) could model these interrelated temporal dependencies in which it can learn how player velocities evolve in different frame by frame from what it would be as an independent learning model, instead of treating every frame as a single prediction. Or, a Transformer-based architecture was proposed to model player attention mechanisms that capture how defenders respond against receivers and receivers to defenders.</p>
+<p><strong>Feature Engineering Opportunities</strong>: In addition to missing more categorical features, we can engineer some more predictive features include:</p>
+<ul>
+<li>Relative positions (distance and angle away from each player to the ball landing position)</li>
+<li>Ball motion vectors projected</li>
+<li>Time until that ball was actually delivered</li>
+<li>Interaction parameters (e.g., speed × distance to the ball)</li>
+<li>Historical player-specific tendencies (average routes run, typical speeds)</li>
+</ul>
+<p><strong>Ensemble Methods</strong>: The combination of multiple models, such as our neural network with gradient boosting machines or other different architectures neural networks, leads it to a more stable prediction with ensemble averaging. Different models could perform quite well at different aspects of the prediction task and together may reduce overall error.</p>
+<p><strong>Insights from the Single-Play Case Study</strong>: Not every frame presented a comparable number of prediction errors. Errors rose in distance to the ball (6.25 yards) before decreasing (4.68 yards) as the player took his approach to land. These patterns indicate that there is a strong predictive signal from proximity of the ball. Future models should include distance-to-ball as an explicit variable, or use it for estimating weights differently on frames.</p>
+<p><strong>Evaluation Metrics for Competition</strong>: For competition, although our metrics in validation are impressive, we take the competition’s holdout test set (Weeks 14-18 of the 2025 season). The test data is for future games in which different teams could be constituted, have different strategies, and play different environments. Examining leaderboard performance also will offer invaluable insights on the generalizability of our model beyond the 2023 season data used to train the model.</p>
+<hr>
+</section>
+</section>
+<section id="conclusion" class="level1">
+<h1>Conclusion</h1>
+<p>What we did is show how deep learning is able to predict positional positions on NFL pass plays with significant accuracy based on a case study. Our feedforward network captures around 3-yard average errors in the X and Y dimensions and accounts for more than 90% of the variance in player movements. The multivariate architecture is capable of capturing the jointality of spatial motion and enhancing the independent modeling approach of our Random Forest base.</p>
+<p>The close case study analysis offered both the good and bad sides of the model. However, the system consistently underestimates aggressive ball-tracking action without any role information of players in our feature selection. This knowledge points to a strong avenue for improvement, as introducing categorical features that differentiate between receivers at play, defenders, and other players would allow the model to learn movement patterns for its role and drastically reduce prediction bias.</p>
+<p>In conclusion, further research might include expanding the training dataset of 18 weeks, including the absence of categorical features (e.g., player_role, player_side, position), and to investigate methods which explicitly model temporal sequences (LSTM/RNN) or inter-player effects (Transformer attention). Furthermore, ensemble strategies combining various modeling methodologies might be promising for increase in robustness and accuracy.</p>
+<p>By improving player position predictions, this research contributes to the NFL’s broader goal of advancing player understanding of dynamics between players, helping coaches improve tactics, broadcasters better interact with fans and analysts develop better models for player evaluation. Our model’s performance thus far forms a strong baseline to push it further for fine-tuning and submission for a competition.</p>
+<hr>
+</section>
+<section id="appendix-model-performance-metrics" class="level1">
+<h1>Appendix: Model Performance Metrics</h1>
+<div class="cell">
+<div class="cell-output-display">
+<table class="caption-top table table-sm table-striped small">
+<caption>Model Performance Metrics</caption>
+<thead>
+<tr class="header">
+<th style="text-align: center;">Metric</th>
+<th style="text-align: center;">X Position</th>
+<th style="text-align: center;">Y Position</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: center;">MAE</td>
+<td style="text-align: center;">3.069777</td>
+<td style="text-align: center;">3.053675</td>
+</tr>
+<tr class="even">
+<td style="text-align: center;">RMSE</td>
+<td style="text-align: center;">4.022989</td>
+<td style="text-align: center;">3.952069</td>
+</tr>
+<tr class="odd">
+<td style="text-align: center;">R²</td>
+<td style="text-align: center;">0.974399</td>
+<td style="text-align: center;">0.910319</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+<div class="cell">
+<div class="cell-output-display">
+<table class="caption-top table table-sm table-striped small">
+<caption>Case Study: Single Play Analysis</caption>
+<thead>
+<tr class="header">
+<th style="text-align: left;">Metric</th>
+<th style="text-align: left;">Value</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: left;">Game ID</td>
+<td style="text-align: left;">2023091000</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">Play ID</td>
+<td style="text-align: left;">1240</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">Number of Players/Frames</td>
+<td style="text-align: left;">8</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">Ball Landing X</td>
+<td style="text-align: left;">59.23 yards</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">Ball Landing Y</td>
+<td style="text-align: left;">27.81 yards</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">Mean X Error</td>
+<td style="text-align: left;">3.06 yards</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">Mean Y Error</td>
+<td style="text-align: left;">4.22 yards</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">Mean Euclidean Error</td>
+<td style="text-align: left;">5.26 yards</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">Max Euclidean Error</td>
+<td style="text-align: left;">6.25 yards</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+<hr>
+<center>
+<strong>End of Executive Case Summary</strong>
+</center>
+
+
+</section>
+
+</main> <!-- /main -->
+<script id="quarto-html-after-body" type="application/javascript">
+  window.document.addEventListener("DOMContentLoaded", function (event) {
+    const icon = "";
+    const anchorJS = new window.AnchorJS();
+    anchorJS.options = {
+      placement: 'right',
+      icon: icon
+    };
+    anchorJS.add('.anchored');
+    const isCodeAnnotation = (el) => {
+      for (const clz of el.classList) {
+        if (clz.startsWith('code-annotation-')) {                     
+          return true;
+        }
+      }
+      return false;
+    }
+    const onCopySuccess = function(e) {
+      // button target
+      const button = e.trigger;
+      // don't keep focus
+      button.blur();
+      // flash "checked"
+      button.classList.add('code-copy-button-checked');
+      var currentTitle = button.getAttribute("title");
+      button.setAttribute("title", "Copied!");
+      let tooltip;
+      if (window.bootstrap) {
+        button.setAttribute("data-bs-toggle", "tooltip");
+        button.setAttribute("data-bs-placement", "left");
+        button.setAttribute("data-bs-title", "Copied!");
+        tooltip = new bootstrap.Tooltip(button, 
+          { trigger: "manual", 
+            customClass: "code-copy-button-tooltip",
+            offset: [0, -8]});
+        tooltip.show();    
+      }
+      setTimeout(function() {
+        if (tooltip) {
+          tooltip.hide();
+          button.removeAttribute("data-bs-title");
+          button.removeAttribute("data-bs-toggle");
+          button.removeAttribute("data-bs-placement");
+        }
+        button.setAttribute("title", currentTitle);
+        button.classList.remove('code-copy-button-checked');
+      }, 1000);
+      // clear code selection
+      e.clearSelection();
+    }
+    const getTextToCopy = function(trigger) {
+      const outerScaffold = trigger.parentElement.cloneNode(true);
+      const codeEl = outerScaffold.querySelector('code');
+      for (const childEl of codeEl.children) {
+        if (isCodeAnnotation(childEl)) {
+          childEl.remove();
+        }
+      }
+      return codeEl.innerText;
+    }
+    const clipboard = new window.ClipboardJS('.code-copy-button:not([data-in-quarto-modal])', {
+      text: getTextToCopy
+    });
+    clipboard.on('success', onCopySuccess);
+    if (window.document.getElementById('quarto-embedded-source-code-modal')) {
+      const clipboardModal = new window.ClipboardJS('.code-copy-button[data-in-quarto-modal]', {
+        text: getTextToCopy,
+        container: window.document.getElementById('quarto-embedded-source-code-modal')
+      });
+      clipboardModal.on('success', onCopySuccess);
+    }
+      var localhostRegex = new RegExp(/^(?:http|https):\/\/localhost\:?[0-9]*\//);
+      var mailtoRegex = new RegExp(/^mailto:/);
+        var filterRegex = new RegExp('/' + window.location.host + '/');
+      var isInternal = (href) => {
+          return filterRegex.test(href) || localhostRegex.test(href) || mailtoRegex.test(href);
+      }
+      // Inspect non-navigation links and adorn them if external
+     var links = window.document.querySelectorAll('a[href]:not(.nav-link):not(.navbar-brand):not(.toc-action):not(.sidebar-link):not(.sidebar-item-toggle):not(.pagination-link):not(.no-external):not([aria-hidden]):not(.dropdown-item):not(.quarto-navigation-tool):not(.about-link)');
+      for (var i=0; i<links.length; i++) {
+        const link = links[i];
+        if (!isInternal(link.href)) {
+          // undo the damage that might have been done by quarto-nav.js in the case of
+          // links that we want to consider external
+          if (link.dataset.originalHref !== undefined) {
+            link.href = link.dataset.originalHref;
+          }
+        }
+      }
+    function tippyHover(el, contentFn, onTriggerFn, onUntriggerFn) {
+      const config = {
+        allowHTML: true,
+        maxWidth: 500,
+        delay: 100,
+        arrow: false,
+        appendTo: function(el) {
+            return el.parentElement;
+        },
+        interactive: true,
+        interactiveBorder: 10,
+        theme: 'quarto',
+        placement: 'bottom-start',
+      };
+      if (contentFn) {
+        config.content = contentFn;
+      }
+      if (onTriggerFn) {
+        config.onTrigger = onTriggerFn;
+      }
+      if (onUntriggerFn) {
+        config.onUntrigger = onUntriggerFn;
+      }
+      window.tippy(el, config); 
+    }
+    const noterefs = window.document.querySelectorAll('a[role="doc-noteref"]');
+    for (var i=0; i<noterefs.length; i++) {
+      const ref = noterefs[i];
+      tippyHover(ref, function() {
+        // use id or data attribute instead here
+        let href = ref.getAttribute('data-footnote-href') || ref.getAttribute('href');
+        try { href = new URL(href).hash; } catch {}
+        const id = href.replace(/^#\/?/, "");
+        const note = window.document.getElementById(id);
+        if (note) {
+          return note.innerHTML;
+        } else {
+          return "";
+        }
+      });
+    }
+    const xrefs = window.document.querySelectorAll('a.quarto-xref');
+    const processXRef = (id, note) => {
+      // Strip column container classes
+      const stripColumnClz = (el) => {
+        el.classList.remove("page-full", "page-columns");
+        if (el.children) {
+          for (const child of el.children) {
+            stripColumnClz(child);
+          }
+        }
+      }
+      stripColumnClz(note)
+      if (id === null || id.startsWith('sec-')) {
+        // Special case sections, only their first couple elements
+        const container = document.createElement("div");
+        if (note.children && note.children.length > 2) {
+          container.appendChild(note.children[0].cloneNode(true));
+          for (let i = 1; i < note.children.length; i++) {
+            const child = note.children[i];
+            if (child.tagName === "P" && child.innerText === "") {
+              continue;
+            } else {
+              container.appendChild(child.cloneNode(true));
+              break;
+            }
+          }
+          if (window.Quarto?.typesetMath) {
+            window.Quarto.typesetMath(container);
+          }
+          return container.innerHTML
+        } else {
+          if (window.Quarto?.typesetMath) {
+            window.Quarto.typesetMath(note);
+          }
+          return note.innerHTML;
+        }
+      } else {
+        // Remove any anchor links if they are present
+        const anchorLink = note.querySelector('a.anchorjs-link');
+        if (anchorLink) {
+          anchorLink.remove();
+        }
+        if (window.Quarto?.typesetMath) {
+          window.Quarto.typesetMath(note);
+        }
+        if (note.classList.contains("callout")) {
+          return note.outerHTML;
+        } else {
+          return note.innerHTML;
+        }
+      }
+    }
+    for (var i=0; i<xrefs.length; i++) {
+      const xref = xrefs[i];
+      tippyHover(xref, undefined, function(instance) {
+        instance.disable();
+        let url = xref.getAttribute('href');
+        let hash = undefined; 
+        if (url.startsWith('#')) {
+          hash = url;
+        } else {
+          try { hash = new URL(url).hash; } catch {}
+        }
+        if (hash) {
+          const id = hash.replace(/^#\/?/, "");
+          const note = window.document.getElementById(id);
+          if (note !== null) {
+            try {
+              const html = processXRef(id, note.cloneNode(true));
+              instance.setContent(html);
+            } finally {
+              instance.enable();
+              instance.show();
+            }
+          } else {
+            // See if we can fetch this
+            fetch(url.split('#')[0])
+            .then(res => res.text())
+            .then(html => {
+              const parser = new DOMParser();
+              const htmlDoc = parser.parseFromString(html, "text/html");
+              const note = htmlDoc.getElementById(id);
+              if (note !== null) {
+                const html = processXRef(id, note);
+                instance.setContent(html);
+              } 
+            }).finally(() => {
+              instance.enable();
+              instance.show();
+            });
+          }
+        } else {
+          // See if we can fetch a full url (with no hash to target)
+          // This is a special case and we should probably do some content thinning / targeting
+          fetch(url)
+          .then(res => res.text())
+          .then(html => {
+            const parser = new DOMParser();
+            const htmlDoc = parser.parseFromString(html, "text/html");
+            const note = htmlDoc.querySelector('main.content');
+            if (note !== null) {
+              // This should only happen for chapter cross references
+              // (since there is no id in the URL)
+              // remove the first header
+              if (note.children.length > 0 && note.children[0].tagName === "HEADER") {
+                note.children[0].remove();
+              }
+              const html = processXRef(null, note);
+              instance.setContent(html);
+            } 
+          }).finally(() => {
+            instance.enable();
+            instance.show();
+          });
+        }
+      }, function(instance) {
+      });
+    }
+        let selectedAnnoteEl;
+        const selectorForAnnotation = ( cell, annotation) => {
+          let cellAttr = 'data-code-cell="' + cell + '"';
+          let lineAttr = 'data-code-annotation="' +  annotation + '"';
+          const selector = 'span[' + cellAttr + '][' + lineAttr + ']';
+          return selector;
+        }
+        const selectCodeLines = (annoteEl) => {
+          const doc = window.document;
+          const targetCell = annoteEl.getAttribute("data-target-cell");
+          const targetAnnotation = annoteEl.getAttribute("data-target-annotation");
+          const annoteSpan = window.document.querySelector(selectorForAnnotation(targetCell, targetAnnotation));
+          const lines = annoteSpan.getAttribute("data-code-lines").split(",");
+          const lineIds = lines.map((line) => {
+            return targetCell + "-" + line;
+          })
+          let top = null;
+          let height = null;
+          let parent = null;
+          if (lineIds.length > 0) {
+              //compute the position of the single el (top and bottom and make a div)
+              const el = window.document.getElementById(lineIds[0]);
+              top = el.offsetTop;
+              height = el.offsetHeight;
+              parent = el.parentElement.parentElement;
+            if (lineIds.length > 1) {
+              const lastEl = window.document.getElementById(lineIds[lineIds.length - 1]);
+              const bottom = lastEl.offsetTop + lastEl.offsetHeight;
+              height = bottom - top;
+            }
+            if (top !== null && height !== null && parent !== null) {
+              // cook up a div (if necessary) and position it 
+              let div = window.document.getElementById("code-annotation-line-highlight");
+              if (div === null) {
+                div = window.document.createElement("div");
+                div.setAttribute("id", "code-annotation-line-highlight");
+                div.style.position = 'absolute';
+                parent.appendChild(div);
+              }
+              div.style.top = top - 2 + "px";
+              div.style.height = height + 4 + "px";
+              div.style.left = 0;
+              let gutterDiv = window.document.getElementById("code-annotation-line-highlight-gutter");
+              if (gutterDiv === null) {
+                gutterDiv = window.document.createElement("div");
+                gutterDiv.setAttribute("id", "code-annotation-line-highlight-gutter");
+                gutterDiv.style.position = 'absolute';
+                const codeCell = window.document.getElementById(targetCell);
+                const gutter = codeCell.querySelector('.code-annotation-gutter');
+                gutter.appendChild(gutterDiv);
+              }
+              gutterDiv.style.top = top - 2 + "px";
+              gutterDiv.style.height = height + 4 + "px";
+            }
+            selectedAnnoteEl = annoteEl;
+          }
+        };
+        const unselectCodeLines = () => {
+          const elementsIds = ["code-annotation-line-highlight", "code-annotation-line-highlight-gutter"];
+          elementsIds.forEach((elId) => {
+            const div = window.document.getElementById(elId);
+            if (div) {
+              div.remove();
+            }
+          });
+          selectedAnnoteEl = undefined;
+        };
+          // Handle positioning of the toggle
+      window.addEventListener(
+        "resize",
+        throttle(() => {
+          elRect = undefined;
+          if (selectedAnnoteEl) {
+            selectCodeLines(selectedAnnoteEl);
+          }
+        }, 10)
+      );
+      function throttle(fn, ms) {
+      let throttle = false;
+      let timer;
+        return (...args) => {
+          if(!throttle) { // first call gets through
+              fn.apply(this, args);
+              throttle = true;
+          } else { // all the others get throttled
+              if(timer) clearTimeout(timer); // cancel #2
+              timer = setTimeout(() => {
+                fn.apply(this, args);
+                timer = throttle = false;
+              }, ms);
+          }
+        };
+      }
+        // Attach click handler to the DT
+        const annoteDls = window.document.querySelectorAll('dt[data-target-cell]');
+        for (const annoteDlNode of annoteDls) {
+          annoteDlNode.addEventListener('click', (event) => {
+            const clickedEl = event.target;
+            if (clickedEl !== selectedAnnoteEl) {
+              unselectCodeLines();
+              const activeEl = window.document.querySelector('dt[data-target-cell].code-annotation-active');
+              if (activeEl) {
+                activeEl.classList.remove('code-annotation-active');
+              }
+              selectCodeLines(clickedEl);
+              clickedEl.classList.add('code-annotation-active');
+            } else {
+              // Unselect the line
+              unselectCodeLines();
+              clickedEl.classList.remove('code-annotation-active');
+            }
+          });
+        }
+    const findCites = (el) => {
+      const parentEl = el.parentElement;
+      if (parentEl) {
+        const cites = parentEl.dataset.cites;
+        if (cites) {
+          return {
+            el,
+            cites: cites.split(' ')
+          };
+        } else {
+          return findCites(el.parentElement)
+        }
+      } else {
+        return undefined;
+      }
+    };
+    var bibliorefs = window.document.querySelectorAll('a[role="doc-biblioref"]');
+    for (var i=0; i<bibliorefs.length; i++) {
+      const ref = bibliorefs[i];
+      const citeInfo = findCites(ref);
+      if (citeInfo) {
+        tippyHover(citeInfo.el, function() {
+          var popup = window.document.createElement('div');
+          citeInfo.cites.forEach(function(cite) {
+            var citeDiv = window.document.createElement('div');
+            citeDiv.classList.add('hanging-indent');
+            citeDiv.classList.add('csl-entry');
+            var biblioDiv = window.document.getElementById('ref-' + cite);
+            if (biblioDiv) {
+              citeDiv.innerHTML = biblioDiv.innerHTML;
+            }
+            popup.appendChild(citeDiv);
+          });
+          return popup.innerHTML;
+        });
+      }
+    }
+  });
+  </script>
+</div> <!-- /content -->
+
+
+
+
+</body></html>

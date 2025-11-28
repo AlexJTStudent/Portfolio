@@ -96,6 +96,13 @@ def _(pd):
 
 
 @app.cell
+def _(wo1_pos, wo1_pre):
+    print(wo1_pre.info())
+    print(wo1_pos.info())
+    return
+
+
+@app.cell
 def _(
     DataLoader,
     StandardScaler,
@@ -152,24 +159,24 @@ def _(
                 nn.ReLU(),
                 nn.BatchNorm1d(256),
                 nn.Dropout(0.3),
-            
+
                 nn.Linear(256, 128),
                 nn.ReLU(),
                 nn.BatchNorm1d(128),
                 nn.Dropout(0.3),
-            
+
                 nn.Linear(128, 64),
                 nn.ReLU(),
                 nn.BatchNorm1d(64),
                 nn.Dropout(0.2),
-            
+
                 nn.Linear(64, 32),
                 nn.ReLU(),
                 nn.Dropout(0.2),
-            
+
                 nn.Linear(32, 2)  # Output: x_pos and y_pos
             )
-    
+
         def forward(self, x):
             return self.network(x)
     return (
@@ -231,24 +238,24 @@ def _(
             loss.backward()
             optimizer.step()
             train_loss += loss.item()
-    
+
         avg_train_loss = train_loss / len(train_loader)
         train_losses.append(avg_train_loss)
-    
+
         # Validation
         model.eval()
         with torch.no_grad():
             val_outputs = model(X_val_tensor)
             val_loss = criterion(val_outputs, y_val_tensor).item()
             val_losses.append(val_loss)
-    
+
         # Learning rate scheduling
         scheduler.step(val_loss)
-    
+
         # Print progress
         if (epoch + 1) % 10 == 0:
             print(f"Epoch [{epoch+1}/{num_epochs}], Train Loss: {avg_train_loss:.4f}, Val Loss: {val_loss:.4f}")
-    
+
         # Early stopping
         if val_loss < best_val_loss:
             best_val_loss = val_loss
@@ -305,7 +312,6 @@ def _(
     metrics_df = pd.DataFrame(metrics, index=["x_position", "y_position"])
     print("\n=== Model Performance Metrics ===")
     print(metrics_df)
-
     return x_pred_val, y_pred_val
 
 
