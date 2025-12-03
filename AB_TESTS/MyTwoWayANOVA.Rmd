@@ -18,7 +18,7 @@ library(tidyverse)
 
 # Record your data from your own mini experiment in Excel.
 # Save the data as a .csv file in the Data folder of the Statistics-Notebook.
-data <- read.csv("C://Users//Alex//Documents//GitHub//IntStats//Statistics-Notebook-master//Analyses//ANOVA//SalmonandSeaTroutNets1952-2022.csv")
+data <- read.csv("C://Users/Alex/Documents/GitHub/Portfolio/AB_TESTS/SalmonandSeaTroutNets1952-2022.csv")
 data <- data %>% filter(Method %in% 
                           c("Fixed Engine: Retained","Net and Coble: Retained"),
                         !Region %in% "Orkney")

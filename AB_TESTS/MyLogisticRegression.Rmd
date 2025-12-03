@@ -26,7 +26,7 @@ library(pander)
 library(ResourceSelection) 
 library(DT)
 
-data <- read.csv("C://Users//Alex//Documents//GitHub//IntStats//Statistics-Notebook-master//Analyses//Logistic Regression//diabetes_60_entries.csv")
+data <- read.csv("C://Users/Alex/Documents/GitHub/Portfolio/AB_TESTS/diabetes_60_entries.csv")
 ```
 
 ![](diabetes.png)

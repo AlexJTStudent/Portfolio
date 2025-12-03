@@ -15,7 +15,7 @@ library(mosaic)
 library(ggthemes)
 library(pander)
 
-data <- read.csv("C://Users//Alex//Documents//GitHub//IntStats//Statistics-Notebook-master//Analyses//Chi Squared Tests//cars.csv")
+data <- read.csv("C://Users/Alex/Documents/GitHub/Portfolio/AB_TESTS/cars.csv")
 ```
 
 ![](clipboard-2112511409.png)
