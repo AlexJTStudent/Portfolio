@@ -16,7 +16,10 @@ library(DT)
 library(pander)
 library(readr)
 library(ggthemes)
-food <- read_csv("C://Users/Alex/Documents/GitHub/IntStats/Statistics-Notebook-master/Data/food.csv") #food.csv is in the Data folder...
+```
+
+```{r, warning=FALSE, message=FALSE}
+food <- read_csv("C://Users/Alex/Documents/GitHub/Portfolio/AB_TESTS/food.csv")
 ```
 
 ------------------------------------------------------------------------

@@ -14,7 +14,7 @@ library(mosaic)
 library(car)
 library(pander)
 library(DT)
-library(ggthemes)#You may need to run: install.packages("DT") 
+library(ggthemes)#You may need to run: install.packages("DT")
 ```
 
 
