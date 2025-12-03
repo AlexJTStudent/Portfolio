@@ -17,6 +17,7 @@ library(DT)
 library(ggthemes)#You may need to run: install.packages("DT") 
 ```
 
+
 ```{r, eval=FALSE}
 # Play the chunk above and this one to get the data into your Console
 # Note the eval=FALSE statement in this R-chunk will exclude this code

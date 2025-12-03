@@ -18,7 +18,7 @@ library(mosaic)
 library(ggthemes)
 library(car)
 
-HSS <- read_csv("HighSchoolSeniors.csv")
+HSS <- read_csv("C://Users/Alex/Documents/GitHub/Portfolio/AB_TESTS/HighSchoolSeniors.csv")
 ```
 
 ![](phones.png)
