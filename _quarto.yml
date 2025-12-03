@@ -7,7 +7,7 @@ website:
   navbar:
     left:
       - href: index.qmd
-        text: Home
+        text: "Car Crash Detector"
       - text: "A/B TESTING"
         menu:
           - href: AB_TESTS/MyTwoWayANOVA.Rmd
@@ -20,10 +20,6 @@ website:
             text: "T-test"
           - href: AB_TESTS/RecallingWords.Rmd
             text: "Wilcoxon Rank Sum (Mann–Whitney) test"
-      - text: "ML Group Case Studies"
-        menu:
-          - href: Machine_Learning/Executive Case Summary Module 3 - Team 8.md
-            text: "Linear Regression"
       - text: "Projects"
         menu:
           - href: Projects\NFL\NFL.Rmd
