@@ -29,60 +29,26 @@ def _():
 
 @app.cell
 def _(pd):
-    wo1_pre = pd.read_csv("Projects/NFL/nfl-big-data-bowl-2026-prediction/train/input_2023_w01.csv")
-    wo2_pre = pd.read_csv("Projects/NFL/nfl-big-data-bowl-2026-prediction/train/input_2023_w02.csv")
-    wo3_pre = pd.read_csv("Projects/NFL/nfl-big-data-bowl-2026-prediction/train/input_2023_w03.csv")
-    wo4_pre = pd.read_csv("Projects/NFL/nfl-big-data-bowl-2026-prediction/train/input_2023_w04.csv")
-    wo5_pre = pd.read_csv("Projects/NFL/nfl-big-data-bowl-2026-prediction/train/input_2023_w05.csv")
-    wo6_pre = pd.read_csv("Projects/NFL/nfl-big-data-bowl-2026-prediction/train/input_2023_w06.csv")
-    wo7_pre = pd.read_csv("Projects/NFL/nfl-big-data-bowl-2026-prediction/train/input_2023_w07.csv")
-    wo8_pre = pd.read_csv("Projects/NFL/nfl-big-data-bowl-2026-prediction/train/input_2023_w08.csv")
-    wo9_pre = pd.read_csv("Projects/NFL/nfl-big-data-bowl-2026-prediction/train/input_2023_w09.csv")
-    wo10_pre = pd.read_csv("Projects/NFL/nfl-big-data-bowl-2026-prediction/train/input_2023_w10.csv")
-    wo11_pre = pd.read_csv("Projects/NFL/nfl-big-data-bowl-2026-prediction/train/input_2023_w11.csv")
-    wo12_pre = pd.read_csv("Projects/NFL/nfl-big-data-bowl-2026-prediction/train/input_2023_w12.csv")
-    wo13_pre = pd.read_csv("Projects/NFL/nfl-big-data-bowl-2026-prediction/train/input_2023_w13.csv")
-    wo14_pre = pd.read_csv("Projects/NFL/nfl-big-data-bowl-2026-prediction/train/input_2023_w14.csv")
-    wo15_pre = pd.read_csv("Projects/NFL/nfl-big-data-bowl-2026-prediction/train/input_2023_w15.csv")
-    wo16_pre = pd.read_csv("Projects/NFL/nfl-big-data-bowl-2026-prediction/train/input_2023_w16.csv")
-    wo17_pre = pd.read_csv("Projects/NFL/nfl-big-data-bowl-2026-prediction/train/input_2023_w17.csv")
-    wo18_pre = pd.read_csv("Projects/NFL/nfl-big-data-bowl-2026-prediction/train/input_2023_w18.csv")
-    return (wo1_pre,)
+    # ========== 1. Load ALL 18 Weeks of Data ==========
+    print("Loading all 18 weeks of data...")
 
+    # Load all input files
+    input_files = []
+    output_files = []
 
-@app.cell
-def _(wo1_pre):
-    wo1_pre.head(3)
-    return
+    for week in range(1, 19):
+        input_files.append(pd.read_csv(f"Projects/NFL/nfl-big-data-bowl-2026-prediction/train/input_2023_w{week:02d}.csv"))
+        output_files.append(pd.read_csv(f"Projects/NFL/nfl-big-data-bowl-2026-prediction/train/output_2023_w{week:02d}.csv"))
 
+    # Concatenate all weeks
+    all_input = pd.concat(input_files, ignore_index=True)
+    all_output = pd.concat(output_files, ignore_index=True)
 
-@app.cell
-def _(pd):
-    wo1_pos = pd.read_csv("Projects/NFL/nfl-big-data-bowl-2026-prediction/train/output_2023_w01.csv")
-    wo2_pos = pd.read_csv("Projects/NFL/nfl-big-data-bowl-2026-prediction/train/output_2023_w02.csv")
-    wo3_pos = pd.read_csv("Projects/NFL/nfl-big-data-bowl-2026-prediction/train/output_2023_w03.csv")
-    wo4_pos = pd.read_csv("Projects/NFL/nfl-big-data-bowl-2026-prediction/train/output_2023_w04.csv")
-    wo5_pos = pd.read_csv("Projects/NFL/nfl-big-data-bowl-2026-prediction/train/output_2023_w05.csv")
-    wo6_pos = pd.read_csv("Projects/NFL/nfl-big-data-bowl-2026-prediction/train/output_2023_w06.csv")
-    wo7_pos = pd.read_csv("Projects/NFL/nfl-big-data-bowl-2026-prediction/train/output_2023_w07.csv")
-    wo8_pos = pd.read_csv("Projects/NFL/nfl-big-data-bowl-2026-prediction/train/output_2023_w08.csv")
-    wo9_pos = pd.read_csv("Projects/NFL/nfl-big-data-bowl-2026-prediction/train/output_2023_w09.csv")
-    wo10_pos = pd.read_csv("Projects/NFL/nfl-big-data-bowl-2026-prediction/train/output_2023_w10.csv")
-    wo11_pos = pd.read_csv("Projects/NFL/nfl-big-data-bowl-2026-prediction/train/output_2023_w11.csv")
-    wo12_pos = pd.read_csv("Projects/NFL/nfl-big-data-bowl-2026-prediction/train/output_2023_w12.csv")
-    wo13_pos = pd.read_csv("Projects/NFL/nfl-big-data-bowl-2026-prediction/train/output_2023_w13.csv")
-    wo14_pos = pd.read_csv("Projects/NFL/nfl-big-data-bowl-2026-prediction/train/output_2023_w14.csv")
-    wo15_pos = pd.read_csv("Projects/NFL/nfl-big-data-bowl-2026-prediction/train/output_2023_w15.csv")
-    wo16_pos = pd.read_csv("Projects/NFL/nfl-big-data-bowl-2026-prediction/train/output_2023_w16.csv")
-    wo17_pos = pd.read_csv("Projects/NFL/nfl-big-data-bowl-2026-prediction/train/output_2023_w17.csv")
-    wo18_pos = pd.read_csv("Projects/NFL/nfl-big-data-bowl-2026-prediction/train/output_2023_w18.csv")
-    return (wo1_pos,)
+    print(f"Total input rows: {len(all_input):,}")
+    print(f"Total output rows: {len(all_output):,}")
 
-
-@app.cell
-def _(wo1_pos):
-    wo1_pos.head(3)
-    return
+    test = pd.read_csv("Projects/NFL/nfl-big-data-bowl-2026-prediction/test.csv")
+    return all_input, all_output, test
 
 
 @app.cell
@@ -92,24 +58,24 @@ def _(test):
 
 
 @app.cell
-def _(pd):
-    test = pd.read_csv("Projects/NFL/nfl-big-data-bowl-2026-prediction/test.csv")
-    return (test,)
+def _():
+    return
 
 
 @app.cell
 def _(
     RandomForestRegressor,
+    all_input,
+    all_output,
     mean_absolute_error,
     train_test_split,
-    wo1_pos,
-    wo1_pre,
 ):
 
-    data = wo1_pre.merge(
-        wo1_pos,
-        on=["game_id", "play_id", "nfl_id", "frame_id"],
-        suffixes=("_pre", "_pos"))
+    data = all_input.merge(
+            all_output,
+            on=["game_id", "play_id", "nfl_id", "frame_id"],
+            suffixes=("_pre", "_pos")
+        )
 
 
     feature_cols = [
@@ -167,7 +133,6 @@ def _(
     }
     metrics_table = pd.DataFrame(metrics, index=["x_position", "y_position"])
     print(metrics_table)
-
     return
 
 
@@ -259,10 +224,6 @@ def _(feature_cols, model_x, np, plt):
     plt.ylabel("Importance")
     plt.tight_layout()
     plt.show()
-
-
-
-
     return (importances_x,)
 
 

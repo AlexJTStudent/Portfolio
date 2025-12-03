@@ -7,7 +7,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
 <meta name="author" content="Alex Tovar">
-<meta name="dcterms.date" content="2025-11-28">
+<meta name="dcterms.date" content="2025-12-02">
 
 <title>NFL Big Data Bowl 2026: Player Position Prediction – Alex J. Tovar</title>
 <style>
@@ -187,7 +187,10 @@ ul.task-list li input[type="checkbox"] {
   <ul class="collapse">
   <li><a href="#model-architecture" id="toc-model-architecture" class="nav-link" data-scroll-target="#model-architecture">Model Architecture</a></li>
   <li><a href="#performance-evaluation" id="toc-performance-evaluation" class="nav-link" data-scroll-target="#performance-evaluation">Performance Evaluation</a></li>
-  <li><a href="#key-visualizations" id="toc-key-visualizations" class="nav-link" data-scroll-target="#key-visualizations">Key Visualizations</a></li>
+  <li><a href="#key-visualizations" id="toc-key-visualizations" class="nav-link" data-scroll-target="#key-visualizations">Key Visualizations</a>
+  <ul class="collapse">
+  <li><a href="#categorical-features-are-surprisingly-weak-0.5-of-importance" id="toc-categorical-features-are-surprisingly-weak-0.5-of-importance" class="nav-link" data-scroll-target="#categorical-features-are-surprisingly-weak-0.5-of-importance">Categorical Features Are Surprisingly Weak (0.5% of Importance)</a></li>
+  </ul></li>
   </ul></li>
   <li><a href="#discussion-responses" id="toc-discussion-responses" class="nav-link" data-scroll-target="#discussion-responses">Discussion Responses</a>
   <ul class="collapse">
@@ -223,7 +226,7 @@ ul.task-list li input[type="checkbox"] {
     <div>
     <div class="quarto-title-meta-heading">Published</div>
     <div class="quarto-title-meta-contents">
-      <p class="date">November 28, 2025</p>
+      <p class="date">December 2, 2025</p>
     </div>
   </div>
   
@@ -244,7 +247,7 @@ h1, h2, h3, h4, h5, h6 {
 <p><img src="nfl_banner.jpg" class="img-fluid"></p>
 <section id="background" class="level1">
 <h1>Background</h1>
-<p>We will examine the NFL Big Data Bowl 2026 competition that encourages contestants to anticipate movements of players during pass plays while the ball is in the air. The idea is to enable the NFL to understand dynamic player positioning—from the moment when a quarterback releases the ball to the point at which it is caught or is ruled incomplete. This analysis has broad applications in several areas:</p>
+<p>We will examine the NFL Big Data Bowl 2026 competition that encourages contestants to anticipate movements of players during pass plays while the ball is in the air. The idea is to enable the NFL to understand dynamic player positioning from the moment when a quarterback releases the ball to the point at which it is caught or is ruled incomplete. This analysis has broad applications in several areas:</p>
 <ul>
 <li><strong>Coaching Strategy</strong>: Defensive position optimization and coverage scheme development</li>
 <li><strong>Player Evaluation</strong>: Understanding how a receiver tracks the ball and how a defender responds to a threat presented by an aerial shot</li>
@@ -279,7 +282,6 @@ h1, h2, h3, h4, h5, h6 {
 <li>Ball landing X coordinate</li>
 <li>Ball landing Y coordinate</li>
 </ul>
-<p>The most obvious limitation to our existing feature set is the lack of categorical features such as player role (targeted receiver, defensive coverage, passer, etc.), player side (offense/defense), and position designations. Such features would allow for the model to distinguish behavioral patterns across types of players and would identify an active candidate to enhance this performance as revealed in our case study analysis.</p>
 <section id="model-architecture" class="level2">
 <h2 class="anchored" data-anchor-id="model-architecture">Model Architecture</h2>
 <p>We first tried the Random Forest Regression method with two different models: one for X-coordinate prediction and the other for Y-coordinate prediction. We changed from this to a multivariate neural network architecture that jointly predicts both coordinates (e.g., diagonal trajectories where both dimensions change together) following faculty guidance.</p>
@@ -313,7 +315,7 @@ h1, h2, h3, h4, h5, h6 {
 <section id="key-visualizations" class="level2">
 <h2 class="anchored" data-anchor-id="key-visualizations">Key Visualizations</h2>
 <p>Case study analysis provided visualizations which represent individual play based performance of the model:</p>
-<p><strong>Predicted vs Actual X &amp; Y Positions</strong>: The visualization overlays real positions of players (blue) on predicted positions (orange) on the background of the football field as red dashed lines in the image to show the difference in actual versus predicted position for each individual. The landing positions are indicated with a red X indicating that the model systematically predicts poorly at predicting player motion toward the ball, indicating that the model averages behavior across all player types without player role information from the player data; instead of recognizing which types of players have aggressively tracked the ball through the targeted receivers.</p>
+<p><strong>Predicted vs Actual X &amp; Y Positions</strong>: The visualization overlays real positions of players (blue) on predicted positions (orange) on the background of the football field for each individual.</p>
 <center>
 <img src="field_example.png" class="img-fluid"> <img src="x-position.png" class="img-fluid"> <img src="y-predicted.png" class="img-fluid">
 </center>
@@ -332,7 +334,83 @@ h1, h2, h3, h4, h5, h6 {
 <center>
 <img src="pre5.png" class="img-fluid">
 </center>
+<p>&nbsp;</p>
+<center>
+<img src="feature_importance_top20.png" class="img-fluid">
+</center>
+<center>
+<img src="feature_importance_by_category.png" class="img-fluid">
+</center>
+<p>&nbsp;</p>
+<section id="top-numerical-features" class="level4">
+<h4 class="anchored" data-anchor-id="top-numerical-features"><strong>Top Numerical Features:</strong></h4>
+<ol type="1">
+<li><strong>Pre-snap X position (262.16)</strong> - 70% of total importance
+<ul>
+<li>By far the dominant predictor</li>
+<li>Where a player starts on the field is the strongest indicator of where they’ll be when the ball is in flight</li>
+<li>Players move along predictable paths from pre-snap positions</li>
+<li>Downfield direction (X-axis) is heavily constrained by play design</li>
+</ul></li>
+<li><strong>Ball landing X coordinate (149.11)</strong> - 39.8% of total importance
+<ul>
+<li>Second-most important feature</li>
+<li>Knowledge of where the ball will land is highly predictive of player positioning</li>
+<li>Reflects players’ natural tendency to converge toward ball trajectory</li>
+<li>Receivers track the ball’s flight path; defenders react to it</li>
+</ul></li>
+<li><strong>Ball landing Y coordinate (90.03)</strong> - 24.1% of total importance
+<ul>
+<li>Third-ranked feature</li>
+<li>Lateral position of ball landing is significant for position prediction</li>
+<li>Less important than X coordinate</li>
+<li>Defensive formations more predictable along line of scrimmage than across field width</li>
+</ul></li>
+<li><strong>Absolute yardline number (21.69)</strong> - 5.8% of importance
+<ul>
+<li>Field context matters</li>
+<li>Players’ movements differ based on proximity to end zone</li>
+<li>Reflects risk-reward calculations and crowd positioning constraints</li>
+</ul></li>
+<li><strong>Pre-snap Y position (20.75)</strong> - 5.5% of importance
+<ul>
+<li>Secondary positional feature</li>
+<li>Much weaker than pre-snap X (12X less important)</li>
+<li>Lateral starting position less predictive than downfield starting position</li>
+</ul></li>
+</ol>
+</section>
+<section id="secondary-numerical-features" class="level4">
+<h4 class="anchored" data-anchor-id="secondary-numerical-features"><strong>Secondary Numerical Features:</strong></h4>
+<ul>
+<li><strong>Direction (5.52)</strong> - 1.5% of importance</li>
+<li><strong>Speed (2.91)</strong> - 0.8% of importance</li>
+<li><strong>Orientation (0.89)</strong> - 0.2% of importance</li>
+<li><strong>Acceleration (0.76)</strong> - 0.2% of importance</li>
+</ul>
+</section>
+<section id="categorical-features-are-surprisingly-weak-0.5-of-importance" class="level3">
+<h3 class="anchored" data-anchor-id="categorical-features-are-surprisingly-weak-0.5-of-importance">Categorical Features Are Surprisingly Weak (0.5% of Importance)</h3>
+<p>Despite encoding player position, team side, and role, these features contributed minimal predictive power:</p>
+<ul>
+<li><strong>Positional dummies</strong> (CB, WR, FS, SS, ILB, TE, OLB, MLB, RB, DE, S, DT, FB, QB, NT, T, LB)
+<ul>
+<li>Mean importance: 0.65</li>
+<li>Individual importance: &lt; 2.0 for all positions</li>
+</ul></li>
+<li><strong>Side dummies</strong> (Defense/Offense)
+<ul>
+<li>Mean importance: 1.37</li>
+<li>Minimal predictive signal</li>
+</ul></li>
+<li><strong>Role dummies</strong> (Defensive Coverage/Targeted Receiver)
+<ul>
+<li>Mean importance: 1.33</li>
+<li>Minimal predictive signal</li>
+</ul></li>
+</ul>
 <hr>
+</section>
 </section>
 </section>
 <section id="discussion-responses" class="level1">
@@ -346,7 +424,7 @@ h1, h2, h3, h4, h5, h6 {
 <h2 class="anchored" data-anchor-id="model-architecture-choice">2. Model Architecture Choice</h2>
 <p>The decision to use a feedforward neural network instead of the early Random Forest method was motivated by the necessity to model multivariate output. Although Random Forest Regression has good performance on tabular data, it involved training a pair of models: one for X-coordinate prediction and one to predict Y-coordinate features. This method treats the two spatial dimensions as independent problems, ignoring the correlation between them.</p>
 <p>The output neurons in a neural network architecture can be found in two and, thus, when in space, the model learns joint representations of player movement. For instance, the X and Y coordinates of a receiver running up to the ball from a diagonal parallel changes side by side (or up to an adjacent direction). A neural network has shared hidden layers that can model these interdependencies, learning that some movement patterns involve certain X-Y coordinate combination and will not be captured by individual models.</p>
-<p>Neural networks also outperform in learning non-linear relationships through activation functions and deep layer structures. Player movement in football is highly non-linear—players speed, turn, turn, respond to the movement of the ball in ways that linear models or tree-based approaches may fail to accurately capture. The 4-layer architecture with ReLU activations provide enough representational capabilities that the complex spatial-temporal dynamics can be considered.</p>
+<p>Neural networks also outperform in learning non-linear relationships through activation functions and deep layer structures. Player movement in football is highly non-linear-players speed, turn, turn, respond to the movement of the ball in ways that linear models or tree-based approaches may fail to accurately capture. The 4-layer architecture with ReLU activations provide enough representational capabilities that the complex spatial-temporal dynamics can be considered.</p>
 <p>The regularizations used (dropout, batch normalization, early stopping) enable the model to generalize to unseen plays rather than to memorize training examples despite its complexity. The high validation performance (R² of 0.974 for X and 0.910 for Y) indicates that the model has learned useful patterns and does not overfit to training noise.</p>
 </section>
 <section id="model-confidence-metrics" class="level2">
@@ -354,16 +432,13 @@ h1, h2, h3, h4, h5, h6 {
 <p>We assessed this model (or using its predictive power) by evaluating its dependability and precision through the use of three related scales: MAE, RMSE, and R².</p>
 <p><strong>Mean Absolute Error</strong> is an intuitive test of average predictive accuracy. Regarding X-position predictions, the MAE is 3.07 yards where the model’s X-coordinate predictions deviate from actual positions in all instances by an average of about 3 yards. For Y-position predictions, the MAE is 3.05 yards. These numbers carry significant weight in a dynamic environment like football plays where the player may make the jump down 10-15 yards or more in every single pass play so 3-yard errors suggest good predictive power. In practical terms, this precision is adequate for many analytical purposes, giving coaches a window into overall position trends and broadcasters the data they need to provide real-time projections of real-time position.</p>
 <p><strong>Root Mean Squared Error</strong> prioritizes larger mistakes over MAE due to the squaring operation, making it especially helpful for determining if the model produces occasional blundering. RMSE = 4.02 yards at X-position and 3.95 yards at Y-position. The small difference between MAE and RMSE (approximately one yard) indicates that the model’s errors are reasonably consistent, no extreme outliers or catastrophic errors in the prediction. If model errors were to occur extensively, we might see a much larger difference between RMSE and MAE.</p>
-<p><strong>R² Score</strong> represents the percentage of variance in the target variable explained with a model. The R² of 0.974 (for X-position) means that we have an extremely good model fit and is explaining 97.4% of the variance in player X-coordinates. For Y-position, with an R² of 0.910, 91.0% of the variance is accounted for. The lower Y-position R² still indicates lateral movement (side-to-side across the field) is harder to predict than downfield movement—but still good. That makes intuitive sense—downfield movement is primarily determined by the direction of the ball’s forward drive, while lateral movement involves more complex decisions of route running and individual tendencies in players.</p>
+<p><strong>R² Score</strong> represents the percentage of variance in the target variable explained with a model. The R² of 0.974 (for X-position) means that we have an extremely good model fit and is explaining 97.4% of the variance in player X-coordinates. For Y-position, with an R² of 0.910, 91.0% of the variance is accounted for. The lower Y-position R² still indicates lateral movement (side-to-side across the field) is harder to predict than downfield movement, but still good. That makes intuitive sense, downfield movement is primarily determined by the direction of the ball’s forward drive, while lateral movement involves more complex decisions of route running and individual tendencies in players.</p>
 <p>To provide further context to the data we provide a case study of one play (Game ID: 2023091000 and Play ID: 1240) on a specific play can help understand these metrics as well. This play comprised 8 observations from the player-frame area with a mean Euclidean error of 5.26 yards and maximum error of 6.25 yards for this play. The analysis also showed that a systematic trend was there: the model consistently underpredicts forward motion toward the ball landing position. Players in the example were 3.78 yards closer to the ball than the model predicted on average in the case study, with the actual average distance being 4.20 yards and the predicted distance being 7.98 yards.</p>
-<p>This systematic bias indicated that the model does not contain more information than a player role wise. The model simply gives an overall average for all players in terms of behavior without characteristics distinguishing between the receiver and defensive side of the cover on-the-field versus defensive coverage or between various other route runners. As such, the targeted receivers aggressively follow the ball and end up on the landing, while others can move away or stay still. By averaging these disparate behaviors, the model generates conservative predictions that lose sight of the ball-tracking intensity of key players.</p>
-<p>However, there are strong metrics for model confidence and this is a limitation. The low MAE (average errors are sub-3 yards), moderate RMSE (there are few extreme errors), and very high R² (more than 90% of variance) score indicates that this model effectively accounts for the basic play dynamics of play by play players during pass plays. For virtually all critical applications—whether evaluating defensive tactics, designing plays, or creating broadcast graphics—this degree of precision yields actionable insights.</p>
+<p>The low MAE (average errors are sub-3 yards), moderate RMSE (there are few extreme errors), and very high R² (more than 90% of variance) score indicates that this model effectively accounts for the basic play dynamics of play by play players during pass plays. For virtually all critical applications, whether evaluating defensive tactics, designing plays, or creating broadcast graphics, this degree of precision yields actionable insights.</p>
 </section>
 <section id="limitations-and-future-improvements" class="level2">
 <h2 class="anchored" data-anchor-id="limitations-and-future-improvements">4. Limitations and Future Improvements</h2>
 <p>Our model has strong predictability but there are several limitations with room for a promising design enhancements.</p>
-<p><strong>Missing Categorical Features</strong>: The greatest weakness of the model is the lack of player position information. We do not consider if a player is the receiver at play in the target, defensive coverage, passer or other runner running route. The case study analysis revealed that players display significantly different patterns according to the role, with certain receivers converging aggressively of receivers to the ball landing position and some players either moving away and leaving, remaining close to their pre-snap position. In this way however, the role-based movement patterns are not learned for any specific player type and the model averages out to all player types to an optimal prediction (e.g.&nbsp;in the case of player_role), and eventually results in systematic underprediction of any ball tracking behavior. Player_role, Player_side (offense/defense), specific position designations (QB, WR, CB, S, LB) should be included as categorical features in future versions as well (should be encoded in the neural network (more advanced) as embeddings with deep positions and that each category must be abstracted to represent their interaction with play characteristics in a meaningful way).</p>
-<p><strong>Training Data Limited</strong>: Our model is only trained on Week 1 of the 2023 season. The 2023 whole competition dataset has 18 weeks worth of training data (approximately 5.1 million input and 580,000 output rows). More samples of different game scenarios, weather, team strategies, patterns of player behavior, etc. would be possible by expanding to the entire dataset. This higher volume of data would enhance the model’s capacity on generic generalization and prevent the model from overfitting to game situations that were present only from Week 1.</p>
 <p><strong>Architecture Implications</strong>: In our feedforward neural network, spatial relationships are largely captured, however, it does not model player movement (the time-sequence of player movements) explicitly. Playing football happens over time and the players react to how the ball travels and to other players positions dynamically. A Recurrent Neural Network (RNN) or Long Short-Term Memory (LSTM) could model these interrelated temporal dependencies in which it can learn how player velocities evolve in different frame by frame from what it would be as an independent learning model, instead of treating every frame as a single prediction. Or, a Transformer-based architecture was proposed to model player attention mechanisms that capture how defenders respond against receivers and receivers to defenders.</p>
 <p><strong>Feature Engineering Opportunities</strong>: In addition to missing more categorical features, we can engineer some more predictive features include:</p>
 <ul>
@@ -375,15 +450,12 @@ h1, h2, h3, h4, h5, h6 {
 </ul>
 <p><strong>Ensemble Methods</strong>: The combination of multiple models, such as our neural network with gradient boosting machines or other different architectures neural networks, leads it to a more stable prediction with ensemble averaging. Different models could perform quite well at different aspects of the prediction task and together may reduce overall error.</p>
 <p><strong>Insights from the Single-Play Case Study</strong>: Not every frame presented a comparable number of prediction errors. Errors rose in distance to the ball (6.25 yards) before decreasing (4.68 yards) as the player took his approach to land. These patterns indicate that there is a strong predictive signal from proximity of the ball. Future models should include distance-to-ball as an explicit variable, or use it for estimating weights differently on frames.</p>
-<p><strong>Evaluation Metrics for Competition</strong>: For competition, although our metrics in validation are impressive, we take the competition’s holdout test set (Weeks 14-18 of the 2025 season). The test data is for future games in which different teams could be constituted, have different strategies, and play different environments. Examining leaderboard performance also will offer invaluable insights on the generalizability of our model beyond the 2023 season data used to train the model.</p>
 <hr>
 </section>
 </section>
 <section id="conclusion" class="level1">
 <h1>Conclusion</h1>
 <p>What we did is show how deep learning is able to predict positional positions on NFL pass plays with significant accuracy based on a case study. Our feedforward network captures around 3-yard average errors in the X and Y dimensions and accounts for more than 90% of the variance in player movements. The multivariate architecture is capable of capturing the jointality of spatial motion and enhancing the independent modeling approach of our Random Forest base.</p>
-<p>The close case study analysis offered both the good and bad sides of the model. However, the system consistently underestimates aggressive ball-tracking action without any role information of players in our feature selection. This knowledge points to a strong avenue for improvement, as introducing categorical features that differentiate between receivers at play, defenders, and other players would allow the model to learn movement patterns for its role and drastically reduce prediction bias.</p>
-<p>In conclusion, further research might include expanding the training dataset of 18 weeks, including the absence of categorical features (e.g., player_role, player_side, position), and to investigate methods which explicitly model temporal sequences (LSTM/RNN) or inter-player effects (Transformer attention). Furthermore, ensemble strategies combining various modeling methodologies might be promising for increase in robustness and accuracy.</p>
 <p>By improving player position predictions, this research contributes to the NFL’s broader goal of advancing player understanding of dynamics between players, helping coaches improve tactics, broadcasters better interact with fans and analysts develop better models for player evaluation. Our model’s performance thus far forms a strong baseline to push it further for fine-tuning and submission for a competition.</p>
 <hr>
 </section>

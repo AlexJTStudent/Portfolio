@@ -685,3 +685,222 @@ def _(
 
 if __name__ == "__main__":
     app.run()
+
+
+@app.cell
+def _(
+    X_train_tensor,
+    X_val_tensor,
+    criterion,
+    feature_cols,
+    model,
+    np,
+    pd,
+    plt,
+    torch,
+    y_train_tensor,
+    y_val_tensor,
+):
+    # ========== Feature Importance Analysis ==========
+    print("\n=== Feature Importance Analysis ===")
+    
+    # Method 1: Permutation Importance
+    print("\nCalculating permutation importance...")
+    
+    model.eval()
+    
+    # Get baseline validation loss
+    with torch.no_grad():
+        baseline_pred = model(X_val_tensor)
+        baseline_loss = criterion(baseline_pred, y_val_tensor).item()
+    
+    print(f"Baseline validation loss: {baseline_loss:.4f}")
+    
+    # Calculate importance for each feature
+    importances = []
+    
+    for i, feature_name in enumerate(feature_cols):
+        # Create a copy of validation data
+        X_permuted = X_val_tensor.clone()
+        
+        # Permute (shuffle) the i-th feature
+        perm_idx = torch.randperm(X_permuted.shape[0])
+        X_permuted[:, i] = X_permuted[perm_idx, i]
+        
+        # Calculate loss with permuted feature
+        with torch.no_grad():
+            permuted_pred = model(X_permuted)
+            permuted_loss = criterion(permuted_pred, y_val_tensor).item()
+        
+        # Importance = increase in loss when feature is shuffled
+        importance = permuted_loss - baseline_loss
+        importances.append(importance)
+        
+        if i % 5 == 0:
+            print(f"Processed {i+1}/{len(feature_cols)} features...")
+    
+    # Create DataFrame with results
+    importance_df = pd.DataFrame({
+        'Feature': feature_cols,
+        'Importance': importances
+    }).sort_values('Importance', ascending=False)
+    
+    print("\n=== Top 15 Most Important Features ===")
+    print(importance_df.head(15).to_string(index=False))
+    
+    print("\n=== Bottom 10 Least Important Features ===")
+    print(importance_df.tail(10).to_string(index=False))
+    
+    # ========== Visualization 1: Top Features Bar Plot ==========
+    plt.figure(figsize=(12, 8))
+    top_n = 20
+    top_features = importance_df.head(top_n)
+    
+    colors = ['#d62728' if f.startswith('pos_') else '#1f77b4' for f in top_features['Feature']]
+    
+    plt.barh(range(len(top_features)), top_features['Importance'], color=colors)
+    plt.yticks(range(len(top_features)), top_features['Feature'])
+    plt.xlabel('Importance (Increase in MSE Loss)', fontsize=12)
+    plt.ylabel('Feature', fontsize=12)
+    plt.title(f'Top {top_n} Most Important Features\n(Red = Position, Blue = Numerical)', 
+              fontsize=14, fontweight='bold')
+    plt.gca().invert_yaxis()
+    plt.grid(axis='x', alpha=0.3)
+    plt.tight_layout()
+    plt.savefig('feature_importance_top20.png', dpi=300, bbox_inches='tight')
+    plt.show()
+    
+    # ========== Visualization 2: Feature Categories ==========
+    # Separate numerical and position features
+    numerical_features = [f for f in feature_cols if not f.startswith('pos_')]
+    position_features = [f for f in feature_cols if f.startswith('pos_')]
+    
+    numerical_importance = importance_df[importance_df['Feature'].isin(numerical_features)]
+    position_importance = importance_df[importance_df['Feature'].isin(position_features)]
+    
+    fig, axes = plt.subplots(1, 2, figsize=(16, 6))
+    
+    # Numerical features
+    axes[0].barh(range(len(numerical_importance)), numerical_importance['Importance'], color='#1f77b4')
+    axes[0].set_yticks(range(len(numerical_importance)))
+    axes[0].set_yticklabels(numerical_importance['Feature'])
+    axes[0].set_xlabel('Importance (Increase in MSE Loss)', fontsize=12)
+    axes[0].set_title('Numerical Features Importance', fontsize=14, fontweight='bold')
+    axes[0].invert_yaxis()
+    axes[0].grid(axis='x', alpha=0.3)
+    
+    # Position features
+    axes[1].barh(range(len(position_importance)), position_importance['Importance'], color='#d62728')
+    axes[1].set_yticks(range(len(position_importance)))
+    axes[1].set_yticklabels(position_importance['Feature'])
+    axes[1].set_xlabel('Importance (Increase in MSE Loss)', fontsize=12)
+    axes[1].set_title('Player Position Features Importance', fontsize=14, fontweight='bold')
+    axes[1].invert_yaxis()
+    axes[1].grid(axis='x', alpha=0.3)
+    
+    plt.tight_layout()
+    plt.savefig('feature_importance_by_category.png', dpi=300, bbox_inches='tight')
+    plt.show()
+    
+    # ========== Summary Statistics ==========
+    print("\n=== Feature Importance Summary ===")
+    print(f"Total features: {len(feature_cols)}")
+    print(f"  - Numerical: {len(numerical_features)}")
+    print(f"  - Positions: {len(position_features)}")
+    print(f"\nMean importance:")
+    print(f"  - Numerical: {numerical_importance['Importance'].mean():.6f}")
+    print(f"  - Positions: {position_importance['Importance'].mean():.6f}")
+    print(f"\nTop 3 overall:")
+    for idx, row in importance_df.head(3).iterrows():
+        print(f"  {row['Feature']}: {row['Importance']:.6f}")
+    
+    # ========== Method 2: Weight Magnitude Analysis ==========
+    print("\n\n=== Weight Magnitude Analysis ===")
+    print("Analyzing first layer weights to see which features have strongest connections...")
+    
+    # Get weights from first layer
+    first_layer_weights = model.network[0].weight.data.cpu().numpy()  # Shape: (256, num_features)
+    
+    # Calculate average absolute weight for each feature
+    weight_magnitudes = np.abs(first_layer_weights).mean(axis=0)
+    
+    weight_importance_df = pd.DataFrame({
+        'Feature': feature_cols,
+        'Weight_Magnitude': weight_magnitudes
+    }).sort_values('Weight_Magnitude', ascending=False)
+    
+    print("\n=== Top 15 Features by Weight Magnitude ===")
+    print(weight_importance_df.head(15).to_string(index=False))
+    
+    # ========== Visualization 3: Weight Magnitude ==========
+    plt.figure(figsize=(12, 8))
+    top_weights = weight_importance_df.head(20)
+    colors_w = ['#d62728' if f.startswith('pos_') else '#1f77b4' for f in top_weights['Feature']]
+    
+    plt.barh(range(len(top_weights)), top_weights['Weight_Magnitude'], color=colors_w)
+    plt.yticks(range(len(top_weights)), top_weights['Feature'])
+    plt.xlabel('Average Absolute Weight Magnitude', fontsize=12)
+    plt.ylabel('Feature', fontsize=12)
+    plt.title('Top 20 Features by First Layer Weight Magnitude\n(Red = Position, Blue = Numerical)', 
+              fontsize=14, fontweight='bold')
+    plt.gca().invert_yaxis()
+    plt.grid(axis='x', alpha=0.3)
+    plt.tight_layout()
+    plt.savefig('feature_importance_weights.png', dpi=300, bbox_inches='tight')
+    plt.show()
+    
+    # ========== Comparison Plot ==========
+    print("\n\n=== Comparing Importance Methods ===")
+    
+    # Normalize both importance measures to 0-1 scale
+    importance_df['Importance_Normalized'] = (
+        (importance_df['Importance'] - importance_df['Importance'].min()) / 
+        (importance_df['Importance'].max() - importance_df['Importance'].min())
+    )
+    
+    weight_importance_df['Weight_Normalized'] = (
+        (weight_importance_df['Weight_Magnitude'] - weight_importance_df['Weight_Magnitude'].min()) / 
+        (weight_importance_df['Weight_Magnitude'].max() - weight_importance_df['Weight_Magnitude'].min())
+    )
+    
+    # Merge the two methods
+    comparison_df = importance_df[['Feature', 'Importance_Normalized']].merge(
+        weight_importance_df[['Feature', 'Weight_Normalized']], 
+        on='Feature'
+    )
+    comparison_df['Average_Importance'] = (
+        comparison_df['Importance_Normalized'] + comparison_df['Weight_Normalized']
+    ) / 2
+    comparison_df = comparison_df.sort_values('Average_Importance', ascending=False)
+    
+    print("\n=== Top 15 Features (Combined Methods) ===")
+    print(comparison_df.head(15)[['Feature', 'Average_Importance']].to_string(index=False))
+    
+    # Plot comparison
+    plt.figure(figsize=(14, 8))
+    top_combined = comparison_df.head(20)
+    
+    x = np.arange(len(top_combined))
+    width = 0.35
+    
+    colors_comb = ['red' if f.startswith('pos_') else 'blue' for f in top_combined['Feature']]
+    
+    plt.barh(x - width/2, top_combined['Importance_Normalized'], width, 
+             label='Permutation Importance', alpha=0.8, color='steelblue')
+    plt.barh(x + width/2, top_combined['Weight_Normalized'], width, 
+             label='Weight Magnitude', alpha=0.8, color='coral')
+    
+    plt.yticks(x, top_combined['Feature'])
+    plt.xlabel('Normalized Importance Score', fontsize=12)
+    plt.ylabel('Feature', fontsize=12)
+    plt.title('Feature Importance: Comparison of Methods\n(Top 20 Features)', 
+              fontsize=14, fontweight='bold')
+    plt.legend(loc='lower right', fontsize=11)
+    plt.gca().invert_yaxis()
+    plt.grid(axis='x', alpha=0.3)
+    plt.tight_layout()
+    plt.savefig('feature_importance_comparison.png', dpi=300, bbox_inches='tight')
+    plt.show()
+    
+    # Return importance dataframes for further analysis
+    return importance_df, weight_importance_df, comparison_df

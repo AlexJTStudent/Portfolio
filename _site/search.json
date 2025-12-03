@@ -1,227 +1,185 @@
 [
   {
-    "objectID": "Projects/Model.html",
-    "href": "Projects/Model.html",
-    "title": "Insurance Claims Prediction Model",
+    "objectID": "Projects/NFL/NFL.html#model-architecture",
+    "href": "Projects/NFL/NFL.html#model-architecture",
+    "title": "NFL Big Data Bowl 2026: Player Position Prediction",
+    "section": "Model Architecture",
+    "text": "Model Architecture\nWe first tried the Random Forest Regression method with two different models: one for X-coordinate prediction and the other for Y-coordinate prediction. We changed from this to a multivariate neural network architecture that jointly predicts both coordinates (e.g., diagonal trajectories where both dimensions change together) following faculty guidance.\nOur last model is a Feedforward Neural Network (Multi-Layer Perceptron) with the architecture:\n\nInput Layer: 9 features\nHidden Layer 1: 256 neurons with ReLU activation, Batch Normalization, and 30% Dropout\nHidden Layer 2: 128 neurons with ReLU, Batch Normalization, 30% Dropout\nHidden Layer 3: 64 neurons with ReLU activation and 20% Dropout\nHidden Layer 4: 32 neurons using ReLU, 20% Dropout\nOutput Layer: 2 neurons (x_pos, y_pos predictions)\n\nThe model features 46,754 trainable parameters and was optimized with an Adam optimizer with a learning rate of 0.001. In order to avoid overfitting and enhance generalization, we applied a few regularization procedures, these include:\n\nDropout regularization (20-30% to the different layers)\nBatch Normalization for training to stabilize\nStandardScaler normalized input features (essentially useful for performance of neural networks)\nEarly stopping with 15-epoch patience to stop training when validation loss flattens out\nLearning rate scheduling (ReduceLROnPlateau) to dynamically update learning rate and vary learning rate as training progresses\nModel checkpointing to save the best-performing model when the validation loss improves\n\nTraining was done in a 512-size batch for up to a maximum of 100 epochs using early stopping to accelerate convergence without overfitting."
+  },
+  {
+    "objectID": "Projects/NFL/NFL.html#performance-evaluation",
+    "href": "Projects/NFL/NFL.html#performance-evaluation",
+    "title": "NFL Big Data Bowl 2026: Player Position Prediction",
+    "section": "Performance Evaluation",
+    "text": "Performance Evaluation\nFor model performance, we used different regression metrics to measure average error as well as model fit quality. Finally, we performed detailed case study analysis after a single play (Game ID: 2023091000, Play ID: 1240) and analyzed prediction accuracy in-depth, in order to trace systematic features in model behaviors."
+  },
+  {
+    "objectID": "Projects/NFL/NFL.html#key-visualizations",
+    "href": "Projects/NFL/NFL.html#key-visualizations",
+    "title": "NFL Big Data Bowl 2026: Player Position Prediction",
+    "section": "Key Visualizations",
+    "text": "Key Visualizations\nCase study analysis provided visualizations which represent individual play based performance of the model:\nPredicted vs Actual X & Y Positions: The visualization overlays real positions of players (blue) on predicted positions (orange) on the background of the football field for each individual.\n\n  \n\n \nPre-Snap and Post-Snap Comparison: A comparison of Pre-Snap and Post-Snap formations (left) with recorded and predicted locations (right) when a match is in progress and shows how players transition from initial positioning to their positions in flight of the ball.\n\n \n\n \nMovement Vectors: It shows player trajectories, where blue arrows show the players’ actual movement and orange dashed arrows represent predicted movement of the players, from pre-snap to post-snap position. The red line is the ball trajectory from line of scrimmage to landing position.\n\n \n\n \nError Heatmap by Position: The players are color-coded according to value of prediction errors with the use of a yellow-orange-red colormap where spatial order of prediction error could be observed along the field.\n\n\n\n \n\n\n\n\n\n\n \n\nTop Numerical Features:\n\nPre-snap X position (262.16) - 70% of total importance\n\nBy far the dominant predictor\nWhere a player starts on the field is the strongest indicator of where they’ll be when the ball is in flight\nPlayers move along predictable paths from pre-snap positions\nDownfield direction (X-axis) is heavily constrained by play design\n\nBall landing X coordinate (149.11) - 39.8% of total importance\n\nSecond-most important feature\nKnowledge of where the ball will land is highly predictive of player positioning\nReflects players’ natural tendency to converge toward ball trajectory\nReceivers track the ball’s flight path; defenders react to it\n\nBall landing Y coordinate (90.03) - 24.1% of total importance\n\nThird-ranked feature\nLateral position of ball landing is significant for position prediction\nLess important than X coordinate\nDefensive formations more predictable along line of scrimmage than across field width\n\nAbsolute yardline number (21.69) - 5.8% of importance\n\nField context matters\nPlayers’ movements differ based on proximity to end zone\nReflects risk-reward calculations and crowd positioning constraints\n\nPre-snap Y position (20.75) - 5.5% of importance\n\nSecondary positional feature\nMuch weaker than pre-snap X (12X less important)\nLateral starting position less predictive than downfield starting position\n\n\n\n\nSecondary Numerical Features:\n\nDirection (5.52) - 1.5% of importance\nSpeed (2.91) - 0.8% of importance\nOrientation (0.89) - 0.2% of importance\nAcceleration (0.76) - 0.2% of importance\n\n\n\nCategorical Features Are Surprisingly Weak (0.5% of Importance)\nDespite encoding player position, team side, and role, these features contributed minimal predictive power:\n\nPositional dummies (CB, WR, FS, SS, ILB, TE, OLB, MLB, RB, DE, S, DT, FB, QB, NT, T, LB)\n\nMean importance: 0.65\nIndividual importance: &lt; 2.0 for all positions\n\nSide dummies (Defense/Offense)\n\nMean importance: 1.37\nMinimal predictive signal\n\nRole dummies (Defensive Coverage/Targeted Receiver)\n\nMean importance: 1.33\nMinimal predictive signal"
+  },
+  {
+    "objectID": "Projects/NFL/NFL.html#problem-type",
+    "href": "Projects/NFL/NFL.html#problem-type",
+    "title": "NFL Big Data Bowl 2026: Player Position Prediction",
+    "section": "1. Problem Type",
+    "text": "1. Problem Type\nI propose a supervised regression problem based on tabular data, which will then be processed further. The target variables player X and Y coordinates are continuous numbers, thus regression model is the best machine learning model. The model is trained on historical labeled data comprising known input features (pre-snap positions, movement attributes, ball trajectory) and output targets (observed position after snap). This enables the neural network to detect intricate non-linear relationships between player starting condition and the state of each player after ball flight.\nThis is especially important considering the fact that the problem is multivariate. Instead of treating X and Y predictions as independent problems, our neural network architectures collaboratively predict both coordinates together. This design choice allows the model to discover diagonal movements contain correlating transformations in both dimensions, describing realistic physics associated with player movements better than two independent univariate models."
+  },
+  {
+    "objectID": "Projects/NFL/NFL.html#model-architecture-choice",
+    "href": "Projects/NFL/NFL.html#model-architecture-choice",
+    "title": "NFL Big Data Bowl 2026: Player Position Prediction",
+    "section": "2. Model Architecture Choice",
+    "text": "2. Model Architecture Choice\nThe decision to use a feedforward neural network instead of the early Random Forest method was motivated by the necessity to model multivariate output. Although Random Forest Regression has good performance on tabular data, it involved training a pair of models: one for X-coordinate prediction and one to predict Y-coordinate features. This method treats the two spatial dimensions as independent problems, ignoring the correlation between them.\nThe output neurons in a neural network architecture can be found in two and, thus, when in space, the model learns joint representations of player movement. For instance, the X and Y coordinates of a receiver running up to the ball from a diagonal parallel changes side by side (or up to an adjacent direction). A neural network has shared hidden layers that can model these interdependencies, learning that some movement patterns involve certain X-Y coordinate combination and will not be captured by individual models.\nNeural networks also outperform in learning non-linear relationships through activation functions and deep layer structures. Player movement in football is highly non-linear-players speed, turn, turn, respond to the movement of the ball in ways that linear models or tree-based approaches may fail to accurately capture. The 4-layer architecture with ReLU activations provide enough representational capabilities that the complex spatial-temporal dynamics can be considered.\nThe regularizations used (dropout, batch normalization, early stopping) enable the model to generalize to unseen plays rather than to memorize training examples despite its complexity. The high validation performance (R² of 0.974 for X and 0.910 for Y) indicates that the model has learned useful patterns and does not overfit to training noise."
+  },
+  {
+    "objectID": "Projects/NFL/NFL.html#model-confidence-metrics",
+    "href": "Projects/NFL/NFL.html#model-confidence-metrics",
+    "title": "NFL Big Data Bowl 2026: Player Position Prediction",
+    "section": "3. Model Confidence Metrics",
+    "text": "3. Model Confidence Metrics\nWe assessed this model (or using its predictive power) by evaluating its dependability and precision through the use of three related scales: MAE, RMSE, and R².\nMean Absolute Error is an intuitive test of average predictive accuracy. Regarding X-position predictions, the MAE is 3.07 yards where the model’s X-coordinate predictions deviate from actual positions in all instances by an average of about 3 yards. For Y-position predictions, the MAE is 3.05 yards. These numbers carry significant weight in a dynamic environment like football plays where the player may make the jump down 10-15 yards or more in every single pass play so 3-yard errors suggest good predictive power. In practical terms, this precision is adequate for many analytical purposes, giving coaches a window into overall position trends and broadcasters the data they need to provide real-time projections of real-time position.\nRoot Mean Squared Error prioritizes larger mistakes over MAE due to the squaring operation, making it especially helpful for determining if the model produces occasional blundering. RMSE = 4.02 yards at X-position and 3.95 yards at Y-position. The small difference between MAE and RMSE (approximately one yard) indicates that the model’s errors are reasonably consistent, no extreme outliers or catastrophic errors in the prediction. If model errors were to occur extensively, we might see a much larger difference between RMSE and MAE.\nR² Score represents the percentage of variance in the target variable explained with a model. The R² of 0.974 (for X-position) means that we have an extremely good model fit and is explaining 97.4% of the variance in player X-coordinates. For Y-position, with an R² of 0.910, 91.0% of the variance is accounted for. The lower Y-position R² still indicates lateral movement (side-to-side across the field) is harder to predict than downfield movement, but still good. That makes intuitive sense, downfield movement is primarily determined by the direction of the ball’s forward drive, while lateral movement involves more complex decisions of route running and individual tendencies in players.\nTo provide further context to the data we provide a case study of one play (Game ID: 2023091000 and Play ID: 1240) on a specific play can help understand these metrics as well. This play comprised 8 observations from the player-frame area with a mean Euclidean error of 5.26 yards and maximum error of 6.25 yards for this play. The analysis also showed that a systematic trend was there: the model consistently underpredicts forward motion toward the ball landing position. Players in the example were 3.78 yards closer to the ball than the model predicted on average in the case study, with the actual average distance being 4.20 yards and the predicted distance being 7.98 yards.\nThe low MAE (average errors are sub-3 yards), moderate RMSE (there are few extreme errors), and very high R² (more than 90% of variance) score indicates that this model effectively accounts for the basic play dynamics of play by play players during pass plays. For virtually all critical applications, whether evaluating defensive tactics, designing plays, or creating broadcast graphics, this degree of precision yields actionable insights."
+  },
+  {
+    "objectID": "Projects/NFL/NFL.html#limitations-and-future-improvements",
+    "href": "Projects/NFL/NFL.html#limitations-and-future-improvements",
+    "title": "NFL Big Data Bowl 2026: Player Position Prediction",
+    "section": "4. Limitations and Future Improvements",
+    "text": "4. Limitations and Future Improvements\nOur model has strong predictability but there are several limitations with room for a promising design enhancements.\nArchitecture Implications: In our feedforward neural network, spatial relationships are largely captured, however, it does not model player movement (the time-sequence of player movements) explicitly. Playing football happens over time and the players react to how the ball travels and to other players positions dynamically. A Recurrent Neural Network (RNN) or Long Short-Term Memory (LSTM) could model these interrelated temporal dependencies in which it can learn how player velocities evolve in different frame by frame from what it would be as an independent learning model, instead of treating every frame as a single prediction. Or, a Transformer-based architecture was proposed to model player attention mechanisms that capture how defenders respond against receivers and receivers to defenders.\nFeature Engineering Opportunities: In addition to missing more categorical features, we can engineer some more predictive features include:\n\nRelative positions (distance and angle away from each player to the ball landing position)\nBall motion vectors projected\nTime until that ball was actually delivered\nInteraction parameters (e.g., speed × distance to the ball)\nHistorical player-specific tendencies (average routes run, typical speeds)\n\nEnsemble Methods: The combination of multiple models, such as our neural network with gradient boosting machines or other different architectures neural networks, leads it to a more stable prediction with ensemble averaging. Different models could perform quite well at different aspects of the prediction task and together may reduce overall error.\nInsights from the Single-Play Case Study: Not every frame presented a comparable number of prediction errors. Errors rose in distance to the ball (6.25 yards) before decreasing (4.68 yards) as the player took his approach to land. These patterns indicate that there is a strong predictive signal from proximity of the ball. Future models should include distance-to-ball as an explicit variable, or use it for estimating weights differently on frames."
+  },
+  {
+    "objectID": "mcm_2024_problem_a.html",
+    "href": "mcm_2024_problem_a.html",
+    "title": "2024 MCM Problem A — Resource Availability and Sex Ratios",
     "section": "",
-    "text": "precision  recall  f1-score  support\n0                  0.94    0.99      0.96  10969.0\n1                  0.07    0.01      0.01    750.0\naccuracy           0.93     NaN       NaN  11719.0\nmacro avg          0.50    0.50      0.49  11719.0\nweighted avg       0.88    0.93      0.90  11719.0"
+    "text": "Question. Explore how variable sex ratios in sea lampreys, driven by larval growth rates which depend on food availability, affect lamprey population dynamics and the larger ecosystem. We investigate advantages and disadvantages of adaptive sex ratios, impacts on stability, and secondary effects on hosts and parasites.\nApproach. We build a stage-structured dynamical model with resource dynamics and a sex-determination function m(R) mapping resource availability to fraction male. The core model couples: host fish (F), lamprey population stages (eggs E, larvae L, adults A split by sex M and W), and resource pool (R). We analyze equilibria, perform stability and sensitivity analyses, and run numerical simulations under low and high resource regimes.\nKey results (summary).\n\nAdaptive sex ratio that produces more males under low food can protect the lamprey population by reducing reproductive output when resources are scarce, acting as a bet-hedging strategy and lowering the risk of overshooting the resource base.\nVariable sex ratios change ecosystem stability: in some parameter regions they stabilize host-lamprey dynamics (damp oscillations) but can destabilize when reproduction responds nonlinearly to resources.\nSecondary effects: variable sex ratios can indirectly benefit parasites (and other species) by smoothing lamprey-driven fish mortality peaks, changing predation pressure timing.\n\nConclusions. Adaptive sex ratio variation is a plausible evolutionary response to variable resources; it mitigates boom-bust dynamics for lampreys and alters ecosystem resilience. Management implications: controlling resource availability (for example, habitat alteration) can shift sex ratios and thus population trajectories.\n\n\n\\[\n   F(t) \\text{: Density of host fish (food source or hosts for adult lampreys).}\n\\\\ R(t) \\text{: Dimensionless resource availability (normalized, 0 to 1).}\n\\\\ E(t) \\text{: Egg stock.}\n\\\\ L(t) \\text{: Larvae.}\n\\\\ M(t) \\text{: Adult males.}\n\\\\ W(t) \\text{: Adult females.}\n\\\\ A(t) = M(t) + W(t) \\text{: Total adult lampreys.}\n\\]\n\n\n\nR(t): dimensionless resource availability (normalized, 0 to 1). F(t): density of host fish (food source/hosts for adult lampreys). E(t): egg stock. L(t): larvae. M(t): adult males. W(t): adult females. A(t) = M(t) + W(t): total adult lampreys.\n\n\n\nWe define a simple linear mapping from resource level R in [0,1] to male fraction m(R) matching the observed endpoints:\n\\[\nm(R) = 0.78 - 0.22 R\n\\]\nThus,\n\\[\nm(0) = 0.78, \\quad m(1) = 0.56\n\\]\nand the female fraction is\n\\[\n1 - m(R)\n\\]\n\n\n\nThe model equations are presented here (derivatives):\n\\[\n\\begin{aligned}\n\\frac{dR}{dt} &= S - d_R R - c_R L - c_A A, \\\\\\\\\n\\frac{dF}{dt} &= r_F F \\left(1 - \\frac{F}{K}\\right) - \\beta A \\frac{F}{F + H}, \\\\\\\\\n\\frac{dE}{dt} &= b W - \\sigma_E E - \\mu_E E, \\\\\\\\\n\\frac{dL}{dt} &= \\sigma_E E - \\sigma_L L - \\mu_L L, \\\\\\\\\n\\frac{dM}{dt} &= m(R)\\, \\sigma_L L - \\mu_A M, \\\\\\\\\n\\frac{dW}{dt} &= (1 - m(R))\\, \\sigma_L L - \\mu_A W.\n\\end{aligned}\n\\]\nExplanation of parameters\n\nS: resource supply rate (controls low/high regimes)\n\nd_R: resource decay/loss\n\nc_R, c_A: consumption coefficients by larvae and adults\n\nr_F: intrinsic growth rate of host fish, K carrying capacity\n\nβ: mortality rate of fish due to lamprey parasitism (functional response with half-saturation H)\n\nb: per-female effective reproductive contribution (eggs that contribute to E)\n\nσ_E, σ_L: progression rates from eggs to larvae and larvae to adults\n\nμ_E, μ_L, μ_A: stage-specific mortality rates"
   },
   {
-    "objectID": "Machine_Learning/Executive Case Summary Module 3 - Team 8.html",
-    "href": "Machine_Learning/Executive Case Summary Module 3 - Team 8.html",
-    "title": "Alex J. Tovar",
+    "objectID": "mcm_2024_problem_a.html#model-variables",
+    "href": "mcm_2024_problem_a.html#model-variables",
+    "title": "2024 MCM Problem A — Resource Availability and Sex Ratios",
     "section": "",
-    "text": "Title Page 1\nBackground 2\nMethodology 3\nDiscussion Responses 4\nThe study intends to predict house pricing and provide quantifiable evidence that our predictions are reliable by studying the factors influencing the price, such as date, bedrooms, etc. Its purpose is to research and learn about the housing market’s trends and correlations to meet the interests of our customers.\nQuantifying our results using metrics such as “Mean Absolute Error” resulted in a score of $57,536.73, implying that our predictions were only off from the actual result by $57,536.73 on average. We also used metrics such as “Median Absolute Error,” with a score of “38663.0”, which takes the median of the results instead of the mean, thus yielding a result less sensitive to predictions that are very far from the target. In this case, our predictions are $38,663.0 away from the target on a median scale. As well as “RMSE(Root mean square error,”, which serves as a measure that emphasizes big mistakes by encouraging the model to reduce smaller errors.\nAs we examined the data, our first goal was to identify data features that influence the predictions’ accuracy and precision. To elaborate, the house’s attributes, such as view, year built, and living space, best predict its price. Thus, we deployed the machine-learning model and made predictions on all the features. First, we wrangle the data by creating the “Year Sold” feature in the data, to feature how the time sold of the house influences the price itself in the predictions.\nWe split the data with 20% of the values designed for the test, then trained the model with the other 80% of the data to predict the values in the test. Furthermore, we’ve tuned the model by testing different parameters/settings on the model to yield more accurate results. For example, we’ve implemented the “Root Mean Squared Error” as the metric due to the request not to overestimate houses that could be in the low-income bracket. It was followed by a moderate learning rate value that reduces the chances of inaccurate and inconsistent solutions/predictions. As well as modifying the subsample/data distributed to the model’s mini-training rounds reduces bias in memorizing the training data instead of making predictions of the test data. After the test, the model evaluated the results and displayed the most important features to properly and confidently predict the correct housing prices.\nThis is a supervised regression problem, which is based on structured data features, we predict a continuous variable (house price). The target variable is continuous which fits the regression criteria. We trained the model using historical housing data with labeled outcomes.\nTo quantify prediction reliability, we used multiple metrics:\nSelected Metric:\nThese metrics collectively provide empirical confidence in the model’s performance, illustrating the model’s capability to produce reliable predictions.\nWilliam (VP of Finance) raised concerns about adjusting home values for lower-income neighborhoods. After careful consideration, we strongly advise against manual price reductions, as this practice may violate Fair Housing laws. Instead, we propose:\nExplanation:\nJohnny (Data Science Intern) asked about feature scaling. Since XGBoost automatically handles different feature scales, no additional normalization was needed. However, standardization would be required for models like linear regression.\nAdditionally, we ensured that categorical features were appropriately encoded and irrelevant columns (like ‘id’) were removed to enhance model performance."
+    "text": "\\[\n   F(t) \\text{: Density of host fish (food source or hosts for adult lampreys).}\n\\\\ R(t) \\text{: Dimensionless resource availability (normalized, 0 to 1).}\n\\\\ E(t) \\text{: Egg stock.}\n\\\\ L(t) \\text{: Larvae.}\n\\\\ M(t) \\text{: Adult males.}\n\\\\ W(t) \\text{: Adult females.}\n\\\\ A(t) = M(t) + W(t) \\text{: Total adult lampreys.}\n\\]"
   },
   {
-    "objectID": "Machine_Learning/Executive Case Summary Module 3 - Team 8.html#house-price-case-study-project",
-    "href": "Machine_Learning/Executive Case Summary Module 3 - Team 8.html#house-price-case-study-project",
-    "title": "Alex J. Tovar",
+    "objectID": "mcm_2024_problem_a.html#model-variables-1",
+    "href": "mcm_2024_problem_a.html#model-variables-1",
+    "title": "2024 MCM Problem A — Resource Availability and Sex Ratios",
     "section": "",
-    "text": "Title Page 1\nBackground 2\nMethodology 3\nDiscussion Responses 4"
+    "text": "R(t): dimensionless resource availability (normalized, 0 to 1). F(t): density of host fish (food source/hosts for adult lampreys). E(t): egg stock. L(t): larvae. M(t): adult males. W(t): adult females. A(t) = M(t) + W(t): total adult lampreys."
   },
   {
-    "objectID": "Machine_Learning/Executive Case Summary Module 3 - Team 8.html#methodology",
-    "href": "Machine_Learning/Executive Case Summary Module 3 - Team 8.html#methodology",
-    "title": "Alex J. Tovar",
-    "section": "Methodology",
-    "text": "Methodology"
-  },
-  {
-    "objectID": "Machine_Learning/Executive Case Summary Module 3 - Team 8.html#discussion-responses",
-    "href": "Machine_Learning/Executive Case Summary Module 3 - Team 8.html#discussion-responses",
-    "title": "Alex J. Tovar",
-    "section": "Discussion Responses",
-    "text": "Discussion Responses"
-  },
-  {
-    "objectID": "index.html",
-    "href": "index.html",
-    "title": "Car Crash Detector",
+    "objectID": "mcm_2024_problem_a.html#resource-dependent-sex-ratio",
+    "href": "mcm_2024_problem_a.html#resource-dependent-sex-ratio",
+    "title": "2024 MCM Problem A — Resource Availability and Sex Ratios",
     "section": "",
-    "text": "Upload or take a photo of a car, and our AI will analyze whether it’s damaged using advanced machine learning and explainable AI techniques.\n\n  \n    \n      \n      Accepts JPG and PNG formats\n      \n      \n        🔍\n        Analyze Car\n      \n    \n  \n  \n  \n    \n    \n      \n    \n  \n  \n  \n  \n  \n    \n    Red boundaries highlight the regions that most influenced the AI's decision"
+    "text": "We define a simple linear mapping from resource level R in [0,1] to male fraction m(R) matching the observed endpoints:\n\\[\nm(R) = 0.78 - 0.22 R\n\\]\nThus,\n\\[\nm(0) = 0.78, \\quad m(1) = 0.56\n\\]\nand the female fraction is\n\\[\n1 - m(R)\n\\]"
   },
   {
-    "objectID": "index.html#is-this-car-crashed",
-    "href": "index.html#is-this-car-crashed",
-    "title": "Car Crash Detector",
+    "objectID": "mcm_2024_problem_a.html#ode-system-stage-structured",
+    "href": "mcm_2024_problem_a.html#ode-system-stage-structured",
+    "title": "2024 MCM Problem A — Resource Availability and Sex Ratios",
     "section": "",
-    "text": "Upload or take a photo of a car, and our AI will analyze whether it’s damaged or not.\nNote: Please upload JPG or PNG images only.\n\n  \n    \n    Analyze Car"
+    "text": "The model equations are presented here (derivatives):\n\\[\n\\begin{aligned}\n\\frac{dR}{dt} &= S - d_R R - c_R L - c_A A, \\\\\\\\\n\\frac{dF}{dt} &= r_F F \\left(1 - \\frac{F}{K}\\right) - \\beta A \\frac{F}{F + H}, \\\\\\\\\n\\frac{dE}{dt} &= b W - \\sigma_E E - \\mu_E E, \\\\\\\\\n\\frac{dL}{dt} &= \\sigma_E E - \\sigma_L L - \\mu_L L, \\\\\\\\\n\\frac{dM}{dt} &= m(R)\\, \\sigma_L L - \\mu_A M, \\\\\\\\\n\\frac{dW}{dt} &= (1 - m(R))\\, \\sigma_L L - \\mu_A W.\n\\end{aligned}\n\\]\nExplanation of parameters\n\nS: resource supply rate (controls low/high regimes)\n\nd_R: resource decay/loss\n\nc_R, c_A: consumption coefficients by larvae and adults\n\nr_F: intrinsic growth rate of host fish, K carrying capacity\n\nβ: mortality rate of fish due to lamprey parasitism (functional response with half-saturation H)\n\nb: per-female effective reproductive contribution (eggs that contribute to E)\n\nσ_E, σ_L: progression rates from eggs to larvae and larvae to adults\n\nμ_E, μ_L, μ_A: stage-specific mortality rates"
   },
   {
-    "objectID": "Blogs/Hosting_Using_AWS.html#introduction",
-    "href": "Blogs/Hosting_Using_AWS.html#introduction",
-    "title": "Hosting My Professional Portfolio Using AWS Amplify",
+    "objectID": "index_cnn.html",
+    "href": "index_cnn.html",
+    "title": "Car Crash Detector - Neural Network",
+    "section": "",
+    "text": "Upload a photo of a car, and our neural network will analyze it with a heatmap showing which areas influenced the decision.\nNote: Please upload JPG or PNG images only.\n\n  \n    \n    Analyze Car\n  \n  \n  \n    \n    \n  \n  \n  \n  \n  \n    \n    \n      The heatmap shows which regions the neural network focused on when making its decision.\n      Red/yellow areas had the most influence on the prediction."
+  },
+  {
+    "objectID": "index_cnn.html#ai-powered-car-crash-detection",
+    "href": "index_cnn.html#ai-powered-car-crash-detection",
+    "title": "Car Crash Detector - Neural Network",
+    "section": "",
+    "text": "Upload a photo of a car, and our neural network will analyze it with a heatmap showing which areas influenced the decision.\nNote: Please upload JPG or PNG images only.\n\n  \n    \n    Analyze Car\n  \n  \n  \n    \n    \n  \n  \n  \n  \n  \n    \n    \n      The heatmap shows which regions the neural network focused on when making its decision.\n      Red/yellow areas had the most influence on the prediction."
+  },
+  {
+    "objectID": "Blogs/Linkedin_Reach_Tips.html#breaking-in-the-market-is-challenging.",
+    "href": "Blogs/Linkedin_Reach_Tips.html#breaking-in-the-market-is-challenging.",
+    "title": "How to Reach Out to DS Professionals on LinkedIn",
+    "section": "Breaking In the Market Is Challenging.",
+    "text": "Breaking In the Market Is Challenging.\nFor incoming college graduates the market is tough going. Layoffs have sent waves through the applicant pool, graduate schools have become more competitive as students try to get ahead; and the belief that AI can replace entry-level workers has plagued the industry. In a place like this, it’s often easy to feel unnoticed. That’s why I developed the talent to stand out, to be among those professionals who were in the industry."
+  },
+  {
+    "objectID": "Blogs/Linkedin_Reach_Tips.html#take-the-first-step.",
+    "href": "Blogs/Linkedin_Reach_Tips.html#take-the-first-step.",
+    "title": "How to Reach Out to DS Professionals on LinkedIn",
+    "section": "Take the First Step.",
+    "text": "Take the First Step.\nI had no plan, when I first started trying to break into data science. Everybody seemed to have more experience, better portfolios, advanced degrees. I knew I had to learn, from people who already are with the game, if I was going to get noticed in the industry. So in the summer of 2025, I contacted hundreds of professionals on LinkedIn. At the end of the game, I’d done over 500 connection requests."
+  },
+  {
+    "objectID": "Blogs/Linkedin_Reach_Tips.html#cold-connections",
+    "href": "Blogs/Linkedin_Reach_Tips.html#cold-connections",
+    "title": "How to Reach Out to DS Professionals on LinkedIn",
+    "section": "Cold Connections:",
+    "text": "Cold Connections:\nLearning. At first, I felt a bit uncomfortable about it. Sending cold messages to strangers online is difficult. I was afraid I’d cause people to tune me out, or they would think I was just a waste of their time, if I weren’t as inexperienced. But I learned fast to kick things off well and the university alumni I talked to were also an early adopter. My messages were simple:\n”Hi [Name], Hello, my name is Alex J. Tovar, Data Science guy too. I would love to invest in this relationship and grow our LinkedIn profiles together. Let’s connect!”. Short message, but it demonstrates a shared interest in data science and invites the contacts as an investment in the company that might serve the two parties. If it is good, then why not accept it? This is the mental bargaining that goes into every reach message."
+  },
+  {
+    "objectID": "Blogs/Linkedin_Reach_Tips.html#small-numbers-big-impact.",
+    "href": "Blogs/Linkedin_Reach_Tips.html#small-numbers-big-impact.",
+    "title": "How to Reach Out to DS Professionals on LinkedIn",
+    "section": "Small Numbers, Big Impact.",
+    "text": "Small Numbers, Big Impact.\nFrom those hundreds of connections, only a tiny fraction responded but that few became super useful. A few offered to hop on Zoom or a phone call, to relay their stories or take some advice and get on board with the conversation. I learned what hiring managers really look for, how data teams are structured and how roles mesh information I would never even dreamt I would have come across in a course description or job posting. One thing which came out of these conversations was the power of active networking. Collecting connections for the sake of numbers can be quite easy, but what really matters is building good ones. A small number of genuine partnerships will take you far beyond the thousand shallow ones."
+  },
+  {
+    "objectID": "Blogs/Linkedin_Reach_Tips.html#from-talks-to-chances.",
+    "href": "Blogs/Linkedin_Reach_Tips.html#from-talks-to-chances.",
+    "title": "How to Reach Out to DS Professionals on LinkedIn",
+    "section": "From talks to chances.",
+    "text": "From talks to chances.\nAt times, that connection would take the form of a casual chit chat that eventually bled into a brief mentoring session. Other times all it did was a one-time conversation that showed me a new viewpoint. And, yes, in some cases those relationships opened the path to interviews and opportunities. But the biggest reward wasn’t the job prospects it was the confidence that I was no longer working through this on my own."
+  },
+  {
+    "objectID": "Blogs/Linkedin_Reach_Tips.html#what-networking-really-means.",
+    "href": "Blogs/Linkedin_Reach_Tips.html#what-networking-really-means.",
+    "title": "How to Reach Out to DS Professionals on LinkedIn",
+    "section": "What Networking Really Means.",
+    "text": "What Networking Really Means.\nNetworking isn’t about getting something from someone; it’s about learning from them. It can be about being interested, listening closely and mutual respect. Data scientists, of course, and people really across the board thrive when they blend technical expertise with good people. If I could recommend one piece of advice to novices, I would say this: don’t wait until you’re “qualified” to go out. The best time to connect is now. What will get through to you is not all of a sudden your problems have changed; just curiosity and a willingness to listen."
+  },
+  {
+    "objectID": "Blogs/Linkedin_Reach_Tips.html#final-thoughts.",
+    "href": "Blogs/Linkedin_Reach_Tips.html#final-thoughts.",
+    "title": "How to Reach Out to DS Professionals on LinkedIn",
+    "section": "Final Thoughts.",
+    "text": "Final Thoughts.\nFrom data science, I learned that opportunities are often presented to us in surprising ways. But those opportunities rarely come your way without putting oneself out there. So write your message and hit the “Connect” button and start developing relationships that will follow you outside of school."
+  },
+  {
+    "objectID": "Blogs/AWS_Cloud_Computing.html#introduction",
+    "href": "Blogs/AWS_Cloud_Computing.html#introduction",
+    "title": "Harnessing AWS Cloud Services for Big Data and Machine Learning",
     "section": "Introduction",
-    "text": "Introduction\nWhen I initially began constructing projects, I was overwhelmed with one major question: How do I present them professionally? Uploading notebooks to GitHub was acceptable, but it didn’t truly showcase my work. I wanted something that looked nice, professional, and was easy to distribute to employers.\nThat’s when I stumbled upon Quarto, a free open-source website-publishing platform that converts Markdown and code into finished websites. While it was a great start, I realized that having complete control over my content in a reliable location was crucial for my professional portfolio. That’s where AWS Amplify came in."
+    "text": "Introduction\nData growth transformed the way we think about machine learning. What was once small, local experiments done at home on laptops is now big data, scalable pipelines and distributed computing. Cloud platforms like AWS have risen to prominence in today’s data science landscape and, AWS is one of them because of its scale and flexibility. In my early years of learning machine learning, I was only interested in learning the models. Performance seems to just make our algorithms better and fine-tune them. But it took me a long while to understand that the real challenge was not just to create the models, it was also to find ways to integrate data management, distribute workloads, scale, deploy the solution and make best use of the new data. That revelation is what brought me into the cloud computing and big data world."
   },
   {
-    "objectID": "Blogs/Hosting_Using_AWS.html#why-quarto",
-    "href": "Blogs/Hosting_Using_AWS.html#why-quarto",
-    "title": "Hosting My Professional Portfolio Using AWS Amplify",
-    "section": "Why Quarto?",
-    "text": "Why Quarto?\nQuarto is simple yet powerful. It allows you to blend code, text, and visuals all in one location whether writing blog posts, data analyses, or research reports. For users in data science or analytics, it strikes the perfect balance between documentation and presentation.\nSince I had worked with QMD files to analyze my data, I could turn them directly into interactive, modern web pages with Quarto. I didn’t have to learn web development from scratch; Quarto handled formatting, navigation, and layout. In just minutes, I had a site that resembled a publication rather than just a collection of notebooks."
+    "objectID": "Blogs/AWS_Cloud_Computing.html#cloud-computing-and-machine-learning",
+    "href": "Blogs/AWS_Cloud_Computing.html#cloud-computing-and-machine-learning",
+    "title": "Harnessing AWS Cloud Services for Big Data and Machine Learning",
+    "section": "Cloud Computing and Machine Learning",
+    "text": "Cloud Computing and Machine Learning\nThe cloud technology will deliver something traditional local solutions cannot: elastic resources. Instead of worrying about shortage of hardware, you can build high performance virtual machines, train models on large instances, and shut them down once trained. This pay-as-you-go model is the ideal fit for experimentation and production. AWS makes all parts easy by offering the services that streamline the machine learning pipeline. Everything is integrated, secure and scalable, so you can store raw data in Amazon S3 and train your models with SageMaker. It enables data professionals to work on business solutions instead of infrastructural headaches. Collaboration is also facilitated by cloud computing. Geographically distributed teams can access the same datasets, notebooks and environments. This allows for building large-scale machine learning projects without being tied to any one machine or network.\nThe Data that underpins machine learning models as they are trained on is just as good data for machine learning modeling. Big data enables models to learn from larger, more complex datasets and produce better predictions. The task, of course, is to process that data swiftly. Combining these tools creates a form which converts data from various sources into a neat, readable form. When ready, it is much easier to train powerful and precise machine learning models."
   },
   {
-    "objectID": "Blogs/Hosting_Using_AWS.html#deploying-to-aws-amplify",
-    "href": "Blogs/Hosting_Using_AWS.html#deploying-to-aws-amplify",
-    "title": "Hosting My Professional Portfolio Using AWS Amplify",
-    "section": "Deploying to AWS Amplify",
-    "text": "Deploying to AWS Amplify\nOnce I completed my site on a local device using VSCode, I needed to host it. Free options like GitHub Pages were okay, but I preferred paid options that encouraged me to manage resources carefully.\nAWS Amplify directly hosts projects tied to a GitHub repository, allowing automatic updates when I make changes to the website. This seamless integration meant no manual uploads or tedious setup steps were necessary. Version control and deployment complemented each other perfectly.\nInitially, setting everything up was daunting. I had to create an Amplify app, link it to my GitHub repository, and double-check that the website looked correct after each installation. I learned valuable lessons through my mistakes and gained insights through my education.\nRunning my website on AWS isn’t just about visibility; it’s about marketing. I control how it looks, loads, and scales not limited by templates that restrict personalization. This technical independence showcases to employers that I go the extra mile and can demonstrate my professional skills."
+    "objectID": "Blogs/AWS_Cloud_Computing.html#constructing-the-machine-learning-models-on-aws",
+    "href": "Blogs/AWS_Cloud_Computing.html#constructing-the-machine-learning-models-on-aws",
+    "title": "Harnessing AWS Cloud Services for Big Data and Machine Learning",
+    "section": "Constructing the Machine Learning Models on AWS",
+    "text": "Constructing the Machine Learning Models on AWS\nSageMaker with AWS is a one-stop solution for the creation and handling of any machine learning model. It gives prebuilt environments for data exploration, training, and deployment. Start out with built-in algorithms or use your own code with tools like TensorFlow, PyTorch, or Scikit-learn. The biggest benefit is scalability. It might take days to train on the local machine, however, SageMaker can also distribute the work on the server across many GPU or CPU instances and complete in a short duration. After training, the model can be deployed as a real-time prediction endpoint. A large part of a Cloud, more than just SageMaker can be serviced by offering AWS services such as Lambda and API Gateway to streamline workflows and serve models to the end user. It builds a seamless pipeline from data ingestion to prediction."
   },
   {
-    "objectID": "Blogs/Hosting_Using_AWS.html#turning-a-website-into-a-portfolio",
-    "href": "Blogs/Hosting_Using_AWS.html#turning-a-website-into-a-portfolio",
-    "title": "Hosting My Professional Portfolio Using AWS Amplify",
-    "section": "Turning a Website Into a Portfolio",
-    "text": "Turning a Website Into a Portfolio\n\nOnce my Quarto site went live, it instantly changed how I presented myself. Instead of sending links to separate notebooks, dashboards, or PDFs, I could share a single URL that served as a digital home for my entire body of work.\nI included sections for projects, blog posts, and an about page. Projects showcased my visualizations, models, and real-world analyses. Blog posts covered topics such as LinkedIn networking, cloud deployment, and cloud computing. The about page gave readers a sense of my professional journey and goals.\nThese pieces came together to form a cohesive story. They did not just show what I had done. They showed how I think."
+    "objectID": "Blogs/AWS_Cloud_Computing.html#the-real-value",
+    "href": "Blogs/AWS_Cloud_Computing.html#the-real-value",
+    "title": "Harnessing AWS Cloud Services for Big Data and Machine Learning",
+    "section": "The Real Value",
+    "text": "The Real Value\n\nTraining on AWS on big data and machine learning also taught me a key lesson. The best models are not only accurate, but also realistic. To perform, they must, however, manage real-world data volumes, integrate with other systems, and scale as demand increases. In cloud computing that is feasible. AWS is no longer a nice to know; you need to understand AWS for those who are data scientists or analytics professionals. It’s the bridge between the theory and the art of production. As well as being able to build models, employers appreciate how you also understand infrastructure and deployment of any work you do."
   },
   {
-    "objectID": "Blogs/Hosting_Using_AWS.html#the-value-it-adds-professionally",
-    "href": "Blogs/Hosting_Using_AWS.html#the-value-it-adds-professionally",
-    "title": "Hosting My Professional Portfolio Using AWS Amplify",
-    "section": "The Value It Adds Professionally",
-    "text": "The Value It Adds Professionally\nHaving a portfolio on AWS does more than showcase your projects. It demonstrates initiative. It shows that you can manage cloud infrastructure, deploy applications, and present data work in a professional format.\nFor data science, analytics, or engineering roles, that makes a difference. Recruiters and hiring managers can instantly see your technical ability and your communication skills. These are two qualities that separate strong candidates from average ones.\nBecause AWS is a real-world cloud platform, hosting your portfolio there also signals familiarity with deployment and scalability. Those are valuable skills that many entry-level candidates overlook."
-  },
-  {
-    "objectID": "Blogs/Hosting_Using_AWS.html#final-thoughts",
-    "href": "Blogs/Hosting_Using_AWS.html#final-thoughts",
-    "title": "Hosting My Professional Portfolio Using AWS Amplify",
+    "objectID": "Blogs/AWS_Cloud_Computing.html#final-thoughts",
+    "href": "Blogs/AWS_Cloud_Computing.html#final-thoughts",
+    "title": "Harnessing AWS Cloud Services for Big Data and Machine Learning",
     "section": "Final Thoughts",
-    "text": "Final Thoughts\nStarting a Quarto site via AWS began as a personal exploration of a tool, but it soon evolved into a significant piece of my professional identity. It’s not just a portfolio; it’s a written memoir of personal evolution, exploration, and curiosity.\nBuilding your own in data science, analytics, or any tech field is entirely feasible. Quarto and AWS together can transform your work into something substantial beyond a résumé. They turn it into proof of your capabilities."
-  },
-  {
-    "objectID": "AB_TESTS/RecallingWords.html#background",
-    "href": "AB_TESTS/RecallingWords.html#background",
-    "title": "Recalling Words",
-    "section": "Background",
-    "text": "Background\nMany teachers and other educators are interested in understanding how to best deliver new content to students. In general, they have two choices of how to do this.\n\nThe Meshed Approach\n\nDeliver new content while simultaneously reviewing previously understood content.\n\nThe Before Approach\n\nDeliver new content after fully reviewing previously understood content.\n\n\nA study was performed to determine whether the Meshed or Before approaches to delivering content had any positive benefits on memory recall.\nTherefore, we aim to determine whether the Meshed or Before methods provide any positive benefit to memory recall. To test this, we will perform a Wilcoxon “Rank Sum (Mann–Whitney) test” to evaluate whether the distribution of scores in either method is stochastically greater than that of the control group (SFR). This allows us to assess whether correct recalls from the Meshed and Before groups tend to be significantly higher than those from the control group, indicating a potential benefit from new memorization techniques. As a bonus, we’ll test whether the Before group tends to outperform the Meshed group using another Wilcoxon Rank Sum (Mann–Whitney) test, making the assumption that its scores are generally higher, to find if a method is better than the the other. Which begs the questions:\n\n\nIs the correctness of “before” and “meshed” stochastically greater than SFR?\n\n\nAnd\n\n\nIs correctness of “before” stochastically greater than “meshed”?\n\n\n\n\\[   \nH_0: \\text{distribution of before and meshed are stochastically equal to SFR}\n\\] \\[\nH_a: \\text{distribution of before and meshed are stochastically greater than SFR}\n\\]\n\\[   \nH_a: \\text{distribution of before is stochastically equal to meshed}\n\\] \\[\nH_a: \\text{distribution of before is stochastically greater than meshed}\n\\]\n\\[   \n\\alpha = 0.05\n\\]\n\nExperiment Details\nIndividuals were seated at a computer and shown a list of words. Words appeared on the screen one at a time, for two seconds each, until all words had been shown (40 total). After all words were shown, they were required to perform a few two-digit mathematical additions (like 15 + 25) for 15 seconds to avoid immediate memory recall of the words. They were then asked to write down as many of the 40 words as they could remember. They were given a maximum of 5.3 minutes to recall words.\nThe process of showing words and recalling words was repeated four times with the same list of words each time (four chances to get it right). The presentation of the first trial was the same for all treatment conditions. However, trials 2, 3, and 4 were slightly different for each treatment condition.\n\nThe SFR group (the control group) stands for Standard Free Recall. In all four trials the same list of 40 words was presented, in a random order each time.\nThe Before group also used the same 40 words during each trial. However, any words that were correctly recalled in a previous trial were presented first, or before the words that were not recalled in the last trial. After all the correct words were presented in random order, the non-recalled words were presented in a random order.\nThe Meshed group also used the same 40 words during each trial. However, words that were correctly recalled in a previous trial were alternated with a missed word during the next presentation order.\n\nThe data records the number of correctly recalled words (out of the 40 possible) from the fourth trial. Results were obtained for 30 students, 10 in each of the three treatment groups: SFR, Before, and Meshed.\n\n\nData\nThe results from the study can be found in the Friendly data set in R after loading library(car).\nClick the “Code” button to see the data."
-  },
-  {
-    "objectID": "AB_TESTS/RecallingWords.html#analysis",
-    "href": "AB_TESTS/RecallingWords.html#analysis",
-    "title": "Recalling Words",
-    "section": "Analysis",
-    "text": "Analysis\n\nAs shown by the graph below, we compared the before and meshed groups relative to the control groups. It is visually clear that the before group has a higher median than the meshed group, implying that a higher percentage of the sample subjects of the before group have better recall than the meshed. But both before and meshed groups are substantially more effective than the control group(SFR) in obtaining higher scores, implying that memorization techniques do affect recall performance on subjects, than just memorizing randomly. Therefore, we must find statistical evidence if before and meshed have a significant difference in scores than SFR. Then find if the median of before is significantly more correct than meshed.\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\nFriendly$condition\nmin\nQ1\nmedian\nQ3\nmax\nmean\nsd\nn\nmissing\n\n\n\n\nBefore\n24\n37.25\n39\n39.75\n40\n36.6\n5.337\n10\n0\n\n\nMeshed\n30\n36\n36.5\n38.75\n40\n36.6\n3.026\n10\n0\n\n\nSFR\n21\n25\n27\n38.5\n39\n30.3\n7.334\n10\n0\n\n\n\n\n\nAfter performing the test, an approximation had to be used since there were ties present in the data and also because the distributions aren’t similarly shaped for medians. Yielding a p-value of 0.01644, which is smaller than a 0.05 alpha, which rejects the null. Concluding, both groups(before and meshed) are stochastically greater in correctness than the control group\n\\[   \nH_0: \\text{distribution of before and meshed are stochastically equal to SFR}\n\\] \\[\nH_a: \\text{distribution of before and meshed are stochastically greater than SFR}\n\\]\n\n\n\nWilcoxon rank sum test with continuity correction: BnF$correct and SNF$correct\n\n\n\n\n\n\n\nTest statistic\nP value\nAlternative hypothesis\n\n\n\n\n148.5\n0.01644 *\ngreater\n\n\n\n\n\nLastly, we approximate if before is stochastically greater than meshed since there are ties in present. The test outputs a p-value of 0.189, which is bigger than a 0.05, therefore we fail to reject the null, or conclude that the before is stochastically greater than meshed.\n\\[   \nH_a: \\text{distribution of before is stochastically equal to meshed}\n\\] \\[\nH_a: \\text{distribution of before is stochastically greater than meshed}\n\\]\n\n\n\nWilcoxon rank sum test with continuity correction: before$correct and meshed$correct\n\n\n\n\n\n\n\nTest statistic\nP value\nAlternative hypothesis\n\n\n\n\n62\n0.189\ngreater"
-  },
-  {
-    "objectID": "AB_TESTS/RecallingWords.html#interpretation",
-    "href": "AB_TESTS/RecallingWords.html#interpretation",
-    "title": "Recalling Words",
-    "section": "Interpretation",
-    "text": "Interpretation\nBoth methods, before and meshed benefit the results on memory recall relative to SFR. with both “before” and “meshed” having a higher distribution/median scores of (39 & 36.5) than SFR’s (27) resulting in stochastically greater results. However, among before and meshed, there isn’t a method that is significantly better, therefore leading to the conclusion that either one is has any positive benefit on memory recall.\nKey takeaways from this research would be to organize the document, in a way that perfoming multiple A/B testing doesn’t confuse the reader. As well that joining groups can help create more scenarios in which we can extract value from the data."
-  },
-  {
-    "objectID": "AB_TESTS/MyLogisticRegression.html#fitting-the-model",
-    "href": "AB_TESTS/MyLogisticRegression.html#fitting-the-model",
-    "title": "My Simple Logistic Regression",
-    "section": "Fitting the Model",
-    "text": "Fitting the Model\n\n\n\n\n\n\n\n\n\n\n\n\n \nEstimate\nStd. Error\nz value\nPr(&gt;|z|)\n\n\n\n\n(Intercept)\n-7.617\n1.814\n-4.199\n2.684e-05\n\n\nAge\n0.1385\n0.03266\n4.24\n2.232e-05\n\n\n\n(Dispersion parameter for binomial family taken to be 1 )\n\n\n\n\n\n\n\nNull deviance:\n82.11 on 59 degrees of freedom\n\n\nResidual deviance:\n43.01 on 58 degrees of freedom\n\n\n\n\n\nThis gives the estimated model for πi as\n\\[\n  P(Y_i = 1|\\, x_i) = \\frac{e^{-7.617 + 0.1385x_i}}{1+e^{-7.617 + 0.1385x_i}} = \\pi_i\n\\]\nWhere b0 = -7.617 is our value of (Intercept) which estimates β0 and b1=0.1385 is the value of Age which estimates β1.\nThe p-value from Age shows significance with (p = 2.232e-05) giving sufficient evidence to conclude that Age affects the probability of a patient testing positive for diabetes in the study.\n\nVisualizing the Model\nThe plot shows how likely it is to be diagnosed with type 2 diabetes around the age of 55 years old.\n\n\n`geom_smooth()` using formula = 'y ~ x'\n\n\n\n\n\n\n\n\n\n\n\nDiagnosing the Model\nTo demonstrate that the logistic regression is a good fit to these data we apply the Hosmer-Lemeshow goodness of fit test\n\n\n\nHosmer and Lemeshow goodness of fit (GOF) test: model.glm$y, model.glm$fitted.values\n\n\n\n\n\n\n\nTest statistic\ndf\nP value\n\n\n\n\n1.081\n1\n0.2984\n\n\n\n\n\nSince the null hypothesis is that the logistic regression is a good fit for the data, we claim that the logistic regression is appropriate (p-value = 0.2984)."
-  },
-  {
-    "objectID": "AB_TESTS/MyLogisticRegression.html#conclusion",
-    "href": "AB_TESTS/MyLogisticRegression.html#conclusion",
-    "title": "My Simple Logistic Regression",
-    "section": "Conclusion",
-    "text": "Conclusion\nthe value of \\(e^{0.1385} \\approx 1.15\\) shows that the odds of being diagnosed with diabetes increases by a factor of 1.15 for every increase in Age. In other words, the odds of an diabetes diagnosis increases by 15% (1.15-1) for every increase in Age. To be more clear, for a Age of 55, our model puts the probability of a diabetes diagnosis at:\n\\[\n  P(Y_i = 1|\\, x_i) = \\frac{e^{-7.617 + 0.1385*55}}{1+e^{-7.617 + 0.1385*55}} = \\pi_i\n\\]\nThe probability of being diagnosed with type 2 diabetes at 55 years old is about 50% \\((\\hat{\\pi_i} \\approx 0.500035)\\), which supports Medical News Toda’s claim and the regressions probability rate as subjects get older."
-  },
-  {
-    "objectID": "AB_TESTS/MyLogisticRegression.html#referencescredits",
-    "href": "AB_TESTS/MyLogisticRegression.html#referencescredits",
-    "title": "My Simple Logistic Regression",
-    "section": "References/Credits",
-    "text": "References/Credits\nThe dataset used was constructed by AI for the purposes of this study. Further references are listed below:\nMedical News Today\nStatistics Notebook Example"
-  },
-  {
-    "objectID": "AB_TESTS/HighSchoolSeniors.html#background",
-    "href": "AB_TESTS/HighSchoolSeniors.html#background",
-    "title": "High School Seniors t Test",
-    "section": "Background",
-    "text": "Background\nIn the US Census at High Schools 2020, there was a survey given to each student to fill out and gather information about the statistics of students’ lives and personal information, such as Gender, the number of texts received the day before, height, and many other details. Which sets the stage to answer the stereotypical question:"
-  },
-  {
-    "objectID": "AB_TESTS/HighSchoolSeniors.html#do-females-tend-to-receive-more-text-messages-on-average-than-males-in-high-school",
-    "href": "AB_TESTS/HighSchoolSeniors.html#do-females-tend-to-receive-more-text-messages-on-average-than-males-in-high-school",
-    "title": "High School Seniors t Test",
-    "section": "Do Females tend to receive more text messages on average than Males in high school?",
-    "text": "Do Females tend to receive more text messages on average than Males in high school?\n\\[   H_0: \\mu femals = \\mu males \\]\n\\[ H_a: \\mu females &gt; \\mu males \\]\nThe significance level will be tested at a 0.05 alpha(α)."
-  },
-  {
-    "objectID": "AB_TESTS/HighSchoolSeniors.html#analysis",
-    "href": "AB_TESTS/HighSchoolSeniors.html#analysis",
-    "title": "High School Seniors t Test",
-    "section": "Analysis",
-    "text": "Analysis\nAfter filtering data by gender groups and text received below 250 to obtain a reasonable sample, the graph displays that females do have a higher median number of texts received than males, implying that the group sample of females doesn’t rely on outliers receiving hundreds of messages to represent the overall number of texts received. Although the distributions of each gender aren’t normal in the qqPlot because many data-points aren’t normal (overlapping the blue range), the sample size of each group is above 30, representing an approximately normal sampling to perform test statistics due to the Central Limit Theorem. But, in terms of means, is the female mean significantly bigger than the male means?"
-  },
-  {
-    "objectID": "AB_TESTS/HighSchoolSeniors.html#interpretation",
-    "href": "AB_TESTS/HighSchoolSeniors.html#interpretation",
-    "title": "High School Seniors t Test",
-    "section": "Interpretation",
-    "text": "Interpretation\nThe QQPlots display the normality of data, with the purpose of showcasing wether the data is reliable to make conclusions to avoid biased or skewed data. By the dots within the blue range being represented as “normal” whereas the opposite applies to values outside the range. However, since we have more than 30 subjects for each group, the sampling distribution of the sample means can be assumed to be approximately normal to proceed with the a/b test.\nAfter performing a t-test, we can appreciate that although it is unlikely that the female means are the same as the males with a p-value of 0.1139, the p-value isn’t significant at a 0.05 alpha level. Implying that we cannot reject the null, or conclude that females tend to receive more text messages on average than males in high school.\n\n\n\nWelch Two Sample t-test: Females$Text_Messages_Received_Yesterday and Males$Text_Messages_Received_Yesterday\n\n\n\n\n\n\n\n\n\n\nTest statistic\ndf\nP value\nAlternative hypothesis\nmean of x\nmean of y\n\n\n\n\n1.208\n393\n0.1139\ngreater\n54.44\n48.15\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\nHSS_clean$Gender\nmin\nQ1\nmedian\nQ3\nmax\nmean\nsd\nn\nmissing\n\n\n\n\nFemale\n0\n15\n40\n75\n230\n54.44\n50.55\n194\n0\n\n\nMale\n0\n10\n25\n75\n247\n48.15\n52.9\n201\n0\n\n\n\n\n\nGiven our statistics that females tend to have about 6 (Female_mean - Male_mean) more text messages than males on average, a higher median of 20 messages received by females than males, and about 200 subjects from each gender to represent the results. All showing that although the stereotype of females receiving more texts than males is real, the margin isn’t significant enough to be consistent insight throughout all high scholers."
-  },
-  {
-    "objectID": "about.html",
-    "href": "about.html",
-    "title": "About",
-    "section": "",
-    "text": "About this site"
-  },
-  {
-    "objectID": "AB_TESTS/Food.html",
-    "href": "AB_TESTS/Food.html",
-    "title": "Food at College",
-    "section": "",
-    "text": "# From your file menu (at the top of R-Studio) select:\n# \"Session -&gt; Set working directory -&gt; To source file location\"\n# Then play this chunk to get the data into R.\nlibrary(mosaic)\nlibrary(car)\nlibrary(DT)\nlibrary(pander)\nlibrary(readr)\nlibrary(ggthemes)\nfood &lt;- read_csv(\"C://Users/Alex/Documents/GitHub/IntStats/Statistics-Notebook-master/Data/food.csv\") #food.csv is in the Data folder..."
-  },
-  {
-    "objectID": "AB_TESTS/Food.html#background",
-    "href": "AB_TESTS/Food.html#background",
-    "title": "Food at College",
-    "section": "Background",
-    "text": "Background\nAfter taking a look at the data, I saw the presence of an weight column along with a eating out column. Then I wondered, is there at least one “weight” distribution of people with distinct “eating out” habits is stochastically different? Since I wanted to find out specifically if the subjects present in the data are affected by eating habits.\n\\[\nH0: \\text{All group samples are from the same distribution}\n\\]\n\\[\nHa: \\text{At least one group sample's distribution is stochastically different}\n\\]\n\\[\nAlpha = \\text{0.05}\n\\]"
-  },
-  {
-    "objectID": "AB_TESTS/Food.html#interpretation",
-    "href": "AB_TESTS/Food.html#interpretation",
-    "title": "Food at College",
-    "section": "Interpretation",
-    "text": "Interpretation\nStarting with the favstats, is evident that eating out groups do have some variance among weight values. For example the Q1 of people eating “3-5 times” is 129, whereas the “everyday” group have Q1 of 159 lbs, implying that there are groups that differ 30 lbs in the lower quartiles. This variance explains the average spread of weight values through groups, to see the distribution of the data throught the analysis. Additionally, people that eat out every day have a higher mean than other groups, with 172.4 lbs mean compared to an moderate 1-2 time group with 157.6 lbs average.\nBut at the end of the day the Kruskal-Wallis Rank Sum compares the ranks given to each subject wand is compared to our given alpha. Of which we receive a P-value of 0.279 which is bigger than our alpha of 0.05. Therefore, failing to reject the null and conclude that least one “weight” distribution of people with distinct “eating out” habits is stochastically different. “stochastically” meaning that the results have a random chance of being different in the context of the analysis, since the data is assumed to be “non-parametric”.\n\nCredits/References\nThis analysis fully abstained from using AI, the only references used were the “Pig Birth Weights – Kruskal-Wallis” from the “Statistics Notebook” guide given by the course."
-  },
-  {
-    "objectID": "AB_TESTS/MyChiSquaredTest.html#background",
-    "href": "AB_TESTS/MyChiSquaredTest.html#background",
-    "title": "Chi Squared Test",
-    "section": "Background",
-    "text": "Background\nIn today’s analysis, we’ll be exploring an “Used Cars” dataset from kaggle. The author collected data from various web resources in order to explore the used cars market, The data is scraped in Belarus (western Europe) on the 2nd of December 2019, so the dataset is collected in pre-ChatGpt times to avoid any instant of the data being fabricated by AI."
-  },
-  {
-    "objectID": "AB_TESTS/MyChiSquaredTest.html#hypothesis",
-    "href": "AB_TESTS/MyChiSquaredTest.html#hypothesis",
-    "title": "Chi Squared Test",
-    "section": "Hypothesis",
-    "text": "Hypothesis\nOur question about the data is: Is car color associated with the manufacturer name? Aiming to find if manufacturers have tendencies to prefer a certain color for their cars.\n\\[\nH_0:\\text{Car color and manufacturer name are not associated}\n\\] \\[\nH_1:\\text{Car color and manufacturer name are associated}\n\\] \\[\n\\alpha:0.05\n\\]"
-  },
-  {
-    "objectID": "AB_TESTS/MyChiSquaredTest.html#analysis",
-    "href": "AB_TESTS/MyChiSquaredTest.html#analysis",
-    "title": "Chi Squared Test",
-    "section": "Analysis",
-    "text": "Analysis\nFor sake of simplicity and appropriateness, the data will filter only the most popular brands(Dodge, Honda, Volvo, BMW, Toyota) to have 10 observations per “combination-group”. Since many companies aren’t as popular and have big enough collection of cars with all colors in the market.\n\n\n\n\n\n\n\n\n\n\n\n\n\n \nBMW\nDodge\nHonda\nToyota\nVolvo\n\n\n\n\nblack\n968\n39\n195\n258\n218\n\n\nblue\n371\n40\n103\n121\n107\n\n\ngreen\n133\n27\n53\n60\n36\n\n\ngrey\n292\n26\n90\n164\n72\n\n\nother\n130\n42\n43\n84\n57\n\n\nred\n83\n24\n70\n83\n42\n\n\nsilver\n358\n62\n160\n311\n102\n\n\nwhite\n192\n25\n40\n133\n51\n\n\n\n\n\nWe can see our barplot shows some manufacturers have strong preferences to certain colors, such as BMW cars and the color black. However, we must run a test to get a p-value to determine if these preferences are significant.\n\n\n\n\n\n\n\n\n\nNow, we will run a Chi-Squared Test to determine if we reject our null hypothesis and conclude that the Car color and manufacturer name are associated. We will also look at our expected counts to determine if our Chi-Squared Test requirements are met.\n\n\n\nPearson’s Chi-squared test: x\n\n\n\n\n\n\n\nTest statistic\ndf\nP value\n\n\n\n\n331.9\n28\n1.08e-53 * * *\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n \nBMW\nDodge\nHonda\nToyota\nVolvo\n\n\n\n\nblack\n775.9\n87.51\n231.5\n372.8\n210.3\n\n\nblue\n343.1\n38.7\n102.4\n164.8\n93\n\n\ngreen\n142.9\n16.11\n42.63\n68.64\n38.73\n\n\ngrey\n297.8\n33.58\n88.85\n143.1\n80.72\n\n\nother\n164.6\n18.57\n49.12\n79.08\n44.62\n\n\nred\n139.6\n15.75\n41.67\n67.09\n37.85\n\n\nsilver\n459.2\n51.78\n137\n220.6\n124.5\n\n\nwhite\n203.9\n23\n60.84\n97.96\n55.28\n\n\n\n\n\nAll expected counts are greater than 10, so the requirements are met. Our test results show a p-value of 1.08e-53, which is much smaller than our level of significance α=0.05, so we reject our null hypothesis and conclude that the Car color and manufacturer name are associated.\nLet us look at our residuals to see how much our observed counts differ from the expected counts if our null hypothesis were true.\n\n\n\n\n\n\n\n\n\n\n\n\n\n \nBMW\nDodge\nHonda\nToyota\nVolvo\n\n\n\n\nblack\n6.896\n-5.185\n-2.4\n-5.944\n0.5292\n\n\nblue\n1.506\n0.2097\n0.06198\n-3.414\n1.451\n\n\ngreen\n-0.8266\n2.712\n1.588\n-1.043\n-0.4388\n\n\ngrey\n-0.3352\n-1.309\n0.1218\n1.751\n-0.9707\n\n\nother\n-2.698\n5.439\n-0.8728\n0.553\n1.853\n\n\nred\n-4.793\n2.079\n4.389\n1.943\n0.6739\n\n\nsilver\n-4.721\n1.42\n1.965\n6.088\n-2.014\n\n\nwhite\n-0.8345\n0.4174\n-2.672\n3.54\n-0.5752\n\n\n\n\n\nWe see the greatest difference is observed among BMW cars with a difference of 6.896 more counts. This is probably what contributed most to our test statistic and resulting p-value."
-  },
-  {
-    "objectID": "AB_TESTS/MyChiSquaredTest.html#interpretation",
-    "href": "AB_TESTS/MyChiSquaredTest.html#interpretation",
-    "title": "Chi Squared Test",
-    "section": "Interpretation",
-    "text": "Interpretation\nWe can interpret that the Belarus car data recorded in 2019 has an association between car colors and manufacturer name. with significant results highlighted from BMW, implying that the BMW Manufactures tend to consistently produce cars of the same color, in this case black. Possibly due to reduce costs, simplify logistics or a branding causes tied luxury or modest colors. Due to our results showing a p-value of 1.08e-53, which is much smaller than our level of significance α=0.05, so we reject our null hypothesis and conclude that the Car color and manufacturer name are associated."
-  },
-  {
-    "objectID": "AB_TESTS/MyChiSquaredTest.html#creditreferences",
-    "href": "AB_TESTS/MyChiSquaredTest.html#creditreferences",
-    "title": "Chi Squared Test",
-    "section": "Credit/References",
-    "text": "Credit/References\nThis Analysis used mild assistance from ChatGpt to properly display the Graphs and filter the data.\nKaggle Car Dataset"
+    "text": "Final Thoughts\nCloud computing and big data are stretching the frontiers of machine learning, redefining what is possible with it. With AWS, we are provided the tools to easily use big data, training sophisticated models, and deploying them globally, and manage huge data collection. It converts abstract thoughts into working systems with practical consequences for business and research. If you’re interested in learning machine learning, learn how to work in the cloud. Investigate S3 for data storage, EMR for processing, SageMaker for training and usage. This ecosystem works together with a number of tools to bring the user’s knowledge from imagination, to actually manufacturing his future designs. AWS is not simply a software platform. It’s a connection between data and intelligence, moving us from trial-and-error to result."
   },
   {
     "objectID": "AB_TESTS/MyTwoWayANOVA.html",
@@ -294,305 +252,158 @@
     "text": "Credit/References\nThe Analysis abstained from the use of ChatBot assitant tools. Guide and inspiration was based on the course’s guide “Statistics Notebook” using the “warpbreaks” example for reference.\nKaggle Dataset Source"
   },
   {
-    "objectID": "Blogs/AWS_Cloud_Computing.html#introduction",
-    "href": "Blogs/AWS_Cloud_Computing.html#introduction",
-    "title": "Harnessing AWS Cloud Services for Big Data and Machine Learning",
-    "section": "Introduction",
-    "text": "Introduction\nData growth transformed the way we think about machine learning. What was once small, local experiments done at home on laptops is now big data, scalable pipelines and distributed computing. Cloud platforms like AWS have risen to prominence in today’s data science landscape and, AWS is one of them because of its scale and flexibility. In my early years of learning machine learning, I was only interested in learning the models. Performance seems to just make our algorithms better and fine-tune them. But it took me a long while to understand that the real challenge was not just to create the models, it was also to find ways to integrate data management, distribute workloads, scale, deploy the solution and make best use of the new data. That revelation is what brought me into the cloud computing and big data world."
+    "objectID": "AB_TESTS/MyChiSquaredTest.html#background",
+    "href": "AB_TESTS/MyChiSquaredTest.html#background",
+    "title": "Chi Squared Test",
+    "section": "Background",
+    "text": "Background\nIn today’s analysis, we’ll be exploring an “Used Cars” dataset from kaggle. The author collected data from various web resources in order to explore the used cars market, The data is scraped in Belarus (western Europe) on the 2nd of December 2019, so the dataset is collected in pre-ChatGpt times to avoid any instant of the data being fabricated by AI."
   },
   {
-    "objectID": "Blogs/AWS_Cloud_Computing.html#understanding-cloud-computing-for-machine-learning",
-    "href": "Blogs/AWS_Cloud_Computing.html#understanding-cloud-computing-for-machine-learning",
-    "title": "Harnessing AWS Cloud Services for Big Data and Machine Learning",
-    "section": "Understanding Cloud Computing for Machine Learning",
-    "text": "Understanding Cloud Computing for Machine Learning\nCloud computing gives us something that traditional local setups cannot: elastic resources. Instead of worrying about limited hardware, you can launch powerful virtual machines, train models on large instances, and shut them down when finished. This pay-as-you-go model is ideal for experimentation and production.\nAWS provides services that simplify every stage of the machine learning workflow. You can store raw data in Amazon S3 and train models using SageMaker, since everything is integrated, secure, and scalable. It lets data professionals focus on business solutions rather than infrastructure headaches.\nCloud computing also supports collaboration. Teams across regions can access the same datasets, notebooks, and environments. This makes it possible to work on large-scale machine learning projects without being tied to a single machine or network."
+    "objectID": "AB_TESTS/MyChiSquaredTest.html#hypothesis",
+    "href": "AB_TESTS/MyChiSquaredTest.html#hypothesis",
+    "title": "Chi Squared Test",
+    "section": "Hypothesis",
+    "text": "Hypothesis\nOur question about the data is: Is car color associated with the manufacturer name? Aiming to find if manufacturers have tendencies to prefer a certain color for their cars.\n\\[\nH_0:\\text{Car color and manufacturer name are not associated}\n\\] \\[\nH_1:\\text{Car color and manufacturer name are associated}\n\\] \\[\n\\alpha:0.05\n\\]"
   },
   {
-    "objectID": "Blogs/AWS_Cloud_Computing.html#the-role-of-big-data",
-    "href": "Blogs/AWS_Cloud_Computing.html#the-role-of-big-data",
-    "title": "Harnessing AWS Cloud Services for Big Data and Machine Learning",
-    "section": "The Role of Big Data",
-    "text": "The Role of Big Data\nMachine learning models are only as good as the data they are trained on. Big data allows models to learn from bigger, more complex datasets, which leads to more accurate predictions. The challenge, however, is handling and processing that data efficiently.\nUsing these tools together transforms data from scattered sources into a clean, ready-to-use format. Once the data is prepared, it becomes much easier to train robust machine learning models."
+    "objectID": "AB_TESTS/MyChiSquaredTest.html#analysis",
+    "href": "AB_TESTS/MyChiSquaredTest.html#analysis",
+    "title": "Chi Squared Test",
+    "section": "Analysis",
+    "text": "Analysis\nFor sake of simplicity and appropriateness, the data will filter only the most popular brands(Dodge, Honda, Volvo, BMW, Toyota) to have 10 observations per “combination-group”. Since many companies aren’t as popular and have big enough collection of cars with all colors in the market.\n\n\n\n\n\n\n\n\n\n\n\n\n\n \nBMW\nDodge\nHonda\nToyota\nVolvo\n\n\n\n\nblack\n968\n39\n195\n258\n218\n\n\nblue\n371\n40\n103\n121\n107\n\n\ngreen\n133\n27\n53\n60\n36\n\n\ngrey\n292\n26\n90\n164\n72\n\n\nother\n130\n42\n43\n84\n57\n\n\nred\n83\n24\n70\n83\n42\n\n\nsilver\n358\n62\n160\n311\n102\n\n\nwhite\n192\n25\n40\n133\n51\n\n\n\n\n\nWe can see our barplot shows some manufacturers have strong preferences to certain colors, such as BMW cars and the color black. However, we must run a test to get a p-value to determine if these preferences are significant.\n\n\n\n\n\n\n\n\n\nNow, we will run a Chi-Squared Test to determine if we reject our null hypothesis and conclude that the Car color and manufacturer name are associated. We will also look at our expected counts to determine if our Chi-Squared Test requirements are met.\n\n\n\nPearson’s Chi-squared test: x\n\n\n\n\n\n\n\nTest statistic\ndf\nP value\n\n\n\n\n331.9\n28\n1.08e-53 * * *\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n \nBMW\nDodge\nHonda\nToyota\nVolvo\n\n\n\n\nblack\n775.9\n87.51\n231.5\n372.8\n210.3\n\n\nblue\n343.1\n38.7\n102.4\n164.8\n93\n\n\ngreen\n142.9\n16.11\n42.63\n68.64\n38.73\n\n\ngrey\n297.8\n33.58\n88.85\n143.1\n80.72\n\n\nother\n164.6\n18.57\n49.12\n79.08\n44.62\n\n\nred\n139.6\n15.75\n41.67\n67.09\n37.85\n\n\nsilver\n459.2\n51.78\n137\n220.6\n124.5\n\n\nwhite\n203.9\n23\n60.84\n97.96\n55.28\n\n\n\n\n\nAll expected counts are greater than 10, so the requirements are met. Our test results show a p-value of 1.08e-53, which is much smaller than our level of significance α=0.05, so we reject our null hypothesis and conclude that the Car color and manufacturer name are associated.\nLet us look at our residuals to see how much our observed counts differ from the expected counts if our null hypothesis were true.\n\n\n\n\n\n\n\n\n\n\n\n\n\n \nBMW\nDodge\nHonda\nToyota\nVolvo\n\n\n\n\nblack\n6.896\n-5.185\n-2.4\n-5.944\n0.5292\n\n\nblue\n1.506\n0.2097\n0.06198\n-3.414\n1.451\n\n\ngreen\n-0.8266\n2.712\n1.588\n-1.043\n-0.4388\n\n\ngrey\n-0.3352\n-1.309\n0.1218\n1.751\n-0.9707\n\n\nother\n-2.698\n5.439\n-0.8728\n0.553\n1.853\n\n\nred\n-4.793\n2.079\n4.389\n1.943\n0.6739\n\n\nsilver\n-4.721\n1.42\n1.965\n6.088\n-2.014\n\n\nwhite\n-0.8345\n0.4174\n-2.672\n3.54\n-0.5752\n\n\n\n\n\nWe see the greatest difference is observed among BMW cars with a difference of 6.896 more counts. This is probably what contributed most to our test statistic and resulting p-value."
   },
   {
-    "objectID": "Blogs/AWS_Cloud_Computing.html#building-machine-learning-models-on-aws",
-    "href": "Blogs/AWS_Cloud_Computing.html#building-machine-learning-models-on-aws",
-    "title": "Harnessing AWS Cloud Services for Big Data and Machine Learning",
-    "section": "Building Machine Learning Models on AWS",
-    "text": "Building Machine Learning Models on AWS\nAWS SageMaker is one of the most valuable tools for deploying and managing machine learning models. It provides prebuilt environments for data exploration, training, and deployment. You can start with built-in algorithms or use your own code with frameworks such as TensorFlow, PyTorch, or Scikit-learn.\nThe biggest advantage is scalability. Training a large model locally could take days, but SageMaker can distribute the workload across multiple GPU or CPU instances and finish in a fraction of the time. Once trained, the model can be deployed directly as an endpoint for real-time predictions.\nBeyond SageMaker, AWS services such as Lambda and API Gateway can help automate workflows and serve models to users. This creates a smooth pipeline from data ingestion to prediction."
+    "objectID": "AB_TESTS/MyChiSquaredTest.html#interpretation",
+    "href": "AB_TESTS/MyChiSquaredTest.html#interpretation",
+    "title": "Chi Squared Test",
+    "section": "Interpretation",
+    "text": "Interpretation\nWe can interpret that the Belarus car data recorded in 2019 has an association between car colors and manufacturer name. with significant results highlighted from BMW, implying that the BMW Manufactures tend to consistently produce cars of the same color, in this case black. Possibly due to reduce costs, simplify logistics or a branding causes tied luxury or modest colors. Due to our results showing a p-value of 1.08e-53, which is much smaller than our level of significance α=0.05, so we reject our null hypothesis and conclude that the Car color and manufacturer name are associated."
   },
   {
-    "objectID": "Blogs/AWS_Cloud_Computing.html#the-real-value",
-    "href": "Blogs/AWS_Cloud_Computing.html#the-real-value",
-    "title": "Harnessing AWS Cloud Services for Big Data and Machine Learning",
-    "section": "The Real Value",
-    "text": "The Real Value\n\nTraining on AWS on big data and machine learning also taught me a key lesson. The best models are not only accurate, but also realistic. To perform, they must, however, manage real-world data volumes, integrate with other systems, and scale as demand increases. In cloud computing that is feasible. AWS is no longer a nice to know; you need to understand AWS for those who are data scientists or analytics professionals. It’s the bridge between the theory and the art of production. As well as being able to build models, employers appreciate how you also understand infrastructure and deployment of any work you do."
+    "objectID": "AB_TESTS/MyChiSquaredTest.html#creditreferences",
+    "href": "AB_TESTS/MyChiSquaredTest.html#creditreferences",
+    "title": "Chi Squared Test",
+    "section": "Credit/References",
+    "text": "Credit/References\nThis Analysis used mild assistance from ChatGpt to properly display the Graphs and filter the data.\nKaggle Car Dataset"
   },
   {
-    "objectID": "Blogs/AWS_Cloud_Computing.html#final-thoughts",
-    "href": "Blogs/AWS_Cloud_Computing.html#final-thoughts",
-    "title": "Harnessing AWS Cloud Services for Big Data and Machine Learning",
-    "section": "Final Thoughts",
-    "text": "Final Thoughts\nCloud computing and big data are stretching the frontiers of machine learning, redefining what is possible with it. With AWS, we are provided the tools to easily use big data, training sophisticated models, and deploying them globally, and manage huge data collection. It converts abstract thoughts into working systems with practical consequences for business and research. If you’re interested in learning machine learning, learn how to work in the cloud. Investigate S3 for data storage, EMR for processing, SageMaker for training and usage. This ecosystem works together with a number of tools to bring the user’s knowledge from imagination, to actually manufacturing his future designs. AWS is not simply a software platform. It’s a connection between data and intelligence, moving us from trial-and-error to result."
-  },
-  {
-    "objectID": "Blogs/Linkedin_Reach_Tips.html#the-challenge-of-breaking-in",
-    "href": "Blogs/Linkedin_Reach_Tips.html#the-challenge-of-breaking-in",
-    "title": "How to Connect with DS professionals on LinkedIn",
-    "section": "The Challenge of Breaking In",
-    "text": "The Challenge of Breaking In\nThe market is rough for entry-level college graduates. Layoffs have flooded the applicant pool with senior professionals, graduate schools are more competitive due to students trying to get ahead, and the perception that AI can replace entry-level workers has plague the industry. In this environment, it’s easy to feel invisible. That’s why I learned to stand out, through connecting with professionals in the field."
-  },
-  {
-    "objectID": "Blogs/Linkedin_Reach_Tips.html#taking-the-first-step",
-    "href": "Blogs/Linkedin_Reach_Tips.html#taking-the-first-step",
-    "title": "How to Connect with DS professionals on LinkedIn",
-    "section": "Taking the First Step",
-    "text": "Taking the First Step\nWhen I first started trying to break into data science, I had no idea where to begin. Everyone seemed to have more experience, better portfolios, or advanced degrees. I realized that if I wanted to stand out, I needed to learn directly from people already working in the field. So in the summer of 2025, I decided to reach out to hundreds of professionals on LinkedIn. By the end of the season, I had sent over 500 connection requests."
-  },
-  {
-    "objectID": "Blogs/Linkedin_Reach_Tips.html#learning-through-cold-connections",
-    "href": "Blogs/Linkedin_Reach_Tips.html#learning-through-cold-connections",
-    "title": "How to Connect with DS professionals on LinkedIn",
-    "section": "Learning Through Cold Connections",
-    "text": "Learning Through Cold Connections\nAt first, it felt awkward. Sending cold messages to strangers online can be intimidating. I worried people would ignore me or think I was just a waste of time due to being more inexperienced than they were. But I quickly learned to start strong and began with alumni from my university. My messages were simple:\n” Hi [Name], My name is Alex J. Tovar, and I’m also in the field of Data Science. I’d love to invest in our connection and grow our LinkedIn profiles together. Let’s connect!”\nAlthough short, the message displays a common interest (data science), and invites the connections like an investment that could benefit both parties. If it is beneficial, then why not accept? This is the type of psychological bargaining behind every reach message."
-  },
-  {
-    "objectID": "Blogs/Linkedin_Reach_Tips.html#small-numbers-big-impact",
-    "href": "Blogs/Linkedin_Reach_Tips.html#small-numbers-big-impact",
-    "title": "How to Connect with DS professionals on LinkedIn",
-    "section": "Small Numbers, Big Impact",
-    "text": "Small Numbers, Big Impact\nOut of those hundreds of connections, only a small percentage replied but that small group became incredibly valuable. Some offered to hop on Zoom or a phone call, sharing their stories and advice. I learned what hiring managers actually look for, how data teams are structured, and how different roles fit together knowledge I never would have found in a course description or job posting. One thing that stood out from those conversations was the power of intentional networking. It’s easy to get caught up in collecting connections for the sake of numbers, but what really matters is building strong ones. A few genuine relationships will take you much farther than a thousand shallow ones."
-  },
-  {
-    "objectID": "Blogs/Linkedin_Reach_Tips.html#from-conversations-to-opportunities",
-    "href": "Blogs/Linkedin_Reach_Tips.html#from-conversations-to-opportunities",
-    "title": "How to Connect with DS professionals on LinkedIn",
-    "section": "From Conversations to Opportunities",
-    "text": "From Conversations to Opportunities\nSometimes, a connection would lead to a casual chat that turned into a brief mentorship. Other times, it was just a one-time conversation that gave me a new perspective. And yes, in a few cases, those relationships opened doors to interviews and opportunities. But the biggest reward wasn’t the job prospects it was the confidence that I was no longer navigating this path alone."
-  },
-  {
-    "objectID": "Blogs/Linkedin_Reach_Tips.html#what-networking-really-means",
-    "href": "Blogs/Linkedin_Reach_Tips.html#what-networking-really-means",
-    "title": "How to Connect with DS professionals on LinkedIn",
-    "section": "What Networking Really Means",
-    "text": "What Networking Really Means\nNetworking isn’t about getting something from someone; it’s about learning from them. It’s about showing interest, listening carefully, and building mutual respect. In data science and really, in any field the people who thrive are the ones who combine technical skill with strong relationships. If I could give one piece of advice to anyone starting out, it would be this: don’t wait until you’re “qualified” to reach out. The best time to connect is now. You don’t need to have everything figured out to start conversations you just need curiosity and sincerity."
-  },
-  {
-    "objectID": "Blogs/Linkedin_Reach_Tips.html#final-thoughts",
-    "href": "Blogs/Linkedin_Reach_Tips.html#final-thoughts",
-    "title": "How to Connect with DS professionals on LinkedIn",
-    "section": "Final Thoughts",
-    "text": "Final Thoughts\nBreaking into data science taught me that opportunities often come from unexpected directions. But those opportunities only appear when you put yourself out there. So craft your message, click “Connect,” and start building relationships that will follow you beyond school."
-  },
-  {
-    "objectID": "index_nn.html",
-    "href": "index_nn.html",
-    "title": "Car Crash Detector - Neural Network",
+    "objectID": "AB_TESTS/Food.html",
+    "href": "AB_TESTS/Food.html",
+    "title": "Food at College",
     "section": "",
-    "text": "Upload a photo of a car, and our neural network will analyze it with a heatmap showing which areas influenced the decision.\nNote: Please upload JPG or PNG images only.\n\n  \n    \n    Analyze Car\n  \n  \n  \n    \n    \n  \n  \n  \n  \n  \n    \n    \n      The heatmap shows which regions the neural network focused on when making its decision.\n      Red/yellow areas had the most influence on the prediction."
+    "text": "# From your file menu (at the top of R-Studio) select:\n# \"Session -&gt; Set working directory -&gt; To source file location\"\n# Then play this chunk to get the data into R.\nlibrary(mosaic)\nlibrary(car)\nlibrary(DT)\nlibrary(pander)\nlibrary(readr)\nlibrary(ggthemes)\nfood &lt;- read_csv(\"C://Users/Alex/Documents/GitHub/IntStats/Statistics-Notebook-master/Data/food.csv\") #food.csv is in the Data folder..."
   },
   {
-    "objectID": "index_nn.html#ai-powered-car-crash-detection",
-    "href": "index_nn.html#ai-powered-car-crash-detection",
-    "title": "Car Crash Detector - Neural Network",
+    "objectID": "AB_TESTS/Food.html#background",
+    "href": "AB_TESTS/Food.html#background",
+    "title": "Food at College",
+    "section": "Background",
+    "text": "Background\nAfter taking a look at the data, I saw the presence of an weight column along with a eating out column. Then I wondered, is there at least one “weight” distribution of people with distinct “eating out” habits is stochastically different? Since I wanted to find out specifically if the subjects present in the data are affected by eating habits.\n\\[\nH0: \\text{All group samples are from the same distribution}\n\\]\n\\[\nHa: \\text{At least one group sample's distribution is stochastically different}\n\\]\n\\[\nAlpha = \\text{0.05}\n\\]"
+  },
+  {
+    "objectID": "AB_TESTS/Food.html#interpretation",
+    "href": "AB_TESTS/Food.html#interpretation",
+    "title": "Food at College",
+    "section": "Interpretation",
+    "text": "Interpretation\nStarting with the favstats, is evident that eating out groups do have some variance among weight values. For example the Q1 of people eating “3-5 times” is 129, whereas the “everyday” group have Q1 of 159 lbs, implying that there are groups that differ 30 lbs in the lower quartiles. This variance explains the average spread of weight values through groups, to see the distribution of the data throught the analysis. Additionally, people that eat out every day have a higher mean than other groups, with 172.4 lbs mean compared to an moderate 1-2 time group with 157.6 lbs average.\nBut at the end of the day the Kruskal-Wallis Rank Sum compares the ranks given to each subject wand is compared to our given alpha. Of which we receive a P-value of 0.279 which is bigger than our alpha of 0.05. Therefore, failing to reject the null and conclude that least one “weight” distribution of people with distinct “eating out” habits is stochastically different. “stochastically” meaning that the results have a random chance of being different in the context of the analysis, since the data is assumed to be “non-parametric”.\n\nCredits/References\nThis analysis fully abstained from using AI, the only references used were the “Pig Birth Weights – Kruskal-Wallis” from the “Statistics Notebook” guide given by the course."
+  },
+  {
+    "objectID": "about.html",
+    "href": "about.html",
+    "title": "About",
     "section": "",
-    "text": "Upload a photo of a car, and our neural network will analyze it with a heatmap showing which areas influenced the decision.\nNote: Please upload JPG or PNG images only.\n\n  \n    \n    Analyze Car\n  \n  \n  \n    \n    \n  \n  \n  \n  \n  \n    \n    \n      The heatmap shows which regions the neural network focused on when making its decision.\n      Red/yellow areas had the most influence on the prediction."
+    "text": "About this site"
   },
   {
-    "objectID": "mcm_2024_problem_a.html",
-    "href": "mcm_2024_problem_a.html",
-    "title": "2024 MCM Problem A — Resource Availability and Sex Ratios",
-    "section": "",
-    "text": "Question. Explore how variable sex ratios in sea lampreys, driven by larval growth rates which depend on food availability, affect lamprey population dynamics and the larger ecosystem. We investigate advantages and disadvantages of adaptive sex ratios, impacts on stability, and secondary effects on hosts and parasites.\nApproach. We build a stage-structured dynamical model with resource dynamics and a sex-determination function m(R) mapping resource availability to fraction male. The core model couples: host fish (F), lamprey population stages (eggs E, larvae L, adults A split by sex M and W), and resource pool (R). We analyze equilibria, perform stability and sensitivity analyses, and run numerical simulations under low and high resource regimes.\nKey results (summary).\n\nAdaptive sex ratio that produces more males under low food can protect the lamprey population by reducing reproductive output when resources are scarce, acting as a bet-hedging strategy and lowering the risk of overshooting the resource base.\nVariable sex ratios change ecosystem stability: in some parameter regions they stabilize host-lamprey dynamics (damp oscillations) but can destabilize when reproduction responds nonlinearly to resources.\nSecondary effects: variable sex ratios can indirectly benefit parasites (and other species) by smoothing lamprey-driven fish mortality peaks, changing predation pressure timing.\n\nConclusions. Adaptive sex ratio variation is a plausible evolutionary response to variable resources; it mitigates boom-bust dynamics for lampreys and alters ecosystem resilience. Management implications: controlling resource availability (for example, habitat alteration) can shift sex ratios and thus population trajectories.\n\n\n\\[\n   F(t) \\text{: Density of host fish (food source or hosts for adult lampreys).}\n\\\\ R(t) \\text{: Dimensionless resource availability (normalized, 0 to 1).}\n\\\\ E(t) \\text{: Egg stock.}\n\\\\ L(t) \\text{: Larvae.}\n\\\\ M(t) \\text{: Adult males.}\n\\\\ W(t) \\text{: Adult females.}\n\\\\ A(t) = M(t) + W(t) \\text{: Total adult lampreys.}\n\\]\n\n\n\nR(t): dimensionless resource availability (normalized, 0 to 1). F(t): density of host fish (food source/hosts for adult lampreys). E(t): egg stock. L(t): larvae. M(t): adult males. W(t): adult females. A(t) = M(t) + W(t): total adult lampreys.\n\n\n\nWe define a simple linear mapping from resource level R in [0,1] to male fraction m(R) matching the observed endpoints:\n\\[\nm(R) = 0.78 - 0.22 R\n\\]\nThus,\n\\[\nm(0) = 0.78, \\quad m(1) = 0.56\n\\]\nand the female fraction is\n\\[\n1 - m(R)\n\\]\n\n\n\nThe model equations are presented here (derivatives):\n\\[\n\\begin{aligned}\n\\frac{dR}{dt} &= S - d_R R - c_R L - c_A A, \\\\\\\\\n\\frac{dF}{dt} &= r_F F \\left(1 - \\frac{F}{K}\\right) - \\beta A \\frac{F}{F + H}, \\\\\\\\\n\\frac{dE}{dt} &= b W - \\sigma_E E - \\mu_E E, \\\\\\\\\n\\frac{dL}{dt} &= \\sigma_E E - \\sigma_L L - \\mu_L L, \\\\\\\\\n\\frac{dM}{dt} &= m(R)\\, \\sigma_L L - \\mu_A M, \\\\\\\\\n\\frac{dW}{dt} &= (1 - m(R))\\, \\sigma_L L - \\mu_A W.\n\\end{aligned}\n\\]\nExplanation of parameters\n\nS: resource supply rate (controls low/high regimes)\n\nd_R: resource decay/loss\n\nc_R, c_A: consumption coefficients by larvae and adults\n\nr_F: intrinsic growth rate of host fish, K carrying capacity\n\nβ: mortality rate of fish due to lamprey parasitism (functional response with half-saturation H)\n\nb: per-female effective reproductive contribution (eggs that contribute to E)\n\nσ_E, σ_L: progression rates from eggs to larvae and larvae to adults\n\nμ_E, μ_L, μ_A: stage-specific mortality rates"
+    "objectID": "AB_TESTS/HighSchoolSeniors.html#background",
+    "href": "AB_TESTS/HighSchoolSeniors.html#background",
+    "title": "High School Seniors t Test",
+    "section": "Background",
+    "text": "Background\nIn the US Census at High Schools 2020, there was a survey given to each student to fill out and gather information about the statistics of students’ lives and personal information, such as Gender, the number of texts received the day before, height, and many other details. Which sets the stage to answer the stereotypical question:"
   },
   {
-    "objectID": "mcm_2024_problem_a.html#model-variables",
-    "href": "mcm_2024_problem_a.html#model-variables",
-    "title": "2024 MCM Problem A — Resource Availability and Sex Ratios",
-    "section": "",
-    "text": "\\[\n   F(t) \\text{: Density of host fish (food source or hosts for adult lampreys).}\n\\\\ R(t) \\text{: Dimensionless resource availability (normalized, 0 to 1).}\n\\\\ E(t) \\text{: Egg stock.}\n\\\\ L(t) \\text{: Larvae.}\n\\\\ M(t) \\text{: Adult males.}\n\\\\ W(t) \\text{: Adult females.}\n\\\\ A(t) = M(t) + W(t) \\text{: Total adult lampreys.}\n\\]"
+    "objectID": "AB_TESTS/HighSchoolSeniors.html#do-females-tend-to-receive-more-text-messages-on-average-than-males-in-high-school",
+    "href": "AB_TESTS/HighSchoolSeniors.html#do-females-tend-to-receive-more-text-messages-on-average-than-males-in-high-school",
+    "title": "High School Seniors t Test",
+    "section": "Do Females tend to receive more text messages on average than Males in high school?",
+    "text": "Do Females tend to receive more text messages on average than Males in high school?\n\\[   H_0: \\mu femals = \\mu males \\]\n\\[ H_a: \\mu females &gt; \\mu males \\]\nThe significance level will be tested at a 0.05 alpha(α)."
   },
   {
-    "objectID": "mcm_2024_problem_a.html#model-variables-1",
-    "href": "mcm_2024_problem_a.html#model-variables-1",
-    "title": "2024 MCM Problem A — Resource Availability and Sex Ratios",
-    "section": "",
-    "text": "R(t): dimensionless resource availability (normalized, 0 to 1). F(t): density of host fish (food source/hosts for adult lampreys). E(t): egg stock. L(t): larvae. M(t): adult males. W(t): adult females. A(t) = M(t) + W(t): total adult lampreys."
+    "objectID": "AB_TESTS/HighSchoolSeniors.html#analysis",
+    "href": "AB_TESTS/HighSchoolSeniors.html#analysis",
+    "title": "High School Seniors t Test",
+    "section": "Analysis",
+    "text": "Analysis\nAfter filtering data by gender groups and text received below 250 to obtain a reasonable sample, the graph displays that females do have a higher median number of texts received than males, implying that the group sample of females doesn’t rely on outliers receiving hundreds of messages to represent the overall number of texts received. Although the distributions of each gender aren’t normal in the qqPlot because many data-points aren’t normal (overlapping the blue range), the sample size of each group is above 30, representing an approximately normal sampling to perform test statistics due to the Central Limit Theorem. But, in terms of means, is the female mean significantly bigger than the male means?"
   },
   {
-    "objectID": "mcm_2024_problem_a.html#resource-dependent-sex-ratio",
-    "href": "mcm_2024_problem_a.html#resource-dependent-sex-ratio",
-    "title": "2024 MCM Problem A — Resource Availability and Sex Ratios",
-    "section": "",
-    "text": "We define a simple linear mapping from resource level R in [0,1] to male fraction m(R) matching the observed endpoints:\n\\[\nm(R) = 0.78 - 0.22 R\n\\]\nThus,\n\\[\nm(0) = 0.78, \\quad m(1) = 0.56\n\\]\nand the female fraction is\n\\[\n1 - m(R)\n\\]"
+    "objectID": "AB_TESTS/HighSchoolSeniors.html#interpretation",
+    "href": "AB_TESTS/HighSchoolSeniors.html#interpretation",
+    "title": "High School Seniors t Test",
+    "section": "Interpretation",
+    "text": "Interpretation\nThe QQPlots display the normality of data, with the purpose of showcasing wether the data is reliable to make conclusions to avoid biased or skewed data. By the dots within the blue range being represented as “normal” whereas the opposite applies to values outside the range. However, since we have more than 30 subjects for each group, the sampling distribution of the sample means can be assumed to be approximately normal to proceed with the a/b test.\nAfter performing a t-test, we can appreciate that although it is unlikely that the female means are the same as the males with a p-value of 0.1139, the p-value isn’t significant at a 0.05 alpha level. Implying that we cannot reject the null, or conclude that females tend to receive more text messages on average than males in high school.\n\n\n\nWelch Two Sample t-test: Females$Text_Messages_Received_Yesterday and Males$Text_Messages_Received_Yesterday\n\n\n\n\n\n\n\n\n\n\nTest statistic\ndf\nP value\nAlternative hypothesis\nmean of x\nmean of y\n\n\n\n\n1.208\n393\n0.1139\ngreater\n54.44\n48.15\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\nHSS_clean$Gender\nmin\nQ1\nmedian\nQ3\nmax\nmean\nsd\nn\nmissing\n\n\n\n\nFemale\n0\n15\n40\n75\n230\n54.44\n50.55\n194\n0\n\n\nMale\n0\n10\n25\n75\n247\n48.15\n52.9\n201\n0\n\n\n\n\n\nGiven our statistics that females tend to have about 6 (Female_mean - Male_mean) more text messages than males on average, a higher median of 20 messages received by females than males, and about 200 subjects from each gender to represent the results. All showing that although the stereotype of females receiving more texts than males is real, the margin isn’t significant enough to be consistent insight throughout all high scholers."
   },
   {
-    "objectID": "mcm_2024_problem_a.html#ode-system-stage-structured",
-    "href": "mcm_2024_problem_a.html#ode-system-stage-structured",
-    "title": "2024 MCM Problem A — Resource Availability and Sex Ratios",
-    "section": "",
-    "text": "The model equations are presented here (derivatives):\n\\[\n\\begin{aligned}\n\\frac{dR}{dt} &= S - d_R R - c_R L - c_A A, \\\\\\\\\n\\frac{dF}{dt} &= r_F F \\left(1 - \\frac{F}{K}\\right) - \\beta A \\frac{F}{F + H}, \\\\\\\\\n\\frac{dE}{dt} &= b W - \\sigma_E E - \\mu_E E, \\\\\\\\\n\\frac{dL}{dt} &= \\sigma_E E - \\sigma_L L - \\mu_L L, \\\\\\\\\n\\frac{dM}{dt} &= m(R)\\, \\sigma_L L - \\mu_A M, \\\\\\\\\n\\frac{dW}{dt} &= (1 - m(R))\\, \\sigma_L L - \\mu_A W.\n\\end{aligned}\n\\]\nExplanation of parameters\n\nS: resource supply rate (controls low/high regimes)\n\nd_R: resource decay/loss\n\nc_R, c_A: consumption coefficients by larvae and adults\n\nr_F: intrinsic growth rate of host fish, K carrying capacity\n\nβ: mortality rate of fish due to lamprey parasitism (functional response with half-saturation H)\n\nb: per-female effective reproductive contribution (eggs that contribute to E)\n\nσ_E, σ_L: progression rates from eggs to larvae and larvae to adults\n\nμ_E, μ_L, μ_A: stage-specific mortality rates"
+    "objectID": "AB_TESTS/MyLogisticRegression.html#fitting-the-model",
+    "href": "AB_TESTS/MyLogisticRegression.html#fitting-the-model",
+    "title": "My Simple Logistic Regression",
+    "section": "Fitting the Model",
+    "text": "Fitting the Model\n\n\n\n\n\n\n\n\n\n\n\n\n \nEstimate\nStd. Error\nz value\nPr(&gt;|z|)\n\n\n\n\n(Intercept)\n-7.617\n1.814\n-4.199\n2.684e-05\n\n\nAge\n0.1385\n0.03266\n4.24\n2.232e-05\n\n\n\n(Dispersion parameter for binomial family taken to be 1 )\n\n\n\n\n\n\n\nNull deviance:\n82.11 on 59 degrees of freedom\n\n\nResidual deviance:\n43.01 on 58 degrees of freedom\n\n\n\n\n\nThis gives the estimated model for πi as\n\\[\n  P(Y_i = 1|\\, x_i) = \\frac{e^{-7.617 + 0.1385x_i}}{1+e^{-7.617 + 0.1385x_i}} = \\pi_i\n\\]\nWhere b0 = -7.617 is our value of (Intercept) which estimates β0 and b1=0.1385 is the value of Age which estimates β1.\nThe p-value from Age shows significance with (p = 2.232e-05) giving sufficient evidence to conclude that Age affects the probability of a patient testing positive for diabetes in the study.\n\nVisualizing the Model\nThe plot shows how likely it is to be diagnosed with type 2 diabetes around the age of 55 years old.\n\n\n`geom_smooth()` using formula = 'y ~ x'\n\n\n\n\n\n\n\n\n\n\n\nDiagnosing the Model\nTo demonstrate that the logistic regression is a good fit to these data we apply the Hosmer-Lemeshow goodness of fit test\n\n\n\nHosmer and Lemeshow goodness of fit (GOF) test: model.glm$y, model.glm$fitted.values\n\n\n\n\n\n\n\nTest statistic\ndf\nP value\n\n\n\n\n1.081\n1\n0.2984\n\n\n\n\n\nSince the null hypothesis is that the logistic regression is a good fit for the data, we claim that the logistic regression is appropriate (p-value = 0.2984)."
   },
   {
-    "objectID": "index.html#ai-powered-car-crash-detection",
-    "href": "index.html#ai-powered-car-crash-detection",
-    "title": "Car Crash Detector - Neural Network",
-    "section": "",
-    "text": "Upload a photo of a car, and our neural network will analyze it with a heatmap showing which areas influenced the decision.\nNote: Please upload JPG or PNG images only.\n\n  \n    \n    Analyze Car\n  \n  \n  \n    \n    \n  \n  \n  \n  \n  \n    \n    \n      The heatmap shows which regions the neural network focused on when making its decision.\n      Red/yellow areas had the most influence on the prediction."
+    "objectID": "AB_TESTS/MyLogisticRegression.html#conclusion",
+    "href": "AB_TESTS/MyLogisticRegression.html#conclusion",
+    "title": "My Simple Logistic Regression",
+    "section": "Conclusion",
+    "text": "Conclusion\nthe value of \\(e^{0.1385} \\approx 1.15\\) shows that the odds of being diagnosed with diabetes increases by a factor of 1.15 for every increase in Age. In other words, the odds of an diabetes diagnosis increases by 15% (1.15-1) for every increase in Age. To be more clear, for a Age of 55, our model puts the probability of a diabetes diagnosis at:\n\\[\n  P(Y_i = 1|\\, x_i) = \\frac{e^{-7.617 + 0.1385*55}}{1+e^{-7.617 + 0.1385*55}} = \\pi_i\n\\]\nThe probability of being diagnosed with type 2 diabetes at 55 years old is about 50% \\((\\hat{\\pi_i} \\approx 0.500035)\\), which supports Medical News Toda’s claim and the regressions probability rate as subjects get older."
   },
   {
-    "objectID": "index_old.html",
-    "href": "index_old.html",
-    "title": "Car Crash Detector",
-    "section": "",
-    "text": "Upload or take a photo of a car, and our AI will analyze whether it’s damaged or not.\nNote: Please upload JPG or PNG images only.\n\n  \n    \n    Analyze Car"
+    "objectID": "AB_TESTS/MyLogisticRegression.html#referencescredits",
+    "href": "AB_TESTS/MyLogisticRegression.html#referencescredits",
+    "title": "My Simple Logistic Regression",
+    "section": "References/Credits",
+    "text": "References/Credits\nThe dataset used was constructed by AI for the purposes of this study. Further references are listed below:\nMedical News Today\nStatistics Notebook Example"
   },
   {
-    "objectID": "index_old.html#is-this-car-crashed",
-    "href": "index_old.html#is-this-car-crashed",
-    "title": "Car Crash Detector",
-    "section": "",
-    "text": "Upload or take a photo of a car, and our AI will analyze whether it’s damaged or not.\nNote: Please upload JPG or PNG images only.\n\n  \n    \n    Analyze Car"
+    "objectID": "AB_TESTS/RecallingWords.html#background",
+    "href": "AB_TESTS/RecallingWords.html#background",
+    "title": "Recalling Words",
+    "section": "Background",
+    "text": "Background\nMany teachers and other educators are interested in understanding how to best deliver new content to students. In general, they have two choices of how to do this.\n\nThe Meshed Approach\n\nDeliver new content while simultaneously reviewing previously understood content.\n\nThe Before Approach\n\nDeliver new content after fully reviewing previously understood content.\n\n\nA study was performed to determine whether the Meshed or Before approaches to delivering content had any positive benefits on memory recall.\nTherefore, we aim to determine whether the Meshed or Before methods provide any positive benefit to memory recall. To test this, we will perform a Wilcoxon “Rank Sum (Mann–Whitney) test” to evaluate whether the distribution of scores in either method is stochastically greater than that of the control group (SFR). This allows us to assess whether correct recalls from the Meshed and Before groups tend to be significantly higher than those from the control group, indicating a potential benefit from new memorization techniques. As a bonus, we’ll test whether the Before group tends to outperform the Meshed group using another Wilcoxon Rank Sum (Mann–Whitney) test, making the assumption that its scores are generally higher, to find if a method is better than the the other. Which begs the questions:\n\n\nIs the correctness of “before” and “meshed” stochastically greater than SFR?\n\n\nAnd\n\n\nIs correctness of “before” stochastically greater than “meshed”?\n\n\n\n\\[   \nH_0: \\text{distribution of before and meshed are stochastically equal to SFR}\n\\] \\[\nH_a: \\text{distribution of before and meshed are stochastically greater than SFR}\n\\]\n\\[   \nH_a: \\text{distribution of before is stochastically equal to meshed}\n\\] \\[\nH_a: \\text{distribution of before is stochastically greater than meshed}\n\\]\n\\[   \n\\alpha = 0.05\n\\]\n\nExperiment Details\nIndividuals were seated at a computer and shown a list of words. Words appeared on the screen one at a time, for two seconds each, until all words had been shown (40 total). After all words were shown, they were required to perform a few two-digit mathematical additions (like 15 + 25) for 15 seconds to avoid immediate memory recall of the words. They were then asked to write down as many of the 40 words as they could remember. They were given a maximum of 5.3 minutes to recall words.\nThe process of showing words and recalling words was repeated four times with the same list of words each time (four chances to get it right). The presentation of the first trial was the same for all treatment conditions. However, trials 2, 3, and 4 were slightly different for each treatment condition.\n\nThe SFR group (the control group) stands for Standard Free Recall. In all four trials the same list of 40 words was presented, in a random order each time.\nThe Before group also used the same 40 words during each trial. However, any words that were correctly recalled in a previous trial were presented first, or before the words that were not recalled in the last trial. After all the correct words were presented in random order, the non-recalled words were presented in a random order.\nThe Meshed group also used the same 40 words during each trial. However, words that were correctly recalled in a previous trial were alternated with a missed word during the next presentation order.\n\nThe data records the number of correctly recalled words (out of the 40 possible) from the fourth trial. Results were obtained for 30 students, 10 in each of the three treatment groups: SFR, Before, and Meshed.\n\n\nData\nThe results from the study can be found in the Friendly data set in R after loading library(car).\nClick the “Code” button to see the data."
   },
   {
-    "objectID": "index_cnn.html",
-    "href": "index_cnn.html",
-    "title": "Car Crash Detector - Neural Network",
-    "section": "",
-    "text": "Upload a photo of a car, and our neural network will analyze it with a heatmap showing which areas influenced the decision.\nNote: Please upload JPG or PNG images only.\n\n  \n    \n    Analyze Car\n  \n  \n  \n    \n    \n  \n  \n  \n  \n  \n    \n    \n      The heatmap shows which regions the neural network focused on when making its decision.\n      Red/yellow areas had the most influence on the prediction."
+    "objectID": "AB_TESTS/RecallingWords.html#analysis",
+    "href": "AB_TESTS/RecallingWords.html#analysis",
+    "title": "Recalling Words",
+    "section": "Analysis",
+    "text": "Analysis\n\nAs shown by the graph below, we compared the before and meshed groups relative to the control groups. It is visually clear that the before group has a higher median than the meshed group, implying that a higher percentage of the sample subjects of the before group have better recall than the meshed. But both before and meshed groups are substantially more effective than the control group(SFR) in obtaining higher scores, implying that memorization techniques do affect recall performance on subjects, than just memorizing randomly. Therefore, we must find statistical evidence if before and meshed have a significant difference in scores than SFR. Then find if the median of before is significantly more correct than meshed.\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\nFriendly$condition\nmin\nQ1\nmedian\nQ3\nmax\nmean\nsd\nn\nmissing\n\n\n\n\nBefore\n24\n37.25\n39\n39.75\n40\n36.6\n5.337\n10\n0\n\n\nMeshed\n30\n36\n36.5\n38.75\n40\n36.6\n3.026\n10\n0\n\n\nSFR\n21\n25\n27\n38.5\n39\n30.3\n7.334\n10\n0\n\n\n\n\n\nAfter performing the test, an approximation had to be used since there were ties present in the data and also because the distributions aren’t similarly shaped for medians. Yielding a p-value of 0.01644, which is smaller than a 0.05 alpha, which rejects the null. Concluding, both groups(before and meshed) are stochastically greater in correctness than the control group\n\\[   \nH_0: \\text{distribution of before and meshed are stochastically equal to SFR}\n\\] \\[\nH_a: \\text{distribution of before and meshed are stochastically greater than SFR}\n\\]\n\n\n\nWilcoxon rank sum test with continuity correction: BnF$correct and SNF$correct\n\n\n\n\n\n\n\nTest statistic\nP value\nAlternative hypothesis\n\n\n\n\n148.5\n0.01644 *\ngreater\n\n\n\n\n\nLastly, we approximate if before is stochastically greater than meshed since there are ties in present. The test outputs a p-value of 0.189, which is bigger than a 0.05, therefore we fail to reject the null, or conclude that the before is stochastically greater than meshed.\n\\[   \nH_a: \\text{distribution of before is stochastically equal to meshed}\n\\] \\[\nH_a: \\text{distribution of before is stochastically greater than meshed}\n\\]\n\n\n\nWilcoxon rank sum test with continuity correction: before$correct and meshed$correct\n\n\n\n\n\n\n\nTest statistic\nP value\nAlternative hypothesis\n\n\n\n\n62\n0.189\ngreater"
   },
   {
-    "objectID": "index_cnn.html#ai-powered-car-crash-detection",
-    "href": "index_cnn.html#ai-powered-car-crash-detection",
-    "title": "Car Crash Detector - Neural Network",
-    "section": "",
-    "text": "Upload a photo of a car, and our neural network will analyze it with a heatmap showing which areas influenced the decision.\nNote: Please upload JPG or PNG images only.\n\n  \n    \n    Analyze Car\n  \n  \n  \n    \n    \n  \n  \n  \n  \n  \n    \n    \n      The heatmap shows which regions the neural network focused on when making its decision.\n      Red/yellow areas had the most influence on the prediction."
+    "objectID": "AB_TESTS/RecallingWords.html#interpretation",
+    "href": "AB_TESTS/RecallingWords.html#interpretation",
+    "title": "Recalling Words",
+    "section": "Interpretation",
+    "text": "Interpretation\nBoth methods, before and meshed benefit the results on memory recall relative to SFR. with both “before” and “meshed” having a higher distribution/median scores of (39 & 36.5) than SFR’s (27) resulting in stochastically greater results. However, among before and meshed, there isn’t a method that is significantly better, therefore leading to the conclusion that either one is has any positive benefit on memory recall.\nKey takeaways from this research would be to organize the document, in a way that perfoming multiple A/B testing doesn’t confuse the reader. As well that joining groups can help create more scenarios in which we can extract value from the data."
   },
   {
-    "objectID": "index.html#ai-powered-car-damage-detection",
-    "href": "index.html#ai-powered-car-damage-detection",
-    "title": "Car Crash Detector",
-    "section": "",
-    "text": "Upload or take a photo of a car, and our AI will analyze whether it’s damaged using advanced machine learning and explainable AI techniques.\n\n  \n    \n      \n      Accepts JPG and PNG formats\n      \n      \n        🔍\n        Analyze Car\n      \n    \n  \n  \n  \n    \n    \n      \n    \n  \n  \n  \n  \n  \n    \n    Red boundaries highlight the regions that most influenced the AI's decision"
-  },
-  {
-    "objectID": "index.html#how-this-project-was-built",
-    "href": "index.html#how-this-project-was-built",
-    "title": "Car Crash Detector",
-    "section": "🚗 How This Project Was Built",
-    "text": "🚗 How This Project Was Built\nThis car crash detector was built using a modern tech stack combining machine learning, explainable AI, and cloud infrastructure:\n\nSystem Architecture & Workflow\n\nFrontend & Hosting:\n\nBuilt with Quarto - a scientific publishing system that converts Markdown to beautiful HTML\nHosted on AWS Amplify with automatic deployments from GitHub\nResponsive design for desktop and mobile viewing\n\nMachine Learning Pipeline:\n\nRandom Forest Classifier trained on 5,000 car images\nAchieves ~85-90% accuracy in detecting vehicle damage\nExtracts 48 features: color histograms, edge gradients, and texture patterns\nModel size: 9.3 MB, inference time: &lt;1 second\n\nExplainability Layer:\n\nLIME (Local Interpretable Model-agnostic Explanations) generates visual explanations\nHighlights image regions that most influenced the AI’s decision\nRed boundaries show what the model was “looking at” when making predictions\n\nAI Analysis:\n\nClaude API (Anthropic) analyzes the LIME visualization\nProvides human-readable explanations of the model’s reasoning\nValidates predictions and identifies potential issues\n\nBackend Infrastructure:\n\nDeployed on Google Cloud Run (serverless container platform)\nHandles image preprocessing, prediction, and LIME generation\nAuto-scales based on demand with 2GB memory, 2 CPU cores\n\nComplete workflow: User uploads image → Cloud Run processes → Random Forest predicts → LIME explains → Claude analyzes → Results displayed with visual heatmap and AI commentary."
-  },
-  {
-    "objectID": "Projects/NFL/NFL.html#model-architecture",
-    "href": "Projects/NFL/NFL.html#model-architecture",
-    "title": "NFL Big Data Bowl 2026: Player Position Prediction",
-    "section": "Model Architecture",
-    "text": "Model Architecture\nWe first tried the Random Forest Regression method with two different models: one for X-coordinate prediction and the other for Y-coordinate prediction. We changed from this to a multivariate neural network architecture that jointly predicts both coordinates (e.g., diagonal trajectories where both dimensions change together) following faculty guidance.\nOur last model is a Feedforward Neural Network (Multi-Layer Perceptron) with the architecture:\n\nInput Layer: 9 features\nHidden Layer 1: 256 neurons with ReLU activation, Batch Normalization, and 30% Dropout\nHidden Layer 2: 128 neurons with ReLU, Batch Normalization, 30% Dropout\nHidden Layer 3: 64 neurons with ReLU activation and 20% Dropout\nHidden Layer 4: 32 neurons using ReLU, 20% Dropout\nOutput Layer: 2 neurons (x_pos, y_pos predictions)\n\nThe model features 46,754 trainable parameters and was optimized with an Adam optimizer with a learning rate of 0.001. In order to avoid overfitting and enhance generalization, we applied a few regularization procedures, these include:\n\nDropout regularization (20-30% to the different layers)\nBatch Normalization for training to stabilize\nStandardScaler normalized input features (essentially useful for performance of neural networks)\nEarly stopping with 15-epoch patience to stop training when validation loss flattens out\nLearning rate scheduling (ReduceLROnPlateau) to dynamically update learning rate and vary learning rate as training progresses\nModel checkpointing to save the best-performing model when the validation loss improves\n\nTraining was done in a 512-size batch for up to a maximum of 100 epochs using early stopping to accelerate convergence without overfitting."
-  },
-  {
-    "objectID": "Projects/NFL/NFL.html#performance-evaluation",
-    "href": "Projects/NFL/NFL.html#performance-evaluation",
-    "title": "NFL Big Data Bowl 2026: Player Position Prediction",
-    "section": "Performance Evaluation",
-    "text": "Performance Evaluation\nFor model performance, we used different regression metrics to measure average error as well as model fit quality. Finally, we performed detailed case study analysis after a single play (Game ID: 2023091000, Play ID: 1240) and analyzed prediction accuracy in-depth, in order to trace systematic features in model behaviors."
-  },
-  {
-    "objectID": "Projects/NFL/NFL.html#key-visualizations",
-    "href": "Projects/NFL/NFL.html#key-visualizations",
-    "title": "NFL Big Data Bowl 2026: Player Position Prediction",
-    "section": "Key Visualizations",
-    "text": "Key Visualizations\nCase study analysis provided visualizations which represent individual play based performance of the model:\nPredicted vs Actual X & Y Positions: The visualization overlays real positions of players (blue) on predicted positions (orange) on the background of the football field as red dashed lines in the image to show the difference in actual versus predicted position for each individual. The landing positions are indicated with a red X indicating that the model systematically predicts poorly at predicting player motion toward the ball, indicating that the model averages behavior across all player types without player role information from the player data; instead of recognizing which types of players have aggressively tracked the ball through the targeted receivers.\n\n  \n\n \nPre-Snap and Post-Snap Comparison: A comparison of Pre-Snap and Post-Snap formations (left) with recorded and predicted locations (right) when a match is in progress and shows how players transition from initial positioning to their positions in flight of the ball.\n\n \n\n \nMovement Vectors: It shows player trajectories, where blue arrows show the players’ actual movement and orange dashed arrows represent predicted movement of the players, from pre-snap to post-snap position. The red line is the ball trajectory from line of scrimmage to landing position.\n\n \n\n \nError Heatmap by Position: The players are color-coded according to value of prediction errors with the use of a yellow-orange-red colormap where spatial order of prediction error could be observed along the field."
-  },
-  {
-    "objectID": "Projects/NFL/NFL.html#problem-type",
-    "href": "Projects/NFL/NFL.html#problem-type",
-    "title": "NFL Big Data Bowl 2026: Player Position Prediction",
-    "section": "1. Problem Type",
-    "text": "1. Problem Type\nI propose a supervised regression problem based on tabular data, which will then be processed further. The target variables player X and Y coordinates are continuous numbers, thus regression model is the best machine learning model. The model is trained on historical labeled data comprising known input features (pre-snap positions, movement attributes, ball trajectory) and output targets (observed position after snap). This enables the neural network to detect intricate non-linear relationships between player starting condition and the state of each player after ball flight.\nThis is especially important considering the fact that the problem is multivariate. Instead of treating X and Y predictions as independent problems, our neural network architectures collaboratively predict both coordinates together. This design choice allows the model to discover diagonal movements contain correlating transformations in both dimensions, describing realistic physics associated with player movements better than two independent univariate models."
-  },
-  {
-    "objectID": "Projects/NFL/NFL.html#model-architecture-choice",
-    "href": "Projects/NFL/NFL.html#model-architecture-choice",
-    "title": "NFL Big Data Bowl 2026: Player Position Prediction",
-    "section": "2. Model Architecture Choice",
-    "text": "2. Model Architecture Choice\nThe decision to use a feedforward neural network instead of the early Random Forest method was motivated by the necessity to model multivariate output. Although Random Forest Regression has good performance on tabular data, it involved training a pair of models: one for X-coordinate prediction and one to predict Y-coordinate features. This method treats the two spatial dimensions as independent problems, ignoring the correlation between them.\nThe output neurons in a neural network architecture can be found in two and, thus, when in space, the model learns joint representations of player movement. For instance, the X and Y coordinates of a receiver running up to the ball from a diagonal parallel changes side by side (or up to an adjacent direction). A neural network has shared hidden layers that can model these interdependencies, learning that some movement patterns involve certain X-Y coordinate combination and will not be captured by individual models.\nNeural networks also outperform in learning non-linear relationships through activation functions and deep layer structures. Player movement in football is highly non-linear—players speed, turn, turn, respond to the movement of the ball in ways that linear models or tree-based approaches may fail to accurately capture. The 4-layer architecture with ReLU activations provide enough representational capabilities that the complex spatial-temporal dynamics can be considered.\nThe regularizations used (dropout, batch normalization, early stopping) enable the model to generalize to unseen plays rather than to memorize training examples despite its complexity. The high validation performance (R² of 0.974 for X and 0.910 for Y) indicates that the model has learned useful patterns and does not overfit to training noise."
-  },
-  {
-    "objectID": "Projects/NFL/NFL.html#model-confidence-metrics",
-    "href": "Projects/NFL/NFL.html#model-confidence-metrics",
-    "title": "NFL Big Data Bowl 2026: Player Position Prediction",
-    "section": "3. Model Confidence Metrics",
-    "text": "3. Model Confidence Metrics\nWe assessed this model (or using its predictive power) by evaluating its dependability and precision through the use of three related scales: MAE, RMSE, and R².\nMean Absolute Error is an intuitive test of average predictive accuracy. Regarding X-position predictions, the MAE is 3.07 yards where the model’s X-coordinate predictions deviate from actual positions in all instances by an average of about 3 yards. For Y-position predictions, the MAE is 3.05 yards. These numbers carry significant weight in a dynamic environment like football plays where the player may make the jump down 10-15 yards or more in every single pass play so 3-yard errors suggest good predictive power. In practical terms, this precision is adequate for many analytical purposes, giving coaches a window into overall position trends and broadcasters the data they need to provide real-time projections of real-time position.\nRoot Mean Squared Error prioritizes larger mistakes over MAE due to the squaring operation, making it especially helpful for determining if the model produces occasional blundering. RMSE = 4.02 yards at X-position and 3.95 yards at Y-position. The small difference between MAE and RMSE (approximately one yard) indicates that the model’s errors are reasonably consistent, no extreme outliers or catastrophic errors in the prediction. If model errors were to occur extensively, we might see a much larger difference between RMSE and MAE.\nR² Score represents the percentage of variance in the target variable explained with a model. The R² of 0.974 (for X-position) means that we have an extremely good model fit and is explaining 97.4% of the variance in player X-coordinates. For Y-position, with an R² of 0.910, 91.0% of the variance is accounted for. The lower Y-position R² still indicates lateral movement (side-to-side across the field) is harder to predict than downfield movement—but still good. That makes intuitive sense—downfield movement is primarily determined by the direction of the ball’s forward drive, while lateral movement involves more complex decisions of route running and individual tendencies in players.\nTo provide further context to the data we provide a case study of one play (Game ID: 2023091000 and Play ID: 1240) on a specific play can help understand these metrics as well. This play comprised 8 observations from the player-frame area with a mean Euclidean error of 5.26 yards and maximum error of 6.25 yards for this play. The analysis also showed that a systematic trend was there: the model consistently underpredicts forward motion toward the ball landing position. Players in the example were 3.78 yards closer to the ball than the model predicted on average in the case study, with the actual average distance being 4.20 yards and the predicted distance being 7.98 yards.\nThis systematic bias indicated that the model does not contain more information than a player role wise. The model simply gives an overall average for all players in terms of behavior without characteristics distinguishing between the receiver and defensive side of the cover on-the-field versus defensive coverage or between various other route runners. As such, the targeted receivers aggressively follow the ball and end up on the landing, while others can move away or stay still. By averaging these disparate behaviors, the model generates conservative predictions that lose sight of the ball-tracking intensity of key players.\nHowever, there are strong metrics for model confidence and this is a limitation. The low MAE (average errors are sub-3 yards), moderate RMSE (there are few extreme errors), and very high R² (more than 90% of variance) score indicates that this model effectively accounts for the basic play dynamics of play by play players during pass plays. For virtually all critical applications—whether evaluating defensive tactics, designing plays, or creating broadcast graphics—this degree of precision yields actionable insights."
-  },
-  {
-    "objectID": "Projects/NFL/NFL.html#limitations-and-future-improvements",
-    "href": "Projects/NFL/NFL.html#limitations-and-future-improvements",
-    "title": "NFL Big Data Bowl 2026: Player Position Prediction",
-    "section": "4. Limitations and Future Improvements",
-    "text": "4. Limitations and Future Improvements\nOur model has strong predictability but there are several limitations with room for a promising design enhancements.\nMissing Categorical Features: The greatest weakness of the model is the lack of player position information. We do not consider if a player is the receiver at play in the target, defensive coverage, passer or other runner running route. The case study analysis revealed that players display significantly different patterns according to the role, with certain receivers converging aggressively of receivers to the ball landing position and some players either moving away and leaving, remaining close to their pre-snap position. In this way however, the role-based movement patterns are not learned for any specific player type and the model averages out to all player types to an optimal prediction (e.g. in the case of player_role), and eventually results in systematic underprediction of any ball tracking behavior. Player_role, Player_side (offense/defense), specific position designations (QB, WR, CB, S, LB) should be included as categorical features in future versions as well (should be encoded in the neural network (more advanced) as embeddings with deep positions and that each category must be abstracted to represent their interaction with play characteristics in a meaningful way).\nTraining Data Limited: Our model is only trained on Week 1 of the 2023 season. The 2023 whole competition dataset has 18 weeks worth of training data (approximately 5.1 million input and 580,000 output rows). More samples of different game scenarios, weather, team strategies, patterns of player behavior, etc. would be possible by expanding to the entire dataset. This higher volume of data would enhance the model’s capacity on generic generalization and prevent the model from overfitting to game situations that were present only from Week 1.\nArchitecture Implications: In our feedforward neural network, spatial relationships are largely captured, however, it does not model player movement (the time-sequence of player movements) explicitly. Playing football happens over time and the players react to how the ball travels and to other players positions dynamically. A Recurrent Neural Network (RNN) or Long Short-Term Memory (LSTM) could model these interrelated temporal dependencies in which it can learn how player velocities evolve in different frame by frame from what it would be as an independent learning model, instead of treating every frame as a single prediction. Or, a Transformer-based architecture was proposed to model player attention mechanisms that capture how defenders respond against receivers and receivers to defenders.\nFeature Engineering Opportunities: In addition to missing more categorical features, we can engineer some more predictive features include:\n\nRelative positions (distance and angle away from each player to the ball landing position)\nBall motion vectors projected\nTime until that ball was actually delivered\nInteraction parameters (e.g., speed × distance to the ball)\nHistorical player-specific tendencies (average routes run, typical speeds)\n\nEnsemble Methods: The combination of multiple models, such as our neural network with gradient boosting machines or other different architectures neural networks, leads it to a more stable prediction with ensemble averaging. Different models could perform quite well at different aspects of the prediction task and together may reduce overall error.\nInsights from the Single-Play Case Study: Not every frame presented a comparable number of prediction errors. Errors rose in distance to the ball (6.25 yards) before decreasing (4.68 yards) as the player took his approach to land. These patterns indicate that there is a strong predictive signal from proximity of the ball. Future models should include distance-to-ball as an explicit variable, or use it for estimating weights differently on frames.\nEvaluation Metrics for Competition: For competition, although our metrics in validation are impressive, we take the competition’s holdout test set (Weeks 14-18 of the 2025 season). The test data is for future games in which different teams could be constituted, have different strategies, and play different environments. Examining leaderboard performance also will offer invaluable insights on the generalizability of our model beyond the 2023 season data used to train the model."
-  },
-  {
-    "objectID": "Blogs/AWS_Cloud_Computing.html#cloud-computing-and-machine-learning",
-    "href": "Blogs/AWS_Cloud_Computing.html#cloud-computing-and-machine-learning",
-    "title": "Harnessing AWS Cloud Services for Big Data and Machine Learning",
-    "section": "Cloud Computing and Machine Learning",
-    "text": "Cloud Computing and Machine Learning\nThe cloud technology will deliver something traditional local solutions cannot: elastic resources. Instead of worrying about shortage of hardware, you can build high performance virtual machines, train models on large instances, and shut them down once trained. This pay-as-you-go model is the ideal fit for experimentation and production. AWS makes all parts easy by offering the services that streamline the machine learning pipeline. Everything is integrated, secure and scalable, so you can store raw data in Amazon S3 and train your models with SageMaker. It enables data professionals to work on business solutions instead of infrastructural headaches. Collaboration is also facilitated by cloud computing. Geographically distributed teams can access the same datasets, notebooks and environments. This allows for building large-scale machine learning projects without being tied to any one machine or network.\nThe Data that underpins machine learning models as they are trained on is just as good data for machine learning modeling. Big data enables models to learn from larger, more complex datasets and produce better predictions. The task, of course, is to process that data swiftly. Combining these tools creates a form which converts data from various sources into a neat, readable form. When ready, it is much easier to train powerful and precise machine learning models."
-  },
-  {
-    "objectID": "Blogs/AWS_Cloud_Computing.html#constructing-the-machine-learning-models-on-aws",
-    "href": "Blogs/AWS_Cloud_Computing.html#constructing-the-machine-learning-models-on-aws",
-    "title": "Harnessing AWS Cloud Services for Big Data and Machine Learning",
-    "section": "Constructing the Machine Learning Models on AWS",
-    "text": "Constructing the Machine Learning Models on AWS\nSageMaker with AWS is a one-stop solution for the creation and handling of any machine learning model. It gives prebuilt environments for data exploration, training, and deployment. Start out with built-in algorithms or use your own code with tools like TensorFlow, PyTorch, or Scikit-learn. The biggest benefit is scalability. It might take days to train on the local machine, however, SageMaker can also distribute the work on the server across many GPU or CPU instances and complete in a short duration. After training, the model can be deployed as a real-time prediction endpoint. A large part of a Cloud, more than just SageMaker can be serviced by offering AWS services such as Lambda and API Gateway to streamline workflows and serve models to the end user. It builds a seamless pipeline from data ingestion to prediction."
-  },
-  {
-    "objectID": "Blogs/Linkedin_Reach_Tips.html#breaking-in-the-market-is-challenging.",
-    "href": "Blogs/Linkedin_Reach_Tips.html#breaking-in-the-market-is-challenging.",
-    "title": "How to Reach Out to DS Professionals on LinkedIn",
-    "section": "Breaking In the Market Is Challenging.",
-    "text": "Breaking In the Market Is Challenging.\nFor incoming college graduates the market is tough going. Layoffs have sent waves through the applicant pool, graduate schools have become more competitive as students try to get ahead; and the belief that AI can replace entry-level workers has plagued the industry. In a place like this, it’s often easy to feel unnoticed. That’s why I developed the talent to stand out, to be among those professionals who were in the industry."
-  },
-  {
-    "objectID": "Blogs/Linkedin_Reach_Tips.html#take-the-first-step.",
-    "href": "Blogs/Linkedin_Reach_Tips.html#take-the-first-step.",
-    "title": "How to Reach Out to DS Professionals on LinkedIn",
-    "section": "Take the First Step.",
-    "text": "Take the First Step.\nI had no plan, when I first started trying to break into data science. Everybody seemed to have more experience, better portfolios, advanced degrees. I knew I had to learn, from people who already are with the game, if I was going to get noticed in the industry. So in the summer of 2025, I contacted hundreds of professionals on LinkedIn. At the end of the game, I’d done over 500 connection requests."
-  },
-  {
-    "objectID": "Blogs/Linkedin_Reach_Tips.html#cold-connections",
-    "href": "Blogs/Linkedin_Reach_Tips.html#cold-connections",
-    "title": "How to Reach Out to DS Professionals on LinkedIn",
-    "section": "Cold Connections:",
-    "text": "Cold Connections:\nLearning. At first, I felt a bit uncomfortable about it. Sending cold messages to strangers online is difficult. I was afraid I’d cause people to tune me out, or they would think I was just a waste of their time, if I weren’t as inexperienced. But I learned fast to kick things off well and the university alumni I talked to were also an early adopter. My messages were simple:\n”Hi [Name], Hello, my name is Alex J. Tovar, Data Science guy too. I would love to invest in this relationship and grow our LinkedIn profiles together. Let’s connect!”. Short message, but it demonstrates a shared interest in data science and invites the contacts as an investment in the company that might serve the two parties. If it is good, then why not accept it? This is the mental bargaining that goes into every reach message."
-  },
-  {
-    "objectID": "Blogs/Linkedin_Reach_Tips.html#small-numbers-big-impact.",
-    "href": "Blogs/Linkedin_Reach_Tips.html#small-numbers-big-impact.",
-    "title": "How to Reach Out to DS Professionals on LinkedIn",
-    "section": "Small Numbers, Big Impact.",
-    "text": "Small Numbers, Big Impact.\nFrom those hundreds of connections, only a tiny fraction responded but that few became super useful. A few offered to hop on Zoom or a phone call, to relay their stories or take some advice and get on board with the conversation. I learned what hiring managers really look for, how data teams are structured and how roles mesh information I would never even dreamt I would have come across in a course description or job posting. One thing which came out of these conversations was the power of active networking. Collecting connections for the sake of numbers can be quite easy, but what really matters is building good ones. A small number of genuine partnerships will take you far beyond the thousand shallow ones."
-  },
-  {
-    "objectID": "Blogs/Linkedin_Reach_Tips.html#from-talks-to-chances.",
-    "href": "Blogs/Linkedin_Reach_Tips.html#from-talks-to-chances.",
-    "title": "How to Reach Out to DS Professionals on LinkedIn",
-    "section": "From talks to chances.",
-    "text": "From talks to chances.\nAt times, that connection would take the form of a casual chit chat that eventually bled into a brief mentoring session. Other times all it did was a one-time conversation that showed me a new viewpoint. And, yes, in some cases those relationships opened the path to interviews and opportunities. But the biggest reward wasn’t the job prospects it was the confidence that I was no longer working through this on my own."
-  },
-  {
-    "objectID": "Blogs/Linkedin_Reach_Tips.html#final-thoughts.",
-    "href": "Blogs/Linkedin_Reach_Tips.html#final-thoughts.",
-    "title": "How to Reach Out to DS Professionals on LinkedIn",
-    "section": "Final Thoughts.",
-    "text": "Final Thoughts.\nFrom data science, I learned that opportunities are often presented to us in surprising ways. But those opportunities rarely come your way without putting oneself out there. So write your message and hit the “Connect” button and start developing relationships that will follow you outside of school."
-  },
-  {
-    "objectID": "Blogs/Hosting_Using_AWS.html",
-    "href": "Blogs/Hosting_Using_AWS.html",
+    "objectID": "Blogs/Hosting_Using_AWS.html#introduction",
+    "href": "Blogs/Hosting_Using_AWS.html#introduction",
     "title": "Hosting My Professional Portfolio Using AWS Amplify",
-    "section": "",
-    "text": "## Introduction When I initially began constructing projects, I was overwhelmed with one major question: How do I present them professionally? Uploading notebooks to GitHub was acceptable, but it didn’t truly showcase my work. I wanted something that looked nice, professional, and was easy to distribute to employers.\nThat’s when I stumbled upon Quarto, a free open-source website-publishing platform that converts Markdown and code into finished websites. While it was a great start, I realized that having complete control over my content in a reliable location was crucial for my professional portfolio. That’s where AWS Amplify came in."
+    "section": "Introduction",
+    "text": "Introduction\nWhen I initially began constructing projects, I was overwhelmed with one major question: How do I present them professionally? Uploading notebooks to GitHub was acceptable, but it didn’t truly showcase my work. I wanted something that looked nice, professional, and was easy to distribute to employers.\nThat’s when I stumbled upon Quarto, a free open-source website-publishing platform that converts Markdown and code into finished websites. While it was a great start, I realized that having complete control over my content in a reliable location was crucial for my professional portfolio. That’s where AWS Amplify came in."
+  },
+  {
+    "objectID": "Blogs/Hosting_Using_AWS.html#why-quarto",
+    "href": "Blogs/Hosting_Using_AWS.html#why-quarto",
+    "title": "Hosting My Professional Portfolio Using AWS Amplify",
+    "section": "Why Quarto?",
+    "text": "Why Quarto?\nQuarto is simple yet powerful. It allows you to blend code, text, and visuals all in one location whether writing blog posts, data analyses, or research reports. For users in data science or analytics, it strikes the perfect balance between documentation and presentation.\nSince I had worked with QMD files to analyze my data, I could turn them directly into interactive, modern web pages with Quarto. I didn’t have to learn web development from scratch; Quarto handled formatting, navigation, and layout. In just minutes, I had a site that resembled a publication rather than just a collection of notebooks."
+  },
+  {
+    "objectID": "Blogs/Hosting_Using_AWS.html#deploying-to-aws-amplify",
+    "href": "Blogs/Hosting_Using_AWS.html#deploying-to-aws-amplify",
+    "title": "Hosting My Professional Portfolio Using AWS Amplify",
+    "section": "Deploying to AWS Amplify",
+    "text": "Deploying to AWS Amplify\nOnce I completed my site on a local device using VSCode, I needed to host it. Free options like GitHub Pages were okay, but I preferred paid options that encouraged me to manage resources carefully.\nAWS Amplify directly hosts projects tied to a GitHub repository, allowing automatic updates when I make changes to the website. This seamless integration meant no manual uploads or tedious setup steps were necessary. Version control and deployment complemented each other perfectly.\nInitially, setting everything up was daunting. I had to create an Amplify app, link it to my GitHub repository, and double-check that the website looked correct after each installation. I learned valuable lessons through my mistakes and gained insights through my education.\nRunning my website on AWS isn’t just about visibility; it’s about marketing. I control how it looks, loads, and scales not limited by templates that restrict personalization. This technical independence showcases to employers that I go the extra mile and can demonstrate my professional skills."
   },
   {
     "objectID": "Blogs/Hosting_Using_AWS.html#how-to-turn-a-website-into-a-portfolio",
@@ -609,17 +420,66 @@
     "text": "The Professional Value it Offers\nA portfolio on AWS does more than showcase projects; it demonstrates initiative. It shows that you can work with cloud infrastructure, deploy applications, and document your data work professionally.\nFor roles in data science, analytics, or engineering, having such a portfolio improves your prospects. Recruiters and hiring managers can readily assess your technical abilities and communication skills two key factors that help strong candidates stand out.\nAWS is an actual cloud service, so hosting your portfolio there indicates familiarity with deployment and scaling crucial skills often overlooked by entry-level candidates."
   },
   {
-    "objectID": "Projects/NFL/NFL.html",
-    "href": "Projects/NFL/NFL.html",
-    "title": "NFL Big Data Bowl 2026: Player Position Prediction",
-    "section": "",
-    "text": "We will examine the NFL Big Data Bowl 2026 competition that encourages contestants to anticipate movements of players during pass plays while the ball is in the air. The idea is to enable the NFL to understand dynamic player positioning—from the moment when a quarterback releases the ball to the point at which it is caught or is ruled incomplete. This analysis has broad applications in several areas:\n\nCoaching Strategy: Defensive position optimization and coverage scheme development\nPlayer Evaluation: Understanding how a receiver tracks the ball and how a defender responds to a threat presented by an aerial shot\nBroadcasting: Prediction graphics and improved game analysis for viewers in real time\nAnalytics Teams: Play design iterations and employee personnel decisions\nSports Analytics: Higher level metrics for assessing individual performance and situational awareness\n\nThe competition dataset includes passing plays from the 2023 NFL season, which kept the ball suspended in the air for at least 0.5 seconds apart from deflected passes, throwaways, and passes with unknown targeted receivers, as defined by the data. Each play is recorded at 10 frames per second and the model has to predict (x, y) coordinates for each player at each of the frames of time while the ball is airborne.\nA feedforward neural network-based deep learning model was proposed to predict game positions for players by pre-snap positioning, player movement parameters, and ball trajectory data. Both x and y dimensions average Mean Absolute Error of approximately 3 yards, which is good prediction that can be also used as a real-time decision-making help and help later post-game analysis."
+    "objectID": "Blogs/Hosting_Using_AWS.html#final-thoughts",
+    "href": "Blogs/Hosting_Using_AWS.html#final-thoughts",
+    "title": "Hosting My Professional Portfolio Using AWS Amplify",
+    "section": "Final Thoughts",
+    "text": "Final Thoughts\nStarting a Quarto site via AWS began as a personal exploration of a tool, but it soon evolved into a significant piece of my professional identity. It’s not just a portfolio; it’s a written memoir of personal evolution, exploration, and curiosity.\nBuilding your own in data science, analytics, or any tech field is entirely feasible. Quarto and AWS together can transform your work into something substantial beyond a résumé. They turn it into proof of your capabilities."
   },
   {
-    "objectID": "Blogs/Linkedin_Reach_Tips.html#what-networking-really-means.",
-    "href": "Blogs/Linkedin_Reach_Tips.html#what-networking-really-means.",
-    "title": "How to Reach Out to DS Professionals on LinkedIn",
-    "section": "What Networking Really Means.",
-    "text": "What Networking Really Means.\nNetworking isn’t about getting something from someone; it’s about learning from them. It can be about being interested, listening closely and mutual respect. Data scientists, of course, and people really across the board thrive when they blend technical expertise with good people. If I could recommend one piece of advice to novices, I would say this: don’t wait until you’re “qualified” to go out. The best time to connect is now. What will get through to you is not all of a sudden your problems have changed; just curiosity and a willingness to listen."
+    "objectID": "index.html",
+    "href": "index.html",
+    "title": "Car Crash Detector",
+    "section": "",
+    "text": "Upload or take a photo of a car, and our AI will analyze whether it’s damaged using advanced machine learning and explainable AI techniques.\n\n  \n    \n      \n      Accepts JPG and PNG formats\n      \n      \n        🔍\n        Analyze Car\n      \n    \n  \n  \n  \n    \n    \n      \n    \n  \n  \n  \n  \n  \n    \n    Red boundaries highlight the regions that most influenced the AI's decision"
+  },
+  {
+    "objectID": "index.html#ai-powered-car-damage-detection",
+    "href": "index.html#ai-powered-car-damage-detection",
+    "title": "Car Crash Detector",
+    "section": "",
+    "text": "Upload or take a photo of a car, and our AI will analyze whether it’s damaged using advanced machine learning and explainable AI techniques.\n\n  \n    \n      \n      Accepts JPG and PNG formats\n      \n      \n        🔍\n        Analyze Car\n      \n    \n  \n  \n  \n    \n    \n      \n    \n  \n  \n  \n  \n  \n    \n    Red boundaries highlight the regions that most influenced the AI's decision"
+  },
+  {
+    "objectID": "index.html#how-this-project-was-built",
+    "href": "index.html#how-this-project-was-built",
+    "title": "Car Crash Detector",
+    "section": "🚗 How This Project Was Built",
+    "text": "🚗 How This Project Was Built\nThis car crash detector was built using a modern tech stack combining machine learning, explainable AI, and cloud infrastructure:\n\nSystem Architecture & Workflow\n\nFrontend & Hosting:\n\nBuilt with Quarto - a scientific publishing system that converts Markdown to beautiful HTML\nHosted on AWS Amplify with automatic deployments from GitHub\nResponsive design for desktop and mobile viewing\n\nMachine Learning Pipeline:\n\nRandom Forest Classifier trained on 5,000 car images\nAchieves ~85-90% accuracy in detecting vehicle damage\nExtracts 48 features: color histograms, edge gradients, and texture patterns\nModel size: 9.3 MB, inference time: &lt;1 second\n\nExplainability Layer:\n\nLIME (Local Interpretable Model-agnostic Explanations) generates visual explanations\nHighlights image regions that most influenced the AI’s decision\nRed boundaries show what the model was “looking at” when making predictions\n\nAI Analysis:\n\nClaude API (Anthropic) analyzes the LIME visualization\nProvides human-readable explanations of the model’s reasoning\nValidates predictions and identifies potential issues\n\nBackend Infrastructure:\n\nDeployed on Google Cloud Run (serverless container platform)\nHandles image preprocessing, prediction, and LIME generation\nAuto-scales based on demand with 2GB memory, 2 CPU cores\n\nComplete workflow: User uploads image → Cloud Run processes → Random Forest predicts → LIME explains → Claude analyzes → Results displayed with visual heatmap and AI commentary."
+  },
+  {
+    "objectID": "Machine_Learning/Executive Case Summary Module 3 - Team 8.html",
+    "href": "Machine_Learning/Executive Case Summary Module 3 - Team 8.html",
+    "title": "Alex J. Tovar",
+    "section": "",
+    "text": "Title Page 1\nBackground 2\nMethodology 3\nDiscussion Responses 4\nThe study intends to predict house pricing and provide quantifiable evidence that our predictions are reliable by studying the factors influencing the price, such as date, bedrooms, etc. Its purpose is to research and learn about the housing market’s trends and correlations to meet the interests of our customers.\nQuantifying our results using metrics such as “Mean Absolute Error” resulted in a score of $57,536.73, implying that our predictions were only off from the actual result by $57,536.73 on average. We also used metrics such as “Median Absolute Error,” with a score of “38663.0”, which takes the median of the results instead of the mean, thus yielding a result less sensitive to predictions that are very far from the target. In this case, our predictions are $38,663.0 away from the target on a median scale. As well as “RMSE(Root mean square error,”, which serves as a measure that emphasizes big mistakes by encouraging the model to reduce smaller errors.\nAs we examined the data, our first goal was to identify data features that influence the predictions’ accuracy and precision. To elaborate, the house’s attributes, such as view, year built, and living space, best predict its price. Thus, we deployed the machine-learning model and made predictions on all the features. First, we wrangle the data by creating the “Year Sold” feature in the data, to feature how the time sold of the house influences the price itself in the predictions.\nWe split the data with 20% of the values designed for the test, then trained the model with the other 80% of the data to predict the values in the test. Furthermore, we’ve tuned the model by testing different parameters/settings on the model to yield more accurate results. For example, we’ve implemented the “Root Mean Squared Error” as the metric due to the request not to overestimate houses that could be in the low-income bracket. It was followed by a moderate learning rate value that reduces the chances of inaccurate and inconsistent solutions/predictions. As well as modifying the subsample/data distributed to the model’s mini-training rounds reduces bias in memorizing the training data instead of making predictions of the test data. After the test, the model evaluated the results and displayed the most important features to properly and confidently predict the correct housing prices.\nThis is a supervised regression problem, which is based on structured data features, we predict a continuous variable (house price). The target variable is continuous which fits the regression criteria. We trained the model using historical housing data with labeled outcomes.\nTo quantify prediction reliability, we used multiple metrics:\nSelected Metric:\nThese metrics collectively provide empirical confidence in the model’s performance, illustrating the model’s capability to produce reliable predictions.\nWilliam (VP of Finance) raised concerns about adjusting home values for lower-income neighborhoods. After careful consideration, we strongly advise against manual price reductions, as this practice may violate Fair Housing laws. Instead, we propose:\nExplanation:\nJohnny (Data Science Intern) asked about feature scaling. Since XGBoost automatically handles different feature scales, no additional normalization was needed. However, standardization would be required for models like linear regression.\nAdditionally, we ensured that categorical features were appropriately encoded and irrelevant columns (like ‘id’) were removed to enhance model performance."
+  },
+  {
+    "objectID": "Machine_Learning/Executive Case Summary Module 3 - Team 8.html#house-price-case-study-project",
+    "href": "Machine_Learning/Executive Case Summary Module 3 - Team 8.html#house-price-case-study-project",
+    "title": "Alex J. Tovar",
+    "section": "",
+    "text": "Title Page 1\nBackground 2\nMethodology 3\nDiscussion Responses 4"
+  },
+  {
+    "objectID": "Machine_Learning/Executive Case Summary Module 3 - Team 8.html#methodology",
+    "href": "Machine_Learning/Executive Case Summary Module 3 - Team 8.html#methodology",
+    "title": "Alex J. Tovar",
+    "section": "Methodology",
+    "text": "Methodology"
+  },
+  {
+    "objectID": "Machine_Learning/Executive Case Summary Module 3 - Team 8.html#discussion-responses",
+    "href": "Machine_Learning/Executive Case Summary Module 3 - Team 8.html#discussion-responses",
+    "title": "Alex J. Tovar",
+    "section": "Discussion Responses",
+    "text": "Discussion Responses"
+  },
+  {
+    "objectID": "Projects/Model.html",
+    "href": "Projects/Model.html",
+    "title": "Insurance Claims Prediction Model",
+    "section": "",
+    "text": "precision  recall  f1-score  support\n0                  0.94    0.99      0.96  10969.0\n1                  0.07    0.01      0.01    750.0\naccuracy           0.93     NaN       NaN  11719.0\nmacro avg          0.50    0.50      0.49  11719.0\nweighted avg       0.88    0.93      0.90  11719.0"
   }
 ]
