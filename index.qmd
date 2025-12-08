@@ -1,9 +1,9 @@
 ---
-title: "Car Crash Detector"
+title: "Wrecked Car Detector"
 format: html
 ---
 
-## AI-Powered Car Damage Detection
+## ML-Powered Wrecked Car Detector
 
 Upload or take a photo of a car, and our AI will analyze whether it's damaged using advanced machine learning and explainable AI techniques.
 
@@ -383,7 +383,7 @@ document.getElementById('analyzeBtn').addEventListener('click', async () => {
     <div style="text-align: center;">
       <div style="font-size: 2em; margin-bottom: 15px;">🔍</div>
       <strong>Analyzing your car image with AI...</strong>
-      <p style="margin-top: 10px; opacity: 0.8;">This may take 15-30 seconds as we:</p>
+      <p style="margin-top: 10px; opacity: 0.8;">This may take 1-2 Minutes as we:</p>
       <ul style="text-align: left; max-width: 500px; margin: 15px auto; opacity: 0.8;">
         <li>Extract 48 features from your image</li>
         <li>Run Random Forest prediction</li>
