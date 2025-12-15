@@ -32,6 +32,8 @@ website:
             text: "Hosting Using AWS" 
           - href: Blogs/AWS_Cloud_Computing.Rmd
             text: "AWS Cloud Computing"
+          - href: Blogs/End-to-End_ML.Rmd
+            text: "End-to-End ML Applications"
 
 
 format:
