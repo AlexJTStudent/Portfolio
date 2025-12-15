@@ -306,7 +306,7 @@ knitr::kable(case_metrics,
 
 # AI Usage Disclosure
 
-In preparing this executive case summary, I utilized AI tools to enhance clarity and intuitive exaplanations. Specifically, I used ChatGPT to assist in refining the language, ensuring that complex technical concepts were communicated effectively to a broader audience. The AI was used to help with the vectors of the chart, and suggest improvements in sentence structure and flow but did not contribute original content or analysis.
+In preparing this executive case summary, I utilized AI tools to improve clarity and intuitive explanations. Specifically, I used ChatGPT to assist in refining the language, ensuring that technical concepts were communicated effectively to a broader audience. The AI was also used to help with the vectors of the chart, and suggest improvements in sentence structure and flow but did not contribute original content or analysis.
 
 ---
 <center>
