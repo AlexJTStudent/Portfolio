@@ -7,7 +7,7 @@ website:
   navbar:
     left:
       - href: index.qmd
-        text: "Car Crash Detector"
+        text: "Wrecked Car Detector"
       - text: "A/B TESTING"
         menu:
           - href: AB_TESTS/MyTwoWayANOVA.Rmd
