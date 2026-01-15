@@ -53,7 +53,7 @@
     "href": "mcm_2024_problem_a.html",
     "title": "2024 MCM Problem A — Resource Availability and Sex Ratios",
     "section": "",
-    "text": "Question. Explore how variable sex ratios in sea lampreys, driven by larval growth rates which depend on food availability, affect lamprey population dynamics and the larger ecosystem. We investigate advantages and disadvantages of adaptive sex ratios, impacts on stability, and secondary effects on hosts and parasites.\nApproach. We build a stage-structured dynamical model with resource dynamics and a sex-determination function m(R) mapping resource availability to fraction male. The core model couples: host fish (F), lamprey population stages (eggs E, larvae L, adults A split by sex M and W), and resource pool (R). We analyze equilibria, perform stability and sensitivity analyses, and run numerical simulations under low and high resource regimes.\nKey results (summary).\n\nAdaptive sex ratio that produces more males under low food can protect the lamprey population by reducing reproductive output when resources are scarce, acting as a bet-hedging strategy and lowering the risk of overshooting the resource base.\nVariable sex ratios change ecosystem stability: in some parameter regions they stabilize host-lamprey dynamics (damp oscillations) but can destabilize when reproduction responds nonlinearly to resources.\nSecondary effects: variable sex ratios can indirectly benefit parasites (and other species) by smoothing lamprey-driven fish mortality peaks, changing predation pressure timing.\n\nConclusions. Adaptive sex ratio variation is a plausible evolutionary response to variable resources; it mitigates boom-bust dynamics for lampreys and alters ecosystem resilience. Management implications: controlling resource availability (for example, habitat alteration) can shift sex ratios and thus population trajectories.\n\n\n\\[\n   F(t) \\text{: Density of host fish (food source or hosts for adult lampreys).}\n\\\\ R(t) \\text{: Dimensionless resource availability (normalized, 0 to 1).}\n\\\\ E(t) \\text{: Egg stock.}\n\\\\ L(t) \\text{: Larvae.}\n\\\\ M(t) \\text{: Adult males.}\n\\\\ W(t) \\text{: Adult females.}\n\\\\ A(t) = M(t) + W(t) \\text{: Total adult lampreys.}\n\\]\n\n\n\nR(t): dimensionless resource availability (normalized, 0 to 1). F(t): density of host fish (food source/hosts for adult lampreys). E(t): egg stock. L(t): larvae. M(t): adult males. W(t): adult females. A(t) = M(t) + W(t): total adult lampreys.\n\n\n\nWe define a simple linear mapping from resource level R in [0,1] to male fraction m(R) matching the observed endpoints:\n\\[\nm(R) = 0.78 - 0.22 R\n\\]\nThus,\n\\[\nm(0) = 0.78, \\quad m(1) = 0.56\n\\]\nand the female fraction is\n\\[\n1 - m(R)\n\\]\n\n\n\nThe model equations are presented here (derivatives):\n\\[\n\\begin{aligned}\n\\frac{dR}{dt} &= S - d_R R - c_R L - c_A A, \\\\\\\\\n\\frac{dF}{dt} &= r_F F \\left(1 - \\frac{F}{K}\\right) - \\beta A \\frac{F}{F + H}, \\\\\\\\\n\\frac{dE}{dt} &= b W - \\sigma_E E - \\mu_E E, \\\\\\\\\n\\frac{dL}{dt} &= \\sigma_E E - \\sigma_L L - \\mu_L L, \\\\\\\\\n\\frac{dM}{dt} &= m(R)\\, \\sigma_L L - \\mu_A M, \\\\\\\\\n\\frac{dW}{dt} &= (1 - m(R))\\, \\sigma_L L - \\mu_A W.\n\\end{aligned}\n\\]\nExplanation of parameters\n\nS: resource supply rate (controls low/high regimes)\n\nd_R: resource decay/loss\n\nc_R, c_A: consumption coefficients by larvae and adults\n\nr_F: intrinsic growth rate of host fish, K carrying capacity\n\nβ: mortality rate of fish due to lamprey parasitism (functional response with half-saturation H)\n\nb: per-female effective reproductive contribution (eggs that contribute to E)\n\nσ_E, σ_L: progression rates from eggs to larvae and larvae to adults\n\nμ_E, μ_L, μ_A: stage-specific mortality rates"
+    "text": "\\[1+1\\]\n@tovar"
   },
   {
     "objectID": "mcm_2024_problem_a.html#model-variables",
@@ -495,5 +495,33 @@
     "title": "Insurance Claims Prediction Model",
     "section": "",
     "text": "precision  recall  f1-score  support\n0                  0.94    0.99      0.96  10969.0\n1                  0.07    0.01      0.01    750.0\naccuracy           0.93     NaN       NaN  11719.0\nmacro avg          0.50    0.50      0.49  11719.0\nweighted avg       0.88    0.93      0.90  11719.0"
+  },
+  {
+    "objectID": "Blogs/My_First_Week.html#introduction.",
+    "href": "Blogs/My_First_Week.html#introduction.",
+    "title": "My First Week in Entrepreneurship",
+    "section": "Introduction.",
+    "text": "Introduction.\nHey, my name is Alex, and I started my entrepreneurial career by taking “Intro to Entrepreneurship” here at BYU-I. Although daunting at first, I’ve become more confident that I can succeed not only in class, but also in business and life. Today’s blog will cover what I’ve learned this week from readings and videos, and what I’m looking forward to learning and experiencing from the course."
+  },
+  {
+    "objectID": "Blogs/My_First_Week.html#getting-started.",
+    "href": "Blogs/My_First_Week.html#getting-started.",
+    "title": "My First Week in Entrepreneurship",
+    "section": "Getting Started.",
+    "text": "Getting Started.\nTo start, I’ve been assigned three books: “A Field Guide for the Hero’s Journey”, “Mastery”, and “Launching Leaders: An Empowering Journey for a New Generation (Christian Edition).” All books offer valuable advice on various aspects of managing and launching a business."
+  },
+  {
+    "objectID": "Blogs/My_First_Week.html#book-insights.",
+    "href": "Blogs/My_First_Week.html#book-insights.",
+    "title": "My First Week in Entrepreneurship",
+    "section": "Book Insights.",
+    "text": "Book Insights.\nFor example, “Launching New Leaders.” Gives a unique approach on how to be a leader and a devoted Christian at the same time. Combining scriptures from the Bible with reputable experiences from professionals, and tips to tackle different problems. For example, framing problems to focus and gain a different perspective on your behavior and the problem itself. Implying to exclude all the unnecessary bluff in your life and simplify and target what matters. As well as taking difficult events in your life and making them great lessons on what truly matters in life and what doesn’t."
+  },
+  {
+    "objectID": "Blogs/My_First_Week.html#course-insights",
+    "href": "Blogs/My_First_Week.html#course-insights",
+    "title": "My First Week in Entrepreneurship",
+    "section": "Course Insights",
+    "text": "Course Insights\nThis week I also covered my goals in life, by being tasked to list 50 goals. It gave a perspective into myself and what I really want to accomplish, such as starting a consulting firm, learning lots of analytical tools, and even doing a handstand push-up. The task emphasizes the importance of finding what I truly want and how to define it. For example, starting a consulting firm would require me to acquire an LLC, investigate consulting insurance, and design a logo. In the end, I learned that entrepreneurship and life goals are very vast, and I look forward to being organized to tackle every problem."
   }
 ]

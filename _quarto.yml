@@ -34,6 +34,8 @@ website:
             text: "AWS Cloud Computing"
           - href: Blogs/End-to-End_ML.Rmd
             text: "End-to-End ML Applications"
+          - href: Blogs/My_First_Week.Rmd
+            text: "First Week in Entrepreneurship"
 
 
 format:
