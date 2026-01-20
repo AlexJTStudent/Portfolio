@@ -36,6 +36,8 @@ website:
             text: "End-to-End ML Applications"
           - href: Blogs/My_First_Week.Rmd
             text: "First Week in Entrepreneurship"
+          - href: Blogs/post2.Rmd
+            text: "The Importance of Dreams"
 
 
 format:

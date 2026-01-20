@@ -56,34 +56,6 @@
     "text": "\\[1+1\\]\n@tovar"
   },
   {
-    "objectID": "mcm_2024_problem_a.html#model-variables",
-    "href": "mcm_2024_problem_a.html#model-variables",
-    "title": "2024 MCM Problem A — Resource Availability and Sex Ratios",
-    "section": "",
-    "text": "\\[\n   F(t) \\text{: Density of host fish (food source or hosts for adult lampreys).}\n\\\\ R(t) \\text{: Dimensionless resource availability (normalized, 0 to 1).}\n\\\\ E(t) \\text{: Egg stock.}\n\\\\ L(t) \\text{: Larvae.}\n\\\\ M(t) \\text{: Adult males.}\n\\\\ W(t) \\text{: Adult females.}\n\\\\ A(t) = M(t) + W(t) \\text{: Total adult lampreys.}\n\\]"
-  },
-  {
-    "objectID": "mcm_2024_problem_a.html#model-variables-1",
-    "href": "mcm_2024_problem_a.html#model-variables-1",
-    "title": "2024 MCM Problem A — Resource Availability and Sex Ratios",
-    "section": "",
-    "text": "R(t): dimensionless resource availability (normalized, 0 to 1). F(t): density of host fish (food source/hosts for adult lampreys). E(t): egg stock. L(t): larvae. M(t): adult males. W(t): adult females. A(t) = M(t) + W(t): total adult lampreys."
-  },
-  {
-    "objectID": "mcm_2024_problem_a.html#resource-dependent-sex-ratio",
-    "href": "mcm_2024_problem_a.html#resource-dependent-sex-ratio",
-    "title": "2024 MCM Problem A — Resource Availability and Sex Ratios",
-    "section": "",
-    "text": "We define a simple linear mapping from resource level R in [0,1] to male fraction m(R) matching the observed endpoints:\n\\[\nm(R) = 0.78 - 0.22 R\n\\]\nThus,\n\\[\nm(0) = 0.78, \\quad m(1) = 0.56\n\\]\nand the female fraction is\n\\[\n1 - m(R)\n\\]"
-  },
-  {
-    "objectID": "mcm_2024_problem_a.html#ode-system-stage-structured",
-    "href": "mcm_2024_problem_a.html#ode-system-stage-structured",
-    "title": "2024 MCM Problem A — Resource Availability and Sex Ratios",
-    "section": "",
-    "text": "The model equations are presented here (derivatives):\n\\[\n\\begin{aligned}\n\\frac{dR}{dt} &= S - d_R R - c_R L - c_A A, \\\\\\\\\n\\frac{dF}{dt} &= r_F F \\left(1 - \\frac{F}{K}\\right) - \\beta A \\frac{F}{F + H}, \\\\\\\\\n\\frac{dE}{dt} &= b W - \\sigma_E E - \\mu_E E, \\\\\\\\\n\\frac{dL}{dt} &= \\sigma_E E - \\sigma_L L - \\mu_L L, \\\\\\\\\n\\frac{dM}{dt} &= m(R)\\, \\sigma_L L - \\mu_A M, \\\\\\\\\n\\frac{dW}{dt} &= (1 - m(R))\\, \\sigma_L L - \\mu_A W.\n\\end{aligned}\n\\]\nExplanation of parameters\n\nS: resource supply rate (controls low/high regimes)\n\nd_R: resource decay/loss\n\nc_R, c_A: consumption coefficients by larvae and adults\n\nr_F: intrinsic growth rate of host fish, K carrying capacity\n\nβ: mortality rate of fish due to lamprey parasitism (functional response with half-saturation H)\n\nb: per-female effective reproductive contribution (eggs that contribute to E)\n\nσ_E, σ_L: progression rates from eggs to larvae and larvae to adults\n\nμ_E, μ_L, μ_A: stage-specific mortality rates"
-  },
-  {
     "objectID": "index.html",
     "href": "index.html",
     "title": "Wrecked Car Detector",
@@ -103,6 +75,34 @@
     "title": "Wrecked Car Detector",
     "section": "🚗 How This Project Was Built",
     "text": "🚗 How This Project Was Built\nThis car crash detector was built using a modern tech stack combining machine learning, explainable AI, and cloud infrastructure:\n\nSystem Architecture & Workflow\n\nFrontend & Hosting:\n\nBuilt with Quarto - a scientific publishing system that converts Markdown to beautiful HTML\nHosted on AWS Amplify with automatic deployments from GitHub\nResponsive design for desktop and mobile viewing\n\nMachine Learning Pipeline:\n\nRandom Forest Classifier trained on 5,000 car images\nAchieves ~85-90% accuracy in detecting vehicle damage\nExtracts 48 features: color histograms, edge gradients, and texture patterns\nModel size: 9.3 MB, inference time: &lt;1 second\n\nExplainability Layer:\n\nLIME (Local Interpretable Model-agnostic Explanations) generates visual explanations\nHighlights image regions that most influenced the AI’s decision\nRed boundaries show what the model was “looking at” when making predictions\n\nAI Analysis:\n\nClaude API (Anthropic) analyzes the LIME visualization\nProvides human-readable explanations of the model’s reasoning\nValidates predictions and identifies potential issues\n\nBackend Infrastructure:\n\nDeployed on Google Cloud Run (serverless container platform)\nHandles image preprocessing, prediction, and LIME generation\nAuto-scales based on demand with 2GB memory, 2 CPU cores\n\nComplete workflow: User uploads image → Cloud Run processes → Random Forest predicts → LIME explains → Claude analyzes → Results displayed with visual heatmap and AI commentary."
+  },
+  {
+    "objectID": "Blogs/My_First_Week.html#introduction.",
+    "href": "Blogs/My_First_Week.html#introduction.",
+    "title": "My First Week in Entrepreneurship",
+    "section": "Introduction.",
+    "text": "Introduction.\nHey, my name is Alex, and I started my entrepreneurial career by taking “Intro to Entrepreneurship” here at BYU-I. Although daunting at first, I’ve become more confident that I can succeed not only in class, but also in business and life. Today’s blog will cover what I’ve learned this week from readings and videos, and what I’m looking forward to learning and experiencing from the course."
+  },
+  {
+    "objectID": "Blogs/My_First_Week.html#getting-started.",
+    "href": "Blogs/My_First_Week.html#getting-started.",
+    "title": "My First Week in Entrepreneurship",
+    "section": "Getting Started.",
+    "text": "Getting Started.\nTo start, I’ve been assigned three books: “A Field Guide for the Hero’s Journey”, “Mastery”, and “Launching Leaders: An Empowering Journey for a New Generation (Christian Edition).” All books offer valuable advice on various aspects of managing and launching a business."
+  },
+  {
+    "objectID": "Blogs/My_First_Week.html#book-insights.",
+    "href": "Blogs/My_First_Week.html#book-insights.",
+    "title": "My First Week in Entrepreneurship",
+    "section": "Book Insights.",
+    "text": "Book Insights.\nFor example, “Launching New Leaders.” Gives a unique approach on how to be a leader and a devoted Christian at the same time. Combining scriptures from the Bible with reputable experiences from professionals, and tips to tackle different problems. For example, framing problems to focus and gain a different perspective on your behavior and the problem itself. Implying to exclude all the unnecessary bluff in your life and simplify and target what matters. As well as taking difficult events in your life and making them great lessons on what truly matters in life and what doesn’t."
+  },
+  {
+    "objectID": "Blogs/My_First_Week.html#course-insights",
+    "href": "Blogs/My_First_Week.html#course-insights",
+    "title": "My First Week in Entrepreneurship",
+    "section": "Course Insights",
+    "text": "Course Insights\nThis week I also covered my goals in life, by being tasked to list 50 goals. It gave a perspective into myself and what I really want to accomplish, such as starting a consulting firm, learning lots of analytical tools, and even doing a handstand push-up. The task emphasizes the importance of finding what I truly want and how to define it. For example, starting a consulting firm would require me to acquire an LLC, investigate consulting insurance, and design a logo. In the end, I learned that entrepreneurship and life goals are very vast, and I look forward to being organized to tackle every problem."
   },
   {
     "objectID": "Blogs/Hosting_Using_AWS.html#introduction",
@@ -476,6 +476,34 @@
     "text": "Final Thoughts.\nFrom data science, I learned that opportunities are often presented to us in surprising ways. But those opportunities rarely come your way without putting oneself out there. So write your message and hit the “Connect” button and start developing relationships that will follow you outside of school."
   },
   {
+    "objectID": "Blogs/post2.html#achieved-by-sheer-will-and-purpose",
+    "href": "Blogs/post2.html#achieved-by-sheer-will-and-purpose",
+    "title": "Randy Pausch’s Last Lecture",
+    "section": "Achieved by sheer will and purpose",
+    "text": "Achieved by sheer will and purpose\nRandy Pausch’s last lecture reflections. Randy Pausch realized many of his childhood dreams not by any luck or magic but by his perseverance and resolve to not allow adversity to be the limit of his own capacity. He preached that “brick walls are there for a reason: they let us prove how badly we want things.” He didn’t take rejection from Disney Imagineering as a final obstacle but as a temporary setback. He was a lifelong fan of rejection; he knew that it is just part of the story and that if you push at it, doors to things you once thought you had no access to will open for you."
+  },
+  {
+    "objectID": "Blogs/post2.html#the-importance-of-dreams",
+    "href": "Blogs/post2.html#the-importance-of-dreams",
+    "title": "Randy Pausch’s Last Lecture",
+    "section": "The importance of dreams",
+    "text": "The importance of dreams\nWhat he is showing is that even dreaming things through can require vision, but also the ability to push through disappointment. There is a thing that I entirely believe: dreaming is crucial to life. Dreams teach us how to live; they take what we do each day from the tiniest step to a path toward all that is. When we have no dreams, we are easily lost in life’s activities and drift through life without thought about it. Pausch’s life illustrates this beautifully: his dream during childhood to build up Disney-like experiences that were not only real but structured his educational decisions, professional experiences, and creative projects were no accident."
+  },
+  {
+    "objectID": "Blogs/post2.html#dreams-as-a-roadmap",
+    "href": "Blogs/post2.html#dreams-as-a-roadmap",
+    "title": "Randy Pausch’s Last Lecture",
+    "section": "Dreams as a roadmap",
+    "text": "Dreams as a roadmap\nDreams provide us with the “why” behind our actions, which is especially crucial when we all feel like we can’t muster up some motivation. One of my childhood dreams was for me to have a business that actually helps people solve real problems; namely, to have my own consulting firm, which turns struggling businesses into profitable ones. I feel I can fulfill this dream, as right now I am building the base. I’m learning in my new classes how to take ambitious aspirations and distill them down into manageable plans for me to follow up on: obtain an LLC, comprehend insurance standards, and become analytical."
+  },
+  {
+    "objectID": "Blogs/post2.html#life-lessons",
+    "href": "Blogs/post2.html#life-lessons",
+    "title": "Randy Pausch’s Last Lecture",
+    "section": "Life lessons",
+    "text": "Life lessons\nAs Pausch said, it’s not so much the destination as the “how to lead your life.” My commitment to ongoing learning, seeing failures as learning experiences, and staying focused on the things that really matter means I’m poised to realize this dream. Pausch’s talk consolidated concepts from this week’s readings on framing problems and simplifying focus. It echoes his philosophy that “experience is what you get when you don’t get what you want,” which is perfectly aligned with creating lessons out of hardships. This is exactly the mindset that I look forward to putting into practice for the challenges and trials of entrepreneurship, as I know they will ultimately be a chance to show how badly I want to succeed."
+  },
+  {
     "objectID": "index_cnn.html",
     "href": "index_cnn.html",
     "title": "Car Crash Detector - Neural Network",
@@ -495,33 +523,5 @@
     "title": "Insurance Claims Prediction Model",
     "section": "",
     "text": "precision  recall  f1-score  support\n0                  0.94    0.99      0.96  10969.0\n1                  0.07    0.01      0.01    750.0\naccuracy           0.93     NaN       NaN  11719.0\nmacro avg          0.50    0.50      0.49  11719.0\nweighted avg       0.88    0.93      0.90  11719.0"
-  },
-  {
-    "objectID": "Blogs/My_First_Week.html#introduction.",
-    "href": "Blogs/My_First_Week.html#introduction.",
-    "title": "My First Week in Entrepreneurship",
-    "section": "Introduction.",
-    "text": "Introduction.\nHey, my name is Alex, and I started my entrepreneurial career by taking “Intro to Entrepreneurship” here at BYU-I. Although daunting at first, I’ve become more confident that I can succeed not only in class, but also in business and life. Today’s blog will cover what I’ve learned this week from readings and videos, and what I’m looking forward to learning and experiencing from the course."
-  },
-  {
-    "objectID": "Blogs/My_First_Week.html#getting-started.",
-    "href": "Blogs/My_First_Week.html#getting-started.",
-    "title": "My First Week in Entrepreneurship",
-    "section": "Getting Started.",
-    "text": "Getting Started.\nTo start, I’ve been assigned three books: “A Field Guide for the Hero’s Journey”, “Mastery”, and “Launching Leaders: An Empowering Journey for a New Generation (Christian Edition).” All books offer valuable advice on various aspects of managing and launching a business."
-  },
-  {
-    "objectID": "Blogs/My_First_Week.html#book-insights.",
-    "href": "Blogs/My_First_Week.html#book-insights.",
-    "title": "My First Week in Entrepreneurship",
-    "section": "Book Insights.",
-    "text": "Book Insights.\nFor example, “Launching New Leaders.” Gives a unique approach on how to be a leader and a devoted Christian at the same time. Combining scriptures from the Bible with reputable experiences from professionals, and tips to tackle different problems. For example, framing problems to focus and gain a different perspective on your behavior and the problem itself. Implying to exclude all the unnecessary bluff in your life and simplify and target what matters. As well as taking difficult events in your life and making them great lessons on what truly matters in life and what doesn’t."
-  },
-  {
-    "objectID": "Blogs/My_First_Week.html#course-insights",
-    "href": "Blogs/My_First_Week.html#course-insights",
-    "title": "My First Week in Entrepreneurship",
-    "section": "Course Insights",
-    "text": "Course Insights\nThis week I also covered my goals in life, by being tasked to list 50 goals. It gave a perspective into myself and what I really want to accomplish, such as starting a consulting firm, learning lots of analytical tools, and even doing a handstand push-up. The task emphasizes the importance of finding what I truly want and how to define it. For example, starting a consulting firm would require me to acquire an LLC, investigate consulting insurance, and design a logo. In the end, I learned that entrepreneurship and life goals are very vast, and I look forward to being organized to tackle every problem."
   }
 ]
