@@ -1,0 +1,34 @@
+---
+title: "Launching Leaders: An Empowering Journey for a New Generation"
+output: 
+  html_document:
+    theme: flatly
+    code_folding: hide
+---
+
+![](launchingleaders1.png)
+&nbsp;
+
+## Introduction.
+
+This week’s readings on “How Will You Measure Your Life” have completely changed the way I perceive success. For me, the most powerful framework I got was Jim Collins’ three circles idea from Tom Kelley’s presentation. This notion that success isn’t as much about what you excel at as it is about finding the intersection between what you are really good at, what you are destined to do, and what people will pay you for is a big one.
+
+## Key Insights.
+
+I've spent too long trapped in the "curse of competence," doing things simply because I can, not because it is what I am doing to fulfill the purpose. Collins’ idea of using a lab notebook to track when I feel the happiest and most in flow is something I am doing at moment’s notice. I want to find out what I’m truly born to do, rather than just going along with what is easy/right.
+
+## Productivity Pyramid.
+
+This lesson on the Productivity Pyramid by Jim Ritchie provided me with tools to implement every day in accordance with my beliefs. Without that structure, I found, I’m only busy, not productive. My governing values must serve as the groundwork, which in turn determines the long-term goals, short-term goals, and the daily tasks. This is closely linked to the idea of the Personal Constitution writing “I am” statements around who I want to be and prioritizing them.
+
+
+![](launchingleaders2.png)
+
+## Life Lessons.
+
+I was struck by the example about integrity vs financial independence. Otherwise, if I fail to consciously prioritize my values, I’ll sacrifice what matters most when making hard choices. Jeff Hawkins’ message of good choices over longer hours was liberating. I have accepted the myth that entrepreneurship, which comes with sacrifice, means losing family time all the time.
+
+## Conclusion.
+
+But Hawkins has shown that it pays to make better decisions every day, rather than to grind endlessly. Success is about intelligent decisions, not just hard work. This is in keeping with determining life not as hours spent, but as the decisions made that demonstrate a value system in alignment with values that lead to true purpose.
+From this lens, I hope to implement the Productivity Pyramid and the three circles framework for a more intentional, values-driven approach to business and life, making sure that it is the success that I want to measure for myself that defines and guides my success.

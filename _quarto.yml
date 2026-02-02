@@ -38,6 +38,8 @@ website:
             text: "First Week in Entrepreneurship"
           - href: Blogs/post2.Rmd
             text: "The Importance of Dreams"
+          - href: Blogs/LaunchingLeaders.Rmd
+            text: "Launching Leaders"
 
 
 format:
