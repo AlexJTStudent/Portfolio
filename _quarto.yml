@@ -40,6 +40,8 @@ website:
             text: "The Importance of Dreams"
           - href: Blogs/LaunchingLeaders.Rmd
             text: "Launching Leaders"
+          - href: Blogs/HeroJourney.Rmd
+            text: "Hero's Journey Talk"
 
 
 format:
