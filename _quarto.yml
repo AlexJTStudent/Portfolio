@@ -42,6 +42,8 @@ website:
             text: "Launching Leaders"
           - href: Blogs/HeroJourney.Rmd
             text: "Hero's Journey Talk"
+          - href: "Blogs/Three.Rmd"
+            text: "Three Entrepreneurs"
 
 
 format:
