@@ -44,6 +44,8 @@ website:
             text: "Hero's Journey Talk"
           - href: "Blogs/Three.Rmd"
             text: "Three Entrepreneurs"
+          - href: "Blogs/7lessons.Rmd"
+            text: "Lessons From Effective People"
 
 
 format:
