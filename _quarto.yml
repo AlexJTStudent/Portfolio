@@ -48,6 +48,8 @@ website:
             text: "Lessons From Effective People"
           - href: "Blogs/perseverance.Rmd"
             text: "Lessons of Perseverance"
+          - href: "Blogs/Ethics.Rmd"
+            text: "Ethics & Greatness"
 
 
 format:

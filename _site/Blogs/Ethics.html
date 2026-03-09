@@ -6,9 +6,8 @@
 
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
-<meta name="dcterms.date" content="2026-03-08">
 
-<title>2024 MCM Problem A — Resource Availability and Sex Ratios – Alex J. Tovar</title>
+<title>Ethics &amp; Greatness – Alex J. Tovar</title>
 <style>
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
@@ -24,24 +23,24 @@ ul.task-list li input[type="checkbox"] {
 </style>
 
 
-<script src="site_libs/quarto-nav/quarto-nav.js"></script>
-<script src="site_libs/quarto-nav/headroom.min.js"></script>
-<script src="site_libs/clipboard/clipboard.min.js"></script>
-<script src="site_libs/quarto-search/autocomplete.umd.js"></script>
-<script src="site_libs/quarto-search/fuse.min.js"></script>
-<script src="site_libs/quarto-search/quarto-search.js"></script>
-<meta name="quarto:offset" content="./">
-<script src="site_libs/quarto-html/quarto.js" type="module"></script>
-<script src="site_libs/quarto-html/tabsets/tabsets.js" type="module"></script>
-<script src="site_libs/quarto-html/axe/axe-check.js" type="module"></script>
-<script src="site_libs/quarto-html/popper.min.js"></script>
-<script src="site_libs/quarto-html/tippy.umd.min.js"></script>
-<script src="site_libs/quarto-html/anchor.min.js"></script>
-<link href="site_libs/quarto-html/tippy.css" rel="stylesheet">
-<link href="site_libs/quarto-html/quarto-syntax-highlighting-7b89279ff1a6dce999919e0e67d4d9ec.css" rel="stylesheet" id="quarto-text-highlighting-styles">
-<script src="site_libs/bootstrap/bootstrap.min.js"></script>
-<link href="site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
-<link href="site_libs/bootstrap/bootstrap-ffa9a6279353761231ec249df0a7fdd3.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
+<script src="../site_libs/quarto-nav/quarto-nav.js"></script>
+<script src="../site_libs/quarto-nav/headroom.min.js"></script>
+<script src="../site_libs/clipboard/clipboard.min.js"></script>
+<script src="../site_libs/quarto-search/autocomplete.umd.js"></script>
+<script src="../site_libs/quarto-search/fuse.min.js"></script>
+<script src="../site_libs/quarto-search/quarto-search.js"></script>
+<meta name="quarto:offset" content="../">
+<script src="../site_libs/quarto-html/quarto.js" type="module"></script>
+<script src="../site_libs/quarto-html/tabsets/tabsets.js" type="module"></script>
+<script src="../site_libs/quarto-html/axe/axe-check.js" type="module"></script>
+<script src="../site_libs/quarto-html/popper.min.js"></script>
+<script src="../site_libs/quarto-html/tippy.umd.min.js"></script>
+<script src="../site_libs/quarto-html/anchor.min.js"></script>
+<link href="../site_libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="../site_libs/quarto-html/quarto-syntax-highlighting-7b89279ff1a6dce999919e0e67d4d9ec.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<script src="../site_libs/bootstrap/bootstrap.min.js"></script>
+<link href="../site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
+<link href="../site_libs/bootstrap/bootstrap-ffa9a6279353761231ec249df0a7fdd3.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
 <script id="quarto-search-options" type="application/json">{
   "location": "navbar",
   "copy-button": false,
@@ -70,37 +69,8 @@ ul.task-list li input[type="checkbox"] {
   }
 }</script>
 
-  <script src="https://cdnjs.cloudflare.com/polyfill/v3/polyfill.min.js?features=es6"></script>
-  <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml-full.js" type="text/javascript"></script>
 
-<script type="text/javascript">
-const typesetMath = (el) => {
-  if (window.MathJax) {
-    // MathJax Typeset
-    window.MathJax.typeset([el]);
-  } else if (window.katex) {
-    // KaTeX Render
-    var mathElements = el.getElementsByClassName("math");
-    var macros = [];
-    for (var i = 0; i < mathElements.length; i++) {
-      var texText = mathElements[i].firstChild;
-      if (mathElements[i].tagName == "SPAN" && texText && texText.data) {
-        window.katex.render(texText.data, mathElements[i], {
-          displayMode: mathElements[i].classList.contains('display'),
-          throwOnError: false,
-          macros: macros,
-          fleqn: false
-        });
-      }
-    }
-  }
-}
-window.Quarto = {
-  typesetMath
-};
-</script>
-
-<link rel="stylesheet" href="styles.css">
+<link rel="stylesheet" href="../styles.css">
 </head>
 
 <body class="nav-fixed quarto-light">
@@ -110,9 +80,9 @@ window.Quarto = {
     <nav class="navbar navbar-expand-lg " data-bs-theme="dark">
       <div class="navbar-container container-fluid">
       <div class="navbar-brand-container mx-auto">
-    <a href="./index.html" class="navbar-brand navbar-brand-logo">
+    <a href="../index.html" class="navbar-brand navbar-brand-logo">
     </a>
-    <a class="navbar-brand" href="./index.html">
+    <a class="navbar-brand" href="../index.html">
     <span class="navbar-title">Alex J. Tovar</span>
     </a>
   </div>
@@ -123,7 +93,7 @@ window.Quarto = {
           <div class="collapse navbar-collapse" id="navbarCollapse">
             <ul class="navbar-nav navbar-nav-scroll me-auto">
   <li class="nav-item">
-    <a class="nav-link" href="./index.html"> 
+    <a class="nav-link" href="../index.html"> 
 <span class="menu-text">Wrecked Car Detector</span></a>
   </li>  
   <li class="nav-item dropdown ">
@@ -132,23 +102,23 @@ window.Quarto = {
     </a>
     <ul class="dropdown-menu" aria-labelledby="nav-menu-ab-testing">    
         <li>
-    <a class="dropdown-item" href="./AB_TESTS/MyTwoWayANOVA.html">
+    <a class="dropdown-item" href="../AB_TESTS/MyTwoWayANOVA.html">
  <span class="dropdown-text">Two-way ANOVA</span></a>
   </li>  
         <li>
-    <a class="dropdown-item" href="./AB_TESTS/MyChiSquaredTest.html">
+    <a class="dropdown-item" href="../AB_TESTS/MyChiSquaredTest.html">
  <span class="dropdown-text">Chi-Squared Test</span></a>
   </li>  
         <li>
-    <a class="dropdown-item" href="./AB_TESTS/MyLogisticRegression.html">
+    <a class="dropdown-item" href="../AB_TESTS/MyLogisticRegression.html">
  <span class="dropdown-text">Logistic Regression</span></a>
   </li>  
         <li>
-    <a class="dropdown-item" href="./AB_TESTS/HighSchoolSeniors.html">
+    <a class="dropdown-item" href="../AB_TESTS/HighSchoolSeniors.html">
  <span class="dropdown-text">T-test</span></a>
   </li>  
         <li>
-    <a class="dropdown-item" href="./AB_TESTS/RecallingWords.html">
+    <a class="dropdown-item" href="../AB_TESTS/RecallingWords.html">
  <span class="dropdown-text">Wilcoxon Rank Sum (Mann–Whitney) test</span></a>
   </li>  
     </ul>
@@ -159,7 +129,7 @@ window.Quarto = {
     </a>
     <ul class="dropdown-menu" aria-labelledby="nav-menu-projects">    
         <li>
-    <a class="dropdown-item" href="./Projects/NFL/NFL.html">
+    <a class="dropdown-item" href="../Projects/NFL/NFL.html">
  <span class="dropdown-text">NFL Data Analysis</span></a>
   </li>  
     </ul>
@@ -170,51 +140,51 @@ window.Quarto = {
     </a>
     <ul class="dropdown-menu" aria-labelledby="nav-menu-blogs">    
         <li>
-    <a class="dropdown-item" href="./Blogs/Linkedin_Reach_Tips.html">
+    <a class="dropdown-item" href="../Blogs/Linkedin_Reach_Tips.html">
  <span class="dropdown-text">Linkedin Reach Tips</span></a>
   </li>  
         <li>
-    <a class="dropdown-item" href="./Blogs/Hosting_Using_AWS.html">
+    <a class="dropdown-item" href="../Blogs/Hosting_Using_AWS.html">
  <span class="dropdown-text">Hosting Using AWS</span></a>
   </li>  
         <li>
-    <a class="dropdown-item" href="./Blogs/AWS_Cloud_Computing.html">
+    <a class="dropdown-item" href="../Blogs/AWS_Cloud_Computing.html">
  <span class="dropdown-text">AWS Cloud Computing</span></a>
   </li>  
         <li>
-    <a class="dropdown-item" href="./Blogs/End-to-End_ML.html">
+    <a class="dropdown-item" href="../Blogs/End-to-End_ML.html">
  <span class="dropdown-text">End-to-End ML Applications</span></a>
   </li>  
         <li>
-    <a class="dropdown-item" href="./Blogs/My_First_Week.html">
+    <a class="dropdown-item" href="../Blogs/My_First_Week.html">
  <span class="dropdown-text">First Week in Entrepreneurship</span></a>
   </li>  
         <li>
-    <a class="dropdown-item" href="./Blogs/post2.html">
+    <a class="dropdown-item" href="../Blogs/post2.html">
  <span class="dropdown-text">The Importance of Dreams</span></a>
   </li>  
         <li>
-    <a class="dropdown-item" href="./Blogs/LaunchingLeaders.html">
+    <a class="dropdown-item" href="../Blogs/LaunchingLeaders.html">
  <span class="dropdown-text">Launching Leaders</span></a>
   </li>  
         <li>
-    <a class="dropdown-item" href="./Blogs/HeroJourney.html">
+    <a class="dropdown-item" href="../Blogs/HeroJourney.html">
  <span class="dropdown-text">Hero’s Journey Talk</span></a>
   </li>  
         <li>
-    <a class="dropdown-item" href="./Blogs/Three.html">
+    <a class="dropdown-item" href="../Blogs/Three.html">
  <span class="dropdown-text">Three Entrepreneurs</span></a>
   </li>  
         <li>
-    <a class="dropdown-item" href="./Blogs/7lessons.html">
+    <a class="dropdown-item" href="../Blogs/7lessons.html">
  <span class="dropdown-text">Lessons From Effective People</span></a>
   </li>  
         <li>
-    <a class="dropdown-item" href="./Blogs/perseverance.html">
+    <a class="dropdown-item" href="../Blogs/perseverance.html">
  <span class="dropdown-text">Lessons of Perseverance</span></a>
   </li>  
         <li>
-    <a class="dropdown-item" href="./Blogs/Ethics.html">
+    <a class="dropdown-item" href="../Blogs/Ethics.html">
  <span class="dropdown-text">Ethics &amp; Greatness</span></a>
   </li>  
     </ul>
@@ -230,15 +200,26 @@ window.Quarto = {
 <div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-article page-navbar">
 <!-- sidebar -->
 <!-- margin-sidebar -->
-    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar zindex-bottom">
-        
+    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
+        <nav id="TOC" role="doc-toc" class="toc-active">
+    <h2 id="toc-title">On this page</h2>
+   
+  <ul>
+  <li><a href="#discipleship-leadership-lessons" id="toc-discipleship-leadership-lessons" class="nav-link active" data-scroll-target="#discipleship-leadership-lessons">Discipleship Leadership Lessons</a></li>
+  <li><a href="#trustworthiness" id="toc-trustworthiness" class="nav-link" data-scroll-target="#trustworthiness">Trustworthiness</a></li>
+  <li><a href="#continuous-learning" id="toc-continuous-learning" class="nav-link" data-scroll-target="#continuous-learning">Continuous Learning</a></li>
+  <li><a href="#workplace-ethics" id="toc-workplace-ethics" class="nav-link" data-scroll-target="#workplace-ethics">Workplace Ethics</a></li>
+  <li><a href="#striving-for-greatness" id="toc-striving-for-greatness" class="nav-link" data-scroll-target="#striving-for-greatness">Striving for Greatness</a></li>
+  <li><a href="#conclusion" id="toc-conclusion" class="nav-link" data-scroll-target="#conclusion">Conclusion</a></li>
+  </ul>
+</nav>
     </div>
 <!-- main -->
 <main class="content" id="quarto-document-content">
 
 <header id="title-block-header" class="quarto-title-block default">
 <div class="quarto-title">
-<h1 class="title">2024 MCM Problem A — Resource Availability and Sex Ratios</h1>
+<h1 class="title">Ethics &amp; Greatness</h1>
 </div>
 
 
@@ -246,12 +227,6 @@ window.Quarto = {
 <div class="quarto-title-meta">
 
     
-    <div>
-    <div class="quarto-title-meta-heading">Published</div>
-    <div class="quarto-title-meta-contents">
-      <p class="date">March 8, 2026</p>
-    </div>
-  </div>
   
     
   </div>
@@ -261,12 +236,35 @@ window.Quarto = {
 </header>
 
 
-<p><span class="math display">\[1+1\]</span></p>
-<p>@tovar</p>
-<p><br>
-</p>
+<p><img src="bus1.png" class="img-fluid"></p>
+<p>&nbsp;</p>
+<section id="discipleship-leadership-lessons" class="level2">
+<h2 class="anchored" data-anchor-id="discipleship-leadership-lessons">Discipleship Leadership Lessons</h2>
+<p>Leadership is usually associated with titles, authority, and power. The readings and videos from this week’s study gave me another perspective. True leadership, based on the teachings of these materials, leads from discipleship, character, and service.</p>
+</section>
+<section id="trustworthiness" class="level2">
+<h2 class="anchored" data-anchor-id="trustworthiness">Trustworthiness</h2>
+<p>One of the most surprising ideas came from Guy Kawasaki’s lecture on trustworthiness. He referred to two categories of people: “bakers” and “eaters.” Eaters view the world as zero-sum; whatever they can get for themselves from it, someone else loses. Bakers, on the other hand, see the world as an opportunity to make more and bigger pies. Great leaders are bakers. They default to “yes” and always ask how they can help this person, rather than how this person can help them. That modest mind shift is at the core of servant leadership.</p>
+</section>
+<section id="continuous-learning" class="level2">
+<h2 class="anchored" data-anchor-id="continuous-learning">Continuous Learning</h2>
+<p>Carly Fiorina reiterated this by saying that capability is not about skills or experience, but a matter of constantly finding new ways to learn. Leaders who ask questions, take risks, and embrace new perspectives are vibrant and effective. Stop learning, and you are paralyzed.</p>
+<p><img src="bus2.png" class="img-fluid"></p>
+</section>
+<section id="workplace-ethics" class="level2">
+<h2 class="anchored" data-anchor-id="workplace-ethics">Workplace Ethics</h2>
+<p>Frank Levinson added an extra point: hire nice people. Workplace ethics isn’t simply about obeying rules; it’s about being genuinely concerned with each other and treating customers as you would want to be treated.</p>
+</section>
+<section id="striving-for-greatness" class="level2">
+<h2 class="anchored" data-anchor-id="striving-for-greatness">Striving for Greatness</h2>
+<p>I am reminded from the lesson of Jim Ritchie from “Good to Great” that good is the enemy of great. It’s so easy to sink into comfortable goodness and never, ever push to reach that one level of greatness. Great leaders are humble yet driven-Level 5 leaders who put the right people first.</p>
+</section>
+<section id="conclusion" class="level2">
+<h2 class="anchored" data-anchor-id="conclusion">Conclusion</h2>
+<p>Discipleship leadership is to lead people to higher ground, not by rule but by example, love, and selfless service.</p>
 
 
+</section>
 
 </main> <!-- /main -->
 <script id="quarto-html-after-body" type="application/javascript">
