@@ -50,6 +50,8 @@ website:
             text: "Lessons of Perseverance"
           - href: "Blogs/Ethics.Rmd"
             text: "Ethics & Greatness"
+          - href: "Blogs/BigDreams.Rmd"
+            text: "Big Dreams"
 
 
 format:
