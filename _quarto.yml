@@ -54,6 +54,8 @@ website:
             text: "Big Dreams"
           - href: "Blogs/Measuring.Rmd"
             text: "Measuring Success"
+          - href: "Blogs/business.Rmd"
+            text: "Business & Profit"
 
 
 format:
