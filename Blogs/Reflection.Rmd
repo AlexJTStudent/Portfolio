@@ -1,0 +1,25 @@
+---
+title: "Reflections on Entrepreneurship"
+output: 
+  html_document:
+    theme: flatly
+    code_folding: hide
+---
+
+![](entre.png)
+
+&nbsp;
+
+## Understanding Entrepreneurship
+When I entered this course, I thought entrepreneurship was about building companies. I was wrong; it's about building yourself first. The idea that changed everything for me was the Hero's Journey framing: your entrepreneurial path is not really about you, and yet it's entirely about you. The perfect place where your God-given talents, your deepest joy, and the world’s real needs collide is exactly where you’re called. It’s not your profession; it’s your calling.
+
+## The Curse of Competence
+I spent years doing things that I knew I was good at and didn't question whether I was meant for them. That’s the curse of competence, and it’s a lonely trap. If I had one last lecture to give, I would focus it on private victory before public victory. Covey was right: you cannot build trust in a marketplace that you have not yet earned in your own life. These are not soft things we can do, habits and character are the basis of everything. The leader who cuts corners privately will eventually collapse publicly. Start there. Fix there.
+
+![](entre3.png)
+
+## The Path to True Productivity
+I’d tell someone on their journey to entrepreneurship: don’t confuse motion with direction. From the Productivity Pyramid, I learned that busy is not the same as productive, and that the things you do daily have to come from your governing principles or they mean nothing. Create your own constitution. Know who you are before the market tells you who to be.
+
+Embracing the Journey
+And the one thing you should take away from Randy Pausch and the Hero’s Journey speaker alike: the real fear is not failure; it’s coming to sixty and knowing that you never truly did what you were supposed to do. Brick walls are structures that test your desire. The question is never if obstacles will come; the question is whether what you’re chasing is worth going through them. Begin. Don’t lie. Serve others. Never, ever mistake a good life for a merely comfortable one.

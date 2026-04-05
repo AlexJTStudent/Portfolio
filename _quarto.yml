@@ -58,6 +58,8 @@ website:
             text: "Business & Profit"
           - href: "Blogs/EntrepreneurialPath.Rmd"
             text: "Entrepreneurial Path"
+          - href: "Blogs/Reflection.Rmd"
+            text: "Reflections on Entrepreneurship"
 
 
 format:
