@@ -1,0 +1,28 @@
+---
+title: ""
+output: 
+  html_document:
+    theme: flatly
+    code_folding: hide
+---
+
+![](w13.png)
+
+&nbsp;
+
+## Insights from Readings and Videos
+From the readings and videos of this week’s study, I gained some valuable insights that connected spiritual principles with practical career wisdom in ways I hadn’t fully thought of before. President Monson’s “An Attitude of Gratitude” was a reminder that gratitude is a feeling but something you have to develop.
+
+## The Parable of the Ten Lepers
+The parable of the ten lepers was really powerful for me: only one returned to thank, and Christ’s quiet disappointment in the nine is a lesson not to take everything for granted. Monson’s six categories of gratitude for mothers, fathers, teachers, friends, country, and the Savior allowed me to assess those relationships that make us who we are. His story about Lucy Gertsch, the Sunday School teacher who diverted class party funds to a grieving family, showed that gratitude naturally transfers to service. To me, it was the connection between thankfulness and generosity that was the most powerful.
+
+## Career Pathway Research
+From the Stanford videos, Ted Zoller’s career pathway research challenged my understanding of how successful entrepreneurs are made. I assumed it to be serial startups or investment banks, but I found that working in big corporations and then moving on to smaller, high-growth companies is actually the most common route. It is evidence that you can really have a lot of experience before you start a new business.
+
+![](w132.png)
+
+## Advice on Work and Gratitude
+Stan Christensen’s advice to not take jobs that you want for resume-building but rather work that actually feels good reinforced Monson’s gratitude theme in an unexpected way; we are more grateful for the work we actually love.
+
+## Looking Forward
+Looking forward, I am keen to understand how gratitude shapes entrepreneurial resilience. I want to know how founders who are truly thankful for mentors and opportunities and even failures create more sustainable and purpose-driven businesses instead of those driven by money.

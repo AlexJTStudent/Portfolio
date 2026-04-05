@@ -56,6 +56,8 @@ website:
             text: "Measuring Success"
           - href: "Blogs/business.Rmd"
             text: "Business & Profit"
+          - href: "Blogs/EntrepreneurialPath.Rmd"
+            text: "Entrepreneurial Path"
 
 
 format:
