@@ -77,193 +77,214 @@
     "text": "🚗 How This Project Was Built\nThis car crash detector was built using a modern tech stack combining machine learning, explainable AI, and cloud infrastructure:\n\nSystem Architecture & Workflow\n\nFrontend & Hosting:\n\nBuilt with Quarto - a scientific publishing system that converts Markdown to beautiful HTML\nHosted on AWS Amplify with automatic deployments from GitHub\nResponsive design for desktop and mobile viewing\n\nMachine Learning Pipeline:\n\nRandom Forest Classifier trained on 5,000 car images\nAchieves ~85-90% accuracy in detecting vehicle damage\nExtracts 48 features: color histograms, edge gradients, and texture patterns\nModel size: 9.3 MB, inference time: &lt;1 second\n\nExplainability Layer:\n\nLIME (Local Interpretable Model-agnostic Explanations) generates visual explanations\nHighlights image regions that most influenced the AI’s decision\nRed boundaries show what the model was “looking at” when making predictions\n\nAI Analysis:\n\nClaude API (Anthropic) analyzes the LIME visualization\nProvides human-readable explanations of the model’s reasoning\nValidates predictions and identifies potential issues\n\nBackend Infrastructure:\n\nDeployed on Google Cloud Run (serverless container platform)\nHandles image preprocessing, prediction, and LIME generation\nAuto-scales based on demand with 2GB memory, 2 CPU cores\n\nComplete workflow: User uploads image → Cloud Run processes → Random Forest predicts → LIME explains → Claude analyzes → Results displayed with visual heatmap and AI commentary."
   },
   {
-    "objectID": "Blogs/post2.html#achieved-by-sheer-will-and-purpose",
-    "href": "Blogs/post2.html#achieved-by-sheer-will-and-purpose",
-    "title": "Randy Pausch’s Last Lecture",
-    "section": "Achieved by sheer will and purpose",
-    "text": "Achieved by sheer will and purpose\nRandy Pausch’s last lecture reflections. Randy Pausch realized many of his childhood dreams not by any luck or magic but by his perseverance and resolve to not allow adversity to be the limit of his own capacity. He preached that “brick walls are there for a reason: they let us prove how badly we want things.” He didn’t take rejection from Disney Imagineering as a final obstacle but as a temporary setback. He was a lifelong fan of rejection; he knew that it is just part of the story and that if you push at it, doors to things you once thought you had no access to will open for you."
+    "objectID": "Blogs/Reflection.html#understanding-entrepreneurship",
+    "href": "Blogs/Reflection.html#understanding-entrepreneurship",
+    "title": "Reflections on Entrepreneurship",
+    "section": "Understanding Entrepreneurship",
+    "text": "Understanding Entrepreneurship\nWhen I entered this course, I thought entrepreneurship was about building companies. I was wrong; it’s about building yourself first. The idea that changed everything for me was the Hero’s Journey framing: your entrepreneurial path is not really about you, and yet it’s entirely about you. The perfect place where your God-given talents, your deepest joy, and the world’s real needs collide is exactly where you’re called. It’s not your profession; it’s your calling."
   },
   {
-    "objectID": "Blogs/post2.html#the-importance-of-dreams",
-    "href": "Blogs/post2.html#the-importance-of-dreams",
-    "title": "Randy Pausch’s Last Lecture",
-    "section": "The importance of dreams",
-    "text": "The importance of dreams\nWhat he is showing is that even dreaming things through can require vision, but also the ability to push through disappointment. There is a thing that I entirely believe: dreaming is crucial to life. Dreams teach us how to live; they take what we do each day from the tiniest step to a path toward all that is. When we have no dreams, we are easily lost in life’s activities and drift through life without thought about it. Pausch’s life illustrates this beautifully: his dream during childhood to build up Disney-like experiences that were not only real but structured his educational decisions, professional experiences, and creative projects were no accident."
+    "objectID": "Blogs/Reflection.html#the-curse-of-competence",
+    "href": "Blogs/Reflection.html#the-curse-of-competence",
+    "title": "Reflections on Entrepreneurship",
+    "section": "The Curse of Competence",
+    "text": "The Curse of Competence\nI spent years doing things that I knew I was good at and didn’t question whether I was meant for them. That’s the curse of competence, and it’s a lonely trap. If I had one last lecture to give, I would focus it on private victory before public victory. Covey was right: you cannot build trust in a marketplace that you have not yet earned in your own life. These are not soft things we can do, habits and character are the basis of everything. The leader who cuts corners privately will eventually collapse publicly. Start there. Fix there."
   },
   {
-    "objectID": "Blogs/post2.html#dreams-as-a-roadmap",
-    "href": "Blogs/post2.html#dreams-as-a-roadmap",
-    "title": "Randy Pausch’s Last Lecture",
-    "section": "Dreams as a roadmap",
-    "text": "Dreams as a roadmap\nDreams provide us with the “why” behind our actions, which is especially crucial when we all feel like we can’t muster up some motivation. One of my childhood dreams was for me to have a business that actually helps people solve real problems; namely, to have my own consulting firm, which turns struggling businesses into profitable ones. I feel I can fulfill this dream, as right now I am building the base. I’m learning in my new classes how to take ambitious aspirations and distill them down into manageable plans for me to follow up on: obtain an LLC, comprehend insurance standards, and become analytical."
+    "objectID": "Blogs/Reflection.html#the-path-to-true-productivity",
+    "href": "Blogs/Reflection.html#the-path-to-true-productivity",
+    "title": "Reflections on Entrepreneurship",
+    "section": "The Path to True Productivity",
+    "text": "The Path to True Productivity\nI’d tell someone on their journey to entrepreneurship: don’t confuse motion with direction. From the Productivity Pyramid, I learned that busy is not the same as productive, and that the things you do daily have to come from your governing principles or they mean nothing. Create your own constitution. Know who you are before the market tells you who to be.\nEmbracing the Journey And the one thing you should take away from Randy Pausch and the Hero’s Journey speaker alike: the real fear is not failure; it’s coming to sixty and knowing that you never truly did what you were supposed to do. Brick walls are structures that test your desire. The question is never if obstacles will come; the question is whether what you’re chasing is worth going through them. Begin. Don’t lie. Serve others. Never, ever mistake a good life for a merely comfortable one."
   },
   {
-    "objectID": "Blogs/post2.html#life-lessons",
-    "href": "Blogs/post2.html#life-lessons",
-    "title": "Randy Pausch’s Last Lecture",
-    "section": "Life lessons",
-    "text": "Life lessons\nAs Pausch said, it’s not so much the destination as the “how to lead your life.” My commitment to ongoing learning, seeing failures as learning experiences, and staying focused on the things that really matter means I’m poised to realize this dream. Pausch’s talk consolidated concepts from this week’s readings on framing problems and simplifying focus. It echoes his philosophy that “experience is what you get when you don’t get what you want,” which is perfectly aligned with creating lessons out of hardships. This is exactly the mindset that I look forward to putting into practice for the challenges and trials of entrepreneurship, as I know they will ultimately be a chance to show how badly I want to succeed."
+    "objectID": "Blogs/perseverance.html#persistance",
+    "href": "Blogs/perseverance.html#persistance",
+    "title": "Lessons of Perseverance and Purpose",
+    "section": "Persistance",
+    "text": "Persistance\nReading these lessons was a reminder to me that entrepreneurship is not limited to business strategy. Entrepreneurship is about fighting through adversity and not losing faith. Jeffrey R. Holland’s account of the broken-down car struck a nerve. That young father, stranded twice in the same place with his whole family and all their belongings, encountered a moment very many entrepreneurs know all too well: when everything feels like it’s falling apart and the destination seems out of reach.\nHis message, “Don’t you quit. You keep walking,” brings together the essence of what my material-based learning was made up of. Success is not having a perfectly well-defined plan or avoiding a breakdown; you continue to progress even in the face of feeling that progress is unattainable."
   },
   {
-    "objectID": "Blogs/My_First_Week.html#introduction.",
-    "href": "Blogs/My_First_Week.html#introduction.",
-    "title": "My First Week in Entrepreneurship",
-    "section": "Introduction.",
-    "text": "Introduction.\nHey, my name is Alex, and I started my entrepreneurial career by taking “Intro to Entrepreneurship” here at BYU-I. Although daunting at first, I’ve become more confident that I can succeed not only in class, but also in business and life. Today’s blog will cover what I’ve learned this week from readings and videos, and what I’m looking forward to learning and experiencing from the course."
+    "objectID": "Blogs/perseverance.html#practical-depth",
+    "href": "Blogs/perseverance.html#practical-depth",
+    "title": "Lessons of Perseverance and Purpose",
+    "section": "Practical Depth",
+    "text": "Practical Depth\nDavid Carrington gave me some practical depth in this vein. His focus on making sure “I think backwards” and not settling for the obvious solution pushes me to dig harder. What really impressed me was his decision during the Dale Earnhardt tragedy to stand firm in the face of ethical pricing when he could have mined the sadness of loss. It was in that moment that something vital emerged: lasting success lies in integrity, not exploitation.\nHis diagnosis of cancer also made him reconsider balance, which is precisely the lesson I learned when I lived through this experience: sometimes our biggest roadblocks lead us to where we’re supposed to be."
   },
   {
-    "objectID": "Blogs/My_First_Week.html#getting-started.",
-    "href": "Blogs/My_First_Week.html#getting-started.",
-    "title": "My First Week in Entrepreneurship",
-    "section": "Getting Started.",
-    "text": "Getting Started.\nTo start, I’ve been assigned three books: “A Field Guide for the Hero’s Journey”, “Mastery”, and “Launching Leaders: An Empowering Journey for a New Generation (Christian Edition).” All books offer valuable advice on various aspects of managing and launching a business."
+    "objectID": "Blogs/perseverance.html#the-five-whys",
+    "href": "Blogs/perseverance.html#the-five-whys",
+    "title": "Lessons of Perseverance and Purpose",
+    "section": "The Five Whys",
+    "text": "The Five Whys\nEric Ries’s “Five Whys” was brilliant. It taught me that superficial solutions seldom work for real problems. Behind every technical failure, there is a human or systemic problem. This style of proportional investment, dedicating just one hour to each problem at each tier of difficulty rather than nothing or everything seems revolutionary and real. All the while, I’m interested in applying it to actual practice.\nI wish I could really have that moment where “random thinking” yields a surprising solution, practice the idea of asking five whys when things go wrong, and, most importantly, cultivate the faith to keep going when my car fails at mile 34 on a 2,600-mile trip."
   },
   {
-    "objectID": "Blogs/My_First_Week.html#book-insights.",
-    "href": "Blogs/My_First_Week.html#book-insights.",
-    "title": "My First Week in Entrepreneurship",
-    "section": "Book Insights.",
-    "text": "Book Insights.\nFor example, “Launching New Leaders.” Gives a unique approach on how to be a leader and a devoted Christian at the same time. Combining scriptures from the Bible with reputable experiences from professionals, and tips to tackle different problems. For example, framing problems to focus and gain a different perspective on your behavior and the problem itself. Implying to exclude all the unnecessary bluff in your life and simplify and target what matters. As well as taking difficult events in your life and making them great lessons on what truly matters in life and what doesn’t."
-  },
-  {
-    "objectID": "Blogs/My_First_Week.html#course-insights",
-    "href": "Blogs/My_First_Week.html#course-insights",
-    "title": "My First Week in Entrepreneurship",
-    "section": "Course Insights",
-    "text": "Course Insights\nThis week I also covered my goals in life, by being tasked to list 50 goals. It gave a perspective into myself and what I really want to accomplish, such as starting a consulting firm, learning lots of analytical tools, and even doing a handstand push-up. The task emphasizes the importance of finding what I truly want and how to define it. For example, starting a consulting firm would require me to acquire an LLC, investigate consulting insurance, and design a logo. In the end, I learned that entrepreneurship and life goals are very vast, and I look forward to being organized to tackle every problem."
-  },
-  {
-    "objectID": "Blogs/Linkedin_Reach_Tips.html#breaking-in-the-market-is-challenging.",
-    "href": "Blogs/Linkedin_Reach_Tips.html#breaking-in-the-market-is-challenging.",
-    "title": "How to Reach Out to DS Professionals on LinkedIn",
-    "section": "Breaking In the Market Is Challenging.",
-    "text": "Breaking In the Market Is Challenging.\nFor incoming college graduates the market is tough going. Layoffs have sent waves through the applicant pool, graduate schools have become more competitive as students try to get ahead; and the belief that AI can replace entry-level workers has plagued the industry. In a place like this, it’s often easy to feel unnoticed. That’s why I developed the talent to stand out, to be among those professionals who were in the industry."
-  },
-  {
-    "objectID": "Blogs/Linkedin_Reach_Tips.html#take-the-first-step.",
-    "href": "Blogs/Linkedin_Reach_Tips.html#take-the-first-step.",
-    "title": "How to Reach Out to DS Professionals on LinkedIn",
-    "section": "Take the First Step.",
-    "text": "Take the First Step.\nI had no plan, when I first started trying to break into data science. Everybody seemed to have more experience, better portfolios, advanced degrees. I knew I had to learn, from people who already are with the game, if I was going to get noticed in the industry. So in the summer of 2025, I contacted hundreds of professionals on LinkedIn. At the end of the game, I’d done over 500 connection requests."
-  },
-  {
-    "objectID": "Blogs/Linkedin_Reach_Tips.html#cold-connections",
-    "href": "Blogs/Linkedin_Reach_Tips.html#cold-connections",
-    "title": "How to Reach Out to DS Professionals on LinkedIn",
-    "section": "Cold Connections:",
-    "text": "Cold Connections:\nLearning. At first, I felt a bit uncomfortable about it. Sending cold messages to strangers online is difficult. I was afraid I’d cause people to tune me out, or they would think I was just a waste of their time, if I weren’t as inexperienced. But I learned fast to kick things off well and the university alumni I talked to were also an early adopter. My messages were simple:\n”Hi [Name], Hello, my name is Alex J. Tovar, Data Science guy too. I would love to invest in this relationship and grow our LinkedIn profiles together. Let’s connect!”. Short message, but it demonstrates a shared interest in data science and invites the contacts as an investment in the company that might serve the two parties. If it is good, then why not accept it? This is the mental bargaining that goes into every reach message."
-  },
-  {
-    "objectID": "Blogs/Linkedin_Reach_Tips.html#small-numbers-big-impact.",
-    "href": "Blogs/Linkedin_Reach_Tips.html#small-numbers-big-impact.",
-    "title": "How to Reach Out to DS Professionals on LinkedIn",
-    "section": "Small Numbers, Big Impact.",
-    "text": "Small Numbers, Big Impact.\nFrom those hundreds of connections, only a tiny fraction responded but that few became super useful. A few offered to hop on Zoom or a phone call, to relay their stories or take some advice and get on board with the conversation. I learned what hiring managers really look for, how data teams are structured and how roles mesh information I would never even dreamt I would have come across in a course description or job posting. One thing which came out of these conversations was the power of active networking. Collecting connections for the sake of numbers can be quite easy, but what really matters is building good ones. A small number of genuine partnerships will take you far beyond the thousand shallow ones."
-  },
-  {
-    "objectID": "Blogs/Linkedin_Reach_Tips.html#from-talks-to-chances.",
-    "href": "Blogs/Linkedin_Reach_Tips.html#from-talks-to-chances.",
-    "title": "How to Reach Out to DS Professionals on LinkedIn",
-    "section": "From talks to chances.",
-    "text": "From talks to chances.\nAt times, that connection would take the form of a casual chit chat that eventually bled into a brief mentoring session. Other times all it did was a one-time conversation that showed me a new viewpoint. And, yes, in some cases those relationships opened the path to interviews and opportunities. But the biggest reward wasn’t the job prospects it was the confidence that I was no longer working through this on my own."
-  },
-  {
-    "objectID": "Blogs/Linkedin_Reach_Tips.html#what-networking-really-means.",
-    "href": "Blogs/Linkedin_Reach_Tips.html#what-networking-really-means.",
-    "title": "How to Reach Out to DS Professionals on LinkedIn",
-    "section": "What Networking Really Means.",
-    "text": "What Networking Really Means.\nNetworking isn’t about getting something from someone; it’s about learning from them. It can be about being interested, listening closely and mutual respect. Data scientists, of course, and people really across the board thrive when they blend technical expertise with good people. If I could recommend one piece of advice to novices, I would say this: don’t wait until you’re “qualified” to go out. The best time to connect is now. What will get through to you is not all of a sudden your problems have changed; just curiosity and a willingness to listen."
-  },
-  {
-    "objectID": "Blogs/Linkedin_Reach_Tips.html#final-thoughts.",
-    "href": "Blogs/Linkedin_Reach_Tips.html#final-thoughts.",
-    "title": "How to Reach Out to DS Professionals on LinkedIn",
-    "section": "Final Thoughts.",
-    "text": "Final Thoughts.\nFrom data science, I learned that opportunities are often presented to us in surprising ways. But those opportunities rarely come your way without putting oneself out there. So write your message and hit the “Connect” button and start developing relationships that will follow you outside of school."
-  },
-  {
-    "objectID": "Blogs/Hosting_Using_AWS.html#introduction",
-    "href": "Blogs/Hosting_Using_AWS.html#introduction",
-    "title": "Hosting My Professional Portfolio Using AWS Amplify",
-    "section": "Introduction",
-    "text": "Introduction\nWhen I initially began constructing projects, I was overwhelmed with one major question: How do I present them professionally? Uploading notebooks to GitHub was acceptable, but it didn’t truly showcase my work. I wanted something that looked nice, professional, and was easy to distribute to employers.\nThat’s when I stumbled upon Quarto, a free open-source website-publishing platform that converts Markdown and code into finished websites. While it was a great start, I realized that having complete control over my content in a reliable location was crucial for my professional portfolio. That’s where AWS Amplify came in."
-  },
-  {
-    "objectID": "Blogs/Hosting_Using_AWS.html#why-quarto",
-    "href": "Blogs/Hosting_Using_AWS.html#why-quarto",
-    "title": "Hosting My Professional Portfolio Using AWS Amplify",
-    "section": "Why Quarto?",
-    "text": "Why Quarto?\nQuarto is simple yet powerful. It allows you to blend code, text, and visuals all in one location whether writing blog posts, data analyses, or research reports. For users in data science or analytics, it strikes the perfect balance between documentation and presentation.\nSince I had worked with QMD files to analyze my data, I could turn them directly into interactive, modern web pages with Quarto. I didn’t have to learn web development from scratch; Quarto handled formatting, navigation, and layout. In just minutes, I had a site that resembled a publication rather than just a collection of notebooks."
-  },
-  {
-    "objectID": "Blogs/Hosting_Using_AWS.html#deploying-to-aws-amplify",
-    "href": "Blogs/Hosting_Using_AWS.html#deploying-to-aws-amplify",
-    "title": "Hosting My Professional Portfolio Using AWS Amplify",
-    "section": "Deploying to AWS Amplify",
-    "text": "Deploying to AWS Amplify\nOnce I completed my site on a local device using VSCode, I needed to host it. Free options like GitHub Pages were okay, but I preferred paid options that encouraged me to manage resources carefully.\nAWS Amplify directly hosts projects tied to a GitHub repository, allowing automatic updates when I make changes to the website. This seamless integration meant no manual uploads or tedious setup steps were necessary. Version control and deployment complemented each other perfectly.\nInitially, setting everything up was daunting. I had to create an Amplify app, link it to my GitHub repository, and double-check that the website looked correct after each installation. I learned valuable lessons through my mistakes and gained insights through my education.\nRunning my website on AWS isn’t just about visibility; it’s about marketing. I control how it looks, loads, and scales not limited by templates that restrict personalization. This technical independence showcases to employers that I go the extra mile and can demonstrate my professional skills."
-  },
-  {
-    "objectID": "Blogs/Hosting_Using_AWS.html#how-to-turn-a-website-into-a-portfolio",
-    "href": "Blogs/Hosting_Using_AWS.html#how-to-turn-a-website-into-a-portfolio",
-    "title": "Hosting My Professional Portfolio Using AWS Amplify",
-    "section": "How to Turn a Website into a Portfolio",
-    "text": "How to Turn a Website into a Portfolio\nAs soon as my Quarto site was live, it completely transformed how I portrayed myself. Instead of directing people to separate notebooks, dashboards, or PDFs, I could share one URL that served as a digital home for all my work.\nThe site features links to my projects, blog posts, and an about section. Projects display my visualizations, models, and real-world analyses, while blog posts cover topics like networking on LinkedIn and deploying cloud services. The about page shares my journey and aspirations, weaving everything into one cohesive story. They convey not just what I’ve done but how I think."
-  },
-  {
-    "objectID": "Blogs/Hosting_Using_AWS.html#the-professional-value-it-offers",
-    "href": "Blogs/Hosting_Using_AWS.html#the-professional-value-it-offers",
-    "title": "Hosting My Professional Portfolio Using AWS Amplify",
-    "section": "The Professional Value it Offers",
-    "text": "The Professional Value it Offers\nA portfolio on AWS does more than showcase projects; it demonstrates initiative. It shows that you can work with cloud infrastructure, deploy applications, and document your data work professionally.\nFor roles in data science, analytics, or engineering, having such a portfolio improves your prospects. Recruiters and hiring managers can readily assess your technical abilities and communication skills two key factors that help strong candidates stand out.\nAWS is an actual cloud service, so hosting your portfolio there indicates familiarity with deployment and scaling crucial skills often overlooked by entry-level candidates."
-  },
-  {
-    "objectID": "Blogs/Hosting_Using_AWS.html#final-thoughts",
-    "href": "Blogs/Hosting_Using_AWS.html#final-thoughts",
-    "title": "Hosting My Professional Portfolio Using AWS Amplify",
-    "section": "Final Thoughts",
-    "text": "Final Thoughts\nStarting a Quarto site via AWS began as a personal exploration of a tool, but it soon evolved into a significant piece of my professional identity. It’s not just a portfolio; it’s a written memoir of personal evolution, exploration, and curiosity.\nBuilding your own in data science, analytics, or any tech field is entirely feasible. Quarto and AWS together can transform your work into something substantial beyond a résumé. They turn it into proof of your capabilities."
-  },
-  {
-    "objectID": "Blogs/Ethics.html#discipleship-leadership-lessons",
-    "href": "Blogs/Ethics.html#discipleship-leadership-lessons",
-    "title": "Ethics & Greatness",
-    "section": "Discipleship Leadership Lessons",
-    "text": "Discipleship Leadership Lessons\nLeadership is usually associated with titles, authority, and power. The readings and videos from this week’s study gave me another perspective. True leadership, based on the teachings of these materials, leads from discipleship, character, and service."
-  },
-  {
-    "objectID": "Blogs/Ethics.html#trustworthiness",
-    "href": "Blogs/Ethics.html#trustworthiness",
-    "title": "Ethics & Greatness",
-    "section": "Trustworthiness",
-    "text": "Trustworthiness\nOne of the most surprising ideas came from Guy Kawasaki’s lecture on trustworthiness. He referred to two categories of people: “bakers” and “eaters.” Eaters view the world as zero-sum; whatever they can get for themselves from it, someone else loses. Bakers, on the other hand, see the world as an opportunity to make more and bigger pies. Great leaders are bakers. They default to “yes” and always ask how they can help this person, rather than how this person can help them. That modest mind shift is at the core of servant leadership."
-  },
-  {
-    "objectID": "Blogs/Ethics.html#continuous-learning",
-    "href": "Blogs/Ethics.html#continuous-learning",
-    "title": "Ethics & Greatness",
-    "section": "Continuous Learning",
-    "text": "Continuous Learning\nCarly Fiorina reiterated this by saying that capability is not about skills or experience, but a matter of constantly finding new ways to learn. Leaders who ask questions, take risks, and embrace new perspectives are vibrant and effective. Stop learning, and you are paralyzed."
-  },
-  {
-    "objectID": "Blogs/Ethics.html#workplace-ethics",
-    "href": "Blogs/Ethics.html#workplace-ethics",
-    "title": "Ethics & Greatness",
-    "section": "Workplace Ethics",
-    "text": "Workplace Ethics\nFrank Levinson added an extra point: hire nice people. Workplace ethics isn’t simply about obeying rules; it’s about being genuinely concerned with each other and treating customers as you would want to be treated."
-  },
-  {
-    "objectID": "Blogs/Ethics.html#striving-for-greatness",
-    "href": "Blogs/Ethics.html#striving-for-greatness",
-    "title": "Ethics & Greatness",
-    "section": "Striving for Greatness",
-    "text": "Striving for Greatness\nI am reminded from the lesson of Jim Ritchie from “Good to Great” that good is the enemy of great. It’s so easy to sink into comfortable goodness and never, ever push to reach that one level of greatness. Great leaders are humble yet driven-Level 5 leaders who put the right people first."
-  },
-  {
-    "objectID": "Blogs/Ethics.html#conclusion",
-    "href": "Blogs/Ethics.html#conclusion",
-    "title": "Ethics & Greatness",
+    "objectID": "Blogs/perseverance.html#conclusion",
+    "href": "Blogs/perseverance.html#conclusion",
+    "title": "Lessons of Perseverance and Purpose",
     "section": "Conclusion",
-    "text": "Conclusion\nDiscipleship leadership is to lead people to higher ground, not by rule but by example, love, and selfless service."
+    "text": "Conclusion\nThese stories taught me that entrepreneurship calls it equal parts creativity, ethics, perseverance, and faith, and that we are more than the destination that is shaped by our journey."
+  },
+  {
+    "objectID": "Blogs/Measuring.html#reflection-on-stephen-gibsons-attitude-on-money",
+    "href": "Blogs/Measuring.html#reflection-on-stephen-gibsons-attitude-on-money",
+    "title": "Measuring Success in Entrepreneurship",
+    "section": "Reflection on Stephen Gibson’s “Attitude on Money”",
+    "text": "Reflection on Stephen Gibson’s “Attitude on Money”\nBefore I read Stephen Gibson’s Attitude on Money, I had never pondered where my perception about money came from. Gibson’s opening metaphor of prescription glasses (and filters) really worked for me because it showed me that most of my assumptions about money came from home rather than from an independent conclusion."
+  },
+  {
+    "objectID": "Blogs/Measuring.html#eye-opening-insights",
+    "href": "Blogs/Measuring.html#eye-opening-insights",
+    "title": "Measuring Success in Entrepreneurship",
+    "section": "Eye-Opening Insights",
+    "text": "Eye-Opening Insights\nThat’s eye-opening and motivating because we can look at and change those filters. The open fact of the people is that my understanding of money has been one of a lie to keep out (so-called) many in the public eye, suggesting that genuine good people don’t invest in money. Gibson does exactly that. His comment that even the President of the Church had to think carefully about where to have money to build temples and the Perpetual Education Fund shifted my thinking completely."
+  },
+  {
+    "objectID": "Blogs/Measuring.html#rethinking-money",
+    "href": "Blogs/Measuring.html#rethinking-money",
+    "title": "Measuring Success in Entrepreneurship",
+    "section": "Rethinking Money",
+    "text": "Rethinking Money\nMoney does not defeat a good life. It is a tool that is used depending upon who is using it and not in the interest of good. If you look at money, not thinking won’t solve your problems with it. You may simply believe that if circumstances require it for what you’re going through, you will manage just in a more or less independent manner."
+  },
+  {
+    "objectID": "Blogs/Measuring.html#financial-self-reliance",
+    "href": "Blogs/Measuring.html#financial-self-reliance",
+    "title": "Measuring Success in Entrepreneurship",
+    "section": "Financial Self-Reliance",
+    "text": "Financial Self-Reliance\nGibson argues that people who think ahead financially are far more likely to achieve self-reliance. These form a coherent template for how to tie financial success to character rather than the existence of their differences."
+  },
+  {
+    "objectID": "Blogs/Measuring.html#the-importance-of-generosity",
+    "href": "Blogs/Measuring.html#the-importance-of-generosity",
+    "title": "Measuring Success in Entrepreneurship",
+    "section": "The Importance of Generosity",
+    "text": "The Importance of Generosity\nMost resonant was the understanding of generosity as an ongoing process that you can’t start when very rich; generosity is something you have as a habit while very poor, as Jon Huntsman exemplifies. In a way, it forced me to give when I have very little and not to think about being rich in some future place in terms of the comfort I could offer."
+  },
+  {
+    "objectID": "Blogs/LaunchingLeaders.html#introduction.",
+    "href": "Blogs/LaunchingLeaders.html#introduction.",
+    "title": "Launching Leaders: An Empowering Journey for a New Generation",
+    "section": "Introduction.",
+    "text": "Introduction.\nThis week’s readings on “How Will You Measure Your Life” have completely changed the way I perceive success. For me, the most powerful framework I got was Jim Collins’ three circles idea from Tom Kelley’s presentation. This notion that success isn’t as much about what you excel at as it is about finding the intersection between what you are really good at, what you are destined to do, and what people will pay you for is a big one."
+  },
+  {
+    "objectID": "Blogs/LaunchingLeaders.html#key-insights.",
+    "href": "Blogs/LaunchingLeaders.html#key-insights.",
+    "title": "Launching Leaders: An Empowering Journey for a New Generation",
+    "section": "Key Insights.",
+    "text": "Key Insights.\nI’ve spent too long trapped in the “curse of competence,” doing things simply because I can, not because it is what I am doing to fulfill the purpose. Collins’ idea of using a lab notebook to track when I feel the happiest and most in flow is something I am doing at moment’s notice. I want to find out what I’m truly born to do, rather than just going along with what is easy/right."
+  },
+  {
+    "objectID": "Blogs/LaunchingLeaders.html#productivity-pyramid.",
+    "href": "Blogs/LaunchingLeaders.html#productivity-pyramid.",
+    "title": "Launching Leaders: An Empowering Journey for a New Generation",
+    "section": "Productivity Pyramid.",
+    "text": "Productivity Pyramid.\nThis lesson on the Productivity Pyramid by Jim Ritchie provided me with tools to implement every day in accordance with my beliefs. Without that structure, I found, I’m only busy, not productive. My governing values must serve as the groundwork, which in turn determines the long-term goals, short-term goals, and the daily tasks. This is closely linked to the idea of the Personal Constitution writing “I am” statements around who I want to be and prioritizing them."
+  },
+  {
+    "objectID": "Blogs/LaunchingLeaders.html#life-lessons.",
+    "href": "Blogs/LaunchingLeaders.html#life-lessons.",
+    "title": "Launching Leaders: An Empowering Journey for a New Generation",
+    "section": "Life Lessons.",
+    "text": "Life Lessons.\nI was struck by the example about integrity vs financial independence. Otherwise, if I fail to consciously prioritize my values, I’ll sacrifice what matters most when making hard choices. Jeff Hawkins’ message of good choices over longer hours was liberating. I have accepted the myth that entrepreneurship, which comes with sacrifice, means losing family time all the time."
+  },
+  {
+    "objectID": "Blogs/LaunchingLeaders.html#conclusion.",
+    "href": "Blogs/LaunchingLeaders.html#conclusion.",
+    "title": "Launching Leaders: An Empowering Journey for a New Generation",
+    "section": "Conclusion.",
+    "text": "Conclusion.\nBut Hawkins has shown that it pays to make better decisions every day, rather than to grind endlessly. Success is about intelligent decisions, not just hard work. This is in keeping with determining life not as hours spent, but as the decisions made that demonstrate a value system in alignment with values that lead to true purpose. From this lens, I hope to implement the Productivity Pyramid and the three circles framework for a more intentional, values-driven approach to business and life, making sure that it is the success that I want to measure for myself that defines and guides my success."
+  },
+  {
+    "objectID": "Blogs/HeroJourney.html#incredible-insight-in-a-heros-journey",
+    "href": "Blogs/HeroJourney.html#incredible-insight-in-a-heros-journey",
+    "title": "Hero’s Journey",
+    "section": "Incredible Insight in “A Hero’s Journey”",
+    "text": "Incredible Insight in “A Hero’s Journey”\nThe most incredible insight in “A Hero’s Journey” is paradox: it is about you and not about you at all at the heart of your entrepreneurial journey. That discovery is what makes us different, and it happens to be also something that you do joyously, with your gifts. Because then you do your part for that which is far bigger than you, and everything in the world."
+  },
+  {
+    "objectID": "Blogs/HeroJourney.html#re-conceptualizing-entrepreneurship",
+    "href": "Blogs/HeroJourney.html#re-conceptualizing-entrepreneurship",
+    "title": "Hero’s Journey",
+    "section": "Re-conceptualizing Entrepreneurship",
+    "text": "Re-conceptualizing Entrepreneurship\nThis re-conceptualizes entrepreneurship as no longer selfish business of wealth accumulation; it is a vocation that transforms the world as well as the entrepreneur. The speech gives a framework for your calling that is above and beyond the advice one receives in their job."
+  },
+  {
+    "objectID": "Blogs/HeroJourney.html#overlap-between-key-aspects",
+    "href": "Blogs/HeroJourney.html#overlap-between-key-aspects",
+    "title": "Hero’s Journey",
+    "section": "Overlap Between Key Aspects",
+    "text": "Overlap Between Key Aspects\nThat is the area the speech hits home when you mention the overlap between three aspects: God-given talents, deep contentment, and addressing an important need in the world."
+  },
+  {
+    "objectID": "Blogs/HeroJourney.html#insightful-exercise",
+    "href": "Blogs/HeroJourney.html#insightful-exercise",
+    "title": "Hero’s Journey",
+    "section": "Insightful Exercise",
+    "text": "Insightful Exercise\nThe exercise of asking five people what you do much better than the average person is especially insightful since we often overlook our naturally gifted innate gifts, especially since we take them for granted. Identifying those “flow” moments when you don’t sense time shows you what’s truly engaging you at the deepest level."
+  },
+  {
+    "objectID": "Blogs/HeroJourney.html#the-reversal-over-time",
+    "href": "Blogs/HeroJourney.html#the-reversal-over-time",
+    "title": "Hero’s Journey",
+    "section": "The Reversal Over Time",
+    "text": "The Reversal Over Time\nBut what strikes me most strongly is the reversal that occurs over time. Students arrive looking to make money and then realize learning how to learn is what matters most. Years later, they learn that learning how to live a life filled with meaning was what really changed them. This development would indicate that our expectations shift with age and the major concerns only become discernible with perspective."
+  },
+  {
+    "objectID": "Blogs/HeroJourney.html#important-questions-at-the-end-of-life",
+    "href": "Blogs/HeroJourney.html#important-questions-at-the-end-of-life",
+    "title": "Hero’s Journey",
+    "section": "Important Questions at the End of Life",
+    "text": "Important Questions at the End of Life\nThree questions that are still important at the end of life are: “Have I brought something that’s meaningful? Was I a good person? Who did I love, and who loved me?” These questions cut through all the noise in business statistics and ask what actually lives on for people."
+  },
+  {
+    "objectID": "Blogs/HeroJourney.html#shifting-fears",
+    "href": "Blogs/HeroJourney.html#shifting-fears",
+    "title": "Hero’s Journey",
+    "section": "Shifting Fears",
+    "text": "Shifting Fears\nLast but not least, it is a strong insight that our main fear shifts from failure to wasted potential. The speech warns that we will see it later on and understand better that we had a fear of the wrong things."
+  },
+  {
+    "objectID": "Blogs/HeroJourney.html#the-most-expensive-mistake",
+    "href": "Blogs/HeroJourney.html#the-most-expensive-mistake",
+    "title": "Hero’s Journey",
+    "section": "The Most Expensive Mistake",
+    "text": "The Most Expensive Mistake\nYet here are some times when this is the most expensive mistake people have ever made. The true horror isn’t not getting it right in building a business; it’s reaching the age of 60 and realizing that you never set out to fulfill your calling at all!"
+  },
+  {
+    "objectID": "Blogs/EntrepreneurialPath.html#insights-from-readings-and-videos",
+    "href": "Blogs/EntrepreneurialPath.html#insights-from-readings-and-videos",
+    "title": "Alex J. Tovar",
+    "section": "Insights from Readings and Videos",
+    "text": "Insights from Readings and Videos\nFrom the readings and videos of this week’s study, I gained some valuable insights that connected spiritual principles with practical career wisdom in ways I hadn’t fully thought of before. President Monson’s “An Attitude of Gratitude” was a reminder that gratitude is a feeling but something you have to develop."
+  },
+  {
+    "objectID": "Blogs/EntrepreneurialPath.html#the-parable-of-the-ten-lepers",
+    "href": "Blogs/EntrepreneurialPath.html#the-parable-of-the-ten-lepers",
+    "title": "Alex J. Tovar",
+    "section": "The Parable of the Ten Lepers",
+    "text": "The Parable of the Ten Lepers\nThe parable of the ten lepers was really powerful for me: only one returned to thank, and Christ’s quiet disappointment in the nine is a lesson not to take everything for granted. Monson’s six categories of gratitude for mothers, fathers, teachers, friends, country, and the Savior allowed me to assess those relationships that make us who we are. His story about Lucy Gertsch, the Sunday School teacher who diverted class party funds to a grieving family, showed that gratitude naturally transfers to service. To me, it was the connection between thankfulness and generosity that was the most powerful."
+  },
+  {
+    "objectID": "Blogs/EntrepreneurialPath.html#career-pathway-research",
+    "href": "Blogs/EntrepreneurialPath.html#career-pathway-research",
+    "title": "Alex J. Tovar",
+    "section": "Career Pathway Research",
+    "text": "Career Pathway Research\nFrom the Stanford videos, Ted Zoller’s career pathway research challenged my understanding of how successful entrepreneurs are made. I assumed it to be serial startups or investment banks, but I found that working in big corporations and then moving on to smaller, high-growth companies is actually the most common route. It is evidence that you can really have a lot of experience before you start a new business."
+  },
+  {
+    "objectID": "Blogs/EntrepreneurialPath.html#advice-on-work-and-gratitude",
+    "href": "Blogs/EntrepreneurialPath.html#advice-on-work-and-gratitude",
+    "title": "Alex J. Tovar",
+    "section": "Advice on Work and Gratitude",
+    "text": "Advice on Work and Gratitude\nStan Christensen’s advice to not take jobs that you want for resume-building but rather work that actually feels good reinforced Monson’s gratitude theme in an unexpected way; we are more grateful for the work we actually love."
+  },
+  {
+    "objectID": "Blogs/EntrepreneurialPath.html#looking-forward",
+    "href": "Blogs/EntrepreneurialPath.html#looking-forward",
+    "title": "Alex J. Tovar",
+    "section": "Looking Forward",
+    "text": "Looking Forward\nLooking forward, I am keen to understand how gratitude shapes entrepreneurial resilience. I want to know how founders who are truly thankful for mentors and opportunities and even failures create more sustainable and purpose-driven businesses instead of those driven by money."
   },
   {
     "objectID": "Blogs/business.html#what-is-a-business-for",
@@ -644,158 +665,193 @@
     "text": "Final Thoughts\nEnd-to-end machine learning applications connect models to real outcomes. They shift the focus from isolated performance metrics to systems that are useful, explainable, and resilient. If you are learning machine learning, do not stop at the model. Learn how to build the surrounding systems that make models meaningful. That is where the real learning happens and where real opportunity begins."
   },
   {
-    "objectID": "Blogs/HeroJourney.html#incredible-insight-in-a-heros-journey",
-    "href": "Blogs/HeroJourney.html#incredible-insight-in-a-heros-journey",
-    "title": "Hero’s Journey",
-    "section": "Incredible Insight in “A Hero’s Journey”",
-    "text": "Incredible Insight in “A Hero’s Journey”\nThe most incredible insight in “A Hero’s Journey” is paradox: it is about you and not about you at all at the heart of your entrepreneurial journey. That discovery is what makes us different, and it happens to be also something that you do joyously, with your gifts. Because then you do your part for that which is far bigger than you, and everything in the world."
+    "objectID": "Blogs/Ethics.html#discipleship-leadership-lessons",
+    "href": "Blogs/Ethics.html#discipleship-leadership-lessons",
+    "title": "Ethics & Greatness",
+    "section": "Discipleship Leadership Lessons",
+    "text": "Discipleship Leadership Lessons\nLeadership is usually associated with titles, authority, and power. The readings and videos from this week’s study gave me another perspective. True leadership, based on the teachings of these materials, leads from discipleship, character, and service."
   },
   {
-    "objectID": "Blogs/HeroJourney.html#re-conceptualizing-entrepreneurship",
-    "href": "Blogs/HeroJourney.html#re-conceptualizing-entrepreneurship",
-    "title": "Hero’s Journey",
-    "section": "Re-conceptualizing Entrepreneurship",
-    "text": "Re-conceptualizing Entrepreneurship\nThis re-conceptualizes entrepreneurship as no longer selfish business of wealth accumulation; it is a vocation that transforms the world as well as the entrepreneur. The speech gives a framework for your calling that is above and beyond the advice one receives in their job."
+    "objectID": "Blogs/Ethics.html#trustworthiness",
+    "href": "Blogs/Ethics.html#trustworthiness",
+    "title": "Ethics & Greatness",
+    "section": "Trustworthiness",
+    "text": "Trustworthiness\nOne of the most surprising ideas came from Guy Kawasaki’s lecture on trustworthiness. He referred to two categories of people: “bakers” and “eaters.” Eaters view the world as zero-sum; whatever they can get for themselves from it, someone else loses. Bakers, on the other hand, see the world as an opportunity to make more and bigger pies. Great leaders are bakers. They default to “yes” and always ask how they can help this person, rather than how this person can help them. That modest mind shift is at the core of servant leadership."
   },
   {
-    "objectID": "Blogs/HeroJourney.html#overlap-between-key-aspects",
-    "href": "Blogs/HeroJourney.html#overlap-between-key-aspects",
-    "title": "Hero’s Journey",
-    "section": "Overlap Between Key Aspects",
-    "text": "Overlap Between Key Aspects\nThat is the area the speech hits home when you mention the overlap between three aspects: God-given talents, deep contentment, and addressing an important need in the world."
+    "objectID": "Blogs/Ethics.html#continuous-learning",
+    "href": "Blogs/Ethics.html#continuous-learning",
+    "title": "Ethics & Greatness",
+    "section": "Continuous Learning",
+    "text": "Continuous Learning\nCarly Fiorina reiterated this by saying that capability is not about skills or experience, but a matter of constantly finding new ways to learn. Leaders who ask questions, take risks, and embrace new perspectives are vibrant and effective. Stop learning, and you are paralyzed."
   },
   {
-    "objectID": "Blogs/HeroJourney.html#insightful-exercise",
-    "href": "Blogs/HeroJourney.html#insightful-exercise",
-    "title": "Hero’s Journey",
-    "section": "Insightful Exercise",
-    "text": "Insightful Exercise\nThe exercise of asking five people what you do much better than the average person is especially insightful since we often overlook our naturally gifted innate gifts, especially since we take them for granted. Identifying those “flow” moments when you don’t sense time shows you what’s truly engaging you at the deepest level."
+    "objectID": "Blogs/Ethics.html#workplace-ethics",
+    "href": "Blogs/Ethics.html#workplace-ethics",
+    "title": "Ethics & Greatness",
+    "section": "Workplace Ethics",
+    "text": "Workplace Ethics\nFrank Levinson added an extra point: hire nice people. Workplace ethics isn’t simply about obeying rules; it’s about being genuinely concerned with each other and treating customers as you would want to be treated."
   },
   {
-    "objectID": "Blogs/HeroJourney.html#the-reversal-over-time",
-    "href": "Blogs/HeroJourney.html#the-reversal-over-time",
-    "title": "Hero’s Journey",
-    "section": "The Reversal Over Time",
-    "text": "The Reversal Over Time\nBut what strikes me most strongly is the reversal that occurs over time. Students arrive looking to make money and then realize learning how to learn is what matters most. Years later, they learn that learning how to live a life filled with meaning was what really changed them. This development would indicate that our expectations shift with age and the major concerns only become discernible with perspective."
+    "objectID": "Blogs/Ethics.html#striving-for-greatness",
+    "href": "Blogs/Ethics.html#striving-for-greatness",
+    "title": "Ethics & Greatness",
+    "section": "Striving for Greatness",
+    "text": "Striving for Greatness\nI am reminded from the lesson of Jim Ritchie from “Good to Great” that good is the enemy of great. It’s so easy to sink into comfortable goodness and never, ever push to reach that one level of greatness. Great leaders are humble yet driven-Level 5 leaders who put the right people first."
   },
   {
-    "objectID": "Blogs/HeroJourney.html#important-questions-at-the-end-of-life",
-    "href": "Blogs/HeroJourney.html#important-questions-at-the-end-of-life",
-    "title": "Hero’s Journey",
-    "section": "Important Questions at the End of Life",
-    "text": "Important Questions at the End of Life\nThree questions that are still important at the end of life are: “Have I brought something that’s meaningful? Was I a good person? Who did I love, and who loved me?” These questions cut through all the noise in business statistics and ask what actually lives on for people."
-  },
-  {
-    "objectID": "Blogs/HeroJourney.html#shifting-fears",
-    "href": "Blogs/HeroJourney.html#shifting-fears",
-    "title": "Hero’s Journey",
-    "section": "Shifting Fears",
-    "text": "Shifting Fears\nLast but not least, it is a strong insight that our main fear shifts from failure to wasted potential. The speech warns that we will see it later on and understand better that we had a fear of the wrong things."
-  },
-  {
-    "objectID": "Blogs/HeroJourney.html#the-most-expensive-mistake",
-    "href": "Blogs/HeroJourney.html#the-most-expensive-mistake",
-    "title": "Hero’s Journey",
-    "section": "The Most Expensive Mistake",
-    "text": "The Most Expensive Mistake\nYet here are some times when this is the most expensive mistake people have ever made. The true horror isn’t not getting it right in building a business; it’s reaching the age of 60 and realizing that you never set out to fulfill your calling at all!"
-  },
-  {
-    "objectID": "Blogs/LaunchingLeaders.html#introduction.",
-    "href": "Blogs/LaunchingLeaders.html#introduction.",
-    "title": "Launching Leaders: An Empowering Journey for a New Generation",
-    "section": "Introduction.",
-    "text": "Introduction.\nThis week’s readings on “How Will You Measure Your Life” have completely changed the way I perceive success. For me, the most powerful framework I got was Jim Collins’ three circles idea from Tom Kelley’s presentation. This notion that success isn’t as much about what you excel at as it is about finding the intersection between what you are really good at, what you are destined to do, and what people will pay you for is a big one."
-  },
-  {
-    "objectID": "Blogs/LaunchingLeaders.html#key-insights.",
-    "href": "Blogs/LaunchingLeaders.html#key-insights.",
-    "title": "Launching Leaders: An Empowering Journey for a New Generation",
-    "section": "Key Insights.",
-    "text": "Key Insights.\nI’ve spent too long trapped in the “curse of competence,” doing things simply because I can, not because it is what I am doing to fulfill the purpose. Collins’ idea of using a lab notebook to track when I feel the happiest and most in flow is something I am doing at moment’s notice. I want to find out what I’m truly born to do, rather than just going along with what is easy/right."
-  },
-  {
-    "objectID": "Blogs/LaunchingLeaders.html#productivity-pyramid.",
-    "href": "Blogs/LaunchingLeaders.html#productivity-pyramid.",
-    "title": "Launching Leaders: An Empowering Journey for a New Generation",
-    "section": "Productivity Pyramid.",
-    "text": "Productivity Pyramid.\nThis lesson on the Productivity Pyramid by Jim Ritchie provided me with tools to implement every day in accordance with my beliefs. Without that structure, I found, I’m only busy, not productive. My governing values must serve as the groundwork, which in turn determines the long-term goals, short-term goals, and the daily tasks. This is closely linked to the idea of the Personal Constitution writing “I am” statements around who I want to be and prioritizing them."
-  },
-  {
-    "objectID": "Blogs/LaunchingLeaders.html#life-lessons.",
-    "href": "Blogs/LaunchingLeaders.html#life-lessons.",
-    "title": "Launching Leaders: An Empowering Journey for a New Generation",
-    "section": "Life Lessons.",
-    "text": "Life Lessons.\nI was struck by the example about integrity vs financial independence. Otherwise, if I fail to consciously prioritize my values, I’ll sacrifice what matters most when making hard choices. Jeff Hawkins’ message of good choices over longer hours was liberating. I have accepted the myth that entrepreneurship, which comes with sacrifice, means losing family time all the time."
-  },
-  {
-    "objectID": "Blogs/LaunchingLeaders.html#conclusion.",
-    "href": "Blogs/LaunchingLeaders.html#conclusion.",
-    "title": "Launching Leaders: An Empowering Journey for a New Generation",
-    "section": "Conclusion.",
-    "text": "Conclusion.\nBut Hawkins has shown that it pays to make better decisions every day, rather than to grind endlessly. Success is about intelligent decisions, not just hard work. This is in keeping with determining life not as hours spent, but as the decisions made that demonstrate a value system in alignment with values that lead to true purpose. From this lens, I hope to implement the Productivity Pyramid and the three circles framework for a more intentional, values-driven approach to business and life, making sure that it is the success that I want to measure for myself that defines and guides my success."
-  },
-  {
-    "objectID": "Blogs/Measuring.html#reflection-on-stephen-gibsons-attitude-on-money",
-    "href": "Blogs/Measuring.html#reflection-on-stephen-gibsons-attitude-on-money",
-    "title": "Measuring Success in Entrepreneurship",
-    "section": "Reflection on Stephen Gibson’s “Attitude on Money”",
-    "text": "Reflection on Stephen Gibson’s “Attitude on Money”\nBefore I read Stephen Gibson’s Attitude on Money, I had never pondered where my perception about money came from. Gibson’s opening metaphor of prescription glasses (and filters) really worked for me because it showed me that most of my assumptions about money came from home rather than from an independent conclusion."
-  },
-  {
-    "objectID": "Blogs/Measuring.html#eye-opening-insights",
-    "href": "Blogs/Measuring.html#eye-opening-insights",
-    "title": "Measuring Success in Entrepreneurship",
-    "section": "Eye-Opening Insights",
-    "text": "Eye-Opening Insights\nThat’s eye-opening and motivating because we can look at and change those filters. The open fact of the people is that my understanding of money has been one of a lie to keep out (so-called) many in the public eye, suggesting that genuine good people don’t invest in money. Gibson does exactly that. His comment that even the President of the Church had to think carefully about where to have money to build temples and the Perpetual Education Fund shifted my thinking completely."
-  },
-  {
-    "objectID": "Blogs/Measuring.html#rethinking-money",
-    "href": "Blogs/Measuring.html#rethinking-money",
-    "title": "Measuring Success in Entrepreneurship",
-    "section": "Rethinking Money",
-    "text": "Rethinking Money\nMoney does not defeat a good life. It is a tool that is used depending upon who is using it and not in the interest of good. If you look at money, not thinking won’t solve your problems with it. You may simply believe that if circumstances require it for what you’re going through, you will manage just in a more or less independent manner."
-  },
-  {
-    "objectID": "Blogs/Measuring.html#financial-self-reliance",
-    "href": "Blogs/Measuring.html#financial-self-reliance",
-    "title": "Measuring Success in Entrepreneurship",
-    "section": "Financial Self-Reliance",
-    "text": "Financial Self-Reliance\nGibson argues that people who think ahead financially are far more likely to achieve self-reliance. These form a coherent template for how to tie financial success to character rather than the existence of their differences."
-  },
-  {
-    "objectID": "Blogs/Measuring.html#the-importance-of-generosity",
-    "href": "Blogs/Measuring.html#the-importance-of-generosity",
-    "title": "Measuring Success in Entrepreneurship",
-    "section": "The Importance of Generosity",
-    "text": "The Importance of Generosity\nMost resonant was the understanding of generosity as an ongoing process that you can’t start when very rich; generosity is something you have as a habit while very poor, as Jon Huntsman exemplifies. In a way, it forced me to give when I have very little and not to think about being rich in some future place in terms of the comfort I could offer."
-  },
-  {
-    "objectID": "Blogs/perseverance.html#persistance",
-    "href": "Blogs/perseverance.html#persistance",
-    "title": "Lessons of Perseverance and Purpose",
-    "section": "Persistance",
-    "text": "Persistance\nReading these lessons was a reminder to me that entrepreneurship is not limited to business strategy. Entrepreneurship is about fighting through adversity and not losing faith. Jeffrey R. Holland’s account of the broken-down car struck a nerve. That young father, stranded twice in the same place with his whole family and all their belongings, encountered a moment very many entrepreneurs know all too well: when everything feels like it’s falling apart and the destination seems out of reach.\nHis message, “Don’t you quit. You keep walking,” brings together the essence of what my material-based learning was made up of. Success is not having a perfectly well-defined plan or avoiding a breakdown; you continue to progress even in the face of feeling that progress is unattainable."
-  },
-  {
-    "objectID": "Blogs/perseverance.html#practical-depth",
-    "href": "Blogs/perseverance.html#practical-depth",
-    "title": "Lessons of Perseverance and Purpose",
-    "section": "Practical Depth",
-    "text": "Practical Depth\nDavid Carrington gave me some practical depth in this vein. His focus on making sure “I think backwards” and not settling for the obvious solution pushes me to dig harder. What really impressed me was his decision during the Dale Earnhardt tragedy to stand firm in the face of ethical pricing when he could have mined the sadness of loss. It was in that moment that something vital emerged: lasting success lies in integrity, not exploitation.\nHis diagnosis of cancer also made him reconsider balance, which is precisely the lesson I learned when I lived through this experience: sometimes our biggest roadblocks lead us to where we’re supposed to be."
-  },
-  {
-    "objectID": "Blogs/perseverance.html#the-five-whys",
-    "href": "Blogs/perseverance.html#the-five-whys",
-    "title": "Lessons of Perseverance and Purpose",
-    "section": "The Five Whys",
-    "text": "The Five Whys\nEric Ries’s “Five Whys” was brilliant. It taught me that superficial solutions seldom work for real problems. Behind every technical failure, there is a human or systemic problem. This style of proportional investment, dedicating just one hour to each problem at each tier of difficulty rather than nothing or everything seems revolutionary and real. All the while, I’m interested in applying it to actual practice.\nI wish I could really have that moment where “random thinking” yields a surprising solution, practice the idea of asking five whys when things go wrong, and, most importantly, cultivate the faith to keep going when my car fails at mile 34 on a 2,600-mile trip."
-  },
-  {
-    "objectID": "Blogs/perseverance.html#conclusion",
-    "href": "Blogs/perseverance.html#conclusion",
-    "title": "Lessons of Perseverance and Purpose",
+    "objectID": "Blogs/Ethics.html#conclusion",
+    "href": "Blogs/Ethics.html#conclusion",
+    "title": "Ethics & Greatness",
     "section": "Conclusion",
-    "text": "Conclusion\nThese stories taught me that entrepreneurship calls it equal parts creativity, ethics, perseverance, and faith, and that we are more than the destination that is shaped by our journey."
+    "text": "Conclusion\nDiscipleship leadership is to lead people to higher ground, not by rule but by example, love, and selfless service."
+  },
+  {
+    "objectID": "Blogs/Hosting_Using_AWS.html#introduction",
+    "href": "Blogs/Hosting_Using_AWS.html#introduction",
+    "title": "Hosting My Professional Portfolio Using AWS Amplify",
+    "section": "Introduction",
+    "text": "Introduction\nWhen I initially began constructing projects, I was overwhelmed with one major question: How do I present them professionally? Uploading notebooks to GitHub was acceptable, but it didn’t truly showcase my work. I wanted something that looked nice, professional, and was easy to distribute to employers.\nThat’s when I stumbled upon Quarto, a free open-source website-publishing platform that converts Markdown and code into finished websites. While it was a great start, I realized that having complete control over my content in a reliable location was crucial for my professional portfolio. That’s where AWS Amplify came in."
+  },
+  {
+    "objectID": "Blogs/Hosting_Using_AWS.html#why-quarto",
+    "href": "Blogs/Hosting_Using_AWS.html#why-quarto",
+    "title": "Hosting My Professional Portfolio Using AWS Amplify",
+    "section": "Why Quarto?",
+    "text": "Why Quarto?\nQuarto is simple yet powerful. It allows you to blend code, text, and visuals all in one location whether writing blog posts, data analyses, or research reports. For users in data science or analytics, it strikes the perfect balance between documentation and presentation.\nSince I had worked with QMD files to analyze my data, I could turn them directly into interactive, modern web pages with Quarto. I didn’t have to learn web development from scratch; Quarto handled formatting, navigation, and layout. In just minutes, I had a site that resembled a publication rather than just a collection of notebooks."
+  },
+  {
+    "objectID": "Blogs/Hosting_Using_AWS.html#deploying-to-aws-amplify",
+    "href": "Blogs/Hosting_Using_AWS.html#deploying-to-aws-amplify",
+    "title": "Hosting My Professional Portfolio Using AWS Amplify",
+    "section": "Deploying to AWS Amplify",
+    "text": "Deploying to AWS Amplify\nOnce I completed my site on a local device using VSCode, I needed to host it. Free options like GitHub Pages were okay, but I preferred paid options that encouraged me to manage resources carefully.\nAWS Amplify directly hosts projects tied to a GitHub repository, allowing automatic updates when I make changes to the website. This seamless integration meant no manual uploads or tedious setup steps were necessary. Version control and deployment complemented each other perfectly.\nInitially, setting everything up was daunting. I had to create an Amplify app, link it to my GitHub repository, and double-check that the website looked correct after each installation. I learned valuable lessons through my mistakes and gained insights through my education.\nRunning my website on AWS isn’t just about visibility; it’s about marketing. I control how it looks, loads, and scales not limited by templates that restrict personalization. This technical independence showcases to employers that I go the extra mile and can demonstrate my professional skills."
+  },
+  {
+    "objectID": "Blogs/Hosting_Using_AWS.html#how-to-turn-a-website-into-a-portfolio",
+    "href": "Blogs/Hosting_Using_AWS.html#how-to-turn-a-website-into-a-portfolio",
+    "title": "Hosting My Professional Portfolio Using AWS Amplify",
+    "section": "How to Turn a Website into a Portfolio",
+    "text": "How to Turn a Website into a Portfolio\nAs soon as my Quarto site was live, it completely transformed how I portrayed myself. Instead of directing people to separate notebooks, dashboards, or PDFs, I could share one URL that served as a digital home for all my work.\nThe site features links to my projects, blog posts, and an about section. Projects display my visualizations, models, and real-world analyses, while blog posts cover topics like networking on LinkedIn and deploying cloud services. The about page shares my journey and aspirations, weaving everything into one cohesive story. They convey not just what I’ve done but how I think."
+  },
+  {
+    "objectID": "Blogs/Hosting_Using_AWS.html#the-professional-value-it-offers",
+    "href": "Blogs/Hosting_Using_AWS.html#the-professional-value-it-offers",
+    "title": "Hosting My Professional Portfolio Using AWS Amplify",
+    "section": "The Professional Value it Offers",
+    "text": "The Professional Value it Offers\nA portfolio on AWS does more than showcase projects; it demonstrates initiative. It shows that you can work with cloud infrastructure, deploy applications, and document your data work professionally.\nFor roles in data science, analytics, or engineering, having such a portfolio improves your prospects. Recruiters and hiring managers can readily assess your technical abilities and communication skills two key factors that help strong candidates stand out.\nAWS is an actual cloud service, so hosting your portfolio there indicates familiarity with deployment and scaling crucial skills often overlooked by entry-level candidates."
+  },
+  {
+    "objectID": "Blogs/Hosting_Using_AWS.html#final-thoughts",
+    "href": "Blogs/Hosting_Using_AWS.html#final-thoughts",
+    "title": "Hosting My Professional Portfolio Using AWS Amplify",
+    "section": "Final Thoughts",
+    "text": "Final Thoughts\nStarting a Quarto site via AWS began as a personal exploration of a tool, but it soon evolved into a significant piece of my professional identity. It’s not just a portfolio; it’s a written memoir of personal evolution, exploration, and curiosity.\nBuilding your own in data science, analytics, or any tech field is entirely feasible. Quarto and AWS together can transform your work into something substantial beyond a résumé. They turn it into proof of your capabilities."
+  },
+  {
+    "objectID": "Blogs/Linkedin_Reach_Tips.html#breaking-in-the-market-is-challenging.",
+    "href": "Blogs/Linkedin_Reach_Tips.html#breaking-in-the-market-is-challenging.",
+    "title": "How to Reach Out to DS Professionals on LinkedIn",
+    "section": "Breaking In the Market Is Challenging.",
+    "text": "Breaking In the Market Is Challenging.\nFor incoming college graduates the market is tough going. Layoffs have sent waves through the applicant pool, graduate schools have become more competitive as students try to get ahead; and the belief that AI can replace entry-level workers has plagued the industry. In a place like this, it’s often easy to feel unnoticed. That’s why I developed the talent to stand out, to be among those professionals who were in the industry."
+  },
+  {
+    "objectID": "Blogs/Linkedin_Reach_Tips.html#take-the-first-step.",
+    "href": "Blogs/Linkedin_Reach_Tips.html#take-the-first-step.",
+    "title": "How to Reach Out to DS Professionals on LinkedIn",
+    "section": "Take the First Step.",
+    "text": "Take the First Step.\nI had no plan, when I first started trying to break into data science. Everybody seemed to have more experience, better portfolios, advanced degrees. I knew I had to learn, from people who already are with the game, if I was going to get noticed in the industry. So in the summer of 2025, I contacted hundreds of professionals on LinkedIn. At the end of the game, I’d done over 500 connection requests."
+  },
+  {
+    "objectID": "Blogs/Linkedin_Reach_Tips.html#cold-connections",
+    "href": "Blogs/Linkedin_Reach_Tips.html#cold-connections",
+    "title": "How to Reach Out to DS Professionals on LinkedIn",
+    "section": "Cold Connections:",
+    "text": "Cold Connections:\nLearning. At first, I felt a bit uncomfortable about it. Sending cold messages to strangers online is difficult. I was afraid I’d cause people to tune me out, or they would think I was just a waste of their time, if I weren’t as inexperienced. But I learned fast to kick things off well and the university alumni I talked to were also an early adopter. My messages were simple:\n”Hi [Name], Hello, my name is Alex J. Tovar, Data Science guy too. I would love to invest in this relationship and grow our LinkedIn profiles together. Let’s connect!”. Short message, but it demonstrates a shared interest in data science and invites the contacts as an investment in the company that might serve the two parties. If it is good, then why not accept it? This is the mental bargaining that goes into every reach message."
+  },
+  {
+    "objectID": "Blogs/Linkedin_Reach_Tips.html#small-numbers-big-impact.",
+    "href": "Blogs/Linkedin_Reach_Tips.html#small-numbers-big-impact.",
+    "title": "How to Reach Out to DS Professionals on LinkedIn",
+    "section": "Small Numbers, Big Impact.",
+    "text": "Small Numbers, Big Impact.\nFrom those hundreds of connections, only a tiny fraction responded but that few became super useful. A few offered to hop on Zoom or a phone call, to relay their stories or take some advice and get on board with the conversation. I learned what hiring managers really look for, how data teams are structured and how roles mesh information I would never even dreamt I would have come across in a course description or job posting. One thing which came out of these conversations was the power of active networking. Collecting connections for the sake of numbers can be quite easy, but what really matters is building good ones. A small number of genuine partnerships will take you far beyond the thousand shallow ones."
+  },
+  {
+    "objectID": "Blogs/Linkedin_Reach_Tips.html#from-talks-to-chances.",
+    "href": "Blogs/Linkedin_Reach_Tips.html#from-talks-to-chances.",
+    "title": "How to Reach Out to DS Professionals on LinkedIn",
+    "section": "From talks to chances.",
+    "text": "From talks to chances.\nAt times, that connection would take the form of a casual chit chat that eventually bled into a brief mentoring session. Other times all it did was a one-time conversation that showed me a new viewpoint. And, yes, in some cases those relationships opened the path to interviews and opportunities. But the biggest reward wasn’t the job prospects it was the confidence that I was no longer working through this on my own."
+  },
+  {
+    "objectID": "Blogs/Linkedin_Reach_Tips.html#what-networking-really-means.",
+    "href": "Blogs/Linkedin_Reach_Tips.html#what-networking-really-means.",
+    "title": "How to Reach Out to DS Professionals on LinkedIn",
+    "section": "What Networking Really Means.",
+    "text": "What Networking Really Means.\nNetworking isn’t about getting something from someone; it’s about learning from them. It can be about being interested, listening closely and mutual respect. Data scientists, of course, and people really across the board thrive when they blend technical expertise with good people. If I could recommend one piece of advice to novices, I would say this: don’t wait until you’re “qualified” to go out. The best time to connect is now. What will get through to you is not all of a sudden your problems have changed; just curiosity and a willingness to listen."
+  },
+  {
+    "objectID": "Blogs/Linkedin_Reach_Tips.html#final-thoughts.",
+    "href": "Blogs/Linkedin_Reach_Tips.html#final-thoughts.",
+    "title": "How to Reach Out to DS Professionals on LinkedIn",
+    "section": "Final Thoughts.",
+    "text": "Final Thoughts.\nFrom data science, I learned that opportunities are often presented to us in surprising ways. But those opportunities rarely come your way without putting oneself out there. So write your message and hit the “Connect” button and start developing relationships that will follow you outside of school."
+  },
+  {
+    "objectID": "Blogs/My_First_Week.html#introduction.",
+    "href": "Blogs/My_First_Week.html#introduction.",
+    "title": "My First Week in Entrepreneurship",
+    "section": "Introduction.",
+    "text": "Introduction.\nHey, my name is Alex, and I started my entrepreneurial career by taking “Intro to Entrepreneurship” here at BYU-I. Although daunting at first, I’ve become more confident that I can succeed not only in class, but also in business and life. Today’s blog will cover what I’ve learned this week from readings and videos, and what I’m looking forward to learning and experiencing from the course."
+  },
+  {
+    "objectID": "Blogs/My_First_Week.html#getting-started.",
+    "href": "Blogs/My_First_Week.html#getting-started.",
+    "title": "My First Week in Entrepreneurship",
+    "section": "Getting Started.",
+    "text": "Getting Started.\nTo start, I’ve been assigned three books: “A Field Guide for the Hero’s Journey”, “Mastery”, and “Launching Leaders: An Empowering Journey for a New Generation (Christian Edition).” All books offer valuable advice on various aspects of managing and launching a business."
+  },
+  {
+    "objectID": "Blogs/My_First_Week.html#book-insights.",
+    "href": "Blogs/My_First_Week.html#book-insights.",
+    "title": "My First Week in Entrepreneurship",
+    "section": "Book Insights.",
+    "text": "Book Insights.\nFor example, “Launching New Leaders.” Gives a unique approach on how to be a leader and a devoted Christian at the same time. Combining scriptures from the Bible with reputable experiences from professionals, and tips to tackle different problems. For example, framing problems to focus and gain a different perspective on your behavior and the problem itself. Implying to exclude all the unnecessary bluff in your life and simplify and target what matters. As well as taking difficult events in your life and making them great lessons on what truly matters in life and what doesn’t."
+  },
+  {
+    "objectID": "Blogs/My_First_Week.html#course-insights",
+    "href": "Blogs/My_First_Week.html#course-insights",
+    "title": "My First Week in Entrepreneurship",
+    "section": "Course Insights",
+    "text": "Course Insights\nThis week I also covered my goals in life, by being tasked to list 50 goals. It gave a perspective into myself and what I really want to accomplish, such as starting a consulting firm, learning lots of analytical tools, and even doing a handstand push-up. The task emphasizes the importance of finding what I truly want and how to define it. For example, starting a consulting firm would require me to acquire an LLC, investigate consulting insurance, and design a logo. In the end, I learned that entrepreneurship and life goals are very vast, and I look forward to being organized to tackle every problem."
+  },
+  {
+    "objectID": "Blogs/post2.html#achieved-by-sheer-will-and-purpose",
+    "href": "Blogs/post2.html#achieved-by-sheer-will-and-purpose",
+    "title": "Randy Pausch’s Last Lecture",
+    "section": "Achieved by sheer will and purpose",
+    "text": "Achieved by sheer will and purpose\nRandy Pausch’s last lecture reflections. Randy Pausch realized many of his childhood dreams not by any luck or magic but by his perseverance and resolve to not allow adversity to be the limit of his own capacity. He preached that “brick walls are there for a reason: they let us prove how badly we want things.” He didn’t take rejection from Disney Imagineering as a final obstacle but as a temporary setback. He was a lifelong fan of rejection; he knew that it is just part of the story and that if you push at it, doors to things you once thought you had no access to will open for you."
+  },
+  {
+    "objectID": "Blogs/post2.html#the-importance-of-dreams",
+    "href": "Blogs/post2.html#the-importance-of-dreams",
+    "title": "Randy Pausch’s Last Lecture",
+    "section": "The importance of dreams",
+    "text": "The importance of dreams\nWhat he is showing is that even dreaming things through can require vision, but also the ability to push through disappointment. There is a thing that I entirely believe: dreaming is crucial to life. Dreams teach us how to live; they take what we do each day from the tiniest step to a path toward all that is. When we have no dreams, we are easily lost in life’s activities and drift through life without thought about it. Pausch’s life illustrates this beautifully: his dream during childhood to build up Disney-like experiences that were not only real but structured his educational decisions, professional experiences, and creative projects were no accident."
+  },
+  {
+    "objectID": "Blogs/post2.html#dreams-as-a-roadmap",
+    "href": "Blogs/post2.html#dreams-as-a-roadmap",
+    "title": "Randy Pausch’s Last Lecture",
+    "section": "Dreams as a roadmap",
+    "text": "Dreams as a roadmap\nDreams provide us with the “why” behind our actions, which is especially crucial when we all feel like we can’t muster up some motivation. One of my childhood dreams was for me to have a business that actually helps people solve real problems; namely, to have my own consulting firm, which turns struggling businesses into profitable ones. I feel I can fulfill this dream, as right now I am building the base. I’m learning in my new classes how to take ambitious aspirations and distill them down into manageable plans for me to follow up on: obtain an LLC, comprehend insurance standards, and become analytical."
+  },
+  {
+    "objectID": "Blogs/post2.html#life-lessons",
+    "href": "Blogs/post2.html#life-lessons",
+    "title": "Randy Pausch’s Last Lecture",
+    "section": "Life lessons",
+    "text": "Life lessons\nAs Pausch said, it’s not so much the destination as the “how to lead your life.” My commitment to ongoing learning, seeing failures as learning experiences, and staying focused on the things that really matter means I’m poised to realize this dream. Pausch’s talk consolidated concepts from this week’s readings on framing problems and simplifying focus. It echoes his philosophy that “experience is what you get when you don’t get what you want,” which is perfectly aligned with creating lessons out of hardships. This is exactly the mindset that I look forward to putting into practice for the challenges and trials of entrepreneurship, as I know they will ultimately be a chance to show how badly I want to succeed."
   },
   {
     "objectID": "Blogs/Three.html#three-entrepreneurs-that-i-learned-from-and-why-that-changes-me",
@@ -852,124 +908,5 @@
     "title": "Insurance Claims Prediction Model",
     "section": "",
     "text": "precision  recall  f1-score  support\n0                  0.94    0.99      0.96  10969.0\n1                  0.07    0.01      0.01    750.0\naccuracy           0.93     NaN       NaN  11719.0\nmacro avg          0.50    0.50      0.49  11719.0\nweighted avg       0.88    0.93      0.90  11719.0"
-  },
-  {
-    "objectID": "Blogs/EntrepreneurialPath.html#insights-from-readings-and-videos",
-    "href": "Blogs/EntrepreneurialPath.html#insights-from-readings-and-videos",
-    "title": "Alex J. Tovar",
-    "section": "Insights from Readings and Videos",
-    "text": "Insights from Readings and Videos\nFrom the readings and videos of this week’s study, I gained some valuable insights that connected spiritual principles with practical career wisdom in ways I hadn’t fully thought of before. President Monson’s “An Attitude of Gratitude” was a reminder that gratitude is a feeling but something you have to develop."
-  },
-  {
-    "objectID": "Blogs/EntrepreneurialPath.html#the-parable-of-the-ten-lepers",
-    "href": "Blogs/EntrepreneurialPath.html#the-parable-of-the-ten-lepers",
-    "title": "Alex J. Tovar",
-    "section": "The Parable of the Ten Lepers",
-    "text": "The Parable of the Ten Lepers\nThe parable of the ten lepers was really powerful for me: only one returned to thank, and Christ’s quiet disappointment in the nine is a lesson not to take everything for granted. Monson’s six categories of gratitude for mothers, fathers, teachers, friends, country, and the Savior allowed me to assess those relationships that make us who we are. His story about Lucy Gertsch, the Sunday School teacher who diverted class party funds to a grieving family, showed that gratitude naturally transfers to service. To me, it was the connection between thankfulness and generosity that was the most powerful."
-  },
-  {
-    "objectID": "Blogs/EntrepreneurialPath.html#career-pathway-research",
-    "href": "Blogs/EntrepreneurialPath.html#career-pathway-research",
-    "title": "Alex J. Tovar",
-    "section": "Career Pathway Research",
-    "text": "Career Pathway Research\nFrom the Stanford videos, Ted Zoller’s career pathway research challenged my understanding of how successful entrepreneurs are made. I assumed it to be serial startups or investment banks, but I found that working in big corporations and then moving on to smaller, high-growth companies is actually the most common route. It is evidence that you can really have a lot of experience before you start a new business."
-  },
-  {
-    "objectID": "Blogs/EntrepreneurialPath.html#advice-on-work-and-gratitude",
-    "href": "Blogs/EntrepreneurialPath.html#advice-on-work-and-gratitude",
-    "title": "Alex J. Tovar",
-    "section": "Advice on Work and Gratitude",
-    "text": "Advice on Work and Gratitude\nStan Christensen’s advice to not take jobs that you want for resume-building but rather work that actually feels good reinforced Monson’s gratitude theme in an unexpected way; we are more grateful for the work we actually love."
-  },
-  {
-    "objectID": "Blogs/EntrepreneurialPath.html#looking-forward",
-    "href": "Blogs/EntrepreneurialPath.html#looking-forward",
-    "title": "Alex J. Tovar",
-    "section": "Looking Forward",
-    "text": "Looking Forward\nLooking forward, I am keen to understand how gratitude shapes entrepreneurial resilience. I want to know how founders who are truly thankful for mentors and opportunities and even failures create more sustainable and purpose-driven businesses instead of those driven by money."
-  },
-  {
-    "objectID": "Blogs/Reflection.html#the-true-nature-of-entrepreneurship",
-    "href": "Blogs/Reflection.html#the-true-nature-of-entrepreneurship",
-    "title": "Reflections on Entrepreneurship",
-    "section": "The True Nature of Entrepreneurship",
-    "text": "The True Nature of Entrepreneurship\nWhen I entered this course, I thought entrepreneurship was about building companies. I was wrong; it’s about building yourself first."
-  },
-  {
-    "objectID": "Blogs/Reflection.html#the-heros-journey",
-    "href": "Blogs/Reflection.html#the-heros-journey",
-    "title": "Reflections on Entrepreneurship",
-    "section": "The Hero’s Journey",
-    "text": "The Hero’s Journey\nThe idea that changed everything for me was the Hero’s Journey framing: your entrepreneurial path is not really about you, and yet it’s entirely about you. The perfect place where your God-given talents, your deepest joy, and the world’s real needs collide is exactly where you’re called. It’s not your profession; it’s your calling."
-  },
-  {
-    "objectID": "Blogs/Reflection.html#the-curse-of-competence",
-    "href": "Blogs/Reflection.html#the-curse-of-competence",
-    "title": "Reflections on Entrepreneurship",
-    "section": "The Curse of Competence",
-    "text": "The Curse of Competence\nI spent years doing things that I knew I was good at and didn’t question whether I was meant for them. That’s the curse of competence, and it’s a lonely trap. If I had one last lecture to give, I would focus it on private victory before public victory. Covey was right: you cannot build trust in a marketplace that you have not yet earned in your own life. These are not soft things we can do, habits and character are the basis of everything. The leader who cuts corners privately will eventually collapse publicly. Start there. Fix there."
-  },
-  {
-    "objectID": "Blogs/Reflection.html#private-victory-before-public-victory",
-    "href": "Blogs/Reflection.html#private-victory-before-public-victory",
-    "title": "Reflections on Entrepreneurship",
-    "section": "Private Victory Before Public Victory",
-    "text": "Private Victory Before Public Victory\nIf I had one last lecture to give, I would focus it on private victory before public victory. Covey was right: you cannot build trust in a marketplace that you have not yet earned in your own life. These are not soft things we can do, habits and character are the basis of everything. The leader who cuts corners privately will eventually collapse publicly. Start there. Fix there."
-  },
-  {
-    "objectID": "Blogs/Reflection.html#motion-vs.-direction",
-    "href": "Blogs/Reflection.html#motion-vs.-direction",
-    "title": "Reflections on Entrepreneurship",
-    "section": "Motion vs. Direction",
-    "text": "Motion vs. Direction\nI’d tell someone on their journey to entrepreneurship: Don’t confuse motion with direction. From the Productivity Pyramid, I learned that busy is not the same as productive, and that the things you do daily have to come from your governing principles or they mean nothing."
-  },
-  {
-    "objectID": "Blogs/Reflection.html#create-your-own-constitution",
-    "href": "Blogs/Reflection.html#create-your-own-constitution",
-    "title": "Reflections on Entrepreneurship",
-    "section": "Create Your Own Constitution",
-    "text": "Create Your Own Constitution\nCreate your own constitution. Know who you are before the market tells you who to be."
-  },
-  {
-    "objectID": "Blogs/Reflection.html#the-real-fear",
-    "href": "Blogs/Reflection.html#the-real-fear",
-    "title": "Reflections on Entrepreneurship",
-    "section": "The Real Fear",
-    "text": "The Real Fear\nAnd the one thing you should take away from Randy Pausch and the Hero’s Journey speaker alike: the real fear is not failure; it’s coming to sixty and knowing that you never truly did what you were supposed to do."
-  },
-  {
-    "objectID": "Blogs/Reflection.html#facing-obstacles",
-    "href": "Blogs/Reflection.html#facing-obstacles",
-    "title": "Reflections on Entrepreneurship",
-    "section": "Facing Obstacles",
-    "text": "Facing Obstacles\nBrick walls are structures that test your desire. The question is never if obstacles will come; the question is whether what you’re chasing is worth going through them."
-  },
-  {
-    "objectID": "Blogs/Reflection.html#final-thoughts",
-    "href": "Blogs/Reflection.html#final-thoughts",
-    "title": "Reflections on Entrepreneurship",
-    "section": "Final Thoughts",
-    "text": "Final Thoughts\nBegin. Don’t lie. Serve others. Never, ever mistake a good life for a merely comfortable one."
-  },
-  {
-    "objectID": "Blogs/Reflection.html#understanding-entrepreneurship",
-    "href": "Blogs/Reflection.html#understanding-entrepreneurship",
-    "title": "Reflections on Entrepreneurship",
-    "section": "Understanding Entrepreneurship",
-    "text": "Understanding Entrepreneurship\nWhen I entered this course, I thought entrepreneurship was about building companies. I was wrong; it’s about building yourself first. The idea that changed everything for me was the Hero’s Journey framing: your entrepreneurial path is not really about you, and yet it’s entirely about you. The perfect place where your God-given talents, your deepest joy, and the world’s real needs collide is exactly where you’re called. It’s not your profession; it’s your calling."
-  },
-  {
-    "objectID": "Blogs/Reflection.html#the-path-to-true-productivity",
-    "href": "Blogs/Reflection.html#the-path-to-true-productivity",
-    "title": "Reflections on Entrepreneurship",
-    "section": "The Path to True Productivity",
-    "text": "The Path to True Productivity\nI’d tell someone on their journey to entrepreneurship: don’t confuse motion with direction. From the Productivity Pyramid, I learned that busy is not the same as productive, and that the things you do daily have to come from your governing principles or they mean nothing. Create your own constitution. Know who you are before the market tells you who to be.\nEmbracing the Journey And the one thing you should take away from Randy Pausch and the Hero’s Journey speaker alike: the real fear is not failure; it’s coming to sixty and knowing that you never truly did what you were supposed to do. Brick walls are structures that test your desire. The question is never if obstacles will come; the question is whether what you’re chasing is worth going through them. Begin. Don’t lie. Serve others. Never, ever mistake a good life for a merely comfortable one."
-  },
-  {
-    "objectID": "Blogs/Reflection.html#embracing-the-journey",
-    "href": "Blogs/Reflection.html#embracing-the-journey",
-    "title": "Reflections on Entrepreneurship",
-    "section": "Embracing the Journey",
-    "text": "Embracing the Journey\nAnd the one thing you should take away from Randy Pausch and the Hero’s Journey speaker alike: the real fear is not failure; it’s coming to sixty and knowing that you never truly did what you were supposed to do. Brick walls are structures that test your desire. The question is never if obstacles will come; the question is whether what you’re chasing is worth going through them. Begin. Don’t lie. Serve others. Never, ever mistake a good life for a merely comfortable one."
   }
 ]
