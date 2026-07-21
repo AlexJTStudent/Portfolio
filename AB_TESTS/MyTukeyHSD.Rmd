@@ -1,0 +1,96 @@
+---
+title: "Tukey HSD Post-Hoc Test"
+execute:
+  echo: false
+format:
+  html:
+    theme: flatly
+    code-fold: true
+    code-tools: true
+---
+
+```{r, warning=FALSE, message=FALSE}
+library(tidyverse)
+library(mosaic)
+library(car)
+library(pander)
+library(ggthemes)
+
+data <- read.csv("C://Users/Alex/Documents/GitHub/Portfolio/AB_TESTS/cars.csv")
+```
+
+## Background
+
+A one-way ANOVA can tell us that at least one group differs, but it can't tell us which groups differ from which. That's the job of a post-hoc test. Tukey's Honestly Significant Difference (HSD) test compares every pair of group means while controlling the overall error rate that would otherwise balloon when running many comparisons at once. Using the Belarus 2019 used-car dataset, we first confirm that average price differs across body types, then use Tukey HSD to pinpoint exactly which body-type pairs are responsible.
+
+## Hypothesis
+
+The one-way ANOVA tests the overall question:
+
+$$
+H_0: \mu_\text{sedan} = \mu_\text{suv} = \mu_\text{hatchback} = \mu_\text{minivan} = \mu_\text{universal}
+$$
+$$
+H_a: \text{At least one body type's mean price differs}
+$$
+
+Tukey HSD then tests, for each pair of body types:
+
+$$
+H_0: \mu_i = \mu_j \qquad H_a: \mu_i \neq \mu_j \qquad \alpha = 0.05
+$$
+
+## Analysis
+
+We restrict to the five most common body types and to cars priced under \$50,000.
+
+```{r}
+common <- c("sedan", "suv", "hatchback", "minivan", "universal")
+data <- data %>%
+  filter(price_usd < 50000, body_type %in% common) %>%
+  mutate(body_type = factor(body_type))
+```
+
+The boxplot shows clear differences in the price distributions: SUVs and universals sit higher, hatchbacks lower.
+
+```{r, fig.width=8, fig.height=5, fig.align='center'}
+ggplot(data, aes(x = reorder(body_type, price_usd, FUN = median), y = price_usd, fill = body_type)) +
+  geom_boxplot() +
+  labs(x = "Body Type", y = "Price (USD)",
+       title = "Price distributions differ across body types") +
+  theme_bw() +
+  theme(legend.position = "none")
+```
+
+First we run the omnibus one-way ANOVA:
+
+```{r}
+aov.price <- aov(price_usd ~ body_type, data = data)
+pander(summary(aov.price))
+```
+
+The ANOVA p-value is far below α = 0.05, so at least one body type differs and a post-hoc test is justified. We now run Tukey HSD across all 10 pairs.
+
+```{r}
+tuk <- TukeyHSD(aov.price)
+pander(tuk$body_type)
+```
+
+Each row gives the difference in mean price for a pair of body types, a 95% confidence interval, and an adjusted p-value. The plot below visualizes these intervals; any interval that does not cross the dashed zero line marks a significant difference.
+
+```{r, fig.width=8, fig.height=6}
+par(mar = c(5, 9, 4, 2))
+plot(tuk, las = 1)
+```
+
+Nine of the ten pairwise comparisons are significant at α = 0.05. Only one pair fails to differ significantly, meaning nearly every body type commands a distinct average price once we account for multiple comparisons.
+
+## Interpretation
+
+The Tukey HSD test turns a vague "body type matters" into a precise map of which vehicle shapes differ in price. Of the ten possible body-type pairings, nine show statistically significant price gaps, with SUVs and universals at the premium end and hatchbacks at the budget end. Because Tukey adjusts for the many simultaneous comparisons, we can trust these differences aren't just an artifact of testing lots of pairs. The single non-significant pair is the lone case where two body types are priced too similarly to distinguish. In short: after a significant ANOVA, Tukey HSD shows the price separation between body types is real and pervasive, not driven by one odd group.
+
+## Credit/References
+
+This analysis is modeled after my other portfolio analyses and used mild AI assistance for plotting.
+
+[Kaggle Car Dataset](https://www.kaggle.com/datasets/lepchenkov/usedcarscatalog/data)

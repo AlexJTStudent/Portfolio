@@ -1,0 +1,93 @@
+---
+title: "Dimensionality Reduction with PCA"
+execute:
+  echo: false
+  warning: false
+format:
+  html:
+    theme: flatly
+    code-fold: true
+    code-tools: true
+---
+
+```{python}
+import warnings; warnings.filterwarnings("ignore")
+import numpy as np
+import pandas as pd
+import matplotlib.pyplot as plt
+import seaborn as sns
+from sklearn.preprocessing import StandardScaler
+from sklearn.decomposition import PCA
+from sklearn.cluster import KMeans
+
+sns.set_theme(style="whitegrid")
+cars = pd.read_csv("C:/Users/Alex/Documents/GitHub/Portfolio/AB_TESTS/cars.csv")
+```
+
+## Background
+
+Dimensionality reduction compresses many features into just a few new ones while keeping as much information as possible. Principal Component Analysis does this by finding the directions along which the data varies most. It is invaluable for visualization, since we can squeeze four car features down to two principal components and plot every car on a flat two-dimensional map. To make the map meaningful, we color each car by the K-Means segment from my Clustering analysis, showing that the discovered groups really do occupy distinct regions.
+
+## Preparing the Data
+
+We take the same four numeric features, standardize them since PCA is scale-sensitive, and reuse K-Means to label four segments.
+
+```{python}
+#| echo: true
+feats = ["price_usd", "odometer_value", "year_produced", "engine_capacity"]
+df = cars.dropna(subset=feats)
+df = df[df["price_usd"] < 50000].sample(5000, random_state=42).reset_index(drop=True)
+
+X = StandardScaler().fit_transform(df[feats])
+df["cluster"] = KMeans(n_clusters=4, random_state=42, n_init=10).fit_predict(X)
+```
+
+## Running PCA
+
+We reduce the four standardized features to two principal components and check how much of the original variation they retain.
+
+```{python}
+#| echo: true
+pca = PCA(n_components=2)
+coords = pca.fit_transform(X)
+df["PC1"], df["PC2"] = coords[:, 0], coords[:, 1]
+
+var = pca.explained_variance_ratio_
+print(f"PC1 explains {var[0]:.1%} of variance")
+print(f"PC2 explains {var[1]:.1%} of variance")
+print(f"Together: {var[:2].sum():.1%}")
+```
+
+Just two components capture about 81% of all the information in the four original features, a big compression with little loss.
+
+## The Two-Dimensional Map
+
+```{python}
+#| fig-align: center
+fig, ax = plt.subplots(figsize=(7, 6))
+sc = ax.scatter(df["PC1"], df["PC2"], c=df["cluster"],
+                cmap="viridis", alpha=0.4, s=12)
+ax.set_xlabel(f"PC1 ({var[0]:.0%} of variance)")
+ax.set_ylabel(f"PC2 ({var[1]:.0%} of variance)")
+ax.set_title("Cars Projected onto 2 Principal Components")
+ax.legend(*sc.legend_elements(), title="K-Means Cluster")
+plt.tight_layout(); plt.show()
+```
+
+The K-Means clusters form clean, largely separate territories on the PCA map, which visually confirms that the segments are genuine structure rather than arbitrary cuts.
+
+## What Do the Components Mean?
+
+Each principal component is a weighted blend of the original features. The loadings below tell us what each axis represents.
+
+```{python}
+loadings = pd.DataFrame(pca.components_.T, index=feats,
+                        columns=["PC1", "PC2"]).round(3)
+loadings
+```
+
+The first component tends to contrast newer, pricier cars against older, high-mileage ones, forming a broad value axis, while the second component picks up variation driven more by engine size.
+
+## Takeaway
+
+PCA turns a four-dimensional dataset into a single readable picture, retaining about 81% of the information in just two components. Plotting cars on that map, colored by their K-Means cluster, confirms visually that the segments from my Clustering analysis are real and well-separated. This closes the unsupervised-learning arc: clustering finds the groups, and PCA lets us see them. The workflow shown here, standardize the data, fit PCA, inspect explained variance and loadings, then visualize, is the standard way to explore and communicate high-dimensional data.

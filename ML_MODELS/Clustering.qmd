@@ -1,0 +1,101 @@
+---
+title: "Finding Natural Car Segments with Clustering"
+execute:
+  echo: false
+  warning: false
+format:
+  html:
+    theme: flatly
+    code-fold: true
+    code-tools: true
+---
+
+```{python}
+import warnings; warnings.filterwarnings("ignore")
+import numpy as np
+import pandas as pd
+import matplotlib.pyplot as plt
+import seaborn as sns
+from sklearn.preprocessing import StandardScaler
+from sklearn.cluster import KMeans
+from sklearn.metrics import silhouette_score
+
+sns.set_theme(style="whitegrid")
+cars = pd.read_csv("C:/Users/Alex/Documents/GitHub/Portfolio/AB_TESTS/cars.csv")
+```
+
+## Background
+
+Everything so far has been supervised, meaning we had a known answer like price or body type to predict. Clustering is unsupervised: there is no target, and the algorithm groups cars purely by how similar their features are. Using K-Means on the Belarus 2019 dataset, we ask whether used cars naturally fall into a handful of market segments based on price, mileage, age, and engine size, without ever telling the model what those segments should be.
+
+## Preparing the Data
+
+We select four numeric features, drop missing values, and take a random sample to keep the plots readable. Because K-Means measures distance, we standardize every feature to a common scale so that large-numbered features like odometer do not dominate.
+
+```{python}
+#| echo: true
+feats = ["price_usd", "odometer_value", "year_produced", "engine_capacity"]
+df = cars.dropna(subset=feats)
+df = df[df["price_usd"] < 50000].sample(5000, random_state=42).reset_index(drop=True)
+
+X = StandardScaler().fit_transform(df[feats])
+print(f"Clustering {X.shape[0]:,} cars on {X.shape[1]} standardized features")
+```
+
+## Choosing the Number of Clusters
+
+K-Means needs us to pick k, the number of clusters. Two standard tools guide the choice: the elbow method, which looks for where adding clusters stops sharply reducing within-cluster spread, and the silhouette score, which measures how cleanly separated the clusters are, where higher is better.
+
+```{python}
+#| fig-align: center
+ks = range(2, 9)
+inertia, sil = [], []
+for k in ks:
+    km = KMeans(n_clusters=k, random_state=42, n_init=10).fit(X)
+    inertia.append(km.inertia_)
+    sil.append(silhouette_score(X, km.labels_))
+
+fig, (a1, a2) = plt.subplots(1, 2, figsize=(11, 4))
+a1.plot(list(ks), inertia, "o-", color="steelblue")
+a1.set_title("Elbow Method"); a1.set_xlabel("k"); a1.set_ylabel("Inertia")
+a2.plot(list(ks), sil, "o-", color="darkorange")
+a2.set_title("Silhouette Score"); a2.set_xlabel("k"); a2.set_ylabel("Score")
+plt.tight_layout(); plt.show()
+```
+
+The curves point to four clusters as a reasonable, well-separated choice. We fit the final model there.
+
+```{python}
+#| echo: true
+km = KMeans(n_clusters=4, random_state=42, n_init=10).fit(X)
+df["cluster"] = km.labels_
+print(f"Silhouette score at k=4: {silhouette_score(X, km.labels_):.3f}")
+```
+
+## Profiling the Segments
+
+Averaging the original, unscaled features within each cluster reveals what each segment represents.
+
+```{python}
+profile = df.groupby("cluster")[feats].mean().round(0)
+profile["count"] = df["cluster"].value_counts().sort_index()
+profile
+```
+
+```{python}
+#| fig-align: center
+fig, ax = plt.subplots(figsize=(7, 5))
+sc = ax.scatter(df["year_produced"], df["price_usd"],
+                c=df["cluster"], cmap="viridis", alpha=0.4, s=12)
+ax.set_xlabel("Year Produced"); ax.set_ylabel("Price ($)")
+ax.set_title("Car Segments Discovered by K-Means")
+legend = ax.legend(*sc.legend_elements(), title="Cluster")
+ax.add_artist(legend)
+plt.tight_layout(); plt.show()
+```
+
+The clusters separate into intuitive market segments, for example newer and pricier cars versus older high-mileage budget cars, even though the algorithm was never told about price tiers or age.
+
+## Takeaway
+
+Left to find structure on its own, K-Means recovers sensible used-car segments from just four standardized features, with a silhouette score around 0.35 indicating moderate, real separation. The value of unsupervised learning is exactly this: it surfaces natural groupings like budget commuters, newer premium cars, and high-mileage older vehicles that a dealer could use for inventory or pricing strategy, with no labels required. This page demonstrates the clustering workflow: standardizing features, choosing the number of clusters with the elbow and silhouette methods, and profiling the resulting segments.

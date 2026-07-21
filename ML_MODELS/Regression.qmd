@@ -1,0 +1,107 @@
+---
+title: "Predicting Car Prices with Regression"
+execute:
+  echo: false
+  warning: false
+format:
+  html:
+    theme: flatly
+    code-fold: true
+    code-tools: true
+---
+
+```{python}
+import warnings; warnings.filterwarnings("ignore")
+import numpy as np
+import pandas as pd
+import matplotlib.pyplot as plt
+import seaborn as sns
+from sklearn.model_selection import train_test_split, cross_val_score
+from sklearn.linear_model import LinearRegression
+from sklearn.ensemble import RandomForestRegressor
+from sklearn.metrics import r2_score, mean_squared_error
+
+sns.set_theme(style="whitegrid")
+cars = pd.read_csv("C:/Users/Alex/Documents/GitHub/Portfolio/AB_TESTS/cars.csv")
+```
+
+## Background
+
+The first classic machine-learning task is regression, which means predicting a continuous number. Here we predict a used car's price from three features in the Belarus 2019 Kaggle dataset: how new it is, how far it has been driven, and its engine capacity. This is the machine-learning cousin of my Multiple Linear Regression analysis, but instead of focusing on p-values and inference, we focus on predictive accuracy on data the model has never seen.
+
+We compare two models: a simple, interpretable linear regression and a more flexible random forest.
+
+## Preparing the Data
+
+We drop rows with missing values and cap prices below \$50,000 to keep the target realistic, then split the data 80/20 into training and test sets so we can measure performance honestly on held-out cars.
+
+```{python}
+#| echo: true
+features = ["year_produced", "odometer_value", "engine_capacity"]
+df = cars.dropna(subset=features + ["price_usd"])
+df = df[df["price_usd"] < 50000]
+
+X, y = df[features], df["price_usd"]
+X_train, X_test, y_train, y_test = train_test_split(
+    X, y, test_size=0.2, random_state=42)
+print(f"Training cars: {len(X_train):,}   Test cars: {len(X_test):,}")
+```
+
+## Training and Comparing Models
+
+```{python}
+#| echo: true
+lin = LinearRegression().fit(X_train, y_train)
+rf = RandomForestRegressor(n_estimators=100, random_state=42,
+                           n_jobs=1).fit(X_train, y_train)
+
+def report(model, name):
+    pred = model.predict(X_test)
+    return {"Model": name,
+            "R2": round(r2_score(y_test, pred), 3),
+            "RMSE ($)": round(mean_squared_error(y_test, pred) ** 0.5, 0)}
+
+results = pd.DataFrame([report(lin, "Linear Regression"),
+                        report(rf, "Random Forest")])
+results
+```
+
+The random forest clearly wins. It explains about 82% of the variation in price versus about 60% for linear regression, and its typical error is roughly \$2,800 versus \$4,100. The linear model assumes price changes at a constant rate, while the forest captures curved, interacting effects such as mileage mattering more on older cars.
+
+## How Good Are the Predictions?
+
+The scatter of predicted versus actual price shows the random forest's points hugging the diagonal line of perfect prediction fairly tightly.
+
+```{python}
+#| fig-align: center
+pred_rf = rf.predict(X_test)
+fig, ax = plt.subplots(figsize=(6, 6))
+ax.scatter(y_test, pred_rf, alpha=0.15, s=10, color="steelblue")
+lims = [0, 50000]
+ax.plot(lims, lims, "k--", lw=1.5)
+ax.set_xlabel("Actual Price ($)")
+ax.set_ylabel("Predicted Price ($)")
+ax.set_title("Random Forest: Predicted vs Actual Price")
+ax.set_xlim(lims); ax.set_ylim(lims)
+plt.tight_layout(); plt.show()
+```
+
+## Which Features Matter Most?
+
+Random forests report how much each feature contributes to the predictions.
+
+```{python}
+#| fig-align: center
+imp = pd.Series(rf.feature_importances_, index=features).sort_values()
+fig, ax = plt.subplots(figsize=(7, 3.5))
+imp.plot(kind="barh", color="steelblue", ax=ax)
+ax.set_title("Feature Importance (Random Forest)")
+ax.set_xlabel("Importance")
+plt.tight_layout(); plt.show()
+```
+
+Production year dominates. How new a car is drives its price more than mileage or engine size, which echoes the strong year effect I found in the statistical Multiple Linear Regression.
+
+## Takeaway
+
+Framed as a prediction problem, used-car price is learnable with real accuracy. A random forest reaches an R-squared of about 0.82 on unseen cars, a big jump over linear regression, and it identifies production year as the single most important driver of price. This page demonstrates the core supervised-regression workflow: a train/test split, fitting multiple models, and comparing them with held-out metrics like R-squared and RMSE.

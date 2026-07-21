@@ -1,0 +1,89 @@
+---
+title: "Ordinal Logistic Regression"
+execute:
+  echo: false
+format:
+  html:
+    theme: flatly
+    code-fold: true
+    code-tools: true
+---
+
+```{r, warning=FALSE, message=FALSE}
+library(tidyverse)
+library(MASS)
+library(pander)
+library(ggthemes)
+
+food <- read.csv("C://Users/Alex/Documents/GitHub/Portfolio/AB_TESTS/food.csv")
+```
+
+## Background
+
+My earlier Logistic Regression predicted a binary outcome (diabetes: yes or no). But many real survey answers are ordinal, meaning ordered categories with no fixed numeric spacing, like slim, very fit, just right, slightly overweight, and overweight. Ordinary logistic regression can't handle more than two ordered outcomes, so we use ordinal proportional-odds logistic regression through the polr function in the MASS package. Using the College Food Choices survey, we ask whether how often a student exercises predicts their ordered self-perception of weight.
+
+In this data, the exercise scale runs from 1 (every day) upward to less frequent exercise, and self-perceived weight runs from 1 (slim) to 5 (overweight).
+
+## Hypothesis
+
+If the exercise coefficient is zero, exercise frequency tells us nothing about self-perceived weight. If it is non-zero, exercise shifts the odds of landing in a higher weight-perception category.
+
+$$
+H_0: \beta_\text{exercise} = 0 \quad(\text{Exercise frequency has no effect on self-perceived weight})
+$$
+$$
+H_a: \beta_\text{exercise} \neq 0
+$$
+$$
+\alpha = 0.05
+$$
+
+## Analysis
+
+We drop the non-ordinal "I don't think of myself in these terms" response (code 6) and any missing values, then treat self-perceived weight as an ordered factor.
+
+```{r}
+food <- food %>%
+  filter(self_perception_weight %in% 1:5, !is.na(exercise)) %>%
+  mutate(weight_perception = factor(self_perception_weight, ordered = TRUE))
+```
+
+The plot shows how self-perceived weight categories are distributed across exercise levels.
+
+```{r, fig.width=8, fig.height=5, fig.align='center'}
+ggplot(food, aes(x = factor(exercise), fill = weight_perception)) +
+  geom_bar(position = "fill") +
+  labs(x = "Exercise Frequency (1 = every day, higher = less often)",
+       y = "Proportion",
+       fill = "Self-Perceived\nWeight (1=slim, 5=overweight)",
+       title = "Less frequent exercisers report higher self-perceived weight") +
+  theme_bw()
+```
+
+We fit the proportional-odds model. Because it reports t-values rather than p-values, we compute two-sided p-values from the normal approximation.
+
+```{r}
+model.polr <- polr(weight_perception ~ exercise, data = food, Hess = TRUE)
+ctable <- coef(summary(model.polr))
+p <- pnorm(abs(ctable[, "t value"]), lower.tail = FALSE) * 2
+ctable <- cbind(ctable, `p value` = p)
+pander(ctable)
+```
+
+The coefficient on exercise is positive (about 1.32) and its p-value is far below α = 0.05, so we reject the null hypothesis. Because higher exercise codes mean less frequent exercise, a positive coefficient means that exercising less is associated with higher odds of perceiving oneself as heavier.
+
+```{r}
+pander(data.frame(`Odds Ratio` = exp(coef(model.polr))))
+```
+
+The odds ratio of roughly 3.7 means that each step down in exercise frequency multiplies the odds of being in a higher weight-perception category by about 3.7.
+
+## Interpretation
+
+Exercise frequency is a significant, ordered predictor of how students perceive their own weight. Students who exercise less frequently are substantially more likely to place themselves in a heavier self-perception category, with each step toward less exercise multiplying the odds of a higher category by about 3.7 (p far below α = 0.05). This extends my binary Logistic Regression to the ordinal case: instead of a simple yes/no, the proportional-odds model captures the natural ordering from slim to overweight and links it cleanly to lifestyle. We therefore reject the null hypothesis and conclude that exercise habits meaningfully shape self-perceived weight.
+
+## Credit/References
+
+This analysis extends my binary Logistic Regression analysis to ordered outcomes and used mild AI assistance for plotting. The dataset and column descriptions come from Kaggle.
+
+[Food choices on Kaggle](https://www.kaggle.com/borapajo/food-choices?select=food_coded.csv)

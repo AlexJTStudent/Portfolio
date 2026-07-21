@@ -20,6 +20,48 @@ website:
             text: "T-test"
           - href: AB_TESTS/RecallingWords.Rmd
             text: "Wilcoxon Rank Sum (Mann–Whitney) test"
+      - text: "MORE TESTS"
+        menu:
+          - href: AB_TESTS/MySimpleLinearRegression.Rmd
+            text: "Simple Linear Regression"
+          - href: AB_TESTS/MyMultipleRegression.Rmd
+            text: "Multiple Linear Regression"
+          - href: AB_TESTS/MyOneWayANOVA.Rmd
+            text: "One-way ANOVA"
+          - href: AB_TESTS/MyCorrelation.Rmd
+            text: "Correlation Analysis"
+          - href: AB_TESTS/MyTwoProportionTest.Rmd
+            text: "Two-Proportion Test"
+          - href: AB_TESTS/MyPairedTest.Rmd
+            text: "Paired Samples Test"
+          - href: AB_TESTS/MyFishersExactTest.Rmd
+            text: "Fisher's Exact Test"
+          - href: AB_TESTS/MyPoissonRegression.Rmd
+            text: "Poisson Regression"
+          - href: AB_TESTS/MyChiSquaredGoodnessOfFit.Rmd
+            text: "Chi-Squared Goodness of Fit"
+          - href: AB_TESTS/MyANCOVA.Rmd
+            text: "ANCOVA"
+          - href: AB_TESTS/MyTukeyHSD.Rmd
+            text: "Tukey HSD Post-Hoc"
+          - href: AB_TESTS/MyOrdinalLogisticRegression.Rmd
+            text: "Ordinal Logistic Regression"
+          - href: AB_TESTS/MyRepeatedMeasures.Rmd
+            text: "Repeated-Measures (Friedman)"
+          - href: AB_TESTS/MyLevenesTest.Rmd
+            text: "Levene's Test"
+      - text: "SCIKIT-LEARN MODELS"
+        menu:
+          - href: ML_MODELS/Regression.qmd
+            text: "Regression"
+          - href: ML_MODELS/BinaryClassification.qmd
+            text: "Binary Classification"
+          - href: ML_MODELS/MulticlassClassification.qmd
+            text: "Multiclass Classification"
+          - href: ML_MODELS/Clustering.qmd
+            text: "Clustering"
+          - href: ML_MODELS/DimensionalityReduction.qmd
+            text: "Dimensionality Reduction (PCA)"
       - text: "Projects"
         menu:
           - href: Projects\NFL\NFL.Rmd

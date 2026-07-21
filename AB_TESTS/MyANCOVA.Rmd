@@ -1,0 +1,87 @@
+---
+title: "ANCOVA"
+execute:
+  echo: false
+format:
+  html:
+    theme: flatly
+    code-fold: true
+    code-tools: true
+---
+
+```{r, warning=FALSE, message=FALSE}
+library(tidyverse)
+library(mosaic)
+library(car)
+library(pander)
+library(ggthemes)
+
+data <- read.csv("C://Users/Alex/Documents/GitHub/Portfolio/AB_TESTS/cars.csv")
+```
+
+## Background
+
+An Analysis of Covariance (ANCOVA) blends ANOVA and regression. It compares group means (like ANOVA) while statistically adjusting for a continuous "nuisance" variable, called a covariate, that also influences the outcome. Using the Belarus 2019 used-car dataset, we compare the average price across several body types (sedan, SUV, hatchback, minivan, universal) while adjusting for how new the car is. The idea: newer cars cost more regardless of shape, so we control for year to see whether body type still matters on its own.
+
+## Hypothesis
+
+$$
+H_0: \text{After adjusting for production year, all body types have the same mean price}
+$$
+$$
+H_a: \text{After adjusting for production year, at least one body type differs in mean price}
+$$
+$$
+\alpha = 0.05
+$$
+
+## Analysis
+
+We focus on cars produced since 1990, priced under \$50,000, and belonging to the five most common body types.
+
+```{r}
+common <- c("sedan", "suv", "hatchback", "minivan", "universal")
+data <- data %>%
+  filter(year_produced >= 1990, price_usd < 50000, body_type %in% common) %>%
+  mutate(body_type = factor(body_type))
+```
+
+The scatterplot shows price against year, colored by body type. Each body type trends upward with year, but the lines are not perfectly parallel, which foreshadows an assumption problem we'll test formally.
+
+```{r, fig.width=9, fig.height=5, message=FALSE}
+ggplot(data, aes(x = year_produced, y = price_usd, color = body_type)) +
+  geom_point(alpha = 0.1) +
+  geom_smooth(method = "lm", se = FALSE) +
+  labs(x = "Year Produced", y = "Price (USD)",
+       title = "Price rises with year for every body type, but not at the same rate",
+       color = "Body Type") +
+  theme_bw()
+```
+
+### The Parallel-Slopes Assumption
+
+ANCOVA rests on a critical requirement: the covariate must affect the outcome the same way in every group (parallel slopes). We test this by adding a year-by-body-type interaction. If that interaction is significant, the assumption fails.
+
+```{r}
+model.interaction <- aov(price_usd ~ year_produced * body_type, data = data)
+pander(summary(model.interaction))
+```
+
+The interaction term is highly significant (p far below α = 0.05), so the parallel-slopes assumption is violated: the rate at which price climbs with year genuinely differs across body types (for example, SUVs appreciate with newness faster than hatchbacks). We report the standard ANCOVA below for completeness, but its group comparison should be read with this violation firmly in mind.
+
+```{r}
+model.ancova <- aov(price_usd ~ year_produced + body_type, data = data)
+pander(summary(model.ancova))
+```
+
+Taken at face value, both the covariate (year) and body type are significant. But because the slopes are not parallel, the single "body type effect" the ANCOVA reports is an oversimplification of a relationship that actually changes with year.
+
+## Interpretation
+
+This analysis is a cautionary tale as much as a result. Mechanically, the ANCOVA says body type affects price even after adjusting for production year (p far below α = 0.05). However, the parallel-slopes assumption that ANCOVA depends on is clearly violated. The significant year-by-body-type interaction shows that newness affects price differently for different body types. With a sample this large (tens of thousands of cars), even small departures from parallel slopes register as highly significant. The honest conclusion is therefore twofold: body type does relate to price, but ANCOVA is not the right summary here because a single adjusted comparison hides a real interaction. A model that explicitly includes the year × body-type interaction (as fitted above) describes these cars more faithfully. This mirrors my Two-Way ANOVA analysis, where diagnostics likewise warned against taking the tidy result at face value.
+
+## Credit/References
+
+This analysis is modeled after my other portfolio analyses (particularly the Two-Way ANOVA's honest treatment of assumption violations) and used mild AI assistance for plotting.
+
+[Kaggle Car Dataset](https://www.kaggle.com/datasets/lepchenkov/usedcarscatalog/data)

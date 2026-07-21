@@ -1,0 +1,91 @@
+---
+title: "Correlation Analysis"
+execute:
+  echo: false
+format:
+  html:
+    theme: flatly
+    code-fold: true
+    code-tools: true
+---
+
+```{r, warning=FALSE, message=FALSE}
+library(tidyverse)
+library(mosaic)
+library(car)
+library(pander)
+library(ggthemes)
+
+HSS <- read_csv("C://Users/Alex/Documents/GitHub/Portfolio/AB_TESTS/HighSchoolSeniors.csv")
+```
+
+## Background
+
+In the US Census at High Schools 2020 survey, students recorded a number of body measurements, including their height and their armspan (fingertip to fingertip with arms outstretched). There's a well-known rule of thumb, often credited to Leonardo da Vinci's Vitruvian Man, that a person's armspan is roughly equal to their height. If that holds, the two measurements should be strongly, positively correlated. We put that classic claim to the test.
+
+## Do a student's height and armspan move together?
+
+$$
+H_0: \rho = 0 \quad(\text{No linear correlation between height and armspan})
+$$
+$$
+H_a: \rho \neq 0 \quad(\text{Height and armspan are correlated})
+$$
+$$
+\alpha = 0.05
+$$
+
+## Analysis
+
+We keep only realistic measurements to remove data-entry errors (heights and armspans between 100 cm and 220 cm) and drop missing values.
+
+```{r}
+HSS_clean <- HSS %>%
+  filter(Height_cm >= 100, Height_cm <= 220,
+         Armspan_cm >= 100, Armspan_cm <= 220) %>%
+  filter(!is.na(Height_cm), !is.na(Armspan_cm))
+```
+
+The scatterplot shows a clear upward cloud of points: taller students generally have wider armspans, though the spread around the line reminds us the relationship is strong but not perfect.
+
+```{r, fig.height=5, fig.width=7, fig.align='center', message=FALSE}
+ggplot(HSS_clean, aes(x = Height_cm, y = Armspan_cm)) +
+  geom_point(alpha = 0.3, color = "steelblue") +
+  geom_smooth(method = "lm", se = FALSE, color = "black") +
+  labs(title = "Taller students tend to have wider armspans",
+       x = "Height (cm)",
+       y = "Armspan (cm)") +
+  theme_bw()
+```
+
+Because a correlation test's p-value assumes roughly normal data, we glance at the Q-Q plots for both measurements.
+
+```{r, fig.height=5, fig.width=8}
+par(mfrow = c(1, 2))
+qqPlot(HSS_clean$Height_cm, main = "QQ Plot: Height",
+       ylab = "Height (cm)", id = FALSE)
+qqPlot(HSS_clean$Armspan_cm, main = "QQ Plot: Armspan",
+       ylab = "Armspan (cm)", id = FALSE)
+```
+
+Both measurements are close to normal, so we report the Pearson correlation. To be safe against the mild tail departures, we also report the rank-based Spearman correlation, which does not require normality.
+
+```{r}
+pander(cor.test(HSS_clean$Height_cm, HSS_clean$Armspan_cm, method = "pearson"))
+```
+
+```{r, warning=FALSE}
+pander(cor.test(HSS_clean$Height_cm, HSS_clean$Armspan_cm, method = "spearman"))
+```
+
+Both tests produce a p-value far below α = 0.05 with a moderate-to-strong positive correlation coefficient (Pearson r ≈ 0.65, Spearman ρ ≈ 0.74), so we reject the null hypothesis and conclude that height and armspan are significantly correlated.
+
+## Interpretation
+
+The data supports the spirit of the Vitruvian Man rule of thumb, but with a realistic caveat. Height and armspan share a clear positive relationship, since taller students do tend to have wider armspans, yet the correlation is moderate-to-strong (Pearson r ≈ 0.65, Spearman ρ ≈ 0.74) rather than the near-perfect 1.0 that a literal "armspan equals height" claim would predict. Some of that looseness likely comes from self-measured survey data, where armspan is harder to measure accurately than height. Both tests agree with p-values far below α = 0.05, so we reject the null hypothesis and conclude the two measurements are genuinely correlated, just not perfectly one-to-one.
+
+## Credit/References
+
+This analysis follows the format of my other portfolio analyses and used mild AI assistance for plotting. Survey details are available at the Census at School questionnaire.
+
+[Census at School Questionnaire](https://ww2.amstat.org/censusatschool/pdfs/C@SQuestionnaire.pdf)

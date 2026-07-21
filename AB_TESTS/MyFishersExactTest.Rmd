@@ -1,0 +1,80 @@
+---
+title: "Fisher's Exact Test"
+execute:
+  echo: false
+format:
+  html:
+    theme: flatly
+    code-fold: true
+    code-tools: true
+---
+
+```{r, warning=FALSE, message=FALSE}
+library(tidyverse)
+library(mosaic)
+library(pander)
+library(ggthemes)
+
+data <- read.csv("C://Users/Alex/Documents/GitHub/Portfolio/AB_TESTS/diabetes_60_entries.csv")
+```
+
+## Background
+
+In my logistic regression analysis, I used a ChatGPT-generated diabetes dataset to model how age affects the probability of a diabetes diagnosis. Here we revisit that same data with a different tool. Rather than modeling a smooth probability curve, we simply split subjects into a younger group and an older group and ask whether diabetes is associated with being older. Because the dataset only has 60 subjects, a standard Chi-Squared test may have expected cell counts that are too small to be reliable, so Fisher's Exact Test is the appropriate choice: it computes an exact p-value without relying on large-sample approximations.
+
+## Is a diabetes diagnosis associated with being older?
+
+Medical sources suggest type 2 diabetes commonly develops around middle age, so we split subjects at 45 years old.
+
+$$
+H_0: \text{Age group and diabetes status are not associated}
+$$
+$$
+H_a: \text{Age group and diabetes status are associated}
+$$
+$$
+\alpha = 0.05
+$$
+
+## Analysis
+
+We create a two-level age group (under 45 vs. 45 and older) and cross-tabulate it against diabetes status.
+
+```{r}
+data <- data %>%
+  mutate(AgeGroup = ifelse(Age < 45, "Under 45", "45 and Older"),
+         Status = ifelse(Diabetes > 0, "Diabetic", "Healthy"))
+
+tab <- table(data$AgeGroup, data$Status)
+pander(tab)
+```
+
+The bar chart shows that diabetic subjects are concentrated in the older group, while younger subjects are mostly healthy.
+
+```{r, fig.height=4, fig.width=6, fig.align='center'}
+ggplot(data, aes(x = AgeGroup, fill = Status)) +
+  geom_bar(position = "dodge") +
+  labs(title = "Diabetes is concentrated in the older age group",
+       x = "Age Group",
+       y = "Count") +
+  guides(fill = guide_legend(title = "Status")) +
+  theme_bw()
+```
+
+With only 60 subjects spread across a 2x2 table, some expected counts are small, which is exactly the situation Fisher's Exact Test was designed for. We run it below.
+
+```{r}
+pander(fisher.test(tab))
+```
+
+The p-value is far below our significance level of α = 0.05, so we reject the null hypothesis and conclude that age group and diabetes status are associated. The odds ratio reported by the test quantifies how much more likely older subjects are to be diabetic.
+
+## Interpretation
+
+Even with a small sample where a Chi-Squared approximation would be shaky, Fisher's Exact Test gives us a clear, reliable answer: being in the older age group is strongly associated with a diabetes diagnosis in this data. The 2x2 table and bar chart both show diabetic cases clustering among subjects 45 and older. Because the exact p-value falls below α = 0.05, we reject the null hypothesis and conclude that age group and diabetes status are associated, consistent with the smooth relationship found in my logistic regression analysis.
+
+## Credit/References
+
+The dataset was constructed by AI for the purposes of this study. This analysis follows the format of my other portfolio analyses and used mild AI assistance for plotting.
+
+[Medical News Today](https://www.medicalnewstoday.com/articles/317375)

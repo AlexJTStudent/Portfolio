@@ -1,0 +1,83 @@
+---
+title: "Chi-Squared Goodness of Fit"
+execute:
+  echo: false
+format:
+  html:
+    theme: flatly
+    code-fold: true
+    code-tools: true
+---
+
+```{r, warning=FALSE, message=FALSE}
+library(tidyverse)
+library(mosaic)
+library(ggthemes)
+library(pander)
+
+data <- read.csv("C://Users/Alex/Documents/GitHub/Portfolio/AB_TESTS/cars.csv")
+```
+
+## Background
+
+In my Chi-Squared test of independence I asked whether two variables (car color and manufacturer) were related. A Chi-Squared goodness of fit test answers a different kind of question: does a single categorical variable follow some expected distribution? Using the same Belarus 2019 used-car dataset from Kaggle, we ask whether car colors are spread evenly across the palette, or whether buyers and manufacturers clearly favor some colors over others.
+
+## Hypothesis
+
+If every color were equally common, each of the 12 colors would account for 1/12 of the cars. The goodness of fit test compares the observed color counts against that uniform expectation.
+
+$$
+H_0: \text{Car colors are uniformly distributed (each color equally likely)}
+$$
+$$
+H_a: \text{At least one color occurs more or less often than a uniform distribution predicts}
+$$
+$$
+\alpha = 0.05
+$$
+
+## Analysis
+
+The table and bar chart below show the observed count of each car color across the full dataset.
+
+```{r}
+color_counts <- table(data$color)
+pander(color_counts)
+```
+
+```{r, fig.width=10, fig.height=5}
+ggplot(data, aes(x = fct_infreq(color), fill = color)) +
+  geom_bar() +
+  labs(x = "Car Color",
+       y = "Count",
+       title = "Car colors are far from evenly distributed") +
+  theme_bw() +
+  theme(legend.position = "none")
+```
+
+The distribution is visibly lopsided: black, silver, and blue dominate the market while orange, violet, and yellow are rare. We test whether that imbalance is statistically significant by comparing the observed counts to equal expected counts (each color = total / 12).
+
+```{r}
+gof <- chisq.test(color_counts)
+pander(gof)
+```
+
+The test returns a p-value far below our significance level of α = 0.05, so we reject the null hypothesis. Car colors are clearly not uniformly distributed.
+
+To see which colors drive that result, we examine the Pearson residuals. Large positive residuals mark colors that appear far more often than a uniform distribution would predict.
+
+```{r}
+pander(sort(gof$residuals, decreasing = TRUE))
+```
+
+Black and silver carry the largest positive residuals, confirming they are the most over-represented colors relative to an even split, while the vivid colors sit well below expectation.
+
+## Interpretation
+
+The used-car market in this data has strong color preferences rather than an even spread. Neutral, resale-friendly colors like black, silver, blue, grey, and white dominate, while bold colors like orange, violet, and yellow are scarce. Because the goodness of fit test produced a p-value far below α = 0.05, we reject the null hypothesis and conclude that car colors do not follow a uniform distribution. This complements my Chi-Squared independence analysis: not only is color related to manufacturer, but the overall color palette itself is heavily skewed toward conservative choices.
+
+## Credit/References
+
+This analysis is modeled after my other portfolio analyses and used mild AI assistance for plotting.
+
+[Kaggle Car Dataset](https://www.kaggle.com/datasets/lepchenkov/usedcarscatalog/data)

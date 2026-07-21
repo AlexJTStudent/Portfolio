@@ -1,0 +1,164 @@
+---
+title: "Predicting Smokers with Binary Classification"
+execute:
+  echo: false
+  warning: false
+format:
+  html:
+    theme: flatly
+    code-fold: true
+    code-tools: true
+---
+
+```{python}
+import warnings; warnings.filterwarnings("ignore")
+import numpy as np
+import pandas as pd
+import matplotlib.pyplot as plt
+import seaborn as sns
+from sklearn.model_selection import train_test_split
+from sklearn.compose import ColumnTransformer
+from sklearn.pipeline import Pipeline
+from sklearn.preprocessing import StandardScaler, OneHotEncoder
+from sklearn.impute import SimpleImputer
+from sklearn.linear_model import LogisticRegression
+from sklearn.ensemble import RandomForestClassifier
+from sklearn.metrics import (accuracy_score, roc_auc_score, roc_curve,
+                             confusion_matrix, ConfusionMatrixDisplay,
+                             classification_report)
+
+sns.set_theme(style="whitegrid")
+df = pd.read_csv("C:/Users/Alex/Documents/GitHub/Portfolio/Data/YoungAdults.csv")
+```
+
+## Background
+
+Binary classification predicts a yes or no outcome. Here we tackle a behavioral question from the Young People Survey, a questionnaire of about 1,000 young adults on their habits, personalities, and lifestyles: can we tell a current smoker apart from someone who has never smoked, using only their demographics, lifestyle, and personality scores?
+
+To keep the contrast clean, we focus on the two clear ends of the spectrum, current smokers versus people who never smoked, and set aside the ambiguous middle groups who tried smoking or used to smoke. This is the machine-learning sibling of my Logistic Regression analysis, but with many mixed-type predictors and a full preprocessing pipeline.
+
+## Preparing the Data
+
+We label current smokers as 1, never-smokers as 0, and assemble a mix of numeric features such as age, weight, and personality scores along with categorical ones such as gender, alcohol use, and education.
+
+```{python}
+#| echo: true
+df = df.dropna(subset=["Smoking"])
+df = df[df["Smoking"].isin(["current smoker", "never smoked"])].copy()
+df["target"] = (df["Smoking"] == "current smoker").astype(int)
+
+numeric = ["Age", "Height", "Weight", "Number_of_siblings", "Fear_score",
+           "Religiosity_score", "Music_diversity_score", "Happiness_score"]
+categorical = ["Gender", "Education", "Only_child", "Alcohol",
+               "I_live_a_healthy_lifestyle", "Punctuality", "Lying"]
+
+X, y = df[numeric + categorical], df["target"]
+print(f"Current smokers: {(y==1).sum()}   Never smoked: {(y==0).sum()}")
+```
+
+The two classes are nicely balanced, so accuracy will be a meaningful metric because no single class dominates.
+
+## Building a Preprocessing Pipeline
+
+Real survey data mixes numbers and text and has gaps. A scikit-learn pipeline with a column transformer handles all of it in one object: numeric features are median-imputed and standardized, while categorical features are mode-imputed and one-hot encoded. Bundling preprocessing with the model prevents information from leaking between the train and test sets.
+
+```{python}
+#| echo: true
+preprocess = ColumnTransformer([
+    ("num", Pipeline([("impute", SimpleImputer(strategy="median")),
+                      ("scale", StandardScaler())]), numeric),
+    ("cat", Pipeline([("impute", SimpleImputer(strategy="most_frequent")),
+                      ("onehot", OneHotEncoder(handle_unknown="ignore"))]), categorical),
+])
+
+X_train, X_test, y_train, y_test = train_test_split(
+    X, y, test_size=0.25, random_state=42, stratify=y)
+```
+
+## Training and Comparing Models
+
+We compare a logistic regression against a random forest, both wrapped in the same preprocessing pipeline and both class-balanced.
+
+```{python}
+#| echo: true
+models = {
+    "Logistic Regression": LogisticRegression(max_iter=1000, class_weight="balanced"),
+    "Random Forest": RandomForestClassifier(n_estimators=300, random_state=42,
+                                            n_jobs=1, class_weight="balanced"),
+}
+
+rows, fitted = [], {}
+for name, clf in models.items():
+    pipe = Pipeline([("prep", preprocess), ("clf", clf)]).fit(X_train, y_train)
+    fitted[name] = pipe
+    proba = pipe.predict_proba(X_test)[:, 1]
+    rows.append({"Model": name,
+                 "Accuracy": round(accuracy_score(y_test, pipe.predict(X_test)), 3),
+                 "ROC-AUC": round(roc_auc_score(y_test, proba), 3)})
+pd.DataFrame(rows)
+```
+
+Both models land around 66% accuracy with a ROC-AUC near 0.72, clearly better than a coin flip. AUC, the probability the model ranks a random smoker above a random non-smoker, is the fairer headline here because it does not depend on a specific threshold.
+
+## The ROC Curve
+
+```{python}
+#| fig-align: center
+fig, ax = plt.subplots(figsize=(6, 6))
+for name, pipe in fitted.items():
+    proba = pipe.predict_proba(X_test)[:, 1]
+    fpr, tpr, _ = roc_curve(y_test, proba)
+    ax.plot(fpr, tpr, lw=2, label=f"{name} (AUC={roc_auc_score(y_test, proba):.2f})")
+ax.plot([0, 1], [0, 1], "k--", lw=1, label="Chance")
+ax.set_xlabel("False Positive Rate"); ax.set_ylabel("True Positive Rate")
+ax.set_title("ROC Curve for Smoker vs Never-Smoker")
+ax.legend(loc="lower right")
+plt.tight_layout(); plt.show()
+```
+
+## Confusion Matrix and Report
+
+```{python}
+#| fig-align: center
+best = fitted["Random Forest"]
+pred = best.predict(X_test)
+fig, ax = plt.subplots(figsize=(5, 4.5))
+ConfusionMatrixDisplay.from_predictions(
+    y_test, pred, ax=ax, cmap="Blues", colorbar=False,
+    display_labels=["Never", "Current"])
+ax.set_title("Confusion Matrix for the Random Forest")
+plt.tight_layout(); plt.show()
+```
+
+```{python}
+print(classification_report(y_test, pred, target_names=["Never smoked", "Current smoker"]))
+```
+
+## Which Features Matter Most?
+
+Reading importances back through the pipeline shows which survey answers most separate smokers from non-smokers.
+
+```{python}
+#| fig-align: center
+rf = fitted["Random Forest"]
+names = rf.named_steps["prep"].get_feature_names_out()
+imp = (pd.Series(rf.named_steps["clf"].feature_importances_, index=names)
+         .sort_values(ascending=False).head(10).sort_values())
+fig, ax = plt.subplots(figsize=(8, 4))
+imp.plot(kind="barh", color="steelblue", ax=ax)
+ax.set_title("Top 10 Features (Random Forest)")
+ax.set_xlabel("Importance")
+plt.tight_layout(); plt.show()
+```
+
+Alcohol consumption typically rises to the top, which is unsurprising since drinking habits track closely with smoking, alongside personality and lifestyle measures.
+
+## Takeaway
+
+Lifestyle and personality carry a real but imperfect signal about smoking. The models distinguish current smokers from never-smokers with about 66% accuracy and an AUC near 0.72, well above chance but far from certain. Notably, the flexible random forest barely edges out simple logistic regression, a useful reminder that a more complex model is not automatically better. This page demonstrates the full binary-classification workflow on messy, mixed-type survey data: a column-transformer pipeline for preprocessing, stratified train/test splitting, class balancing, and threshold-independent evaluation with ROC-AUC.
+
+## Credit/References
+
+This analysis extends my binary Logistic Regression to a multi-feature machine-learning setting and used mild AI assistance for plotting. Data is the Young People Survey from Kaggle.
+
+[Young People Survey on Kaggle](https://www.kaggle.com/datasets/miroslavsabo/young-people-survey)

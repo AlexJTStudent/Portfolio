@@ -1,0 +1,93 @@
+---
+title: "Simple Linear Regression"
+execute:
+  echo: false
+format:
+  html:
+    theme: flatly
+    code-fold: true
+    code-tools: true
+---
+
+```{r, warning=FALSE, message=FALSE}
+library(tidyverse)
+library(mosaic)
+library(ggthemes)
+library(pander)
+
+data <- read.csv("C://Users/Alex/Documents/GitHub/Portfolio/AB_TESTS/cars.csv")
+```
+
+## Background
+
+In today's analysis, we'll return to the "Used Cars" dataset from Kaggle, scraped in Belarus (western Europe) on the 2nd of December 2019. Because the data predates modern AI tools, we can trust it wasn't artificially fabricated. Every used car eventually loses value, but intuition says that a newer car should sell for more. Here we test that intuition directly by modeling how a car's production year relates to its price.
+
+## Hypothesis
+
+Our question about the data is: Does the year a car was produced have a linear relationship with its selling price? If the slope of the regression line is zero, then the production year tells us nothing about price. If the slope is not zero, then the year plays a meaningful role.
+
+$$
+H_0: \beta_1 = 0 \quad(\text{Production year has no linear relationship with price})
+$$
+$$
+H_a: \beta_1 \neq 0 \quad(\text{Production year has a linear relationship with price})
+$$
+$$
+\alpha = 0.05
+$$
+
+## Analysis
+
+To keep the relationship interpretable and avoid a handful of extreme luxury listings distorting the fit, we focus on cars produced from 1990 onward and priced under \$50,000.
+
+```{r}
+data <- data %>% filter(year_produced >= 1990, price_usd < 50000)
+```
+
+The scatterplot below shows a clear upward trend: newer cars command higher prices. We fit a least-squares regression line to summarize that trend.
+
+```{r, fig.width=8, fig.height=5, warning=FALSE, message=FALSE}
+ggplot(data, aes(x = year_produced, y = price_usd)) +
+  geom_point(alpha = 0.2, color = "steelblue") +
+  geom_smooth(method = "lm", se = FALSE, color = "black") +
+  labs(x = "Year Produced",
+       y = "Price (USD)",
+       title = "Newer cars tend to sell for higher prices") +
+  theme_bw()
+```
+
+Fitting the linear model gives the following results:
+
+```{r}
+lm.price <- lm(price_usd ~ year_produced, data = data)
+pander(summary(lm.price))
+```
+
+The estimated regression equation is:
+
+$$
+\widehat{\text{price}} = b_0 + b_1 \cdot \text{year}
+$$
+
+The p-value for the slope on production year is far below our significance level of α = 0.05, so we reject the null hypothesis and conclude that production year has a statistically significant linear relationship with price. Each additional model year is associated with a higher expected selling price.
+
+### Checking the Requirements
+
+Before trusting the model, we examine the residuals. A valid linear regression requires the residuals to be roughly normal with constant variance across fitted values.
+
+```{r, fig.width=10, fig.height=5}
+par(mfrow = c(1, 2))
+plot(lm.price, which = 1:2, pch = 16)
+```
+
+The Residuals vs. Fitted plot shows some widening spread at higher prices, and the Q-Q plot reveals mild skewness in the tails. Used-car prices are naturally right-skewed, so this is expected. The relationship is strong enough that these departures don't overturn our conclusion, but we note them as a limitation.
+
+## Interpretation
+
+The Belarus used-car data confirms the intuitive expectation: the year a car was produced is a significant linear predictor of its price. Newer cars sell for more, on average. While the residual diagnostics warn that price variability grows for more expensive cars, the overall relationship is clear and significant (p far below α = 0.05), so we reject the null hypothesis and conclude that production year is meaningfully associated with selling price.
+
+## Credit/References
+
+This analysis used mild assistance from ChatGPT to refine the plots and filtering. It is modeled after the structure of my other portfolio analyses.
+
+[Kaggle Car Dataset](https://www.kaggle.com/datasets/lepchenkov/usedcarscatalog/data)

@@ -1,0 +1,84 @@
+---
+title: "Levene's Test for Equal Variance"
+execute:
+  echo: false
+format:
+  html:
+    theme: flatly
+    code-fold: true
+    code-tools: true
+---
+
+```{r, warning=FALSE, message=FALSE}
+library(tidyverse)
+library(mosaic)
+library(car)
+library(pander)
+library(ggthemes)
+
+HSS <- read_csv("C://Users/Alex/Documents/GitHub/Portfolio/AB_TESTS/HighSchoolSeniors.csv")
+```
+
+## Background
+
+Most of the group-comparison tests in this portfolio, like the t-test and ANOVA, quietly assume that the groups being compared have equal variances (equal spread). That assumption is easy to overlook, but violating it can distort the results. Levene's test is the standard tool for checking it directly: rather than comparing group means, it compares group spreads. Using the US Census at High Schools 2020 data, we test whether the variance of student height is the same for males and females before we would ever trust a plain t-test comparing their average heights.
+
+## Hypothesis
+
+$$
+H_0: \sigma^2_\text{female} = \sigma^2_\text{male} \quad(\text{Height variances are equal})
+$$
+$$
+H_a: \sigma^2_\text{female} \neq \sigma^2_\text{male} \quad(\text{Height variances differ})
+$$
+$$
+\alpha = 0.05
+$$
+
+## Analysis
+
+We keep male and female students with realistic recorded heights (100 to 220 cm).
+
+```{r}
+HSS_clean <- HSS %>%
+  filter(Gender %in% c("Female", "Male"),
+         !is.na(Height_cm), Height_cm >= 100, Height_cm <= 220) %>%
+  mutate(Gender = factor(Gender))
+```
+
+The boxplot hints that male heights are not only taller on average but also more spread out than female heights.
+
+```{r, fig.width=6, fig.height=4, fig.align='center'}
+ggplot(HSS_clean, aes(x = Gender, y = Height_cm, fill = Gender)) +
+  geom_boxplot() +
+  labs(x = "Gender", y = "Height (cm)",
+       title = "Male heights appear more variable than female heights") +
+  theme_bw() +
+  theme(legend.position = "none")
+```
+
+```{r}
+pander(favstats(Height_cm ~ Gender, data = HSS_clean))
+```
+
+Comparing the standard deviations in the table above gives a first impression, but Levene's test tells us whether the difference in spread is statistically significant. It is more robust to non-normal data than the classic F-test, though we report both.
+
+```{r}
+pander(leveneTest(Height_cm ~ Gender, data = HSS_clean))
+```
+
+```{r}
+pander(var.test(Height_cm ~ Gender, data = HSS_clean))
+```
+
+Levene's test returns a p-value below our significance level of α = 0.05, so we reject the null hypothesis of equal variances. Male and female heights have significantly different spreads.
+
+## Interpretation
+
+The two groups don't just differ in average height, they differ in variability. Levene's test rejects the equal-variance assumption (p below α = 0.05), confirming that male student heights are more spread out than female heights. The practical takeaway is important: because this assumption fails, a comparison of mean heights should use a method that does not assume equal variance, such as Welch's t-test (R's default), rather than the classical pooled-variance version. This analysis is exactly the kind of diagnostic check that should precede a t-test or ANOVA, and it shows why blindly assuming equal spread can be a mistake.
+
+## Credit/References
+
+This analysis follows the format of my other portfolio analyses and used mild AI assistance for plotting. Survey details are available at the Census at School questionnaire.
+
+[Census at School Questionnaire](https://ww2.amstat.org/censusatschool/pdfs/C@SQuestionnaire.pdf)

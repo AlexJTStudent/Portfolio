@@ -1,0 +1,92 @@
+---
+title: "One-Way ANOVA"
+execute:
+  echo: false
+format:
+  html:
+    theme: flatly
+    code-fold: true
+    code-tools: true
+---
+
+```{r, warning=FALSE, message=FALSE}
+library(tidyverse)
+library(mosaic)
+library(car)
+library(pander)
+library(ggthemes)
+
+food <- read_csv("C://Users/Alex/Documents/GitHub/Portfolio/AB_TESTS/food.csv")
+```
+
+## Background
+
+Returning to the College Food Choices survey (Kaggle), each student reported their current GPA along with their class standing (grade level), coded from 1 (freshman) to 4 (senior). A common belief is that students improve academically as they progress through college. If that were true, we'd expect average GPA to climb from freshman to senior year. Here we test whether mean GPA truly differs across the four class levels.
+
+## Hypothesis
+
+We compare the mean GPA across four independent groups (freshman, sophomore, junior, senior) using a one-way ANOVA.
+
+$$
+H_0: \mu_\text{fresh} = \mu_\text{soph} = \mu_\text{junior} = \mu_\text{senior}
+$$
+$$
+H_a: \text{At least one class level's mean GPA differs}
+$$
+$$
+\alpha = 0.05
+$$
+
+## Analysis
+
+GPA imports as text (a few students typed food names into the field), so we coerce it to a number, drop the resulting missing values, and label the grade levels.
+
+```{r, warning=FALSE}
+food <- food %>%
+  mutate(GPA = as.numeric(GPA),
+         grade_level = factor(grade_level,
+                              labels = c("Freshman", "Sophomore", "Junior", "Senior"))) %>%
+  filter(!is.na(GPA), !is.na(grade_level))
+```
+
+The boxplot below compares the GPA distributions. The class-level medians sit close together, which already hints that year in school may not strongly separate GPA.
+
+```{r, fig.height=5, fig.width=7, fig.align='center'}
+ggplot(food, aes(x = grade_level, y = GPA, fill = grade_level)) +
+  geom_boxplot() +
+  labs(title = "GPA distributions are similar across class levels",
+       x = "Class Level",
+       y = "GPA") +
+  theme_bw() +
+  theme(legend.position = "none")
+```
+
+```{r}
+pander(favstats(GPA ~ grade_level, data = food))
+```
+
+Before trusting the ANOVA, we confirm the residuals are approximately normal, since ANOVA assumes normally distributed errors with equal variance across groups.
+
+```{r, fig.height=5, fig.width=8}
+aov.gpa <- aov(GPA ~ grade_level, data = food)
+par(mfrow = c(1, 2))
+plot(aov.gpa, which = 1:2, pch = 16)
+```
+
+The Q-Q plot follows the diagonal reasonably well and the spread across groups is comparable, so the ANOVA requirements are adequately met. We now run the test.
+
+```{r}
+pander(summary(aov.gpa))
+```
+
+The p-value is larger than our significance level of α = 0.05, so we fail to reject the null hypothesis. There is not enough evidence to conclude that mean GPA differs across class levels.
+
+## Interpretation
+
+Despite the common belief that students earn better grades as they advance, this sample shows no significant difference in average GPA between freshmen, sophomores, juniors, and seniors. The favstats confirm the group means all sit close together, and the boxplot medians overlap heavily. Because our p-value exceeds α = 0.05, we fail to reject the null and conclude that class standing alone does not meaningfully separate GPA in this data.
+
+## Credit/References
+
+This analysis is modeled after my other portfolio analyses and used mild AI assistance for plotting. The dataset and column descriptions come from Kaggle.
+
+[Food choices on Kaggle](https://www.kaggle.com/borapajo/food-choices?select=food_coded.csv)

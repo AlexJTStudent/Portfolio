@@ -1,0 +1,100 @@
+---
+title: "Paired Samples Test"
+execute:
+  echo: false
+format:
+  html:
+    theme: flatly
+    code-fold: true
+    code-tools: true
+---
+
+```{r, warning=FALSE, message=FALSE}
+library(tidyverse)
+library(mosaic)
+library(car)
+library(pander)
+library(ggthemes)
+
+HSS <- read_csv("C://Users/Alex/Documents/GitHub/Portfolio/AB_TESTS/HighSchoolSeniors.csv")
+```
+
+## Background
+
+The US Census at High Schools 2020 survey asked each student two related questions: how many text messages they sent yesterday, and how many they received yesterday. Because both numbers come from the same student, they form a paired measurement. This lets us ask a more personal question than comparing two separate groups: within a single person, does the number of texts they send differ from the number they receive? If students mostly reply to conversations, sent and received counts should be close; if messages tend to arrive faster than students send them out, received counts will run higher.
+
+## Within a student, do sent and received text counts differ?
+
+$$
+H_0: \mu_d = 0 \quad(\text{Mean difference between sent and received is zero})
+$$
+$$
+H_a: \mu_d \neq 0 \quad(\text{Sent and received counts differ on average})
+$$
+$$
+\alpha = 0.05
+$$
+
+Here $\mu_d$ is the mean of the per-student difference (texts sent minus texts received).
+
+## Analysis
+
+We keep students who answered both questions and, as in my earlier texting analysis, cap the counts below 250 to remove a few extreme outliers that would otherwise dominate.
+
+```{r}
+HSS_clean <- HSS %>%
+  filter(!is.na(Text_Messages_Sent_Yesterday),
+         !is.na(Text_Messages_Received_Yesterday),
+         Text_Messages_Sent_Yesterday < 250,
+         Text_Messages_Received_Yesterday < 250) %>%
+  mutate(difference = Text_Messages_Sent_Yesterday - Text_Messages_Received_Yesterday)
+```
+
+The histogram of each student's difference (sent minus received) sits noticeably to the left of zero, our first clue that students tend to receive more texts than they send.
+
+```{r, fig.height=4, fig.width=7, fig.align='center', message=FALSE}
+ggplot(HSS_clean, aes(x = difference)) +
+  geom_histogram(binwidth = 10, fill = "steelblue", color = "white") +
+  geom_vline(xintercept = 0, color = "red", linewidth = 1) +
+  labs(title = "Per-student difference (sent - received) leans negative",
+       x = "Texts Sent - Texts Received",
+       y = "Number of Students") +
+  theme_bw()
+```
+
+```{r}
+pander(favstats(~difference, data = HSS_clean))
+```
+
+A paired t-test requires the differences to be roughly normal. The Q-Q plot below checks that assumption.
+
+```{r, fig.height=5, fig.width=5, fig.align='center'}
+qqPlot(HSS_clean$difference, main = "QQ Plot of Differences",
+       ylab = "Sent - Received", id = FALSE)
+```
+
+The differences show heavy tails, so we report both the paired t-test (relying on the large sample size and the Central Limit Theorem) and its non-parametric counterpart, the Wilcoxon signed-rank test, which makes no normality assumption.
+
+```{r}
+pander(t.test(HSS_clean$Text_Messages_Sent_Yesterday,
+              HSS_clean$Text_Messages_Received_Yesterday,
+              paired = TRUE))
+```
+
+```{r, warning=FALSE}
+pander(wilcox.test(HSS_clean$Text_Messages_Sent_Yesterday,
+                   HSS_clean$Text_Messages_Received_Yesterday,
+                   paired = TRUE, exact = FALSE))
+```
+
+Both tests produce a p-value far below our significance level of α = 0.05, so we reject the null hypothesis. There is strong evidence that students do not send and receive the same number of texts.
+
+## Interpretation
+
+Texting among these high schoolers is lopsided: students receive noticeably more messages than they send. On average a student sent about 40 texts but received about 50, a gap of roughly 10 messages per day, and that difference is highly significant under both the paired t-test and the Wilcoxon signed-rank test (both p-values far below α = 0.05). We therefore reject the null hypothesis and conclude that incoming texts outpace outgoing ones. This dovetails nicely with my earlier High School Seniors t-test, where the volume of texts received was the variable of interest; here we see that, person by person, students' inboxes fill faster than they can reply.
+
+## Credit/References
+
+This analysis follows the format of my other portfolio analyses and used mild AI assistance for plotting. Survey details are available at the Census at School questionnaire.
+
+[Census at School Questionnaire](https://ww2.amstat.org/censusatschool/pdfs/C@SQuestionnaire.pdf)

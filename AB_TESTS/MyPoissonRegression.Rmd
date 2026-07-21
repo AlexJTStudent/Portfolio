@@ -1,0 +1,94 @@
+---
+title: "Poisson Regression"
+execute:
+  echo: false
+format:
+  html:
+    theme: flatly
+    code-fold: true
+    code-tools: true
+---
+
+```{r, warning=FALSE, message=FALSE}
+library(tidyverse)
+library(mosaic)
+library(pander)
+library(ggthemes)
+
+data <- read.csv("C://Users/Alex/Documents/GitHub/Portfolio/AB_TESTS/SalmonandSeaTroutNets1952-2022.csv")
+```
+
+## Background
+
+In my two-way ANOVA analysis I studied Scotland's salmon catch data by treating catch numbers as a continuous outcome. But catch counts are really whole-number counts of fish, and count data is often better modeled with a Poisson regression than with methods that assume a normal, continuous response. Here we use the same Scotland "Salmon Catch (1952-2022)" dataset to model how the number of wild salmon caught depends on the fishing region and the year. This lets us ask whether catches have been trending up or down over the decades, and whether some regions consistently land more fish.
+
+## Hypothesis
+
+We model the count of wild MSW (multi-sea-winter) salmon as a function of Region and Year using a Poisson GLM.
+
+$$
+H_0: \text{Region and Year have no effect on the expected salmon count}
+$$
+$$
+H_a: \text{At least one of Region or Year affects the expected salmon count}
+$$
+$$
+\alpha = 0.05
+$$
+
+## Analysis
+
+We keep complete records with a valid catch count and treat Region as a categorical factor.
+
+```{r}
+data <- data %>%
+  filter(!is.na(Wild.MSW.number), !is.na(Year), !is.na(Region)) %>%
+  mutate(Region = factor(Region))
+```
+
+The plot below shows total wild salmon caught per year. The trend gives a first look at whether catches have risen or fallen across the study period.
+
+```{r, fig.height=5, fig.width=8, fig.align='center', message=FALSE}
+data %>%
+  group_by(Year) %>%
+  summarise(total = sum(Wild.MSW.number)) %>%
+  ggplot(aes(x = Year, y = total)) +
+  geom_line(color = "steelblue") +
+  geom_smooth(method = "loess", se = FALSE, color = "black") +
+  labs(title = "Total wild salmon caught per year in Scotland",
+       x = "Year",
+       y = "Total Wild MSW Salmon Caught") +
+  theme_bw()
+```
+
+We now fit a Poisson regression predicting the salmon count from Region and Year.
+
+```{r}
+glm.pois <- glm(Wild.MSW.number ~ Region + Year, data = data, family = poisson)
+pander(summary(glm.pois))
+```
+
+The p-values for Year and for the Region terms are far below α = 0.05, so we reject the null hypothesis and conclude that both Year and Region significantly affect the expected number of salmon caught. The sign of the Year coefficient tells us the overall direction of the trend over time, while the Region coefficients show which regions land systematically more or fewer fish.
+
+### Checking for Overdispersion
+
+Poisson regression assumes the variance of the counts roughly equals their mean. When the residual deviance is far larger than its degrees of freedom, the data is overdispersed and the Poisson standard errors are too optimistic. We compare the two below.
+
+```{r}
+dispersion <- deviance(glm.pois) / df.residual(glm.pois)
+pander(data.frame(`Residual Deviance` = deviance(glm.pois),
+                  `Degrees of Freedom` = df.residual(glm.pois),
+                  `Dispersion Ratio` = dispersion))
+```
+
+The dispersion ratio is well above 1, meaning this catch data is overdispersed, a common situation for ecological counts where a few enormous hauls sit alongside many small ones. In practice this means a negative-binomial model (or a quasi-Poisson adjustment) would give more trustworthy standard errors. We report the Poisson fit but flag this as an important caveat: the significance results should be read with caution.
+
+## Interpretation
+
+Modeled as counts, Scotland's wild salmon catches depend significantly on both the Region fished and the Year, echoing the conclusions of my two-way ANOVA but through a model built specifically for count data. The yearly trend line reveals how catches have shifted across seven decades, and the regional terms confirm that location strongly shapes the expected haul. The key lesson from this analysis is diagnostic: the strong overdispersion warns that raw Poisson standard errors understate the true uncertainty, so a negative-binomial model would be the natural next step for a fully trustworthy result.
+
+## Credit/References
+
+This analysis follows the format of my other portfolio analyses and used mild AI assistance for plotting and diagnostics.
+
+[Kaggle Dataset Source](https://www.kaggle.com/datasets/mikhail1681/salmon-catch-statistics-for-scotland-19522022)

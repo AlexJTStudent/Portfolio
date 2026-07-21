@@ -1,0 +1,94 @@
+---
+title: "Repeated-Measures (Friedman) Test"
+execute:
+  echo: false
+format:
+  html:
+    theme: flatly
+    code-fold: true
+    code-tools: true
+---
+
+```{r, warning=FALSE, message=FALSE}
+library(tidyverse)
+library(mosaic)
+library(pander)
+library(ggthemes)
+
+HSS <- read_csv("C://Users/Alex/Documents/GitHub/Portfolio/AB_TESTS/HighSchoolSeniors.csv")
+```
+
+## Background
+
+All of my earlier group comparisons used independent groups (different people in each group). But sometimes the same subjects are measured under several conditions, which is a repeated-measures design. The US Census at High Schools 2020 survey asked each student to report how many hours they spend on four different daily activities: homework, watching TV, video games, and social websites. Because all four numbers come from the same student, we can ask a within-subjects question: do students spend different amounts of time across these four activities?
+
+The parametric tool for this is repeated-measures ANOVA, but hour counts are skewed and full of zeros, so we use its non-parametric counterpart, the Friedman test, which ranks each student's four activities against one another.
+
+## Hypothesis
+
+$$
+H_0: \text{The distribution of hours is the same across all four activities}
+$$
+$$
+H_a: \text{At least one activity has a different distribution of hours}
+$$
+$$
+\alpha = 0.05
+$$
+
+## Analysis
+
+We keep only students who answered all four questions with realistic values (0 to 24 hours), since the Friedman test requires a complete set of measurements per subject.
+
+```{r}
+activities <- c("Doing_Homework_Hours", "Watching_TV_Hours",
+                "Video_Games_Hours", "Social_Websites_Hours")
+
+wide <- HSS %>%
+  dplyr::select(all_of(activities)) %>%
+  drop_na() %>%
+  filter(if_all(everything(), ~ .x >= 0 & .x < 24))
+```
+
+The boxplot below compares the four activities. Social websites clearly stand out as the biggest time sink, while the other three sit closer together.
+
+```{r, fig.width=8, fig.height=5, fig.align='center'}
+wide %>%
+  pivot_longer(everything(), names_to = "Activity", values_to = "Hours") %>%
+  mutate(Activity = str_replace_all(Activity, c("Doing_Homework_Hours" = "Homework",
+                                                "Watching_TV_Hours" = "TV",
+                                                "Video_Games_Hours" = "Video Games",
+                                                "Social_Websites_Hours" = "Social Websites"))) %>%
+  ggplot(aes(x = reorder(Activity, Hours, FUN = median), y = Hours, fill = Activity)) +
+  geom_boxplot() +
+  labs(x = "Activity", y = "Hours per Day",
+       title = "Students spend the most time on social websites") +
+  theme_bw() +
+  theme(legend.position = "none")
+```
+
+```{r}
+means <- wide %>%
+  summarise(across(everything(), mean)) %>%
+  pivot_longer(everything(), names_to = "Activity", values_to = "Mean Hours")
+pander(means)
+```
+
+The Friedman test works on the matrix of students (rows) by activities (columns), ranking the four activities within each student.
+
+```{r}
+fried <- friedman.test(as.matrix(wide))
+pander(fried)
+```
+
+The p-value is far below our significance level of α = 0.05, so we reject the null hypothesis. The amount of time students spend genuinely differs across the four activities.
+
+## Interpretation
+
+Time is not spread evenly across a student's day. Averaging across `r nrow(wide)` students who answered all four questions, social websites dominate at roughly 7.8 hours, well ahead of homework (about 5.0), TV (about 4.8), and video games (about 4.5). The Friedman test confirms these differences are highly significant (p far below α = 0.05), so we reject the null hypothesis and conclude that activity type strongly affects how many hours students devote to it. Using a repeated-measures design let us compare all four behaviors within each student, controlling for the fact that some students are simply busier than others.
+
+## Credit/References
+
+This analysis follows the format of my other portfolio analyses and used mild AI assistance for plotting. Survey details are available at the Census at School questionnaire.
+
+[Census at School Questionnaire](https://ww2.amstat.org/censusatschool/pdfs/C@SQuestionnaire.pdf)

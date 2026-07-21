@@ -1,0 +1,82 @@
+---
+title: "Two-Proportion Test"
+execute:
+  echo: false
+format:
+  html:
+    theme: flatly
+    code-fold: true
+    code-tools: true
+---
+
+```{r, warning=FALSE, message=FALSE}
+library(tidyverse)
+library(mosaic)
+library(pander)
+library(ggthemes)
+
+HSS <- read_csv("C://Users/Alex/Documents/GitHub/Portfolio/AB_TESTS/HighSchoolSeniors.csv")
+```
+
+## Background
+
+The US Census at High Schools 2020 survey asked each student whether they have any allergies. Allergies are sometimes discussed as being more common in one sex than the other, and results in the medical literature are mixed and change with age. That makes for a natural, testable question in this student data: do boys and girls report allergies at different rates, or is the proportion essentially the same? Here we compare the proportion of students reporting allergies across gender groups.
+
+## Do males and females differ in the proportion reporting allergies?
+
+$$
+H_0: p_\text{female} = p_\text{male} \quad(\text{The proportions are equal})
+$$
+$$
+H_a: p_\text{female} \neq p_\text{male} \quad(\text{The proportions differ})
+$$
+$$
+\alpha = 0.05
+$$
+
+## Analysis
+
+We filter to students who answered both the gender and allergies questions.
+
+```{r}
+HSS_clean <- HSS %>%
+  filter(Gender %in% c("Female", "Male"),
+         Allergies %in% c("Yes", "No"))
+```
+
+The table below counts how many students in each gender reported allergies, and the bar chart shows the proportions side by side.
+
+```{r}
+tab <- table(HSS_clean$Gender, HSS_clean$Allergies)
+pander(tab)
+```
+
+```{r, fig.height=4, fig.width=6, fig.align='center'}
+ggplot(HSS_clean, aes(x = Gender, fill = Allergies)) +
+  geom_bar(position = "fill") +
+  labs(title = "The rate of reported allergies looks identical across genders",
+       x = "Gender",
+       y = "Proportion") +
+  guides(fill = guide_legend(title = "Allergies")) +
+  theme_bw()
+```
+
+Both bars split at almost exactly the same height (about 42% of each gender reports allergies), suggesting little to no difference. A two-proportion z-test confirms whether any gap is statistically meaningful. The test requires a healthy number of students in every cell of the table, which is comfortably satisfied here.
+
+```{r}
+success <- tab[, "Yes"]
+totals <- rowSums(tab)
+pander(prop.test(success, totals))
+```
+
+The p-value is far larger than our significance level of α = 0.05, so we fail to reject the null hypothesis. There is essentially no evidence that the proportion of students reporting allergies differs between males and females.
+
+## Interpretation
+
+Reported allergies appear to be gender-neutral in this sample. About 42% of females and 43% of males reported having allergies, a difference so small the bar chart shows two virtually identical splits. Because our p-value sits near 1, far above α = 0.05, we fail to reject the null hypothesis and conclude that gender is not associated with whether a student reports allergies among the students surveyed.
+
+## Credit/References
+
+This analysis is modeled after my other portfolio analyses and used mild AI assistance for plotting. Survey details are available at the Census at School questionnaire.
+
+[Census at School Questionnaire](https://ww2.amstat.org/censusatschool/pdfs/C@SQuestionnaire.pdf)
