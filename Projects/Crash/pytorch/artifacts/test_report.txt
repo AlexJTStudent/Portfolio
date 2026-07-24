@@ -1,0 +1,16 @@
+Car Damage Classifier - Test Set Evaluation
+============================================
+Backbone     : resnet18
+Test images  : 734
+Classes      : 0=not_crashed, 1=crashed
+
+Accuracy     : 0.9455
+Precision    : 0.9570   (of predicted-crashed, how many were crashed)
+Recall       : 0.9304   (of actual-crashed, how many we caught)
+F1           : 0.9435
+ROC-AUC      : 0.9906
+
+Confusion matrix (rows = actual, cols = predicted):
+                pred_not_crashed  pred_crashed
+  actual_not_crashed 360               15
+  actual_crashed    25                334

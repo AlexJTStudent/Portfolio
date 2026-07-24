@@ -1,0 +1,15 @@
+{
+  "backbone": "resnet18",
+  "best_val_acc": 0.9455,
+  "epochs_run": 12,
+  "finetuned": false,
+  "train_seconds": 400.1,
+  "test": {
+    "accuracy": 0.9455,
+    "precision": 0.957,
+    "recall": 0.9304,
+    "f1": 0.9435,
+    "roc_auc": 0.9906,
+    "test_n": 734
+  }
+}

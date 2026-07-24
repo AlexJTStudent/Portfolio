@@ -1,0 +1,965 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
+
+<meta charset="utf-8">
+<meta name="generator" content="quarto-1.8.25">
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+
+
+<title>Designing a Consulting Firm Database – Alex J. Tovar</title>
+<style>
+code{white-space: pre-wrap;}
+span.smallcaps{font-variant: small-caps;}
+div.columns{display: flex; gap: min(4vw, 1.5em);}
+div.column{flex: auto; overflow-x: auto;}
+div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+ul.task-list{list-style: none;}
+ul.task-list li input[type="checkbox"] {
+  width: 0.8em;
+  margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
+  vertical-align: middle;
+}
+/* CSS for syntax highlighting */
+html { -webkit-text-size-adjust: 100%; }
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+  }
+pre.numberSource { margin-left: 3em;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+</style>
+
+
+<script src="../site_libs/quarto-nav/quarto-nav.js"></script>
+<script src="../site_libs/quarto-nav/headroom.min.js"></script>
+<script src="../site_libs/clipboard/clipboard.min.js"></script>
+<script src="../site_libs/quarto-search/autocomplete.umd.js"></script>
+<script src="../site_libs/quarto-search/fuse.min.js"></script>
+<script src="../site_libs/quarto-search/quarto-search.js"></script>
+<meta name="quarto:offset" content="../">
+<script src="../site_libs/quarto-html/quarto.js" type="module"></script>
+<script src="../site_libs/quarto-html/tabsets/tabsets.js" type="module"></script>
+<script src="../site_libs/quarto-html/axe/axe-check.js" type="module"></script>
+<script src="../site_libs/quarto-html/popper.min.js"></script>
+<script src="../site_libs/quarto-html/tippy.umd.min.js"></script>
+<script src="../site_libs/quarto-html/anchor.min.js"></script>
+<link href="../site_libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="../site_libs/quarto-html/quarto-syntax-highlighting-7b89279ff1a6dce999919e0e67d4d9ec.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<script src="../site_libs/bootstrap/bootstrap.min.js"></script>
+<link href="../site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
+<link href="../site_libs/bootstrap/bootstrap-ffa9a6279353761231ec249df0a7fdd3.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
+<script id="quarto-search-options" type="application/json">{
+  "location": "navbar",
+  "copy-button": false,
+  "collapse-after": 3,
+  "panel-placement": "end",
+  "type": "overlay",
+  "limit": 50,
+  "keyboard-shortcut": [
+    "f",
+    "/",
+    "s"
+  ],
+  "show-item-context": false,
+  "language": {
+    "search-no-results-text": "No results",
+    "search-matching-documents-text": "matching documents",
+    "search-copy-link-title": "Copy link to search",
+    "search-hide-matches-text": "Hide additional matches",
+    "search-more-match-text": "more match in this document",
+    "search-more-matches-text": "more matches in this document",
+    "search-clear-button-title": "Clear",
+    "search-text-placeholder": "",
+    "search-detached-cancel-button-title": "Cancel",
+    "search-submit-button-title": "Submit",
+    "search-label": "Search"
+  }
+}</script>
+
+
+<link rel="stylesheet" href="../styles.css">
+</head>
+
+<body class="nav-fixed quarto-light">
+
+<div id="quarto-search-results"></div>
+  <header id="quarto-header" class="headroom fixed-top">
+    <nav class="navbar navbar-expand-lg " data-bs-theme="dark">
+      <div class="navbar-container container-fluid">
+      <div class="navbar-brand-container mx-auto">
+    <a href="../index.html" class="navbar-brand navbar-brand-logo">
+    </a>
+    <a class="navbar-brand" href="../index.html">
+    <span class="navbar-title">Alex J. Tovar</span>
+    </a>
+  </div>
+            <div id="quarto-search" class="" title="Search"></div>
+          <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarCollapse" aria-controls="navbarCollapse" role="menu" aria-expanded="false" aria-label="Toggle navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
+  <span class="navbar-toggler-icon"></span>
+</button>
+          <div class="collapse navbar-collapse" id="navbarCollapse">
+            <ul class="navbar-nav navbar-nav-scroll me-auto">
+  <li class="nav-item">
+    <a class="nav-link" href="../index.html"> 
+<span class="menu-text">Wrecked Car Detector</span></a>
+  </li>  
+  <li class="nav-item dropdown ">
+    <a class="nav-link dropdown-toggle" href="#" id="nav-menu-ab-testing" role="link" data-bs-toggle="dropdown" aria-expanded="false">
+ <span class="menu-text">A/B TESTING</span>
+    </a>
+    <ul class="dropdown-menu" aria-labelledby="nav-menu-ab-testing">    
+        <li>
+    <a class="dropdown-item" href="../AB_TESTS/MyTwoWayANOVA.html">
+ <span class="dropdown-text">Two-way ANOVA</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../AB_TESTS/MyChiSquaredTest.html">
+ <span class="dropdown-text">Chi-Squared Test</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../AB_TESTS/MyLogisticRegression.html">
+ <span class="dropdown-text">Logistic Regression</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../AB_TESTS/HighSchoolSeniors.html">
+ <span class="dropdown-text">T-test</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../AB_TESTS/RecallingWords.html">
+ <span class="dropdown-text">Wilcoxon Rank Sum (Mann–Whitney) test</span></a>
+  </li>  
+    </ul>
+  </li>
+  <li class="nav-item dropdown ">
+    <a class="nav-link dropdown-toggle" href="#" id="nav-menu-more-tests" role="link" data-bs-toggle="dropdown" aria-expanded="false">
+ <span class="menu-text">MORE TESTS</span>
+    </a>
+    <ul class="dropdown-menu" aria-labelledby="nav-menu-more-tests">    
+        <li>
+    <a class="dropdown-item" href="../AB_TESTS/MySimpleLinearRegression.html">
+ <span class="dropdown-text">Simple Linear Regression</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../AB_TESTS/MyMultipleRegression.html">
+ <span class="dropdown-text">Multiple Linear Regression</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../AB_TESTS/MyOneWayANOVA.html">
+ <span class="dropdown-text">One-way ANOVA</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../AB_TESTS/MyCorrelation.html">
+ <span class="dropdown-text">Correlation Analysis</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../AB_TESTS/MyTwoProportionTest.html">
+ <span class="dropdown-text">Two-Proportion Test</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../AB_TESTS/MyPairedTest.html">
+ <span class="dropdown-text">Paired Samples Test</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../AB_TESTS/MyFishersExactTest.html">
+ <span class="dropdown-text">Fisher’s Exact Test</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../AB_TESTS/MyPoissonRegression.html">
+ <span class="dropdown-text">Poisson Regression</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../AB_TESTS/MyChiSquaredGoodnessOfFit.html">
+ <span class="dropdown-text">Chi-Squared Goodness of Fit</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../AB_TESTS/MyANCOVA.html">
+ <span class="dropdown-text">ANCOVA</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../AB_TESTS/MyTukeyHSD.html">
+ <span class="dropdown-text">Tukey HSD Post-Hoc</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../AB_TESTS/MyOrdinalLogisticRegression.html">
+ <span class="dropdown-text">Ordinal Logistic Regression</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../AB_TESTS/MyRepeatedMeasures.html">
+ <span class="dropdown-text">Repeated-Measures (Friedman)</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../AB_TESTS/MyLevenesTest.html">
+ <span class="dropdown-text">Levene’s Test</span></a>
+  </li>  
+    </ul>
+  </li>
+  <li class="nav-item dropdown ">
+    <a class="nav-link dropdown-toggle" href="#" id="nav-menu-scikit-learn-models" role="link" data-bs-toggle="dropdown" aria-expanded="false">
+ <span class="menu-text">SCIKIT-LEARN MODELS</span>
+    </a>
+    <ul class="dropdown-menu" aria-labelledby="nav-menu-scikit-learn-models">    
+        <li>
+    <a class="dropdown-item" href="../ML_MODELS/Regression.html">
+ <span class="dropdown-text">Regression</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../ML_MODELS/BinaryClassification.html">
+ <span class="dropdown-text">Binary Classification</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../ML_MODELS/MulticlassClassification.html">
+ <span class="dropdown-text">Multiclass Classification</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../ML_MODELS/Clustering.html">
+ <span class="dropdown-text">Clustering</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../ML_MODELS/DimensionalityReduction.html">
+ <span class="dropdown-text">Dimensionality Reduction (PCA)</span></a>
+  </li>  
+    </ul>
+  </li>
+  <li class="nav-item dropdown ">
+    <a class="nav-link dropdown-toggle" href="#" id="nav-menu-sql" role="link" data-bs-toggle="dropdown" aria-expanded="false">
+ <span class="menu-text">SQL</span>
+    </a>
+    <ul class="dropdown-menu" aria-labelledby="nav-menu-sql">    
+        <li>
+    <a class="dropdown-item" href="../SQL/ConsultingDatabase.html">
+ <span class="dropdown-text">Consulting Database Design</span></a>
+  </li>  
+    </ul>
+  </li>
+  <li class="nav-item dropdown ">
+    <a class="nav-link dropdown-toggle" href="#" id="nav-menu-dashboard" role="link" data-bs-toggle="dropdown" aria-expanded="false">
+ <span class="menu-text">DASHBOARD</span>
+    </a>
+    <ul class="dropdown-menu" aria-labelledby="nav-menu-dashboard">    
+        <li>
+    <a class="dropdown-item" href="../DASHBOARDS/OlympicsDashboard.html">
+ <span class="dropdown-text">120 Years of the Olympics</span></a>
+  </li>  
+    </ul>
+  </li>
+  <li class="nav-item dropdown ">
+    <a class="nav-link dropdown-toggle" href="#" id="nav-menu-projects" role="link" data-bs-toggle="dropdown" aria-expanded="false">
+ <span class="menu-text">Projects</span>
+    </a>
+    <ul class="dropdown-menu" aria-labelledby="nav-menu-projects">    
+        <li>
+    <a class="dropdown-item" href="../Projects/NFL/NFL.html">
+ <span class="dropdown-text">NFL Data Analysis</span></a>
+  </li>  
+    </ul>
+  </li>
+  <li class="nav-item dropdown ">
+    <a class="nav-link dropdown-toggle" href="#" id="nav-menu-blogs" role="link" data-bs-toggle="dropdown" aria-expanded="false">
+ <span class="menu-text">Blogs</span>
+    </a>
+    <ul class="dropdown-menu" aria-labelledby="nav-menu-blogs">    
+        <li>
+    <a class="dropdown-item" href="../Blogs/Linkedin_Reach_Tips.html">
+ <span class="dropdown-text">Linkedin Reach Tips</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../Blogs/Hosting_Using_AWS.html">
+ <span class="dropdown-text">Hosting Using AWS</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../Blogs/AWS_Cloud_Computing.html">
+ <span class="dropdown-text">AWS Cloud Computing</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../Blogs/End-to-End_ML.html">
+ <span class="dropdown-text">End-to-End ML Applications</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../Blogs/My_First_Week.html">
+ <span class="dropdown-text">First Week in Entrepreneurship</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../Blogs/post2.html">
+ <span class="dropdown-text">The Importance of Dreams</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../Blogs/LaunchingLeaders.html">
+ <span class="dropdown-text">Launching Leaders</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../Blogs/HeroJourney.html">
+ <span class="dropdown-text">Hero’s Journey Talk</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../Blogs/Three.html">
+ <span class="dropdown-text">Three Entrepreneurs</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../Blogs/7lessons.html">
+ <span class="dropdown-text">Lessons From Effective People</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../Blogs/perseverance.html">
+ <span class="dropdown-text">Lessons of Perseverance</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../Blogs/Ethics.html">
+ <span class="dropdown-text">Ethics &amp; Greatness</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../Blogs/BigDreams.html">
+ <span class="dropdown-text">Big Dreams</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../Blogs/Measuring.html">
+ <span class="dropdown-text">Measuring Success</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../Blogs/business.html">
+ <span class="dropdown-text">Business &amp; Profit</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../Blogs/EntrepreneurialPath.html">
+ <span class="dropdown-text">Entrepreneurial Path</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../Blogs/Reflection.html">
+ <span class="dropdown-text">Reflections on Entrepreneurship</span></a>
+  </li>  
+    </ul>
+  </li>
+</ul>
+          </div> <!-- /navcollapse -->
+            <div class="quarto-navbar-tools">
+</div>
+      </div> <!-- /container-fluid -->
+    </nav>
+</header>
+<!-- content -->
+<div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-article page-navbar">
+<!-- sidebar -->
+<!-- margin-sidebar -->
+    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
+        <nav id="TOC" role="doc-toc" class="toc-active">
+    <h2 id="toc-title">On this page</h2>
+   
+  <ul>
+  <li><a href="#background" id="toc-background" class="nav-link active" data-scroll-target="#background">Background</a></li>
+  <li><a href="#the-first-design" id="toc-the-first-design" class="nav-link" data-scroll-target="#the-first-design">The first design</a></li>
+  <li><a href="#where-it-broke-down" id="toc-where-it-broke-down" class="nav-link" data-scroll-target="#where-it-broke-down">Where it broke down</a></li>
+  <li><a href="#the-normalized-design" id="toc-the-normalized-design" class="nav-link" data-scroll-target="#the-normalized-design">The normalized design</a></li>
+  <li><a href="#resolving-the-many-to-many-relationships" id="toc-resolving-the-many-to-many-relationships" class="nav-link" data-scroll-target="#resolving-the-many-to-many-relationships">Resolving the many-to-many relationships</a></li>
+  <li><a href="#loading-the-data" id="toc-loading-the-data" class="nav-link" data-scroll-target="#loading-the-data">Loading the data</a></li>
+  <li><a href="#querying-it" id="toc-querying-it" class="nav-link" data-scroll-target="#querying-it">Querying it</a></li>
+  <li><a href="#what-i-would-fix-next" id="toc-what-i-would-fix-next" class="nav-link" data-scroll-target="#what-i-would-fix-next">What I would fix next</a></li>
+  <li><a href="#creditreferences" id="toc-creditreferences" class="nav-link" data-scroll-target="#creditreferences">Credit/References</a></li>
+  </ul>
+</nav>
+    </div>
+<!-- main -->
+<main class="content" id="quarto-document-content">
+
+<header id="title-block-header" class="quarto-title-block default">
+<div class="quarto-title">
+<h1 class="title">Designing a Consulting Firm Database</h1>
+</div>
+
+
+
+<div class="quarto-title-meta">
+
+    
+  
+    
+  </div>
+  
+
+
+</header>
+
+
+<section id="background" class="level2">
+<h2 class="anchored" data-anchor-id="background">Background</h2>
+<p>This project is a relational database for a consulting firm. The firm keeps clients, the jobs those clients order, and the consultants who staff them. The awkward part of the brief is that the relationships run both ways: one job usually needs several consultants, and one consultant works several jobs at once. A client can also order many jobs over the years.</p>
+<p>That shape cannot be stored in a single flat table without repeating information, so the work was to design the schema in MySQL Workbench, build it, load it with sample data, and then query it. What follows is the design as it actually happened, including the first version that did not survive contact with the requirements.</p>
+</section>
+<section id="the-first-design" class="level2">
+<h2 class="anchored" data-anchor-id="the-first-design">The first design</h2>
+<p>The first cut had seven tables. It was enough to answer the basic question of who is working on what, and nothing more.</p>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="consulting_erd_v1.png" class="img-fluid figure-img"></p>
+<figcaption>The first version of the schema, seven tables</figcaption>
+</figure>
+</div>
+<p>The tables were created like this:</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb1"><pre class="sourceCode sql code-with-copy"><code class="sourceCode sql"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="kw">create</span> <span class="kw">table</span> client (</span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a>client_id <span class="dt">INT</span> unsigned auto_increment <span class="kw">primary</span> <span class="kw">key</span>,</span>
+<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a>name <span class="dt">varchar</span>(<span class="dv">64</span>) <span class="kw">not</span> <span class="kw">null</span>);</span>
+<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a><span class="kw">create</span> <span class="kw">table</span> job (</span>
+<span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a>job_id <span class="dt">INT</span> unsigned auto_increment <span class="kw">primary</span> <span class="kw">key</span>,</span>
+<span id="cb1-7"><a href="#cb1-7" aria-hidden="true" tabindex="-1"></a>description <span class="dt">varchar</span>(<span class="dv">100</span>) <span class="kw">not</span> <span class="kw">null</span>);</span>
+<span id="cb1-8"><a href="#cb1-8" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-9"><a href="#cb1-9" aria-hidden="true" tabindex="-1"></a><span class="kw">create</span> <span class="kw">table</span> consultant (</span>
+<span id="cb1-10"><a href="#cb1-10" aria-hidden="true" tabindex="-1"></a>consultant_id <span class="dt">INT</span> unsigned auto_increment <span class="kw">primary</span> <span class="kw">key</span>,</span>
+<span id="cb1-11"><a href="#cb1-11" aria-hidden="true" tabindex="-1"></a>name <span class="dt">varchar</span>(<span class="dv">64</span>) <span class="kw">not</span> <span class="kw">null</span>,</span>
+<span id="cb1-12"><a href="#cb1-12" aria-hidden="true" tabindex="-1"></a>last_name <span class="dt">varchar</span>(<span class="dv">64</span>) <span class="kw">not</span> <span class="kw">null</span>,</span>
+<span id="cb1-13"><a href="#cb1-13" aria-hidden="true" tabindex="-1"></a><span class="kw">role</span> <span class="dt">varchar</span>(<span class="dv">64</span>) <span class="kw">not</span> <span class="kw">null</span>);</span>
+<span id="cb1-14"><a href="#cb1-14" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-15"><a href="#cb1-15" aria-hidden="true" tabindex="-1"></a><span class="kw">create</span> <span class="kw">table</span> job_type (</span>
+<span id="cb1-16"><a href="#cb1-16" aria-hidden="true" tabindex="-1"></a>job_type_id <span class="dt">INT</span> unsigned auto_increment <span class="kw">primary</span> <span class="kw">key</span>,</span>
+<span id="cb1-17"><a href="#cb1-17" aria-hidden="true" tabindex="-1"></a>job_type <span class="dt">varchar</span>(<span class="dv">64</span>) <span class="kw">not</span> <span class="kw">null</span>);</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<p>The three linking tables carried the relationships:</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb2"><pre class="sourceCode sql code-with-copy"><code class="sourceCode sql"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="kw">create</span> <span class="kw">table</span> client_has_job (</span>
+<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a>client_has_job_id <span class="dt">INT</span> unsigned auto_increment <span class="kw">primary</span> <span class="kw">key</span>,</span>
+<span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a>client_client_id <span class="dt">int</span> unsigned <span class="kw">not</span> <span class="kw">null</span>,</span>
+<span id="cb2-4"><a href="#cb2-4" aria-hidden="true" tabindex="-1"></a>job_job_id <span class="dt">int</span> unsigned <span class="kw">not</span> <span class="kw">null</span>,</span>
+<span id="cb2-5"><a href="#cb2-5" aria-hidden="true" tabindex="-1"></a><span class="kw">foreign</span> <span class="kw">key</span> (client_client_id) <span class="kw">REFERENCES</span> client(client_id),</span>
+<span id="cb2-6"><a href="#cb2-6" aria-hidden="true" tabindex="-1"></a><span class="kw">foreign</span> <span class="kw">key</span> (job_job_id) <span class="kw">REFERENCES</span> job(job_id));</span>
+<span id="cb2-7"><a href="#cb2-7" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-8"><a href="#cb2-8" aria-hidden="true" tabindex="-1"></a><span class="kw">create</span> <span class="kw">table</span> job_has_consultant (</span>
+<span id="cb2-9"><a href="#cb2-9" aria-hidden="true" tabindex="-1"></a>job_has_consultant_id <span class="dt">INT</span> unsigned auto_increment <span class="kw">primary</span> <span class="kw">key</span>,</span>
+<span id="cb2-10"><a href="#cb2-10" aria-hidden="true" tabindex="-1"></a>job_job_id <span class="dt">int</span> unsigned <span class="kw">not</span> <span class="kw">null</span>,</span>
+<span id="cb2-11"><a href="#cb2-11" aria-hidden="true" tabindex="-1"></a>consultant_consultant_id <span class="dt">int</span> unsigned <span class="kw">not</span> <span class="kw">null</span>,</span>
+<span id="cb2-12"><a href="#cb2-12" aria-hidden="true" tabindex="-1"></a><span class="kw">foreign</span> <span class="kw">key</span> (job_job_id) <span class="kw">REFERENCES</span> job(job_id),</span>
+<span id="cb2-13"><a href="#cb2-13" aria-hidden="true" tabindex="-1"></a><span class="kw">foreign</span> <span class="kw">key</span> (consultant_consultant_id) <span class="kw">REFERENCES</span> consultant(consultant_id));</span>
+<span id="cb2-14"><a href="#cb2-14" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-15"><a href="#cb2-15" aria-hidden="true" tabindex="-1"></a><span class="kw">create</span> <span class="kw">table</span> job_type_has_job (</span>
+<span id="cb2-16"><a href="#cb2-16" aria-hidden="true" tabindex="-1"></a>job_type_has_job_id <span class="dt">INT</span> unsigned auto_increment <span class="kw">primary</span> <span class="kw">key</span>,</span>
+<span id="cb2-17"><a href="#cb2-17" aria-hidden="true" tabindex="-1"></a>job_job_id <span class="dt">int</span> unsigned <span class="kw">not</span> <span class="kw">null</span>,</span>
+<span id="cb2-18"><a href="#cb2-18" aria-hidden="true" tabindex="-1"></a>job_type_job_type_id <span class="dt">int</span> unsigned <span class="kw">not</span> <span class="kw">null</span>,</span>
+<span id="cb2-19"><a href="#cb2-19" aria-hidden="true" tabindex="-1"></a><span class="kw">foreign</span> <span class="kw">key</span> (job_job_id) <span class="kw">REFERENCES</span> job(job_id),</span>
+<span id="cb2-20"><a href="#cb2-20" aria-hidden="true" tabindex="-1"></a><span class="kw">foreign</span> <span class="kw">key</span> (job_type_job_type_id) <span class="kw">REFERENCES</span> job_type(job_type_id));</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</section>
+<section id="where-it-broke-down" class="level2">
+<h2 class="anchored" data-anchor-id="where-it-broke-down">Where it broke down</h2>
+<p>Three problems showed up almost immediately once real questions were asked of the data.</p>
+<p>The first is the role column on consultant. Storing the role as free text means the string “Data Scientist” is retyped on every row that needs it. One typo creates a role that looks real to a human and is invisible to a GROUP BY. Renaming a role means an UPDATE across every consultant who holds it, and there is nowhere to hang anything else a role might need.</p>
+<p>The second is the client table, which held nothing but a name. There was no room for contact details, no record of when someone became a client, and no way to say which company a client belongs to. Two people at the same firm were simply two unrelated rows.</p>
+<p>The third problem is visible in the script itself. The bottom of the file is a run of ALTER statements, adding columns that should have been part of the design:</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb3"><pre class="sourceCode sql code-with-copy"><code class="sourceCode sql"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="kw">ALTER</span> <span class="kw">TABLE</span> consultant <span class="kw">ADD</span> <span class="kw">COLUMN</span> salary <span class="dt">DECIMAL</span>(<span class="dv">10</span>,<span class="dv">2</span>);</span>
+<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a><span class="kw">ALTER</span> <span class="kw">TABLE</span> consultant <span class="kw">ADD</span> <span class="kw">COLUMN</span> hire_date <span class="dt">DATE</span>;</span>
+<span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a><span class="kw">ALTER</span> <span class="kw">TABLE</span> consultant <span class="kw">ADD</span> <span class="kw">COLUMN</span> email <span class="dt">VARCHAR</span>(<span class="dv">100</span>);</span>
+<span id="cb3-4"><a href="#cb3-4" aria-hidden="true" tabindex="-1"></a><span class="kw">ALTER</span> <span class="kw">TABLE</span> consultant <span class="kw">ADD</span> <span class="kw">COLUMN</span> phone <span class="dt">VARCHAR</span>(<span class="dv">20</span>);</span>
+<span id="cb3-5"><a href="#cb3-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-6"><a href="#cb3-6" aria-hidden="true" tabindex="-1"></a><span class="kw">ALTER</span> <span class="kw">TABLE</span> job <span class="kw">ADD</span> <span class="kw">COLUMN</span> budget <span class="dt">DECIMAL</span>(<span class="dv">12</span>,<span class="dv">2</span>);</span>
+<span id="cb3-7"><a href="#cb3-7" aria-hidden="true" tabindex="-1"></a><span class="kw">ALTER</span> <span class="kw">TABLE</span> job <span class="kw">ADD</span> <span class="kw">COLUMN</span> start_date <span class="dt">DATE</span>;</span>
+<span id="cb3-8"><a href="#cb3-8" aria-hidden="true" tabindex="-1"></a><span class="kw">ALTER</span> <span class="kw">TABLE</span> job <span class="kw">ADD</span> <span class="kw">COLUMN</span> estimated_hours <span class="dt">INT</span>;</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<p>Every one of those is an attribute that got discovered late. Patching them on works, but a schema that needs seven patches in its first week is telling you the entity model was too thin.</p>
+</section>
+<section id="the-normalized-design" class="level2">
+<h2 class="anchored" data-anchor-id="the-normalized-design">The normalized design</h2>
+<p>The second version grew to eleven tables. The goal was to reduce duplication, so anything that was being retyped as text became a table of its own with a foreign key pointing at it.</p>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="consulting_erd_v2.png" class="img-fluid figure-img"></p>
+<figcaption>The normalized schema, eleven tables</figcaption>
+</figure>
+</div>
+<p>Four things changed.</p>
+<p>Role, industry, and company size each became lookup tables. A consultant now carries role_role_id instead of a role string, so the name of a role lives in exactly one row and renaming it is a one row update. The same applies to specialization on industry.</p>
+<p>Company became a real entity. It has an address and annual revenue, and it points at industry, which means the firm can now ask which industries it earns the most from. Company size hangs off the company rather than being repeated as text.</p>
+<p>Client was split apart. First name, last name, email, phone, the date they became a client, their status, and their priority level are all separate columns now, and a foreign key ties the client to their company. That single change is what makes the client table usable for anything beyond a label.</p>
+<p>Job gained the fields it needed from the start: a start date, an end deadline, a priority level, and a status.</p>
+</section>
+<section id="resolving-the-many-to-many-relationships" class="level2">
+<h2 class="anchored" data-anchor-id="resolving-the-many-to-many-relationships">Resolving the many-to-many relationships</h2>
+<p>Three junction tables carry the relationships that cannot be stored on either side alone.</p>
+<p>A foreign key can only point one direction, so it can express “many jobs belong to one client” but not “many consultants work many jobs.” When both sides are many, the relationship needs a table of its own, where each row is one pairing.</p>
+<p>One row of job_has_consultant means this consultant is staffed on this job. Two rows sharing a job id mean that job has two people on it. Two rows sharing a consultant id mean that person is on two jobs. The sample data exercises both cases: job 6 is staffed by consultants 6 and 9, and consultant 1 works both job 1 and job 9.</p>
+<p>The same reasoning gives client_has_job, which lets a client accumulate jobs over time, and job_has_job_type, which lets a single job be tagged as both machine learning work and data engineering work without forcing a choice.</p>
+</section>
+<section id="loading-the-data" class="level2">
+<h2 class="anchored" data-anchor-id="loading-the-data">Loading the data</h2>
+<p>The seed script fills the lookup tables first, since everything else points at them, then the entities, then the junction tables last. The sample companies are Mario themed, which made the test data easier to keep straight while checking joins.</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb4"><pre class="sourceCode sql code-with-copy"><code class="sourceCode sql"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="kw">INSERT</span> <span class="kw">INTO</span> <span class="kw">role</span> (role_id, role_name) <span class="kw">VALUES</span></span>
+<span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a>(<span class="kw">NULL</span>, <span class="st">'Data Scientist'</span>),</span>
+<span id="cb4-3"><a href="#cb4-3" aria-hidden="true" tabindex="-1"></a>(<span class="kw">NULL</span>, <span class="st">'Software Engineer'</span>),</span>
+<span id="cb4-4"><a href="#cb4-4" aria-hidden="true" tabindex="-1"></a>(<span class="kw">NULL</span>, <span class="st">'Business Analyst'</span>),</span>
+<span id="cb4-5"><a href="#cb4-5" aria-hidden="true" tabindex="-1"></a>(<span class="kw">NULL</span>, <span class="st">'Mathematician'</span>),</span>
+<span id="cb4-6"><a href="#cb4-6" aria-hidden="true" tabindex="-1"></a>(<span class="kw">NULL</span>, <span class="st">'Statistician'</span>);</span>
+<span id="cb4-7"><a href="#cb4-7" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-8"><a href="#cb4-8" aria-hidden="true" tabindex="-1"></a><span class="kw">INSERT</span> <span class="kw">INTO</span> Company (Company_id, name, address, annual_revenue, industry_industry_id) <span class="kw">VALUES</span></span>
+<span id="cb4-9"><a href="#cb4-9" aria-hidden="true" tabindex="-1"></a>(<span class="kw">NULL</span>, <span class="st">'Mushroom Kingdom Gaming'</span>, <span class="st">'123 Castle Road'</span>, <span class="st">'5000000'</span>, <span class="dv">1</span>),</span>
+<span id="cb4-10"><a href="#cb4-10" aria-hidden="true" tabindex="-1"></a>(<span class="kw">NULL</span>, <span class="st">'Luigi Construction Co'</span>, <span class="st">'456 Plumber Ave'</span>, <span class="st">'2500000'</span>, <span class="dv">5</span>),</span>
+<span id="cb4-11"><a href="#cb4-11" aria-hidden="true" tabindex="-1"></a>(<span class="kw">NULL</span>, <span class="st">'Bowser Real Estate'</span>, <span class="st">'101 Dark Land Blvd'</span>, <span class="st">'15000000'</span>, <span class="dv">2</span>);</span>
+<span id="cb4-12"><a href="#cb4-12" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-13"><a href="#cb4-13" aria-hidden="true" tabindex="-1"></a><span class="kw">INSERT</span> <span class="kw">INTO</span> consultant (consultant_id, first_name, last_name, skill_level,</span>
+<span id="cb4-14"><a href="#cb4-14" aria-hidden="true" tabindex="-1"></a>                        availability_status, role_role_id, industry_industry_id) <span class="kw">VALUES</span></span>
+<span id="cb4-15"><a href="#cb4-15" aria-hidden="true" tabindex="-1"></a>(<span class="kw">NULL</span>, <span class="st">'Alex'</span>, <span class="st">'Tovar'</span>, <span class="st">'Senior'</span>, <span class="st">'Busy'</span>, <span class="dv">1</span>, <span class="dv">1</span>),</span>
+<span id="cb4-16"><a href="#cb4-16" aria-hidden="true" tabindex="-1"></a>(<span class="kw">NULL</span>, <span class="st">'Michael'</span>, <span class="st">'Heyes'</span>, <span class="st">'Senior'</span>, <span class="st">'Busy'</span>, <span class="dv">2</span>, <span class="dv">1</span>),</span>
+<span id="cb4-17"><a href="#cb4-17" aria-hidden="true" tabindex="-1"></a>(<span class="kw">NULL</span>, <span class="st">'Emmanuel'</span>, <span class="st">'Robert'</span>, <span class="st">'Mid-Level'</span>, <span class="st">'Available'</span>, <span class="dv">3</span>, <span class="dv">2</span>);</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<p>Note the consultant rows: role and industry arrive as integers pointing at the lookup tables, not as repeated text. That is the whole point of the redesign in one line.</p>
+</section>
+<section id="querying-it" class="level2">
+<h2 class="anchored" data-anchor-id="querying-it">Querying it</h2>
+<p>Answering a question that spans a many-to-many relationship means passing through the junction table. This one lists every data scientist with the jobs they are staffed on, walking consultant to job_has_consultant to job:</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb5"><pre class="sourceCode sql code-with-copy"><code class="sourceCode sql"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="kw">select</span> <span class="fu">concat</span>(c.name, <span class="st">' '</span>, c.last_name),</span>
+<span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a>c.email,</span>
+<span id="cb5-3"><a href="#cb5-3" aria-hidden="true" tabindex="-1"></a>date_format(c.hire_date, <span class="st">'%M %Y'</span>) <span class="kw">as</span> hire_date,</span>
+<span id="cb5-4"><a href="#cb5-4" aria-hidden="true" tabindex="-1"></a>j.description,</span>
+<span id="cb5-5"><a href="#cb5-5" aria-hidden="true" tabindex="-1"></a>j.budget</span>
+<span id="cb5-6"><a href="#cb5-6" aria-hidden="true" tabindex="-1"></a><span class="kw">from</span> consultant c</span>
+<span id="cb5-7"><a href="#cb5-7" aria-hidden="true" tabindex="-1"></a><span class="kw">inner</span> <span class="kw">join</span> job_has_consultant jhc <span class="kw">on</span> c.consultant_id <span class="op">=</span> jhc.consultant_consultant_id</span>
+<span id="cb5-8"><a href="#cb5-8" aria-hidden="true" tabindex="-1"></a><span class="kw">inner</span> <span class="kw">join</span> job j <span class="kw">on</span> jhc.job_job_id <span class="op">=</span> j.job_id</span>
+<span id="cb5-9"><a href="#cb5-9" aria-hidden="true" tabindex="-1"></a><span class="kw">where</span> c.<span class="kw">role</span> <span class="op">=</span> <span class="st">'Data Scientist'</span></span>
+<span id="cb5-10"><a href="#cb5-10" aria-hidden="true" tabindex="-1"></a><span class="kw">order</span> <span class="kw">by</span> c.last_name <span class="kw">asc</span>;</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<p>A consultant on two jobs comes back as two rows, which is the correct answer rather than a flaw. Collapsing that into one row per consultant is a job for GROUP_CONCAT or for the application layer.</p>
+<p>After the redesign the same question is asked through the lookup table instead of against a text column, which is what makes the role name safe to change:</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb6"><pre class="sourceCode sql code-with-copy"><code class="sourceCode sql"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a><span class="kw">SELECT</span> consultant.first_name, <span class="kw">role</span>.role_name</span>
+<span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a><span class="kw">FROM</span> consultant</span>
+<span id="cb6-3"><a href="#cb6-3" aria-hidden="true" tabindex="-1"></a><span class="kw">INNER</span> <span class="kw">JOIN</span> <span class="kw">role</span></span>
+<span id="cb6-4"><a href="#cb6-4" aria-hidden="true" tabindex="-1"></a><span class="kw">ON</span> consultant.role_role_id <span class="op">=</span> <span class="kw">role</span>.role_id</span>
+<span id="cb6-5"><a href="#cb6-5" aria-hidden="true" tabindex="-1"></a><span class="kw">WHERE</span> consultant.first_name <span class="kw">LIKE</span> ?;</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</section>
+<section id="what-i-would-fix-next" class="level2">
+<h2 class="anchored" data-anchor-id="what-i-would-fix-next">What I would fix next</h2>
+<p>The design is sound but the implementation has loose ends I would clean up before calling it finished.</p>
+<p>The seed script inserts into a table called client_has_job1 while the diagram calls it client_has_job. One of the two names is wrong and the mismatch would break a fresh build.</p>
+<p>The client table stores client_status and client_since, and the seed data puts the same date in both. Status was meant to hold something like active or dormant, so either the column is mislabeled or the data is.</p>
+<p>Status and priority columns are free text VARCHAR throughout. Priority holds High, Medium, Low, and Critical, and job status holds In Progress, Completed, and Not Started. Those are closed sets, so they belong in an ENUM or in lookup tables of their own. Leaving them as text reintroduces exactly the problem the redesign was meant to solve, one level down.</p>
+<p>Finally, no query written so far touches industry, Company, or company_size. Those tables were added for good reasons, but a table nobody queries is a hypothesis rather than a feature, and the obvious next step is revenue by industry and job volume by company size.</p>
+</section>
+<section id="creditreferences" class="level2">
+<h2 class="anchored" data-anchor-id="creditreferences">Credit/References</h2>
+<p>The schema was designed and forward engineered in MySQL Workbench, and the database was built and queried in MySQL 8. Sample data is fictional.</p>
+
+
+</section>
+
+</main> <!-- /main -->
+<script id="quarto-html-after-body" type="application/javascript">
+  window.document.addEventListener("DOMContentLoaded", function (event) {
+    const icon = "";
+    const anchorJS = new window.AnchorJS();
+    anchorJS.options = {
+      placement: 'right',
+      icon: icon
+    };
+    anchorJS.add('.anchored');
+    const isCodeAnnotation = (el) => {
+      for (const clz of el.classList) {
+        if (clz.startsWith('code-annotation-')) {                     
+          return true;
+        }
+      }
+      return false;
+    }
+    const onCopySuccess = function(e) {
+      // button target
+      const button = e.trigger;
+      // don't keep focus
+      button.blur();
+      // flash "checked"
+      button.classList.add('code-copy-button-checked');
+      var currentTitle = button.getAttribute("title");
+      button.setAttribute("title", "Copied!");
+      let tooltip;
+      if (window.bootstrap) {
+        button.setAttribute("data-bs-toggle", "tooltip");
+        button.setAttribute("data-bs-placement", "left");
+        button.setAttribute("data-bs-title", "Copied!");
+        tooltip = new bootstrap.Tooltip(button, 
+          { trigger: "manual", 
+            customClass: "code-copy-button-tooltip",
+            offset: [0, -8]});
+        tooltip.show();    
+      }
+      setTimeout(function() {
+        if (tooltip) {
+          tooltip.hide();
+          button.removeAttribute("data-bs-title");
+          button.removeAttribute("data-bs-toggle");
+          button.removeAttribute("data-bs-placement");
+        }
+        button.setAttribute("title", currentTitle);
+        button.classList.remove('code-copy-button-checked');
+      }, 1000);
+      // clear code selection
+      e.clearSelection();
+    }
+    const getTextToCopy = function(trigger) {
+      const outerScaffold = trigger.parentElement.cloneNode(true);
+      const codeEl = outerScaffold.querySelector('code');
+      for (const childEl of codeEl.children) {
+        if (isCodeAnnotation(childEl)) {
+          childEl.remove();
+        }
+      }
+      return codeEl.innerText;
+    }
+    const clipboard = new window.ClipboardJS('.code-copy-button:not([data-in-quarto-modal])', {
+      text: getTextToCopy
+    });
+    clipboard.on('success', onCopySuccess);
+    if (window.document.getElementById('quarto-embedded-source-code-modal')) {
+      const clipboardModal = new window.ClipboardJS('.code-copy-button[data-in-quarto-modal]', {
+        text: getTextToCopy,
+        container: window.document.getElementById('quarto-embedded-source-code-modal')
+      });
+      clipboardModal.on('success', onCopySuccess);
+    }
+      var localhostRegex = new RegExp(/^(?:http|https):\/\/localhost\:?[0-9]*\//);
+      var mailtoRegex = new RegExp(/^mailto:/);
+        var filterRegex = new RegExp('/' + window.location.host + '/');
+      var isInternal = (href) => {
+          return filterRegex.test(href) || localhostRegex.test(href) || mailtoRegex.test(href);
+      }
+      // Inspect non-navigation links and adorn them if external
+     var links = window.document.querySelectorAll('a[href]:not(.nav-link):not(.navbar-brand):not(.toc-action):not(.sidebar-link):not(.sidebar-item-toggle):not(.pagination-link):not(.no-external):not([aria-hidden]):not(.dropdown-item):not(.quarto-navigation-tool):not(.about-link)');
+      for (var i=0; i<links.length; i++) {
+        const link = links[i];
+        if (!isInternal(link.href)) {
+          // undo the damage that might have been done by quarto-nav.js in the case of
+          // links that we want to consider external
+          if (link.dataset.originalHref !== undefined) {
+            link.href = link.dataset.originalHref;
+          }
+        }
+      }
+    function tippyHover(el, contentFn, onTriggerFn, onUntriggerFn) {
+      const config = {
+        allowHTML: true,
+        maxWidth: 500,
+        delay: 100,
+        arrow: false,
+        appendTo: function(el) {
+            return el.parentElement;
+        },
+        interactive: true,
+        interactiveBorder: 10,
+        theme: 'quarto',
+        placement: 'bottom-start',
+      };
+      if (contentFn) {
+        config.content = contentFn;
+      }
+      if (onTriggerFn) {
+        config.onTrigger = onTriggerFn;
+      }
+      if (onUntriggerFn) {
+        config.onUntrigger = onUntriggerFn;
+      }
+      window.tippy(el, config); 
+    }
+    const noterefs = window.document.querySelectorAll('a[role="doc-noteref"]');
+    for (var i=0; i<noterefs.length; i++) {
+      const ref = noterefs[i];
+      tippyHover(ref, function() {
+        // use id or data attribute instead here
+        let href = ref.getAttribute('data-footnote-href') || ref.getAttribute('href');
+        try { href = new URL(href).hash; } catch {}
+        const id = href.replace(/^#\/?/, "");
+        const note = window.document.getElementById(id);
+        if (note) {
+          return note.innerHTML;
+        } else {
+          return "";
+        }
+      });
+    }
+    const xrefs = window.document.querySelectorAll('a.quarto-xref');
+    const processXRef = (id, note) => {
+      // Strip column container classes
+      const stripColumnClz = (el) => {
+        el.classList.remove("page-full", "page-columns");
+        if (el.children) {
+          for (const child of el.children) {
+            stripColumnClz(child);
+          }
+        }
+      }
+      stripColumnClz(note)
+      if (id === null || id.startsWith('sec-')) {
+        // Special case sections, only their first couple elements
+        const container = document.createElement("div");
+        if (note.children && note.children.length > 2) {
+          container.appendChild(note.children[0].cloneNode(true));
+          for (let i = 1; i < note.children.length; i++) {
+            const child = note.children[i];
+            if (child.tagName === "P" && child.innerText === "") {
+              continue;
+            } else {
+              container.appendChild(child.cloneNode(true));
+              break;
+            }
+          }
+          if (window.Quarto?.typesetMath) {
+            window.Quarto.typesetMath(container);
+          }
+          return container.innerHTML
+        } else {
+          if (window.Quarto?.typesetMath) {
+            window.Quarto.typesetMath(note);
+          }
+          return note.innerHTML;
+        }
+      } else {
+        // Remove any anchor links if they are present
+        const anchorLink = note.querySelector('a.anchorjs-link');
+        if (anchorLink) {
+          anchorLink.remove();
+        }
+        if (window.Quarto?.typesetMath) {
+          window.Quarto.typesetMath(note);
+        }
+        if (note.classList.contains("callout")) {
+          return note.outerHTML;
+        } else {
+          return note.innerHTML;
+        }
+      }
+    }
+    for (var i=0; i<xrefs.length; i++) {
+      const xref = xrefs[i];
+      tippyHover(xref, undefined, function(instance) {
+        instance.disable();
+        let url = xref.getAttribute('href');
+        let hash = undefined; 
+        if (url.startsWith('#')) {
+          hash = url;
+        } else {
+          try { hash = new URL(url).hash; } catch {}
+        }
+        if (hash) {
+          const id = hash.replace(/^#\/?/, "");
+          const note = window.document.getElementById(id);
+          if (note !== null) {
+            try {
+              const html = processXRef(id, note.cloneNode(true));
+              instance.setContent(html);
+            } finally {
+              instance.enable();
+              instance.show();
+            }
+          } else {
+            // See if we can fetch this
+            fetch(url.split('#')[0])
+            .then(res => res.text())
+            .then(html => {
+              const parser = new DOMParser();
+              const htmlDoc = parser.parseFromString(html, "text/html");
+              const note = htmlDoc.getElementById(id);
+              if (note !== null) {
+                const html = processXRef(id, note);
+                instance.setContent(html);
+              } 
+            }).finally(() => {
+              instance.enable();
+              instance.show();
+            });
+          }
+        } else {
+          // See if we can fetch a full url (with no hash to target)
+          // This is a special case and we should probably do some content thinning / targeting
+          fetch(url)
+          .then(res => res.text())
+          .then(html => {
+            const parser = new DOMParser();
+            const htmlDoc = parser.parseFromString(html, "text/html");
+            const note = htmlDoc.querySelector('main.content');
+            if (note !== null) {
+              // This should only happen for chapter cross references
+              // (since there is no id in the URL)
+              // remove the first header
+              if (note.children.length > 0 && note.children[0].tagName === "HEADER") {
+                note.children[0].remove();
+              }
+              const html = processXRef(null, note);
+              instance.setContent(html);
+            } 
+          }).finally(() => {
+            instance.enable();
+            instance.show();
+          });
+        }
+      }, function(instance) {
+      });
+    }
+        let selectedAnnoteEl;
+        const selectorForAnnotation = ( cell, annotation) => {
+          let cellAttr = 'data-code-cell="' + cell + '"';
+          let lineAttr = 'data-code-annotation="' +  annotation + '"';
+          const selector = 'span[' + cellAttr + '][' + lineAttr + ']';
+          return selector;
+        }
+        const selectCodeLines = (annoteEl) => {
+          const doc = window.document;
+          const targetCell = annoteEl.getAttribute("data-target-cell");
+          const targetAnnotation = annoteEl.getAttribute("data-target-annotation");
+          const annoteSpan = window.document.querySelector(selectorForAnnotation(targetCell, targetAnnotation));
+          const lines = annoteSpan.getAttribute("data-code-lines").split(",");
+          const lineIds = lines.map((line) => {
+            return targetCell + "-" + line;
+          })
+          let top = null;
+          let height = null;
+          let parent = null;
+          if (lineIds.length > 0) {
+              //compute the position of the single el (top and bottom and make a div)
+              const el = window.document.getElementById(lineIds[0]);
+              top = el.offsetTop;
+              height = el.offsetHeight;
+              parent = el.parentElement.parentElement;
+            if (lineIds.length > 1) {
+              const lastEl = window.document.getElementById(lineIds[lineIds.length - 1]);
+              const bottom = lastEl.offsetTop + lastEl.offsetHeight;
+              height = bottom - top;
+            }
+            if (top !== null && height !== null && parent !== null) {
+              // cook up a div (if necessary) and position it 
+              let div = window.document.getElementById("code-annotation-line-highlight");
+              if (div === null) {
+                div = window.document.createElement("div");
+                div.setAttribute("id", "code-annotation-line-highlight");
+                div.style.position = 'absolute';
+                parent.appendChild(div);
+              }
+              div.style.top = top - 2 + "px";
+              div.style.height = height + 4 + "px";
+              div.style.left = 0;
+              let gutterDiv = window.document.getElementById("code-annotation-line-highlight-gutter");
+              if (gutterDiv === null) {
+                gutterDiv = window.document.createElement("div");
+                gutterDiv.setAttribute("id", "code-annotation-line-highlight-gutter");
+                gutterDiv.style.position = 'absolute';
+                const codeCell = window.document.getElementById(targetCell);
+                const gutter = codeCell.querySelector('.code-annotation-gutter');
+                gutter.appendChild(gutterDiv);
+              }
+              gutterDiv.style.top = top - 2 + "px";
+              gutterDiv.style.height = height + 4 + "px";
+            }
+            selectedAnnoteEl = annoteEl;
+          }
+        };
+        const unselectCodeLines = () => {
+          const elementsIds = ["code-annotation-line-highlight", "code-annotation-line-highlight-gutter"];
+          elementsIds.forEach((elId) => {
+            const div = window.document.getElementById(elId);
+            if (div) {
+              div.remove();
+            }
+          });
+          selectedAnnoteEl = undefined;
+        };
+          // Handle positioning of the toggle
+      window.addEventListener(
+        "resize",
+        throttle(() => {
+          elRect = undefined;
+          if (selectedAnnoteEl) {
+            selectCodeLines(selectedAnnoteEl);
+          }
+        }, 10)
+      );
+      function throttle(fn, ms) {
+      let throttle = false;
+      let timer;
+        return (...args) => {
+          if(!throttle) { // first call gets through
+              fn.apply(this, args);
+              throttle = true;
+          } else { // all the others get throttled
+              if(timer) clearTimeout(timer); // cancel #2
+              timer = setTimeout(() => {
+                fn.apply(this, args);
+                timer = throttle = false;
+              }, ms);
+          }
+        };
+      }
+        // Attach click handler to the DT
+        const annoteDls = window.document.querySelectorAll('dt[data-target-cell]');
+        for (const annoteDlNode of annoteDls) {
+          annoteDlNode.addEventListener('click', (event) => {
+            const clickedEl = event.target;
+            if (clickedEl !== selectedAnnoteEl) {
+              unselectCodeLines();
+              const activeEl = window.document.querySelector('dt[data-target-cell].code-annotation-active');
+              if (activeEl) {
+                activeEl.classList.remove('code-annotation-active');
+              }
+              selectCodeLines(clickedEl);
+              clickedEl.classList.add('code-annotation-active');
+            } else {
+              // Unselect the line
+              unselectCodeLines();
+              clickedEl.classList.remove('code-annotation-active');
+            }
+          });
+        }
+    const findCites = (el) => {
+      const parentEl = el.parentElement;
+      if (parentEl) {
+        const cites = parentEl.dataset.cites;
+        if (cites) {
+          return {
+            el,
+            cites: cites.split(' ')
+          };
+        } else {
+          return findCites(el.parentElement)
+        }
+      } else {
+        return undefined;
+      }
+    };
+    var bibliorefs = window.document.querySelectorAll('a[role="doc-biblioref"]');
+    for (var i=0; i<bibliorefs.length; i++) {
+      const ref = bibliorefs[i];
+      const citeInfo = findCites(ref);
+      if (citeInfo) {
+        tippyHover(citeInfo.el, function() {
+          var popup = window.document.createElement('div');
+          citeInfo.cites.forEach(function(cite) {
+            var citeDiv = window.document.createElement('div');
+            citeDiv.classList.add('hanging-indent');
+            citeDiv.classList.add('csl-entry');
+            var biblioDiv = window.document.getElementById('ref-' + cite);
+            if (biblioDiv) {
+              citeDiv.innerHTML = biblioDiv.innerHTML;
+            }
+            popup.appendChild(citeDiv);
+          });
+          return popup.innerHTML;
+        });
+      }
+    }
+  });
+  </script>
+</div> <!-- /content -->
+
+
+
+
+</body></html>

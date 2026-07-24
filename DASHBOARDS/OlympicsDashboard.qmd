@@ -1,0 +1,321 @@
+---
+title: "120 Years of the Olympics"
+format:
+  html:
+    theme: flatly
+    page-layout: full
+    toc: false
+    code-tools: false
+resources:
+  - libs/*.js
+---
+
+```{python}
+#| echo: false
+#| output: asis
+import json
+import pandas as pd
+from IPython.display import HTML, display
+
+df = pd.read_csv("C:/Users/Alex/Documents/GitHub/Portfolio/Data/Olympics.csv")
+
+# Readable country labels. Team is messy (1,184 values, with suffixes like "France-1"),
+# so take the most common cleaned Team name for each NOC code.
+df["TeamClean"] = df["Team"].str.replace(r"-\d+$", "", regex=True)
+noc_name = df.groupby("NOC")["TeamClean"].agg(lambda s: s.mode().iat[0])
+
+med = df[df.Medal.notna()].copy()
+med["Country"] = med.NOC.map(noc_name)
+
+# A team medal is stored once per athlete, so counting rows overcounts.
+# Collapsing to distinct Event x Year x Season x Medal gives the real medal count.
+ev = med.drop_duplicates(["NOC", "Year", "Season", "Event", "Medal"])
+
+medal_ct = ev.groupby(["NOC", "Country", "Year", "Season"]).size().rename("medals")
+athlete_ct = med.groupby(["NOC", "Country", "Year", "Season"]).size().rename("athlete_medals")
+gold_ct = (ev[ev.Medal == "Gold"]
+           .groupby(["NOC", "Country", "Year", "Season"]).size().rename("gold"))
+
+medals = (pd.concat([medal_ct, athlete_ct, gold_ct], axis=1)
+            .fillna(0).astype({"gold": int}).reset_index())
+
+games = (df.groupby(["Year", "Season"])
+           .agg(athletes=("ID", "nunique"), sports=("Sport", "nunique"),
+                events=("Event", "nunique"), nations=("NOC", "nunique"))
+           .reset_index())
+
+df["decade"] = (df.Year // 10) * 10
+physique = (df.dropna(subset=["Height", "Weight"])
+              .groupby(["Sport", "decade", "Season"])
+              .agg(height=("Height", "mean"), weight=("Weight", "mean"), n=("ID", "size"))
+              .reset_index())
+physique = physique[physique.n >= 30].round({"height": 1, "weight": 1})
+
+payload = {
+    "medals": json.loads(medals.to_json(orient="records")),
+    "games": json.loads(games.to_json(orient="records")),
+    "physique": json.loads(physique.to_json(orient="records")),
+}
+display(HTML("<script>window.OLY = " + json.dumps(payload) + ";</script>"))
+```
+
+```{=html}
+<style>
+.oly-controls {
+  display: flex; flex-wrap: wrap; gap: 1.4rem; align-items: flex-start;
+  padding: 1rem 1.15rem; margin-bottom: 1.1rem;
+  background: #f8f9fa; border: 1px solid #dee2e6; border-radius: .5rem;
+}
+.oly-controls .grp { display: flex; flex-direction: column; gap: .3rem; }
+.oly-controls label.hd {
+  font-size: .72rem; font-weight: 600; text-transform: uppercase;
+  letter-spacing: .04em; color: #6c757d;
+}
+.oly-controls .radios { display: flex; gap: .8rem; }
+.oly-controls .radios label { font-size: .9rem; font-weight: 400; cursor: pointer; }
+.oly-controls input[type=range] { width: 190px; }
+.oly-controls select { min-width: 210px; height: 108px; font-size: .85rem; }
+.oly-yr { font-variant-numeric: tabular-nums; font-size: .85rem; color: #495057; }
+
+.oly-boxes { display: grid; grid-template-columns: repeat(4, 1fr); gap: 1rem; margin-bottom: 1.1rem; }
+.oly-box { padding: .9rem 1.1rem; border-radius: .5rem; color: #fff; }
+.oly-box .v { font-size: 1.9rem; font-weight: 600; line-height: 1.1; font-variant-numeric: tabular-nums; }
+.oly-box .t { font-size: .78rem; text-transform: uppercase; letter-spacing: .05em; opacity: .9; }
+.b1 { background: #2c3e50; } .b2 { background: #18bc9c; }
+.b3 { background: #3498db; } .b4 { background: #e67e22; }
+
+.oly-grid { display: grid; grid-template-columns: 1.35fr 1fr; gap: 1.1rem; }
+.oly-card { border: 1px solid #dee2e6; border-radius: .5rem; padding: .9rem 1.1rem 1.1rem; background: #fff; }
+.oly-card h3 { font-size: .95rem; font-weight: 600; margin: 0 0 .7rem; color: #2c3e50; }
+.oly-card .note { font-size: .82rem; color: #6c757d; margin: .6rem 0 0; }
+.oly-empty { color: #adb5bd; font-size: .9rem; padding: 2rem 0; text-align: center; }
+@media (max-width: 900px) {
+  .oly-grid { grid-template-columns: 1fr; }
+  .oly-boxes { grid-template-columns: repeat(2, 1fr); }
+}
+</style>
+
+<div class="oly-controls">
+  <div class="grp">
+    <label class="hd">Season</label>
+    <div class="radios">
+      <label><input type="radio" name="oly-season" value="Summer" checked> Summer</label>
+      <label><input type="radio" name="oly-season" value="Winter"> Winter</label>
+      <label><input type="radio" name="oly-season" value="Both"> Both</label>
+    </div>
+  </div>
+  <div class="grp">
+    <label class="hd">From</label>
+    <input type="range" id="oly-min" min="1896" max="2016" step="2" value="1896">
+    <span class="oly-yr" id="oly-min-lab">1896</span>
+  </div>
+  <div class="grp">
+    <label class="hd">To</label>
+    <input type="range" id="oly-max" min="1896" max="2016" step="2" value="2016">
+    <span class="oly-yr" id="oly-max-lab">2016</span>
+  </div>
+  <div class="grp">
+    <label class="hd">Countries (ctrl-click for several)</label>
+    <select id="oly-countries" multiple size="6"></select>
+  </div>
+</div>
+
+<div class="oly-boxes">
+  <div class="oly-box b1"><div class="v" id="oly-medals">0</div><div class="t">Medals</div></div>
+  <div class="oly-box b2"><div class="v" id="oly-nations">0</div><div class="t">Countries</div></div>
+  <div class="oly-box b3"><div class="v" id="oly-sports">0</div><div class="t">Sports</div></div>
+  <div class="oly-box b4"><div class="v" id="oly-games">0</div><div class="t">Games</div></div>
+</div>
+
+<div class="oly-grid">
+  <div class="oly-card">
+    <h3>Medals won per Games</h3>
+    <div id="oly-trend"></div>
+    <p class="note">Select countries above to compare their trajectories. The gaps are real:
+    no Games were held during either world war, and several nations boycotted in 1980 and 1984.</p>
+  </div>
+  <div class="oly-card">
+    <h3>Leading countries in the selected range</h3>
+    <div id="oly-rank"></div>
+    <p class="note">Drag the year range and the ordering reshuffles. Narrow it to the 1950s
+    through the 1980s and the Soviet Union climbs; narrow it to the last two decades and
+    China appears.</p>
+  </div>
+  <div class="oly-card">
+    <h3>Athlete build by sport and decade</h3>
+    <div id="oly-phys"></div>
+    <p class="note">Each point is one sport in one decade. The spread widens as events
+    specialise. Height and weight are missing for about 22 percent of athletes and are
+    recorded rarely before 1960, so combinations with fewer than 30 athletes are dropped.</p>
+  </div>
+  <div class="oly-card">
+    <h3>Athletes competing per Games</h3>
+    <div id="oly-size"></div>
+    <p class="note">The Games grew from a few hundred competitors to more than eleven
+    thousand. Summer and winter sit on very different scales, so read them one at a time.</p>
+  </div>
+</div>
+
+<!-- Quarto's jupyter engine loads RequireJS, and a UMD bundle that sees define.amd
+     registers itself as an AMD module instead of setting a global. Park define
+     across these two tags so d3 and Plot attach to window, then restore it. -->
+<script>window.__amdDefine = window.define; window.define = undefined;</script>
+<script src="libs/d3.min.js"></script>
+<script src="libs/plot.umd.min.js"></script>
+<script>window.define = window.__amdDefine; delete window.__amdDefine;</script>
+<script>
+(function () {
+  var data = window.OLY;
+  var medals = data.medals, games = data.games, physique = data.physique;
+
+  var elMin = document.getElementById("oly-min");
+  var elMax = document.getElementById("oly-max");
+  var elMinLab = document.getElementById("oly-min-lab");
+  var elMaxLab = document.getElementById("oly-max-lab");
+  var elCountries = document.getElementById("oly-countries");
+
+  // Seed the country list, ordered by all-time medals.
+  var totals = d3.rollups(medals, function (v) { return d3.sum(v, function (d) { return d.medals; }); },
+                          function (d) { return d.Country; })
+                 .sort(function (a, b) { return b[1] - a[1]; });
+  totals.forEach(function (t, i) {
+    var o = document.createElement("option");
+    o.value = t[0]; o.textContent = t[0] + " (" + t[1] + ")";
+    if (i < 5) o.selected = true;
+    elCountries.appendChild(o);
+  });
+
+  function state() {
+    var season = document.querySelector("input[name=oly-season]:checked").value;
+    var lo = +elMin.value, hi = +elMax.value;
+    if (lo > hi) { var t = lo; lo = hi; hi = t; }
+    var picked = Array.prototype.slice.call(elCountries.selectedOptions)
+                      .map(function (o) { return o.value; });
+    return { season: season, lo: lo, hi: hi, picked: picked };
+  }
+
+  function seasonOk(d, s) { return s === "Both" ? true : d.Season === s; }
+
+  function draw() {
+    var st = state();
+    elMinLab.textContent = st.lo;
+    elMaxLab.textContent = st.hi;
+
+    var med = medals.filter(function (d) {
+      return seasonOk(d, st.season) && d.Year >= st.lo && d.Year <= st.hi;
+    });
+    var gam = games.filter(function (d) {
+      return seasonOk(d, st.season) && d.Year >= st.lo && d.Year <= st.hi;
+    });
+    var phy = physique.filter(function (d) {
+      return seasonOk(d, st.season) && d.decade >= st.lo - 9 && d.decade <= st.hi;
+    });
+
+    document.getElementById("oly-medals").textContent =
+      d3.format(",")(d3.sum(med, function (d) { return d.medals; }));
+    document.getElementById("oly-nations").textContent =
+      new Set(med.map(function (d) { return d.NOC; })).size;
+    document.getElementById("oly-sports").textContent =
+      gam.length ? d3.max(gam, function (d) { return d.sports; }) : 0;
+    document.getElementById("oly-games").textContent = gam.length;
+
+    var sel = med.filter(function (d) { return st.picked.indexOf(d.Country) >= 0; });
+
+    render("oly-trend", sel.length ? Plot.plot({
+      marginLeft: 48, marginBottom: 34, height: 300, width: 620,
+      x: { label: "Year", tickFormat: "d", grid: true },
+      y: { label: "Medals", grid: true },
+      color: { legend: true, scheme: "Tableau10" },
+      marks: [
+        Plot.ruleY([0]),
+        Plot.line(sel, { x: "Year", y: "medals", stroke: "Country", strokeWidth: 2,
+                         curve: "monotone-x", sort: { channel: "x" } }),
+        Plot.dot(sel, { x: "Year", y: "medals", fill: "Country", r: 3,
+                        channels: { Gold: "gold" }, tip: true })
+      ]
+    }) : null, "Select at least one country.");
+
+    var top = d3.rollups(med, function (v) { return d3.sum(v, function (d) { return d.medals; }); },
+                         function (d) { return d.Country; })
+                .sort(function (a, b) { return b[1] - a[1]; })
+                .slice(0, 12)
+                .map(function (d) { return { Country: d[0], medals: d[1] }; });
+
+    render("oly-rank", top.length ? Plot.plot({
+      marginLeft: 122, marginBottom: 34, height: 300, width: 430,
+      x: { label: "Medals", grid: true },
+      y: { label: null },
+      marks: [
+        Plot.barX(top, { x: "medals", y: "Country", fill: "#3498db",
+                         sort: { y: "-x" }, tip: true }),
+        Plot.ruleX([0])
+      ]
+    }) : null, "No medals in this range.");
+
+    render("oly-phys", phy.length ? Plot.plot({
+      marginLeft: 48, marginBottom: 36, height: 300, width: 620,
+      x: { label: "Mean weight (kg)", grid: true },
+      y: { label: "Mean height (cm)", grid: true },
+      color: { legend: true, label: "Decade", scheme: "Viridis" },
+      marks: [
+        Plot.dot(phy, { x: "weight", y: "height", fill: "decade", r: 4, fillOpacity: .85,
+                        channels: { Sport: "Sport", Athletes: "n" }, tip: true })
+      ]
+    }) : null, "No height or weight data in this range.");
+
+    var byYear = d3.rollups(gam, function (v) { return d3.sum(v, function (d) { return d.athletes; }); },
+                            function (d) { return d.Year; })
+                   .sort(function (a, b) { return a[0] - b[0]; })
+                   .map(function (d) { return { Year: d[0], athletes: d[1] }; });
+
+    render("oly-size", byYear.length ? Plot.plot({
+      marginLeft: 52, marginBottom: 34, height: 300, width: 430,
+      x: { label: "Year", tickFormat: "d", grid: true },
+      y: { label: "Athletes", grid: true },
+      marks: [
+        Plot.ruleY([0]),
+        Plot.areaY(byYear, { x: "Year", y: "athletes", fill: "#3498db",
+                             fillOpacity: .3, curve: "monotone-x" }),
+        Plot.line(byYear, { x: "Year", y: "athletes", stroke: "#2c3e50",
+                            strokeWidth: 2, curve: "monotone-x", tip: true })
+      ]
+    }) : null, "No Games in this range.");
+  }
+
+  function render(id, node, emptyMsg) {
+    var host = document.getElementById(id);
+    host.innerHTML = "";
+    if (node) host.appendChild(node);
+    else host.innerHTML = '<div class="oly-empty">' + emptyMsg + "</div>";
+  }
+
+  ["change", "input"].forEach(function (evt) {
+    document.querySelectorAll("input[name=oly-season]").forEach(function (r) {
+      r.addEventListener(evt, draw);
+    });
+    elMin.addEventListener(evt, draw);
+    elMax.addEventListener(evt, draw);
+    elCountries.addEventListener(evt, draw);
+  });
+
+  draw();
+})();
+</script>
+```
+
+## How this page works
+
+The Olympic history file has 271,116 rows and is 36 MB, which is far too large to send to a
+browser. A Python step reads it when the site is built and reduces it to three small tables:
+medals by country and Games, participation by Games, and average athlete build by sport and
+decade. Those tables total about 270 KB and are embedded directly in this page, so every
+filter above runs locally with nothing to fetch and no server involved.
+
+One counting decision is worth stating plainly. This dataset records a medal once per
+athlete, so a basketball gold appears twelve times. Counting rows would badly overstate team
+sports, so the page counts distinct events instead. The United States took 121 medals at Rio
+2016 by that measure, shared among 264 athletes.
+
+The charts are drawn with Observable Plot, and both it and D3 are stored alongside this page
+rather than loaded from a content delivery network. The whole dashboard is a static file. It
+costs nothing to host and has no dependency that can disappear.

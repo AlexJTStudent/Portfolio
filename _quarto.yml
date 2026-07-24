@@ -62,6 +62,14 @@ website:
             text: "Clustering"
           - href: ML_MODELS/DimensionalityReduction.qmd
             text: "Dimensionality Reduction (PCA)"
+      - text: "SQL"
+        menu:
+          - href: SQL/ConsultingDatabase.qmd
+            text: "Consulting Database Design"
+      - text: "DASHBOARD"
+        menu:
+          - href: DASHBOARDS/OlympicsDashboard.qmd
+            text: "120 Years of the Olympics"
       - text: "Projects"
         menu:
           - href: Projects\NFL\NFL.Rmd

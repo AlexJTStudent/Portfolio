@@ -252,6 +252,28 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
     </ul>
   </li>
   <li class="nav-item dropdown ">
+    <a class="nav-link dropdown-toggle" href="#" id="nav-menu-sql" role="link" data-bs-toggle="dropdown" aria-expanded="false">
+ <span class="menu-text">SQL</span>
+    </a>
+    <ul class="dropdown-menu" aria-labelledby="nav-menu-sql">    
+        <li>
+    <a class="dropdown-item" href="../SQL/ConsultingDatabase.html">
+ <span class="dropdown-text">Consulting Database Design</span></a>
+  </li>  
+    </ul>
+  </li>
+  <li class="nav-item dropdown ">
+    <a class="nav-link dropdown-toggle" href="#" id="nav-menu-dashboard" role="link" data-bs-toggle="dropdown" aria-expanded="false">
+ <span class="menu-text">DASHBOARD</span>
+    </a>
+    <ul class="dropdown-menu" aria-labelledby="nav-menu-dashboard">    
+        <li>
+    <a class="dropdown-item" href="../DASHBOARDS/OlympicsDashboard.html">
+ <span class="dropdown-text">120 Years of the Olympics</span></a>
+  </li>  
+    </ul>
+  </li>
+  <li class="nav-item dropdown ">
     <a class="nav-link dropdown-toggle" href="#" id="nav-menu-projects" role="link" data-bs-toggle="dropdown" aria-expanded="false">
  <span class="menu-text">Projects</span>
     </a>
@@ -392,7 +414,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <section id="preparing-the-data" class="level2">
 <h2 class="anchored" data-anchor-id="preparing-the-data">Preparing the Data</h2>
 <p>We drop rows with missing values and cap prices below $50,000 to keep the target realistic, then split the data 80/20 into training and test sets so we can measure performance honestly on held-out cars.</p>
-<div id="f1e22228" class="cell" data-execution_count="2">
+<div id="c8987d80" class="cell" data-execution_count="2">
 <details class="code-fold">
 <summary>Code</summary>
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb1"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a>features <span class="op">=</span> [<span class="st">"year_produced"</span>, <span class="st">"odometer_value"</span>, <span class="st">"engine_capacity"</span>]</span>
@@ -411,7 +433,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </section>
 <section id="training-and-comparing-models" class="level2">
 <h2 class="anchored" data-anchor-id="training-and-comparing-models">Training and Comparing Models</h2>
-<div id="7ea6be97" class="cell" data-execution_count="3">
+<div id="49190cdd" class="cell" data-execution_count="3">
 <details class="code-fold">
 <summary>Code</summary>
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb3"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a>lin <span class="op">=</span> LinearRegression().fit(X_train, y_train)</span>
@@ -465,7 +487,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <section id="how-good-are-the-predictions" class="level2">
 <h2 class="anchored" data-anchor-id="how-good-are-the-predictions">How Good Are the Predictions?</h2>
 <p>The scatter of predicted versus actual price shows the random forest’s points hugging the diagonal line of perfect prediction fairly tightly.</p>
-<div id="9c8d5b7b" class="cell" data-execution_count="4">
+<div id="faaf0fa2" class="cell" data-execution_count="4">
 <div class="cell-output cell-output-display">
 <div class="quarto-figure quarto-figure-center">
 <figure class="figure">
@@ -478,7 +500,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <section id="which-features-matter-most" class="level2">
 <h2 class="anchored" data-anchor-id="which-features-matter-most">Which Features Matter Most?</h2>
 <p>Random forests report how much each feature contributes to the predictions.</p>
-<div id="d904a9c2" class="cell" data-execution_count="5">
+<div id="c68687f1" class="cell" data-execution_count="5">
 <div class="cell-output cell-output-display">
 <div class="quarto-figure quarto-figure-center">
 <figure class="figure">

@@ -214,6 +214,28 @@ ul.task-list li input[type="checkbox"] {
     </ul>
   </li>
   <li class="nav-item dropdown ">
+    <a class="nav-link dropdown-toggle" href="#" id="nav-menu-sql" role="link" data-bs-toggle="dropdown" aria-expanded="false">
+ <span class="menu-text">SQL</span>
+    </a>
+    <ul class="dropdown-menu" aria-labelledby="nav-menu-sql">    
+        <li>
+    <a class="dropdown-item" href="./SQL/ConsultingDatabase.html">
+ <span class="dropdown-text">Consulting Database Design</span></a>
+  </li>  
+    </ul>
+  </li>
+  <li class="nav-item dropdown ">
+    <a class="nav-link dropdown-toggle" href="#" id="nav-menu-dashboard" role="link" data-bs-toggle="dropdown" aria-expanded="false">
+ <span class="menu-text">DASHBOARD</span>
+    </a>
+    <ul class="dropdown-menu" aria-labelledby="nav-menu-dashboard">    
+        <li>
+    <a class="dropdown-item" href="./DASHBOARDS/OlympicsDashboard.html">
+ <span class="dropdown-text">120 Years of the Olympics</span></a>
+  </li>  
+    </ul>
+  </li>
+  <li class="nav-item dropdown ">
     <a class="nav-link dropdown-toggle" href="#" id="nav-menu-projects" role="link" data-bs-toggle="dropdown" aria-expanded="false">
  <span class="menu-text">Projects</span>
     </a>
@@ -349,6 +371,8 @@ ul.task-list li input[type="checkbox"] {
 <h2 class="anchored" data-anchor-id="ml-powered-wrecked-car-detector">ML-Powered Wrecked Car Detector</h2>
 <p>Upload or take a photo of a car, and our AI will analyze whether it’s damaged using advanced machine learning and explainable AI techniques.</p>
 <div class="car-detector-app">
+  <div id="service-notice" style="display: none;"></div>
+
   <div class="upload-section">
     <div class="upload-card">
       <h3 class="anchored">📸 Upload Car Image</h3>
@@ -673,10 +697,52 @@ ul.task-list li input[type="checkbox"] {
 }
 </style>
 <script>
-// API endpoint
-const API_URL = 'https://car-crash-detector-800819952729.us-central1.run.app/predict';
+// API endpoint. When the page is opened locally (quarto preview), it defaults to a
+// FastAPI server running on this machine, so the local model is tested with no setup.
+// On the live site it uses the deployed service. An ?api=... query parameter overrides
+// both, e.g. ?api=http://127.0.0.1:9000 for a server on a different port.
+const _isLocal = ['localhost', '127.0.0.1'].includes(window.location.hostname);
+const API_BASE = new URLSearchParams(window.location.search).get('api')
+  || (_isLocal
+      ? 'http://127.0.0.1:8080'
+      : 'https://car-crash-detector-torch-800819952729.us-central1.run.app');
+const API_URL = API_BASE + '/predict';
 
 let selectedImage = null;
+
+// The backend scales to zero to avoid idle cost, so the first request after a quiet
+// spell has to cold-start a container. Probe /health on load so a visitor knows the
+// state of the demo before they upload anything, rather than after a long wait.
+(async () => {
+  const notice = document.getElementById('service-notice');
+  const show = (bg, border, text) => {
+    notice.style.cssText = 'display:block;padding:14px 18px;margin-bottom:20px;' +
+      'border-radius:8px;background:' + bg + ';border-left:4px solid ' + border + ';font-size:.95em;';
+    notice.innerHTML = text;
+  };
+  try {
+    const ctrl = new AbortController();
+    const timer = setTimeout(() => ctrl.abort(), 8000);
+    const r = await fetch(API_BASE + '/health', { signal: ctrl.signal });
+    clearTimeout(timer);
+    if (!r.ok) throw new Error('unhealthy');
+    const h = await r.json();
+    if (!h.model_loaded) {
+      show('#fff3cd', '#ffc107',
+        '<strong>Model unavailable.</strong> The service is up but its model failed to load, ' +
+        'so predictions will not work right now.');
+    } else if (h.claude_daily_limit && h.claude_calls_used_today >= h.claude_daily_limit) {
+      show('#e2e3e5', '#6c757d',
+        '<strong>Written analysis paused for today.</strong> The Claude commentary is capped ' +
+        'daily to control cost. Predictions and LIME heatmaps still work normally.');
+    }
+  } catch (e) {
+    show('#fff3cd', '#ffc107',
+      '<strong>The demo is waking up, or is briefly unavailable.</strong> This backend scales ' +
+      'to zero when idle so it costs nothing to keep online. Uploading an image should still ' +
+      'work, but the first analysis may take longer than usual.');
+  }
+})();
 
 // Handle image selection
 document.getElementById('imageInput').addEventListener('change', (e) => {
@@ -719,11 +785,12 @@ document.getElementById('analyzeBtn').addEventListener('click', async () => {
     <div style="text-align: center;">
       <div style="font-size: 2em; margin-bottom: 15px;">🔍</div>
       <strong>Analyzing your car image with AI...</strong>
-      <p style="margin-top: 10px; opacity: 0.8;">This may take 1-2 Minutes as we:</p>
+      <p style="margin-top: 10px; opacity: 0.8;">This usually takes 30 to 90 seconds, longer
+      if the server is waking up, as we:</p>
       <ul style="text-align: left; max-width: 500px; margin: 15px auto; opacity: 0.8;">
-        <li>Extract 48 features from your image</li>
-        <li>Run Random Forest prediction</li>
-        <li>Generate LIME explanation heatmap</li>
+        <li>Preprocess your image for the network</li>
+        <li>Run the PyTorch model prediction</li>
+        <li>Generate a Grad-CAM explanation heatmap</li>
         <li>Analyze results with Claude AI</li>
       </ul>
     </div>
@@ -812,11 +879,16 @@ document.getElementById('analyzeBtn').addEventListener('click', async () => {
       `;
     }
   } catch (error) {
+    // Never surface the raw fetch error ("Failed to fetch") to a visitor; it reads
+    // like a bug in their browser rather than a sleeping backend.
+    console.error('Prediction request failed:', error);
     resultDiv.className = 'result-error';
     resultDiv.innerHTML = `
-      <div style="text-align: center; font-size: 2em; margin-bottom: 15px;">❌</div>
-      <strong>Connection Error</strong>
-      <p style="margin-top: 10px;">${error.message}</p>
+      <div style="text-align: center; font-size: 2em; margin-bottom: 15px;">😴</div>
+      <strong>Could not reach the analysis service</strong>
+      <p style="margin-top: 10px;">This backend scales to zero when nobody is using it, so it
+      costs nothing to keep online. That also means it occasionally needs a moment to start,
+      and a first request can time out. Please try again in about thirty seconds.</p>
     `;
   } finally {
     analyzeBtn.disabled = false;
@@ -840,30 +912,30 @@ document.getElementById('analyzeBtn').addEventListener('click', async () => {
 </ul>
 <p><strong>Machine Learning Pipeline:</strong></p>
 <ul>
-<li><strong>Random Forest Classifier</strong> trained on 5,000 car images</li>
-<li>Achieves ~85-90% accuracy in detecting vehicle damage</li>
-<li>Extracts 48 features: color histograms, edge gradients, and texture patterns</li>
-<li>Model size: 9.3 MB, inference time: &lt;1 second</li>
+<li><strong>PyTorch transfer learning</strong>: a ResNet backbone pretrained on ImageNet, fine-tuned to classify vehicle damage</li>
+<li><strong>94.6% accuracy</strong> on a held-out test set of 734 images, with a 0.99 ROC-AUC</li>
+<li>Built with the <code>timm</code> library, the standard toolkit for pretrained vision models</li>
+<li>Trained on the published Pashaei, Ghatee, and Sajedi accident dataset (about 4,900 images)</li>
 </ul>
 <p><strong>Explainability Layer:</strong></p>
 <ul>
-<li><strong>LIME</strong> (Local Interpretable Model-agnostic Explanations) generates visual explanations</li>
-<li>Highlights image regions that most influenced the AI’s decision</li>
-<li>Red boundaries show what the model was “looking at” when making predictions</li>
+<li><strong>Grad-CAM</strong> reads the network’s own gradients to highlight the regions that drove each decision</li>
+<li>Warm colors mark the areas the model weighed most heavily</li>
+<li>Shows what the network was “looking at” when it made a prediction</li>
 </ul>
 <p><strong>AI Analysis:</strong></p>
 <ul>
-<li><strong>Claude API</strong> (Anthropic) analyzes the LIME visualization</li>
-<li>Provides human-readable explanations of the model’s reasoning</li>
-<li>Validates predictions and identifies potential issues</li>
+<li><strong>Claude API</strong> (Anthropic) analyzes the Grad-CAM heatmap</li>
+<li>Provides a human-readable read of the model’s reasoning</li>
+<li>Rate-limited per day so the demo cannot run up a surprise bill</li>
 </ul>
 <p><strong>Backend Infrastructure:</strong></p>
 <ul>
-<li>Deployed on <strong>Google Cloud Run</strong> (serverless container platform)</li>
-<li>Handles image preprocessing, prediction, and LIME generation</li>
-<li>Auto-scales based on demand with 2GB memory, 2 CPU cores</li>
+<li><strong>FastAPI</strong> service (typed requests, automatic API docs) deployed on <strong>Google Cloud Run</strong></li>
+<li>Scales to zero when idle, so it costs nothing to keep online, and is capped so a traffic spike cannot fan out</li>
+<li>Handles preprocessing, prediction, and Grad-CAM generation in one request</li>
 </ul>
-<p><strong>Complete workflow:</strong> User uploads image → Cloud Run processes → Random Forest predicts → LIME explains → Claude analyzes → Results displayed with visual heatmap and AI commentary.</p>
+<p><strong>Complete workflow:</strong> User uploads image → Cloud Run processes → PyTorch model predicts → Grad-CAM explains → Claude analyzes → Results displayed with visual heatmap and AI commentary.</p>
 
 
 </section>

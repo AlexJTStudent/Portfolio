@@ -1,234 +1,192 @@
 [
   {
-    "objectID": "Projects/NFL/NFL.html#model-architecture",
-    "href": "Projects/NFL/NFL.html#model-architecture",
-    "title": "NFL Big Data Bowl 2026: Player Position Prediction",
-    "section": "Model Architecture",
-    "text": "Model Architecture\nWe first tried the Random Forest Regression method with two different models: one for X-coordinate prediction and the other for Y-coordinate prediction. We changed from this to a multivariate neural network architecture that jointly predicts both coordinates (e.g., diagonal trajectories where both dimensions change together) following faculty guidance.\nOur last model is a Feedforward Neural Network (Multi-Layer Perceptron) with the architecture:\n\nInput Layer: 9 features\nHidden Layer 1: 256 neurons with ReLU activation, Batch Normalization, and 30% Dropout\nHidden Layer 2: 128 neurons with ReLU, Batch Normalization, 30% Dropout\nHidden Layer 3: 64 neurons with ReLU activation and 20% Dropout\nHidden Layer 4: 32 neurons using ReLU, 20% Dropout\nOutput Layer: 2 neurons (x_pos, y_pos predictions)\n\nThe model features 46,754 trainable parameters and was optimized with an Adam optimizer with a learning rate of 0.001. In order to avoid overfitting and enhance generalization, we applied a few regularization procedures, these include:\n\nDropout regularization (20-30% to the different layers)\nBatch Normalization for training to stabilize\nStandardScaler normalized input features (essentially useful for performance of neural networks)\nEarly stopping with 15-epoch patience to stop training when validation loss flattens out\nLearning rate scheduling (ReduceLROnPlateau) to dynamically update learning rate and vary learning rate as training progresses\nModel checkpointing to save the best-performing model when the validation loss improves\n\nTraining was done in a 512-size batch for up to a maximum of 100 epochs using early stopping to accelerate convergence without overfitting."
-  },
-  {
-    "objectID": "Projects/NFL/NFL.html#performance-evaluation",
-    "href": "Projects/NFL/NFL.html#performance-evaluation",
-    "title": "NFL Big Data Bowl 2026: Player Position Prediction",
-    "section": "Performance Evaluation",
-    "text": "Performance Evaluation\nFor model performance, we used different regression metrics to measure average error as well as model fit quality. Finally, we performed detailed case study analysis after a single play (Game ID: 2023091000, Play ID: 1240) and analyzed prediction accuracy in-depth, in order to trace systematic features in model behaviors."
-  },
-  {
-    "objectID": "Projects/NFL/NFL.html#key-visualizations",
-    "href": "Projects/NFL/NFL.html#key-visualizations",
-    "title": "NFL Big Data Bowl 2026: Player Position Prediction",
-    "section": "Key Visualizations",
-    "text": "Key Visualizations\nCase study analysis provided visualizations which represent individual play based performance of the model:\nPredicted vs Actual X & Y Positions: The visualization overlays real positions of players (blue) on predicted positions (orange) on the background of the football field for each individual.\n\n  \n\n \nPre-Snap and Post-Snap Comparison: A comparison of Pre-Snap and Post-Snap formations (left) with recorded and predicted locations (right) when a match is in progress and shows how players transition from initial positioning to their positions in flight of the ball.\n\n \n\n \nMovement Vectors: It shows player trajectories, where blue arrows show the players’ actual movement and orange dashed arrows represent predicted movement of the players, from pre-snap to post-snap position. The red line is the ball trajectory from line of scrimmage to landing position.\n\n \n\n \nError Heatmap by Position: The players are color-coded according to value of prediction errors with the use of a yellow-orange-red colormap where spatial order of prediction error could be observed along the field.\n\n\n\n \n\n\n\n\n\n\n \n\nTop Numerical Features:\n\nPre-snap X position (262.16) - 70% of total importance\n\nBy far the dominant predictor\nWhere a player starts on the field is the strongest indicator of where they’ll be when the ball is in flight\nPlayers move along predictable paths from pre-snap positions\nDownfield direction (X-axis) is heavily constrained by play design\n\nBall landing X coordinate (149.11) - 39.8% of total importance\n\nSecond-most important feature\nKnowledge of where the ball will land is highly predictive of player positioning\nReflects players’ natural tendency to converge toward ball trajectory\nReceivers track the ball’s flight path; defenders react to it\n\nBall landing Y coordinate (90.03) - 24.1% of total importance\n\nThird-ranked feature\nLateral position of ball landing is significant for position prediction\nLess important than X coordinate\nDefensive formations more predictable along line of scrimmage than across field width\n\nAbsolute yardline number (21.69) - 5.8% of importance\n\nField context matters\nPlayers’ movements differ based on proximity to end zone\nReflects risk-reward calculations and crowd positioning constraints\n\nPre-snap Y position (20.75) - 5.5% of importance\n\nSecondary positional feature\nMuch weaker than pre-snap X (12X less important)\nLateral starting position less predictive than downfield starting position\n\n\n\n\nSecondary Numerical Features:\n\nDirection (5.52) - 1.5% of importance\nSpeed (2.91) - 0.8% of importance\nOrientation (0.89) - 0.2% of importance\nAcceleration (0.76) - 0.2% of importance\n\n\n\nCategorical Features Are Surprisingly Weak (0.5% of Importance)\nDespite encoding player position, team side, and role, these features contributed minimal predictive power:\n\nPositional dummies (CB, WR, FS, SS, ILB, TE, OLB, MLB, RB, DE, S, DT, FB, QB, NT, T, LB)\n\nMean importance: 0.65\nIndividual importance: &lt; 2.0 for all positions\n\nSide dummies (Defense/Offense)\n\nMean importance: 1.37\nMinimal predictive signal\n\nRole dummies (Defensive Coverage/Targeted Receiver)\n\nMean importance: 1.33\nMinimal predictive signal"
-  },
-  {
-    "objectID": "Projects/NFL/NFL.html#problem-type",
-    "href": "Projects/NFL/NFL.html#problem-type",
-    "title": "NFL Big Data Bowl 2026: Player Position Prediction",
-    "section": "1. Problem Type",
-    "text": "1. Problem Type\nI propose a supervised regression problem based on tabular data, which will then be processed further. The target variables player X and Y coordinates are continuous numbers, thus regression model is the best machine learning model. The model is trained on historical labeled data comprising known input features (pre-snap positions, movement attributes, ball trajectory) and output targets (observed position after snap). This enables the neural network to detect intricate non-linear relationships between player starting condition and the state of each player after ball flight.\nThis is especially important considering the fact that the problem is multivariate. Instead of treating X and Y predictions as independent problems, our neural network architectures collaboratively predict both coordinates together. This design choice allows the model to discover diagonal movements contain correlating transformations in both dimensions, describing realistic physics associated with player movements better than two independent univariate models."
-  },
-  {
-    "objectID": "Projects/NFL/NFL.html#model-architecture-choice",
-    "href": "Projects/NFL/NFL.html#model-architecture-choice",
-    "title": "NFL Big Data Bowl 2026: Player Position Prediction",
-    "section": "2. Model Architecture Choice",
-    "text": "2. Model Architecture Choice\nThe decision to use a feedforward neural network instead of the early Random Forest method was motivated by the necessity to model multivariate output. Although Random Forest Regression has good performance on tabular data, it involved training a pair of models: one for X-coordinate prediction and one to predict Y-coordinate features. This method treats the two spatial dimensions as independent problems, ignoring the correlation between them.\nThe output neurons in a neural network architecture can be found in two and, thus, when in space, the model learns joint representations of player movement. For instance, the X and Y coordinates of a receiver running up to the ball from a diagonal parallel changes side by side (or up to an adjacent direction). A neural network has shared hidden layers that can model these interdependencies, learning that some movement patterns involve certain X-Y coordinate combination and will not be captured by individual models.\nNeural networks also outperform in learning non-linear relationships through activation functions and deep layer structures. Player movement in football is highly non-linear-players speed, turn, turn, respond to the movement of the ball in ways that linear models or tree-based approaches may fail to accurately capture. The 4-layer architecture with ReLU activations provide enough representational capabilities that the complex spatial-temporal dynamics can be considered.\nThe regularizations used (dropout, batch normalization, early stopping) enable the model to generalize to unseen plays rather than to memorize training examples despite its complexity. The high validation performance (R² of 0.974 for X and 0.910 for Y) indicates that the model has learned useful patterns and does not overfit to training noise."
-  },
-  {
-    "objectID": "Projects/NFL/NFL.html#model-confidence-metrics",
-    "href": "Projects/NFL/NFL.html#model-confidence-metrics",
-    "title": "NFL Big Data Bowl 2026: Player Position Prediction",
-    "section": "3. Model Confidence Metrics",
-    "text": "3. Model Confidence Metrics\nWe assessed this model (or using its predictive power) by evaluating its dependability and precision through the use of three related scales: MAE, RMSE, and R².\nMean Absolute Error is an intuitive test of average predictive accuracy. Regarding X-position predictions, the MAE is 3.07 yards where the model’s X-coordinate predictions deviate from actual positions in all instances by an average of about 3 yards. For Y-position predictions, the MAE is 3.05 yards. These numbers carry significant weight in a dynamic environment like football plays where the player may make the jump down 10-15 yards or more in every single pass play so 3-yard errors suggest good predictive power. In practical terms, this precision is adequate for many analytical purposes, giving coaches a window into overall position trends and broadcasters the data they need to provide real-time projections of real-time position.\nRoot Mean Squared Error prioritizes larger mistakes over MAE due to the squaring operation, making it especially helpful for determining if the model produces occasional blundering. RMSE = 4.02 yards at X-position and 3.95 yards at Y-position. The small difference between MAE and RMSE (approximately one yard) indicates that the model’s errors are reasonably consistent, no extreme outliers or catastrophic errors in the prediction. If model errors were to occur extensively, we might see a much larger difference between RMSE and MAE.\nR² Score represents the percentage of variance in the target variable explained with a model. The R² of 0.974 (for X-position) means that we have an extremely good model fit and is explaining 97.4% of the variance in player X-coordinates. For Y-position, with an R² of 0.910, 91.0% of the variance is accounted for. The lower Y-position R² still indicates lateral movement (side-to-side across the field) is harder to predict than downfield movement, but still good. That makes intuitive sense, downfield movement is primarily determined by the direction of the ball’s forward drive, while lateral movement involves more complex decisions of route running and individual tendencies in players.\nTo provide further context to the data we provide a case study of one play (Game ID: 2023091000 and Play ID: 1240) on a specific play can help understand these metrics as well. This play comprised 8 observations from the player-frame area with a mean Euclidean error of 5.26 yards and maximum error of 6.25 yards for this play. The analysis also showed that a systematic trend was there: the model consistently underpredicts forward motion toward the ball landing position. Players in the example were 3.78 yards closer to the ball than the model predicted on average in the case study, with the actual average distance being 4.20 yards and the predicted distance being 7.98 yards.\nThe low MAE (average errors are sub-3 yards), moderate RMSE (there are few extreme errors), and very high R² (more than 90% of variance) score indicates that this model effectively accounts for the basic play dynamics of play by play players during pass plays. For virtually all critical applications, whether evaluating defensive tactics, designing plays, or creating broadcast graphics, this degree of precision yields actionable insights."
-  },
-  {
-    "objectID": "Projects/NFL/NFL.html#limitations-and-future-improvements",
-    "href": "Projects/NFL/NFL.html#limitations-and-future-improvements",
-    "title": "NFL Big Data Bowl 2026: Player Position Prediction",
-    "section": "4. Limitations and Future Improvements",
-    "text": "4. Limitations and Future Improvements\nOur model has strong predictability but there are several limitations with room for a promising design enhancements.\nArchitecture Implications: In our feedforward neural network, spatial relationships are largely captured, however, it does not model player movement (the time-sequence of player movements) explicitly. Playing football happens over time and the players react to how the ball travels and to other players positions dynamically. A Recurrent Neural Network (RNN) or Long Short-Term Memory (LSTM) could model these interrelated temporal dependencies in which it can learn how player velocities evolve in different frame by frame from what it would be as an independent learning model, instead of treating every frame as a single prediction. Or, a Transformer-based architecture was proposed to model player attention mechanisms that capture how defenders respond against receivers and receivers to defenders.\nFeature Engineering Opportunities: In addition to missing more categorical features, we can engineer some more predictive features include:\n\nRelative positions (distance and angle away from each player to the ball landing position)\nBall motion vectors projected\nTime until that ball was actually delivered\nInteraction parameters (e.g., speed × distance to the ball)\nHistorical player-specific tendencies (average routes run, typical speeds)\n\nEnsemble Methods: The combination of multiple models, such as our neural network with gradient boosting machines or other different architectures neural networks, leads it to a more stable prediction with ensemble averaging. Different models could perform quite well at different aspects of the prediction task and together may reduce overall error.\nInsights from the Single-Play Case Study: Not every frame presented a comparable number of prediction errors. Errors rose in distance to the ball (6.25 yards) before decreasing (4.68 yards) as the player took his approach to land. These patterns indicate that there is a strong predictive signal from proximity of the ball. Future models should include distance-to-ball as an explicit variable, or use it for estimating weights differently on frames."
-  },
-  {
-    "objectID": "ML_MODELS/Regression.html",
-    "href": "ML_MODELS/Regression.html",
-    "title": "Predicting Car Prices with Regression",
+    "objectID": "SQL/ConsultingDatabase.html",
+    "href": "SQL/ConsultingDatabase.html",
+    "title": "Designing a Consulting Firm Database",
     "section": "",
-    "text": "The first classic machine-learning task is regression, which means predicting a continuous number. Here we predict a used car’s price from three features in the Belarus 2019 Kaggle dataset: how new it is, how far it has been driven, and its engine capacity. This is the machine-learning cousin of my Multiple Linear Regression analysis, but instead of focusing on p-values and inference, we focus on predictive accuracy on data the model has never seen.\nWe compare two models: a simple, interpretable linear regression and a more flexible random forest."
+    "text": "This project is a relational database for a consulting firm. The firm keeps clients, the jobs those clients order, and the consultants who staff them. The awkward part of the brief is that the relationships run both ways: one job usually needs several consultants, and one consultant works several jobs at once. A client can also order many jobs over the years.\nThat shape cannot be stored in a single flat table without repeating information, so the work was to design the schema in MySQL Workbench, build it, load it with sample data, and then query it. What follows is the design as it actually happened, including the first version that did not survive contact with the requirements."
   },
   {
-    "objectID": "ML_MODELS/Regression.html#background",
-    "href": "ML_MODELS/Regression.html#background",
-    "title": "Predicting Car Prices with Regression",
+    "objectID": "SQL/ConsultingDatabase.html#background",
+    "href": "SQL/ConsultingDatabase.html#background",
+    "title": "Designing a Consulting Firm Database",
     "section": "",
-    "text": "The first classic machine-learning task is regression, which means predicting a continuous number. Here we predict a used car’s price from three features in the Belarus 2019 Kaggle dataset: how new it is, how far it has been driven, and its engine capacity. This is the machine-learning cousin of my Multiple Linear Regression analysis, but instead of focusing on p-values and inference, we focus on predictive accuracy on data the model has never seen.\nWe compare two models: a simple, interpretable linear regression and a more flexible random forest."
+    "text": "This project is a relational database for a consulting firm. The firm keeps clients, the jobs those clients order, and the consultants who staff them. The awkward part of the brief is that the relationships run both ways: one job usually needs several consultants, and one consultant works several jobs at once. A client can also order many jobs over the years.\nThat shape cannot be stored in a single flat table without repeating information, so the work was to design the schema in MySQL Workbench, build it, load it with sample data, and then query it. What follows is the design as it actually happened, including the first version that did not survive contact with the requirements."
   },
   {
-    "objectID": "ML_MODELS/Regression.html#preparing-the-data",
-    "href": "ML_MODELS/Regression.html#preparing-the-data",
-    "title": "Predicting Car Prices with Regression",
-    "section": "Preparing the Data",
-    "text": "Preparing the Data\nWe drop rows with missing values and cap prices below $50,000 to keep the target realistic, then split the data 80/20 into training and test sets so we can measure performance honestly on held-out cars.\n\n\nCode\nfeatures = [\"year_produced\", \"odometer_value\", \"engine_capacity\"]\ndf = cars.dropna(subset=features + [\"price_usd\"])\ndf = df[df[\"price_usd\"] &lt; 50000]\n\nX, y = df[features], df[\"price_usd\"]\nX_train, X_test, y_train, y_test = train_test_split(\n    X, y, test_size=0.2, random_state=42)\nprint(f\"Training cars: {len(X_train):,}   Test cars: {len(X_test):,}\")\n\n\nTraining cars: 30,815   Test cars: 7,704"
+    "objectID": "SQL/ConsultingDatabase.html#the-first-design",
+    "href": "SQL/ConsultingDatabase.html#the-first-design",
+    "title": "Designing a Consulting Firm Database",
+    "section": "The first design",
+    "text": "The first design\nThe first cut had seven tables. It was enough to answer the basic question of who is working on what, and nothing more.\n\n\n\nThe first version of the schema, seven tables\n\n\nThe tables were created like this:\ncreate table client (\nclient_id INT unsigned auto_increment primary key,\nname varchar(64) not null);\n\ncreate table job (\njob_id INT unsigned auto_increment primary key,\ndescription varchar(100) not null);\n\ncreate table consultant (\nconsultant_id INT unsigned auto_increment primary key,\nname varchar(64) not null,\nlast_name varchar(64) not null,\nrole varchar(64) not null);\n\ncreate table job_type (\njob_type_id INT unsigned auto_increment primary key,\njob_type varchar(64) not null);\nThe three linking tables carried the relationships:\ncreate table client_has_job (\nclient_has_job_id INT unsigned auto_increment primary key,\nclient_client_id int unsigned not null,\njob_job_id int unsigned not null,\nforeign key (client_client_id) REFERENCES client(client_id),\nforeign key (job_job_id) REFERENCES job(job_id));\n\ncreate table job_has_consultant (\njob_has_consultant_id INT unsigned auto_increment primary key,\njob_job_id int unsigned not null,\nconsultant_consultant_id int unsigned not null,\nforeign key (job_job_id) REFERENCES job(job_id),\nforeign key (consultant_consultant_id) REFERENCES consultant(consultant_id));\n\ncreate table job_type_has_job (\njob_type_has_job_id INT unsigned auto_increment primary key,\njob_job_id int unsigned not null,\njob_type_job_type_id int unsigned not null,\nforeign key (job_job_id) REFERENCES job(job_id),\nforeign key (job_type_job_type_id) REFERENCES job_type(job_type_id));"
   },
   {
-    "objectID": "ML_MODELS/Regression.html#training-and-comparing-models",
-    "href": "ML_MODELS/Regression.html#training-and-comparing-models",
-    "title": "Predicting Car Prices with Regression",
-    "section": "Training and Comparing Models",
-    "text": "Training and Comparing Models\n\n\nCode\nlin = LinearRegression().fit(X_train, y_train)\nrf = RandomForestRegressor(n_estimators=100, random_state=42,\n                           n_jobs=1).fit(X_train, y_train)\n\ndef report(model, name):\n    pred = model.predict(X_test)\n    return {\"Model\": name,\n            \"R2\": round(r2_score(y_test, pred), 3),\n            \"RMSE ($)\": round(mean_squared_error(y_test, pred) ** 0.5, 0)}\n\nresults = pd.DataFrame([report(lin, \"Linear Regression\"),\n                        report(rf, \"Random Forest\")])\nresults\n\n\n\n\n\n\n\n\n\nModel\nR2\nRMSE ($)\n\n\n\n\n0\nLinear Regression\n0.604\n4116.0\n\n\n1\nRandom Forest\n0.817\n2798.0\n\n\n\n\n\n\n\nThe random forest clearly wins. It explains about 82% of the variation in price versus about 60% for linear regression, and its typical error is roughly $2,800 versus $4,100. The linear model assumes price changes at a constant rate, while the forest captures curved, interacting effects such as mileage mattering more on older cars."
+    "objectID": "SQL/ConsultingDatabase.html#where-it-broke-down",
+    "href": "SQL/ConsultingDatabase.html#where-it-broke-down",
+    "title": "Designing a Consulting Firm Database",
+    "section": "Where it broke down",
+    "text": "Where it broke down\nThree problems showed up almost immediately once real questions were asked of the data.\nThe first is the role column on consultant. Storing the role as free text means the string “Data Scientist” is retyped on every row that needs it. One typo creates a role that looks real to a human and is invisible to a GROUP BY. Renaming a role means an UPDATE across every consultant who holds it, and there is nowhere to hang anything else a role might need.\nThe second is the client table, which held nothing but a name. There was no room for contact details, no record of when someone became a client, and no way to say which company a client belongs to. Two people at the same firm were simply two unrelated rows.\nThe third problem is visible in the script itself. The bottom of the file is a run of ALTER statements, adding columns that should have been part of the design:\nALTER TABLE consultant ADD COLUMN salary DECIMAL(10,2);\nALTER TABLE consultant ADD COLUMN hire_date DATE;\nALTER TABLE consultant ADD COLUMN email VARCHAR(100);\nALTER TABLE consultant ADD COLUMN phone VARCHAR(20);\n\nALTER TABLE job ADD COLUMN budget DECIMAL(12,2);\nALTER TABLE job ADD COLUMN start_date DATE;\nALTER TABLE job ADD COLUMN estimated_hours INT;\nEvery one of those is an attribute that got discovered late. Patching them on works, but a schema that needs seven patches in its first week is telling you the entity model was too thin."
   },
   {
-    "objectID": "ML_MODELS/Regression.html#how-good-are-the-predictions",
-    "href": "ML_MODELS/Regression.html#how-good-are-the-predictions",
-    "title": "Predicting Car Prices with Regression",
-    "section": "How Good Are the Predictions?",
-    "text": "How Good Are the Predictions?\nThe scatter of predicted versus actual price shows the random forest’s points hugging the diagonal line of perfect prediction fairly tightly."
+    "objectID": "SQL/ConsultingDatabase.html#the-normalized-design",
+    "href": "SQL/ConsultingDatabase.html#the-normalized-design",
+    "title": "Designing a Consulting Firm Database",
+    "section": "The normalized design",
+    "text": "The normalized design\nThe second version grew to eleven tables. The goal was to reduce duplication, so anything that was being retyped as text became a table of its own with a foreign key pointing at it.\n\n\n\nThe normalized schema, eleven tables\n\n\nFour things changed.\nRole, industry, and company size each became lookup tables. A consultant now carries role_role_id instead of a role string, so the name of a role lives in exactly one row and renaming it is a one row update. The same applies to specialization on industry.\nCompany became a real entity. It has an address and annual revenue, and it points at industry, which means the firm can now ask which industries it earns the most from. Company size hangs off the company rather than being repeated as text.\nClient was split apart. First name, last name, email, phone, the date they became a client, their status, and their priority level are all separate columns now, and a foreign key ties the client to their company. That single change is what makes the client table usable for anything beyond a label.\nJob gained the fields it needed from the start: a start date, an end deadline, a priority level, and a status."
   },
   {
-    "objectID": "ML_MODELS/Regression.html#which-features-matter-most",
-    "href": "ML_MODELS/Regression.html#which-features-matter-most",
-    "title": "Predicting Car Prices with Regression",
-    "section": "Which Features Matter Most?",
-    "text": "Which Features Matter Most?\nRandom forests report how much each feature contributes to the predictions.\n\n\n\n\n\n\n\n\n\nProduction year dominates. How new a car is drives its price more than mileage or engine size, which echoes the strong year effect I found in the statistical Multiple Linear Regression."
+    "objectID": "SQL/ConsultingDatabase.html#resolving-the-many-to-many-relationships",
+    "href": "SQL/ConsultingDatabase.html#resolving-the-many-to-many-relationships",
+    "title": "Designing a Consulting Firm Database",
+    "section": "Resolving the many-to-many relationships",
+    "text": "Resolving the many-to-many relationships\nThree junction tables carry the relationships that cannot be stored on either side alone.\nA foreign key can only point one direction, so it can express “many jobs belong to one client” but not “many consultants work many jobs.” When both sides are many, the relationship needs a table of its own, where each row is one pairing.\nOne row of job_has_consultant means this consultant is staffed on this job. Two rows sharing a job id mean that job has two people on it. Two rows sharing a consultant id mean that person is on two jobs. The sample data exercises both cases: job 6 is staffed by consultants 6 and 9, and consultant 1 works both job 1 and job 9.\nThe same reasoning gives client_has_job, which lets a client accumulate jobs over time, and job_has_job_type, which lets a single job be tagged as both machine learning work and data engineering work without forcing a choice."
   },
   {
-    "objectID": "ML_MODELS/Regression.html#takeaway",
-    "href": "ML_MODELS/Regression.html#takeaway",
-    "title": "Predicting Car Prices with Regression",
-    "section": "Takeaway",
-    "text": "Takeaway\nFramed as a prediction problem, used-car price is learnable with real accuracy. A random forest reaches an R-squared of about 0.82 on unseen cars, a big jump over linear regression, and it identifies production year as the single most important driver of price. This page demonstrates the core supervised-regression workflow: a train/test split, fitting multiple models, and comparing them with held-out metrics like R-squared and RMSE."
+    "objectID": "SQL/ConsultingDatabase.html#loading-the-data",
+    "href": "SQL/ConsultingDatabase.html#loading-the-data",
+    "title": "Designing a Consulting Firm Database",
+    "section": "Loading the data",
+    "text": "Loading the data\nThe seed script fills the lookup tables first, since everything else points at them, then the entities, then the junction tables last. The sample companies are Mario themed, which made the test data easier to keep straight while checking joins.\nINSERT INTO role (role_id, role_name) VALUES\n(NULL, 'Data Scientist'),\n(NULL, 'Software Engineer'),\n(NULL, 'Business Analyst'),\n(NULL, 'Mathematician'),\n(NULL, 'Statistician');\n\nINSERT INTO Company (Company_id, name, address, annual_revenue, industry_industry_id) VALUES\n(NULL, 'Mushroom Kingdom Gaming', '123 Castle Road', '5000000', 1),\n(NULL, 'Luigi Construction Co', '456 Plumber Ave', '2500000', 5),\n(NULL, 'Bowser Real Estate', '101 Dark Land Blvd', '15000000', 2);\n\nINSERT INTO consultant (consultant_id, first_name, last_name, skill_level,\n                        availability_status, role_role_id, industry_industry_id) VALUES\n(NULL, 'Alex', 'Tovar', 'Senior', 'Busy', 1, 1),\n(NULL, 'Michael', 'Heyes', 'Senior', 'Busy', 2, 1),\n(NULL, 'Emmanuel', 'Robert', 'Mid-Level', 'Available', 3, 2);\nNote the consultant rows: role and industry arrive as integers pointing at the lookup tables, not as repeated text. That is the whole point of the redesign in one line."
   },
   {
-    "objectID": "ML_MODELS/DimensionalityReduction.html",
-    "href": "ML_MODELS/DimensionalityReduction.html",
-    "title": "Dimensionality Reduction with PCA",
-    "section": "",
-    "text": "Dimensionality reduction compresses many features into just a few new ones while keeping as much information as possible. Principal Component Analysis does this by finding the directions along which the data varies most. It is invaluable for visualization, since we can squeeze four car features down to two principal components and plot every car on a flat two-dimensional map. To make the map meaningful, we color each car by the K-Means segment from my Clustering analysis, showing that the discovered groups really do occupy distinct regions."
+    "objectID": "SQL/ConsultingDatabase.html#querying-it",
+    "href": "SQL/ConsultingDatabase.html#querying-it",
+    "title": "Designing a Consulting Firm Database",
+    "section": "Querying it",
+    "text": "Querying it\nAnswering a question that spans a many-to-many relationship means passing through the junction table. This one lists every data scientist with the jobs they are staffed on, walking consultant to job_has_consultant to job:\nselect concat(c.name, ' ', c.last_name),\nc.email,\ndate_format(c.hire_date, '%M %Y') as hire_date,\nj.description,\nj.budget\nfrom consultant c\ninner join job_has_consultant jhc on c.consultant_id = jhc.consultant_consultant_id\ninner join job j on jhc.job_job_id = j.job_id\nwhere c.role = 'Data Scientist'\norder by c.last_name asc;\nA consultant on two jobs comes back as two rows, which is the correct answer rather than a flaw. Collapsing that into one row per consultant is a job for GROUP_CONCAT or for the application layer.\nAfter the redesign the same question is asked through the lookup table instead of against a text column, which is what makes the role name safe to change:\nSELECT consultant.first_name, role.role_name\nFROM consultant\nINNER JOIN role\nON consultant.role_role_id = role.role_id\nWHERE consultant.first_name LIKE ?;"
   },
   {
-    "objectID": "ML_MODELS/DimensionalityReduction.html#background",
-    "href": "ML_MODELS/DimensionalityReduction.html#background",
-    "title": "Dimensionality Reduction with PCA",
-    "section": "",
-    "text": "Dimensionality reduction compresses many features into just a few new ones while keeping as much information as possible. Principal Component Analysis does this by finding the directions along which the data varies most. It is invaluable for visualization, since we can squeeze four car features down to two principal components and plot every car on a flat two-dimensional map. To make the map meaningful, we color each car by the K-Means segment from my Clustering analysis, showing that the discovered groups really do occupy distinct regions."
+    "objectID": "SQL/ConsultingDatabase.html#what-i-would-fix-next",
+    "href": "SQL/ConsultingDatabase.html#what-i-would-fix-next",
+    "title": "Designing a Consulting Firm Database",
+    "section": "What I would fix next",
+    "text": "What I would fix next\nThe design is sound but the implementation has loose ends I would clean up before calling it finished.\nThe seed script inserts into a table called client_has_job1 while the diagram calls it client_has_job. One of the two names is wrong and the mismatch would break a fresh build.\nThe client table stores client_status and client_since, and the seed data puts the same date in both. Status was meant to hold something like active or dormant, so either the column is mislabeled or the data is.\nStatus and priority columns are free text VARCHAR throughout. Priority holds High, Medium, Low, and Critical, and job status holds In Progress, Completed, and Not Started. Those are closed sets, so they belong in an ENUM or in lookup tables of their own. Leaving them as text reintroduces exactly the problem the redesign was meant to solve, one level down.\nFinally, no query written so far touches industry, Company, or company_size. Those tables were added for good reasons, but a table nobody queries is a hypothesis rather than a feature, and the obvious next step is revenue by industry and job volume by company size."
   },
   {
-    "objectID": "ML_MODELS/DimensionalityReduction.html#preparing-the-data",
-    "href": "ML_MODELS/DimensionalityReduction.html#preparing-the-data",
-    "title": "Dimensionality Reduction with PCA",
-    "section": "Preparing the Data",
-    "text": "Preparing the Data\nWe take the same four numeric features, standardize them since PCA is scale-sensitive, and reuse K-Means to label four segments.\n\n\nCode\nfeats = [\"price_usd\", \"odometer_value\", \"year_produced\", \"engine_capacity\"]\ndf = cars.dropna(subset=feats)\ndf = df[df[\"price_usd\"] &lt; 50000].sample(5000, random_state=42).reset_index(drop=True)\n\nX = StandardScaler().fit_transform(df[feats])\ndf[\"cluster\"] = KMeans(n_clusters=4, random_state=42, n_init=10).fit_predict(X)"
-  },
-  {
-    "objectID": "ML_MODELS/DimensionalityReduction.html#running-pca",
-    "href": "ML_MODELS/DimensionalityReduction.html#running-pca",
-    "title": "Dimensionality Reduction with PCA",
-    "section": "Running PCA",
-    "text": "Running PCA\nWe reduce the four standardized features to two principal components and check how much of the original variation they retain.\n\n\nCode\npca = PCA(n_components=2)\ncoords = pca.fit_transform(X)\ndf[\"PC1\"], df[\"PC2\"] = coords[:, 0], coords[:, 1]\n\nvar = pca.explained_variance_ratio_\nprint(f\"PC1 explains {var[0]:.1%} of variance\")\nprint(f\"PC2 explains {var[1]:.1%} of variance\")\nprint(f\"Together: {var[:2].sum():.1%}\")\n\n\nPC1 explains 53.2% of variance\nPC2 explains 27.8% of variance\nTogether: 81.0%\n\n\nJust two components capture about 81% of all the information in the four original features, a big compression with little loss."
-  },
-  {
-    "objectID": "ML_MODELS/DimensionalityReduction.html#the-two-dimensional-map",
-    "href": "ML_MODELS/DimensionalityReduction.html#the-two-dimensional-map",
-    "title": "Dimensionality Reduction with PCA",
-    "section": "The Two-Dimensional Map",
-    "text": "The Two-Dimensional Map\n\n\n\n\n\n\n\n\n\nThe K-Means clusters form clean, largely separate territories on the PCA map, which visually confirms that the segments are genuine structure rather than arbitrary cuts."
-  },
-  {
-    "objectID": "ML_MODELS/DimensionalityReduction.html#what-do-the-components-mean",
-    "href": "ML_MODELS/DimensionalityReduction.html#what-do-the-components-mean",
-    "title": "Dimensionality Reduction with PCA",
-    "section": "What Do the Components Mean?",
-    "text": "What Do the Components Mean?\nEach principal component is a weighted blend of the original features. The loadings below tell us what each axis represents.\n\n\n\n\n\n\n\n\n\nPC1\nPC2\n\n\n\n\nprice_usd\n0.608\n0.227\n\n\nodometer_value\n-0.491\n0.383\n\n\nyear_produced\n0.607\n-0.130\n\n\nengine_capacity\n0.146\n0.886\n\n\n\n\n\n\n\nThe first component tends to contrast newer, pricier cars against older, high-mileage ones, forming a broad value axis, while the second component picks up variation driven more by engine size."
-  },
-  {
-    "objectID": "ML_MODELS/DimensionalityReduction.html#takeaway",
-    "href": "ML_MODELS/DimensionalityReduction.html#takeaway",
-    "title": "Dimensionality Reduction with PCA",
-    "section": "Takeaway",
-    "text": "Takeaway\nPCA turns a four-dimensional dataset into a single readable picture, retaining about 81% of the information in just two components. Plotting cars on that map, colored by their K-Means cluster, confirms visually that the segments from my Clustering analysis are real and well-separated. This closes the unsupervised-learning arc: clustering finds the groups, and PCA lets us see them. The workflow shown here, standardize the data, fit PCA, inspect explained variance and loadings, then visualize, is the standard way to explore and communicate high-dimensional data."
-  },
-  {
-    "objectID": "ML_MODELS/BinaryClassification.html",
-    "href": "ML_MODELS/BinaryClassification.html",
-    "title": "Predicting Smokers with Binary Classification",
-    "section": "",
-    "text": "Binary classification predicts a yes or no outcome. Here we tackle a behavioral question from the Young People Survey, a questionnaire of about 1,000 young adults on their habits, personalities, and lifestyles: can we tell a current smoker apart from someone who has never smoked, using only their demographics, lifestyle, and personality scores?\nTo keep the contrast clean, we focus on the two clear ends of the spectrum, current smokers versus people who never smoked, and set aside the ambiguous middle groups who tried smoking or used to smoke. This is the machine-learning sibling of my Logistic Regression analysis, but with many mixed-type predictors and a full preprocessing pipeline."
-  },
-  {
-    "objectID": "ML_MODELS/BinaryClassification.html#background",
-    "href": "ML_MODELS/BinaryClassification.html#background",
-    "title": "Predicting Smokers with Binary Classification",
-    "section": "",
-    "text": "Binary classification predicts a yes or no outcome. Here we tackle a behavioral question from the Young People Survey, a questionnaire of about 1,000 young adults on their habits, personalities, and lifestyles: can we tell a current smoker apart from someone who has never smoked, using only their demographics, lifestyle, and personality scores?\nTo keep the contrast clean, we focus on the two clear ends of the spectrum, current smokers versus people who never smoked, and set aside the ambiguous middle groups who tried smoking or used to smoke. This is the machine-learning sibling of my Logistic Regression analysis, but with many mixed-type predictors and a full preprocessing pipeline."
-  },
-  {
-    "objectID": "ML_MODELS/BinaryClassification.html#preparing-the-data",
-    "href": "ML_MODELS/BinaryClassification.html#preparing-the-data",
-    "title": "Predicting Smokers with Binary Classification",
-    "section": "Preparing the Data",
-    "text": "Preparing the Data\nWe label current smokers as 1, never-smokers as 0, and assemble a mix of numeric features such as age, weight, and personality scores along with categorical ones such as gender, alcohol use, and education.\n\n\nCode\ndf = df.dropna(subset=[\"Smoking\"])\ndf = df[df[\"Smoking\"].isin([\"current smoker\", \"never smoked\"])].copy()\ndf[\"target\"] = (df[\"Smoking\"] == \"current smoker\").astype(int)\n\nnumeric = [\"Age\", \"Height\", \"Weight\", \"Number_of_siblings\", \"Fear_score\",\n           \"Religiosity_score\", \"Music_diversity_score\", \"Happiness_score\"]\ncategorical = [\"Gender\", \"Education\", \"Only_child\", \"Alcohol\",\n               \"I_live_a_healthy_lifestyle\", \"Punctuality\", \"Lying\"]\n\nX, y = df[numeric + categorical], df[\"target\"]\nprint(f\"Current smokers: {(y==1).sum()}   Never smoked: {(y==0).sum()}\")\n\n\nCurrent smokers: 189   Never smoked: 208\n\n\nThe two classes are nicely balanced, so accuracy will be a meaningful metric because no single class dominates."
-  },
-  {
-    "objectID": "ML_MODELS/BinaryClassification.html#building-a-preprocessing-pipeline",
-    "href": "ML_MODELS/BinaryClassification.html#building-a-preprocessing-pipeline",
-    "title": "Predicting Smokers with Binary Classification",
-    "section": "Building a Preprocessing Pipeline",
-    "text": "Building a Preprocessing Pipeline\nReal survey data mixes numbers and text and has gaps. A scikit-learn pipeline with a column transformer handles all of it in one object: numeric features are median-imputed and standardized, while categorical features are mode-imputed and one-hot encoded. Bundling preprocessing with the model prevents information from leaking between the train and test sets.\n\n\nCode\npreprocess = ColumnTransformer([\n    (\"num\", Pipeline([(\"impute\", SimpleImputer(strategy=\"median\")),\n                      (\"scale\", StandardScaler())]), numeric),\n    (\"cat\", Pipeline([(\"impute\", SimpleImputer(strategy=\"most_frequent\")),\n                      (\"onehot\", OneHotEncoder(handle_unknown=\"ignore\"))]), categorical),\n])\n\nX_train, X_test, y_train, y_test = train_test_split(\n    X, y, test_size=0.25, random_state=42, stratify=y)"
-  },
-  {
-    "objectID": "ML_MODELS/BinaryClassification.html#training-and-comparing-models",
-    "href": "ML_MODELS/BinaryClassification.html#training-and-comparing-models",
-    "title": "Predicting Smokers with Binary Classification",
-    "section": "Training and Comparing Models",
-    "text": "Training and Comparing Models\nWe compare a logistic regression against a random forest, both wrapped in the same preprocessing pipeline and both class-balanced.\n\n\nCode\nmodels = {\n    \"Logistic Regression\": LogisticRegression(max_iter=1000, class_weight=\"balanced\"),\n    \"Random Forest\": RandomForestClassifier(n_estimators=300, random_state=42,\n                                            n_jobs=1, class_weight=\"balanced\"),\n}\n\nrows, fitted = [], {}\nfor name, clf in models.items():\n    pipe = Pipeline([(\"prep\", preprocess), (\"clf\", clf)]).fit(X_train, y_train)\n    fitted[name] = pipe\n    proba = pipe.predict_proba(X_test)[:, 1]\n    rows.append({\"Model\": name,\n                 \"Accuracy\": round(accuracy_score(y_test, pipe.predict(X_test)), 3),\n                 \"ROC-AUC\": round(roc_auc_score(y_test, proba), 3)})\npd.DataFrame(rows)\n\n\n\n\n\n\n\n\n\nModel\nAccuracy\nROC-AUC\n\n\n\n\n0\nLogistic Regression\n0.63\n0.702\n\n\n1\nRandom Forest\n0.66\n0.722\n\n\n\n\n\n\n\nBoth models land around 66% accuracy with a ROC-AUC near 0.72, clearly better than a coin flip. AUC, the probability the model ranks a random smoker above a random non-smoker, is the fairer headline here because it does not depend on a specific threshold."
-  },
-  {
-    "objectID": "ML_MODELS/BinaryClassification.html#the-roc-curve",
-    "href": "ML_MODELS/BinaryClassification.html#the-roc-curve",
-    "title": "Predicting Smokers with Binary Classification",
-    "section": "The ROC Curve",
-    "text": "The ROC Curve"
-  },
-  {
-    "objectID": "ML_MODELS/BinaryClassification.html#confusion-matrix-and-report",
-    "href": "ML_MODELS/BinaryClassification.html#confusion-matrix-and-report",
-    "title": "Predicting Smokers with Binary Classification",
-    "section": "Confusion Matrix and Report",
-    "text": "Confusion Matrix and Report\n\n\n\n\n\n\n\n\n\n\n\n                precision    recall  f1-score   support\n\n  Never smoked       0.66      0.73      0.69        52\nCurrent smoker       0.67      0.58      0.62        48\n\n      accuracy                           0.66       100\n     macro avg       0.66      0.66      0.66       100\n  weighted avg       0.66      0.66      0.66       100"
-  },
-  {
-    "objectID": "ML_MODELS/BinaryClassification.html#which-features-matter-most",
-    "href": "ML_MODELS/BinaryClassification.html#which-features-matter-most",
-    "title": "Predicting Smokers with Binary Classification",
-    "section": "Which Features Matter Most?",
-    "text": "Which Features Matter Most?\nReading importances back through the pipeline shows which survey answers most separate smokers from non-smokers.\n\n\n\n\n\n\n\n\n\nAlcohol consumption typically rises to the top, which is unsurprising since drinking habits track closely with smoking, alongside personality and lifestyle measures."
-  },
-  {
-    "objectID": "ML_MODELS/BinaryClassification.html#takeaway",
-    "href": "ML_MODELS/BinaryClassification.html#takeaway",
-    "title": "Predicting Smokers with Binary Classification",
-    "section": "Takeaway",
-    "text": "Takeaway\nLifestyle and personality carry a real but imperfect signal about smoking. The models distinguish current smokers from never-smokers with about 66% accuracy and an AUC near 0.72, well above chance but far from certain. Notably, the flexible random forest barely edges out simple logistic regression, a useful reminder that a more complex model is not automatically better. This page demonstrates the full binary-classification workflow on messy, mixed-type survey data: a column-transformer pipeline for preprocessing, stratified train/test splitting, class balancing, and threshold-independent evaluation with ROC-AUC."
-  },
-  {
-    "objectID": "ML_MODELS/BinaryClassification.html#creditreferences",
-    "href": "ML_MODELS/BinaryClassification.html#creditreferences",
-    "title": "Predicting Smokers with Binary Classification",
+    "objectID": "SQL/ConsultingDatabase.html#creditreferences",
+    "href": "SQL/ConsultingDatabase.html#creditreferences",
+    "title": "Designing a Consulting Firm Database",
     "section": "Credit/References",
-    "text": "Credit/References\nThis analysis extends my binary Logistic Regression to a multi-feature machine-learning setting and used mild AI assistance for plotting. Data is the Young People Survey from Kaggle.\nYoung People Survey on Kaggle"
+    "text": "Credit/References\nThe schema was designed and forward engineered in MySQL Workbench, and the database was built and queried in MySQL 8. Sample data is fictional."
   },
   {
-    "objectID": "index_cnn.html",
-    "href": "index_cnn.html",
-    "title": "Car Crash Detector - Neural Network",
+    "objectID": "Projects/Model.html",
+    "href": "Projects/Model.html",
+    "title": "Insurance Claims Prediction Model",
     "section": "",
-    "text": "Upload a photo of a car, and our neural network will analyze it with a heatmap showing which areas influenced the decision.\nNote: Please upload JPG or PNG images only.\n\n  \n    \n    Analyze Car\n  \n  \n  \n    \n    \n  \n  \n  \n  \n  \n    \n    \n      The heatmap shows which regions the neural network focused on when making its decision.\n      Red/yellow areas had the most influence on the prediction."
+    "text": "precision  recall  f1-score  support\n0                  0.94    0.99      0.96  10969.0\n1                  0.07    0.01      0.01    750.0\naccuracy           0.93     NaN       NaN  11719.0\nmacro avg          0.50    0.50      0.49  11719.0\nweighted avg       0.88    0.93      0.90  11719.0"
   },
   {
-    "objectID": "index_cnn.html#ai-powered-car-crash-detection",
-    "href": "index_cnn.html#ai-powered-car-crash-detection",
-    "title": "Car Crash Detector - Neural Network",
+    "objectID": "ML_MODELS/MulticlassClassification.html",
+    "href": "ML_MODELS/MulticlassClassification.html",
+    "title": "Predicting Body Type with Multiclass Classification",
     "section": "",
-    "text": "Upload a photo of a car, and our neural network will analyze it with a heatmap showing which areas influenced the decision.\nNote: Please upload JPG or PNG images only.\n\n  \n    \n    Analyze Car\n  \n  \n  \n    \n    \n  \n  \n  \n  \n  \n    \n    \n      The heatmap shows which regions the neural network focused on when making its decision.\n      Red/yellow areas had the most influence on the prediction."
+    "text": "Multiclass classification predicts which of several categories an item belongs to. Here the target has five possible values: can we guess a car’s body type, whether sedan, SUV, hatchback, minivan, or universal, from its numeric attributes like price, year, mileage, and engine capacity? This is a genuinely hard problem, since many body types overlap heavily in price and size, so it is a realistic test of how much signal these numbers really carry.\nWe use a random forest classifier, which naturally handles multiple classes."
+  },
+  {
+    "objectID": "ML_MODELS/MulticlassClassification.html#background",
+    "href": "ML_MODELS/MulticlassClassification.html#background",
+    "title": "Predicting Body Type with Multiclass Classification",
+    "section": "",
+    "text": "Multiclass classification predicts which of several categories an item belongs to. Here the target has five possible values: can we guess a car’s body type, whether sedan, SUV, hatchback, minivan, or universal, from its numeric attributes like price, year, mileage, and engine capacity? This is a genuinely hard problem, since many body types overlap heavily in price and size, so it is a realistic test of how much signal these numbers really carry.\nWe use a random forest classifier, which naturally handles multiple classes."
+  },
+  {
+    "objectID": "ML_MODELS/MulticlassClassification.html#preparing-the-data",
+    "href": "ML_MODELS/MulticlassClassification.html#preparing-the-data",
+    "title": "Predicting Body Type with Multiclass Classification",
+    "section": "Preparing the Data",
+    "text": "Preparing the Data\nWe keep the five most common body types, drop missing values, and split 80/20 with stratification so each body type appears in the same proportion in the training and test sets.\n\n\nCode\ntop = [\"sedan\", \"suv\", \"hatchback\", \"minivan\", \"universal\"]\nfeatures = [\"year_produced\", \"odometer_value\", \"engine_capacity\", \"price_usd\"]\n\ndf = cars[cars[\"body_type\"].isin(top)].dropna(subset=features)\ndf = df[df[\"price_usd\"] &lt; 50000]\n\nX, y = df[features], df[\"body_type\"]\nX_train, X_test, y_train, y_test = train_test_split(\n    X, y, test_size=0.2, random_state=42, stratify=y)\nprint(y.value_counts())\n\n\nbody_type\nsedan        13011\nhatchback     7636\nuniversal     5507\nsuv           5163\nminivan       3608\nName: count, dtype: int64\n\n\nThe classes are imbalanced, with sedans dominating, so we set class balancing to stop the model from simply always guessing the majority class.\n\n\nCode\nclf = RandomForestClassifier(n_estimators=200, random_state=42,\n                             n_jobs=1, class_weight=\"balanced\")\nclf.fit(X_train, y_train)\npred = clf.predict(X_test)\nprint(f\"Test accuracy: {accuracy_score(y_test, pred):.3f}\")\n\n\nTest accuracy: 0.501"
+  },
+  {
+    "objectID": "ML_MODELS/MulticlassClassification.html#evaluation",
+    "href": "ML_MODELS/MulticlassClassification.html#evaluation",
+    "title": "Predicting Body Type with Multiclass Classification",
+    "section": "Evaluation",
+    "text": "Evaluation\nAccuracy lands around 0.50. That may sound low, but with five classes and heavy overlap it is meaningfully better than the naive baseline of always guessing sedan. The confusion matrix shows where the model succeeds and struggles.\n\n\n\n\n\n\n\n\n\n\n\n              precision    recall  f1-score   support\n\n   hatchback       0.51      0.52      0.52      1527\n     minivan       0.33      0.27      0.29       722\n       sedan       0.54      0.61      0.57      2602\n         suv       0.58      0.61      0.60      1033\n   universal       0.35      0.27      0.31      1101\n\n    accuracy                           0.50      6985\n   macro avg       0.46      0.46      0.46      6985\nweighted avg       0.49      0.50      0.49      6985\n\n\n\nThe per-class report reveals that distinctive body types like minivans, with their large size, are recognized more reliably, while sedans and universals, which overlap in price and dimensions, are frequently confused for one another."
+  },
+  {
+    "objectID": "ML_MODELS/MulticlassClassification.html#which-features-matter-most",
+    "href": "ML_MODELS/MulticlassClassification.html#which-features-matter-most",
+    "title": "Predicting Body Type with Multiclass Classification",
+    "section": "Which Features Matter Most?",
+    "text": "Which Features Matter Most?"
+  },
+  {
+    "objectID": "ML_MODELS/MulticlassClassification.html#takeaway",
+    "href": "ML_MODELS/MulticlassClassification.html#takeaway",
+    "title": "Predicting Body Type with Multiclass Classification",
+    "section": "Takeaway",
+    "text": "Takeaway\nPredicting body type from price, year, mileage, and engine size is only partly possible, at about 50% accuracy across five overlapping classes. The honest conclusion is that these numeric features carry real but limited signal: body types with distinctive size or price stand out, while similar ones blur together. A richer feature set with drivetrain, dimensions, and seat count would be needed to do much better. This page demonstrates the multiclass workflow end to end: stratified splitting, class balancing, and reading a confusion matrix and per-class precision and recall."
+  },
+  {
+    "objectID": "ML_MODELS/Clustering.html",
+    "href": "ML_MODELS/Clustering.html",
+    "title": "Finding Natural Car Segments with Clustering",
+    "section": "",
+    "text": "Everything so far has been supervised, meaning we had a known answer like price or body type to predict. Clustering is unsupervised: there is no target, and the algorithm groups cars purely by how similar their features are. Using K-Means on the Belarus 2019 dataset, we ask whether used cars naturally fall into a handful of market segments based on price, mileage, age, and engine size, without ever telling the model what those segments should be."
+  },
+  {
+    "objectID": "ML_MODELS/Clustering.html#background",
+    "href": "ML_MODELS/Clustering.html#background",
+    "title": "Finding Natural Car Segments with Clustering",
+    "section": "",
+    "text": "Everything so far has been supervised, meaning we had a known answer like price or body type to predict. Clustering is unsupervised: there is no target, and the algorithm groups cars purely by how similar their features are. Using K-Means on the Belarus 2019 dataset, we ask whether used cars naturally fall into a handful of market segments based on price, mileage, age, and engine size, without ever telling the model what those segments should be."
+  },
+  {
+    "objectID": "ML_MODELS/Clustering.html#preparing-the-data",
+    "href": "ML_MODELS/Clustering.html#preparing-the-data",
+    "title": "Finding Natural Car Segments with Clustering",
+    "section": "Preparing the Data",
+    "text": "Preparing the Data\nWe select four numeric features, drop missing values, and take a random sample to keep the plots readable. Because K-Means measures distance, we standardize every feature to a common scale so that large-numbered features like odometer do not dominate.\n\n\nCode\nfeats = [\"price_usd\", \"odometer_value\", \"year_produced\", \"engine_capacity\"]\ndf = cars.dropna(subset=feats)\ndf = df[df[\"price_usd\"] &lt; 50000].sample(5000, random_state=42).reset_index(drop=True)\n\nX = StandardScaler().fit_transform(df[feats])\nprint(f\"Clustering {X.shape[0]:,} cars on {X.shape[1]} standardized features\")\n\n\nClustering 5,000 cars on 4 standardized features"
+  },
+  {
+    "objectID": "ML_MODELS/Clustering.html#choosing-the-number-of-clusters",
+    "href": "ML_MODELS/Clustering.html#choosing-the-number-of-clusters",
+    "title": "Finding Natural Car Segments with Clustering",
+    "section": "Choosing the Number of Clusters",
+    "text": "Choosing the Number of Clusters\nK-Means needs us to pick k, the number of clusters. Two standard tools guide the choice: the elbow method, which looks for where adding clusters stops sharply reducing within-cluster spread, and the silhouette score, which measures how cleanly separated the clusters are, where higher is better.\n\n\n\n\n\n\n\n\n\nThe curves point to four clusters as a reasonable, well-separated choice. We fit the final model there.\n\n\nCode\nkm = KMeans(n_clusters=4, random_state=42, n_init=10).fit(X)\ndf[\"cluster\"] = km.labels_\nprint(f\"Silhouette score at k=4: {silhouette_score(X, km.labels_):.3f}\")\n\n\nSilhouette score at k=4: 0.346"
+  },
+  {
+    "objectID": "ML_MODELS/Clustering.html#profiling-the-segments",
+    "href": "ML_MODELS/Clustering.html#profiling-the-segments",
+    "title": "Finding Natural Car Segments with Clustering",
+    "section": "Profiling the Segments",
+    "text": "Profiling the Segments\nAveraging the original, unscaled features within each cluster reveals what each segment represents.\n\n\n\n\n\n\n\n\n\nprice_usd\nodometer_value\nyear_produced\nengine_capacity\ncount\n\n\ncluster\n\n\n\n\n\n\n\n\n\n0\n8095.0\n162689.0\n2009.0\n2.0\n1634\n\n\n1\n10858.0\n246694.0\n2005.0\n4.0\n483\n\n\n2\n23771.0\n90370.0\n2015.0\n2.0\n328\n\n\n3\n2694.0\n323200.0\n1997.0\n2.0\n2555\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\nThe clusters separate into intuitive market segments, for example newer and pricier cars versus older high-mileage budget cars, even though the algorithm was never told about price tiers or age."
+  },
+  {
+    "objectID": "ML_MODELS/Clustering.html#takeaway",
+    "href": "ML_MODELS/Clustering.html#takeaway",
+    "title": "Finding Natural Car Segments with Clustering",
+    "section": "Takeaway",
+    "text": "Takeaway\nLeft to find structure on its own, K-Means recovers sensible used-car segments from just four standardized features, with a silhouette score around 0.35 indicating moderate, real separation. The value of unsupervised learning is exactly this: it surfaces natural groupings like budget commuters, newer premium cars, and high-mileage older vehicles that a dealer could use for inventory or pricing strategy, with no labels required. This page demonstrates the clustering workflow: standardizing features, choosing the number of clusters with the elbow and silhouette methods, and profiling the resulting segments."
+  },
+  {
+    "objectID": "mcm_2024_problem_a.html",
+    "href": "mcm_2024_problem_a.html",
+    "title": "2024 MCM Problem A — Resource Availability and Sex Ratios",
+    "section": "",
+    "text": "\\[1+1\\]\n@tovar"
+  },
+  {
+    "objectID": "index.html",
+    "href": "index.html",
+    "title": "Wrecked Car Detector",
+    "section": "",
+    "text": "Upload or take a photo of a car, and our AI will analyze whether it’s damaged using advanced machine learning and explainable AI techniques.\n\n  \n\n  \n    \n      \n      Accepts JPG and PNG formats\n      \n      \n        🔍\n        Analyze Car\n      \n    \n  \n  \n  \n    \n    \n      \n    \n  \n  \n  \n  \n  \n    \n    Red boundaries highlight the regions that most influenced the AI's decision"
+  },
+  {
+    "objectID": "index.html#ml-powered-wrecked-car-detector",
+    "href": "index.html#ml-powered-wrecked-car-detector",
+    "title": "Wrecked Car Detector",
+    "section": "",
+    "text": "Upload or take a photo of a car, and our AI will analyze whether it’s damaged using advanced machine learning and explainable AI techniques.\n\n  \n\n  \n    \n      \n      Accepts JPG and PNG formats\n      \n      \n        🔍\n        Analyze Car\n      \n    \n  \n  \n  \n    \n    \n      \n    \n  \n  \n  \n  \n  \n    \n    Red boundaries highlight the regions that most influenced the AI's decision"
+  },
+  {
+    "objectID": "index.html#how-this-project-was-built",
+    "href": "index.html#how-this-project-was-built",
+    "title": "Wrecked Car Detector",
+    "section": "🚗 How This Project Was Built",
+    "text": "🚗 How This Project Was Built\nThis car crash detector was built using a modern tech stack combining machine learning, explainable AI, and cloud infrastructure:\n\nSystem Architecture & Workflow\n\nFrontend & Hosting:\n\nBuilt with Quarto - a scientific publishing system that converts Markdown to beautiful HTML\nHosted on AWS Amplify with automatic deployments from GitHub\nResponsive design for desktop and mobile viewing\n\nMachine Learning Pipeline:\n\nPyTorch transfer learning: a ResNet backbone pretrained on ImageNet, fine-tuned to classify vehicle damage\n94.6% accuracy on a held-out test set of 734 images, with a 0.99 ROC-AUC\nBuilt with the timm library, the standard toolkit for pretrained vision models\nTrained on the published Pashaei, Ghatee, and Sajedi accident dataset (about 4,900 images)\n\nExplainability Layer:\n\nGrad-CAM reads the network’s own gradients to highlight the regions that drove each decision\nWarm colors mark the areas the model weighed most heavily\nShows what the network was “looking at” when it made a prediction\n\nAI Analysis:\n\nClaude API (Anthropic) analyzes the Grad-CAM heatmap\nProvides a human-readable read of the model’s reasoning\nRate-limited per day so the demo cannot run up a surprise bill\n\nBackend Infrastructure:\n\nFastAPI service (typed requests, automatic API docs) deployed on Google Cloud Run\nScales to zero when idle, so it costs nothing to keep online, and is capped so a traffic spike cannot fan out\nHandles preprocessing, prediction, and Grad-CAM generation in one request\n\nComplete workflow: User uploads image → Cloud Run processes → PyTorch model predicts → Grad-CAM explains → Claude analyzes → Results displayed with visual heatmap and AI commentary."
   },
   {
     "objectID": "Blogs/Three.html#three-entrepreneurs-that-i-learned-from-and-why-that-changes-me",
@@ -1631,122 +1589,248 @@
     "text": "The Path to True Productivity\nI’d tell someone on their journey to entrepreneurship: don’t confuse motion with direction. From the Productivity Pyramid, I learned that busy is not the same as productive, and that the things you do daily have to come from your governing principles or they mean nothing. Create your own constitution. Know who you are before the market tells you who to be.\nEmbracing the Journey And the one thing you should take away from Randy Pausch and the Hero’s Journey speaker alike: the real fear is not failure; it’s coming to sixty and knowing that you never truly did what you were supposed to do. Brick walls are structures that test your desire. The question is never if obstacles will come; the question is whether what you’re chasing is worth going through them. Begin. Don’t lie. Serve others. Never, ever mistake a good life for a merely comfortable one."
   },
   {
-    "objectID": "index.html",
-    "href": "index.html",
-    "title": "Wrecked Car Detector",
+    "objectID": "DASHBOARDS/OlympicsDashboard.html",
+    "href": "DASHBOARDS/OlympicsDashboard.html",
+    "title": "120 Years of the Olympics",
     "section": "",
-    "text": "Upload or take a photo of a car, and our AI will analyze whether it’s damaged using advanced machine learning and explainable AI techniques.\n\n  \n    \n      \n      Accepts JPG and PNG formats\n      \n      \n        🔍\n        Analyze Car\n      \n    \n  \n  \n  \n    \n    \n      \n    \n  \n  \n  \n  \n  \n    \n    Red boundaries highlight the regions that most influenced the AI's decision"
+    "text": "Season\n    \n       Summer\n       Winter\n       Both\n    \n  \n  \n    From\n    \n    1896\n  \n  \n    To\n    \n    2016\n  \n  \n    Countries (ctrl-click for several)"
   },
   {
-    "objectID": "index.html#ml-powered-wrecked-car-detector",
-    "href": "index.html#ml-powered-wrecked-car-detector",
-    "title": "Wrecked Car Detector",
+    "objectID": "DASHBOARDS/OlympicsDashboard.html#how-this-page-works",
+    "href": "DASHBOARDS/OlympicsDashboard.html#how-this-page-works",
+    "title": "120 Years of the Olympics",
+    "section": "How this page works",
+    "text": "How this page works\nThe Olympic history file has 271,116 rows and is 36 MB, which is far too large to send to a browser. A Python step reads it when the site is built and reduces it to three small tables: medals by country and Games, participation by Games, and average athlete build by sport and decade. Those tables total about 270 KB and are embedded directly in this page, so every filter above runs locally with nothing to fetch and no server involved.\nOne counting decision is worth stating plainly. This dataset records a medal once per athlete, so a basketball gold appears twelve times. Counting rows would badly overstate team sports, so the page counts distinct events instead. The United States took 121 medals at Rio 2016 by that measure, shared among 264 athletes.\nThe charts are drawn with Observable Plot, and both it and D3 are stored alongside this page rather than loaded from a content delivery network. The whole dashboard is a static file. It costs nothing to host and has no dependency that can disappear."
+  },
+  {
+    "objectID": "index_cnn.html",
+    "href": "index_cnn.html",
+    "title": "Car Crash Detector - Neural Network",
     "section": "",
-    "text": "Upload or take a photo of a car, and our AI will analyze whether it’s damaged using advanced machine learning and explainable AI techniques.\n\n  \n    \n      \n      Accepts JPG and PNG formats\n      \n      \n        🔍\n        Analyze Car\n      \n    \n  \n  \n  \n    \n    \n      \n    \n  \n  \n  \n  \n  \n    \n    Red boundaries highlight the regions that most influenced the AI's decision"
+    "text": "Upload a photo of a car, and our neural network will analyze it with a heatmap showing which areas influenced the decision.\nNote: Please upload JPG or PNG images only.\n\n  \n    \n    Analyze Car\n  \n  \n  \n    \n    \n  \n  \n  \n  \n  \n    \n    \n      The heatmap shows which regions the neural network focused on when making its decision.\n      Red/yellow areas had the most influence on the prediction."
   },
   {
-    "objectID": "index.html#how-this-project-was-built",
-    "href": "index.html#how-this-project-was-built",
-    "title": "Wrecked Car Detector",
-    "section": "🚗 How This Project Was Built",
-    "text": "🚗 How This Project Was Built\nThis car crash detector was built using a modern tech stack combining machine learning, explainable AI, and cloud infrastructure:\n\nSystem Architecture & Workflow\n\nFrontend & Hosting:\n\nBuilt with Quarto - a scientific publishing system that converts Markdown to beautiful HTML\nHosted on AWS Amplify with automatic deployments from GitHub\nResponsive design for desktop and mobile viewing\n\nMachine Learning Pipeline:\n\nRandom Forest Classifier trained on 5,000 car images\nAchieves ~85-90% accuracy in detecting vehicle damage\nExtracts 48 features: color histograms, edge gradients, and texture patterns\nModel size: 9.3 MB, inference time: &lt;1 second\n\nExplainability Layer:\n\nLIME (Local Interpretable Model-agnostic Explanations) generates visual explanations\nHighlights image regions that most influenced the AI’s decision\nRed boundaries show what the model was “looking at” when making predictions\n\nAI Analysis:\n\nClaude API (Anthropic) analyzes the LIME visualization\nProvides human-readable explanations of the model’s reasoning\nValidates predictions and identifies potential issues\n\nBackend Infrastructure:\n\nDeployed on Google Cloud Run (serverless container platform)\nHandles image preprocessing, prediction, and LIME generation\nAuto-scales based on demand with 2GB memory, 2 CPU cores\n\nComplete workflow: User uploads image → Cloud Run processes → Random Forest predicts → LIME explains → Claude analyzes → Results displayed with visual heatmap and AI commentary."
-  },
-  {
-    "objectID": "mcm_2024_problem_a.html",
-    "href": "mcm_2024_problem_a.html",
-    "title": "2024 MCM Problem A — Resource Availability and Sex Ratios",
+    "objectID": "index_cnn.html#ai-powered-car-crash-detection",
+    "href": "index_cnn.html#ai-powered-car-crash-detection",
+    "title": "Car Crash Detector - Neural Network",
     "section": "",
-    "text": "\\[1+1\\]\n@tovar"
+    "text": "Upload a photo of a car, and our neural network will analyze it with a heatmap showing which areas influenced the decision.\nNote: Please upload JPG or PNG images only.\n\n  \n    \n    Analyze Car\n  \n  \n  \n    \n    \n  \n  \n  \n  \n  \n    \n    \n      The heatmap shows which regions the neural network focused on when making its decision.\n      Red/yellow areas had the most influence on the prediction."
   },
   {
-    "objectID": "ML_MODELS/Clustering.html",
-    "href": "ML_MODELS/Clustering.html",
-    "title": "Finding Natural Car Segments with Clustering",
+    "objectID": "ML_MODELS/BinaryClassification.html",
+    "href": "ML_MODELS/BinaryClassification.html",
+    "title": "Predicting Smokers with Binary Classification",
     "section": "",
-    "text": "Everything so far has been supervised, meaning we had a known answer like price or body type to predict. Clustering is unsupervised: there is no target, and the algorithm groups cars purely by how similar their features are. Using K-Means on the Belarus 2019 dataset, we ask whether used cars naturally fall into a handful of market segments based on price, mileage, age, and engine size, without ever telling the model what those segments should be."
+    "text": "Binary classification predicts a yes or no outcome. Here we tackle a behavioral question from the Young People Survey, a questionnaire of about 1,000 young adults on their habits, personalities, and lifestyles: can we tell a current smoker apart from someone who has never smoked, using only their demographics, lifestyle, and personality scores?\nTo keep the contrast clean, we focus on the two clear ends of the spectrum, current smokers versus people who never smoked, and set aside the ambiguous middle groups who tried smoking or used to smoke. This is the machine-learning sibling of my Logistic Regression analysis, but with many mixed-type predictors and a full preprocessing pipeline."
   },
   {
-    "objectID": "ML_MODELS/Clustering.html#background",
-    "href": "ML_MODELS/Clustering.html#background",
-    "title": "Finding Natural Car Segments with Clustering",
+    "objectID": "ML_MODELS/BinaryClassification.html#background",
+    "href": "ML_MODELS/BinaryClassification.html#background",
+    "title": "Predicting Smokers with Binary Classification",
     "section": "",
-    "text": "Everything so far has been supervised, meaning we had a known answer like price or body type to predict. Clustering is unsupervised: there is no target, and the algorithm groups cars purely by how similar their features are. Using K-Means on the Belarus 2019 dataset, we ask whether used cars naturally fall into a handful of market segments based on price, mileage, age, and engine size, without ever telling the model what those segments should be."
+    "text": "Binary classification predicts a yes or no outcome. Here we tackle a behavioral question from the Young People Survey, a questionnaire of about 1,000 young adults on their habits, personalities, and lifestyles: can we tell a current smoker apart from someone who has never smoked, using only their demographics, lifestyle, and personality scores?\nTo keep the contrast clean, we focus on the two clear ends of the spectrum, current smokers versus people who never smoked, and set aside the ambiguous middle groups who tried smoking or used to smoke. This is the machine-learning sibling of my Logistic Regression analysis, but with many mixed-type predictors and a full preprocessing pipeline."
   },
   {
-    "objectID": "ML_MODELS/Clustering.html#preparing-the-data",
-    "href": "ML_MODELS/Clustering.html#preparing-the-data",
-    "title": "Finding Natural Car Segments with Clustering",
+    "objectID": "ML_MODELS/BinaryClassification.html#preparing-the-data",
+    "href": "ML_MODELS/BinaryClassification.html#preparing-the-data",
+    "title": "Predicting Smokers with Binary Classification",
     "section": "Preparing the Data",
-    "text": "Preparing the Data\nWe select four numeric features, drop missing values, and take a random sample to keep the plots readable. Because K-Means measures distance, we standardize every feature to a common scale so that large-numbered features like odometer do not dominate.\n\n\nCode\nfeats = [\"price_usd\", \"odometer_value\", \"year_produced\", \"engine_capacity\"]\ndf = cars.dropna(subset=feats)\ndf = df[df[\"price_usd\"] &lt; 50000].sample(5000, random_state=42).reset_index(drop=True)\n\nX = StandardScaler().fit_transform(df[feats])\nprint(f\"Clustering {X.shape[0]:,} cars on {X.shape[1]} standardized features\")\n\n\nClustering 5,000 cars on 4 standardized features"
+    "text": "Preparing the Data\nWe label current smokers as 1, never-smokers as 0, and assemble a mix of numeric features such as age, weight, and personality scores along with categorical ones such as gender, alcohol use, and education.\n\n\nCode\ndf = df.dropna(subset=[\"Smoking\"])\ndf = df[df[\"Smoking\"].isin([\"current smoker\", \"never smoked\"])].copy()\ndf[\"target\"] = (df[\"Smoking\"] == \"current smoker\").astype(int)\n\nnumeric = [\"Age\", \"Height\", \"Weight\", \"Number_of_siblings\", \"Fear_score\",\n           \"Religiosity_score\", \"Music_diversity_score\", \"Happiness_score\"]\ncategorical = [\"Gender\", \"Education\", \"Only_child\", \"Alcohol\",\n               \"I_live_a_healthy_lifestyle\", \"Punctuality\", \"Lying\"]\n\nX, y = df[numeric + categorical], df[\"target\"]\nprint(f\"Current smokers: {(y==1).sum()}   Never smoked: {(y==0).sum()}\")\n\n\nCurrent smokers: 189   Never smoked: 208\n\n\nThe two classes are nicely balanced, so accuracy will be a meaningful metric because no single class dominates."
   },
   {
-    "objectID": "ML_MODELS/Clustering.html#choosing-the-number-of-clusters",
-    "href": "ML_MODELS/Clustering.html#choosing-the-number-of-clusters",
-    "title": "Finding Natural Car Segments with Clustering",
-    "section": "Choosing the Number of Clusters",
-    "text": "Choosing the Number of Clusters\nK-Means needs us to pick k, the number of clusters. Two standard tools guide the choice: the elbow method, which looks for where adding clusters stops sharply reducing within-cluster spread, and the silhouette score, which measures how cleanly separated the clusters are, where higher is better.\n\n\n\n\n\n\n\n\n\nThe curves point to four clusters as a reasonable, well-separated choice. We fit the final model there.\n\n\nCode\nkm = KMeans(n_clusters=4, random_state=42, n_init=10).fit(X)\ndf[\"cluster\"] = km.labels_\nprint(f\"Silhouette score at k=4: {silhouette_score(X, km.labels_):.3f}\")\n\n\nSilhouette score at k=4: 0.346"
+    "objectID": "ML_MODELS/BinaryClassification.html#building-a-preprocessing-pipeline",
+    "href": "ML_MODELS/BinaryClassification.html#building-a-preprocessing-pipeline",
+    "title": "Predicting Smokers with Binary Classification",
+    "section": "Building a Preprocessing Pipeline",
+    "text": "Building a Preprocessing Pipeline\nReal survey data mixes numbers and text and has gaps. A scikit-learn pipeline with a column transformer handles all of it in one object: numeric features are median-imputed and standardized, while categorical features are mode-imputed and one-hot encoded. Bundling preprocessing with the model prevents information from leaking between the train and test sets.\n\n\nCode\npreprocess = ColumnTransformer([\n    (\"num\", Pipeline([(\"impute\", SimpleImputer(strategy=\"median\")),\n                      (\"scale\", StandardScaler())]), numeric),\n    (\"cat\", Pipeline([(\"impute\", SimpleImputer(strategy=\"most_frequent\")),\n                      (\"onehot\", OneHotEncoder(handle_unknown=\"ignore\"))]), categorical),\n])\n\nX_train, X_test, y_train, y_test = train_test_split(\n    X, y, test_size=0.25, random_state=42, stratify=y)"
   },
   {
-    "objectID": "ML_MODELS/Clustering.html#profiling-the-segments",
-    "href": "ML_MODELS/Clustering.html#profiling-the-segments",
-    "title": "Finding Natural Car Segments with Clustering",
-    "section": "Profiling the Segments",
-    "text": "Profiling the Segments\nAveraging the original, unscaled features within each cluster reveals what each segment represents.\n\n\n\n\n\n\n\n\n\nprice_usd\nodometer_value\nyear_produced\nengine_capacity\ncount\n\n\ncluster\n\n\n\n\n\n\n\n\n\n0\n8095.0\n162689.0\n2009.0\n2.0\n1634\n\n\n1\n10858.0\n246694.0\n2005.0\n4.0\n483\n\n\n2\n23771.0\n90370.0\n2015.0\n2.0\n328\n\n\n3\n2694.0\n323200.0\n1997.0\n2.0\n2555\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\nThe clusters separate into intuitive market segments, for example newer and pricier cars versus older high-mileage budget cars, even though the algorithm was never told about price tiers or age."
+    "objectID": "ML_MODELS/BinaryClassification.html#training-and-comparing-models",
+    "href": "ML_MODELS/BinaryClassification.html#training-and-comparing-models",
+    "title": "Predicting Smokers with Binary Classification",
+    "section": "Training and Comparing Models",
+    "text": "Training and Comparing Models\nWe compare a logistic regression against a random forest, both wrapped in the same preprocessing pipeline and both class-balanced.\n\n\nCode\nmodels = {\n    \"Logistic Regression\": LogisticRegression(max_iter=1000, class_weight=\"balanced\"),\n    \"Random Forest\": RandomForestClassifier(n_estimators=300, random_state=42,\n                                            n_jobs=1, class_weight=\"balanced\"),\n}\n\nrows, fitted = [], {}\nfor name, clf in models.items():\n    pipe = Pipeline([(\"prep\", preprocess), (\"clf\", clf)]).fit(X_train, y_train)\n    fitted[name] = pipe\n    proba = pipe.predict_proba(X_test)[:, 1]\n    rows.append({\"Model\": name,\n                 \"Accuracy\": round(accuracy_score(y_test, pipe.predict(X_test)), 3),\n                 \"ROC-AUC\": round(roc_auc_score(y_test, proba), 3)})\npd.DataFrame(rows)\n\n\n\n\n\n\n\n\n\nModel\nAccuracy\nROC-AUC\n\n\n\n\n0\nLogistic Regression\n0.63\n0.702\n\n\n1\nRandom Forest\n0.66\n0.722\n\n\n\n\n\n\n\nBoth models land around 66% accuracy with a ROC-AUC near 0.72, clearly better than a coin flip. AUC, the probability the model ranks a random smoker above a random non-smoker, is the fairer headline here because it does not depend on a specific threshold."
   },
   {
-    "objectID": "ML_MODELS/Clustering.html#takeaway",
-    "href": "ML_MODELS/Clustering.html#takeaway",
-    "title": "Finding Natural Car Segments with Clustering",
-    "section": "Takeaway",
-    "text": "Takeaway\nLeft to find structure on its own, K-Means recovers sensible used-car segments from just four standardized features, with a silhouette score around 0.35 indicating moderate, real separation. The value of unsupervised learning is exactly this: it surfaces natural groupings like budget commuters, newer premium cars, and high-mileage older vehicles that a dealer could use for inventory or pricing strategy, with no labels required. This page demonstrates the clustering workflow: standardizing features, choosing the number of clusters with the elbow and silhouette methods, and profiling the resulting segments."
+    "objectID": "ML_MODELS/BinaryClassification.html#the-roc-curve",
+    "href": "ML_MODELS/BinaryClassification.html#the-roc-curve",
+    "title": "Predicting Smokers with Binary Classification",
+    "section": "The ROC Curve",
+    "text": "The ROC Curve"
   },
   {
-    "objectID": "ML_MODELS/MulticlassClassification.html",
-    "href": "ML_MODELS/MulticlassClassification.html",
-    "title": "Predicting Body Type with Multiclass Classification",
-    "section": "",
-    "text": "Multiclass classification predicts which of several categories an item belongs to. Here the target has five possible values: can we guess a car’s body type, whether sedan, SUV, hatchback, minivan, or universal, from its numeric attributes like price, year, mileage, and engine capacity? This is a genuinely hard problem, since many body types overlap heavily in price and size, so it is a realistic test of how much signal these numbers really carry.\nWe use a random forest classifier, which naturally handles multiple classes."
+    "objectID": "ML_MODELS/BinaryClassification.html#confusion-matrix-and-report",
+    "href": "ML_MODELS/BinaryClassification.html#confusion-matrix-and-report",
+    "title": "Predicting Smokers with Binary Classification",
+    "section": "Confusion Matrix and Report",
+    "text": "Confusion Matrix and Report\n\n\n\n\n\n\n\n\n\n\n\n                precision    recall  f1-score   support\n\n  Never smoked       0.66      0.73      0.69        52\nCurrent smoker       0.67      0.58      0.62        48\n\n      accuracy                           0.66       100\n     macro avg       0.66      0.66      0.66       100\n  weighted avg       0.66      0.66      0.66       100"
   },
   {
-    "objectID": "ML_MODELS/MulticlassClassification.html#background",
-    "href": "ML_MODELS/MulticlassClassification.html#background",
-    "title": "Predicting Body Type with Multiclass Classification",
-    "section": "",
-    "text": "Multiclass classification predicts which of several categories an item belongs to. Here the target has five possible values: can we guess a car’s body type, whether sedan, SUV, hatchback, minivan, or universal, from its numeric attributes like price, year, mileage, and engine capacity? This is a genuinely hard problem, since many body types overlap heavily in price and size, so it is a realistic test of how much signal these numbers really carry.\nWe use a random forest classifier, which naturally handles multiple classes."
-  },
-  {
-    "objectID": "ML_MODELS/MulticlassClassification.html#preparing-the-data",
-    "href": "ML_MODELS/MulticlassClassification.html#preparing-the-data",
-    "title": "Predicting Body Type with Multiclass Classification",
-    "section": "Preparing the Data",
-    "text": "Preparing the Data\nWe keep the five most common body types, drop missing values, and split 80/20 with stratification so each body type appears in the same proportion in the training and test sets.\n\n\nCode\ntop = [\"sedan\", \"suv\", \"hatchback\", \"minivan\", \"universal\"]\nfeatures = [\"year_produced\", \"odometer_value\", \"engine_capacity\", \"price_usd\"]\n\ndf = cars[cars[\"body_type\"].isin(top)].dropna(subset=features)\ndf = df[df[\"price_usd\"] &lt; 50000]\n\nX, y = df[features], df[\"body_type\"]\nX_train, X_test, y_train, y_test = train_test_split(\n    X, y, test_size=0.2, random_state=42, stratify=y)\nprint(y.value_counts())\n\n\nbody_type\nsedan        13011\nhatchback     7636\nuniversal     5507\nsuv           5163\nminivan       3608\nName: count, dtype: int64\n\n\nThe classes are imbalanced, with sedans dominating, so we set class balancing to stop the model from simply always guessing the majority class.\n\n\nCode\nclf = RandomForestClassifier(n_estimators=200, random_state=42,\n                             n_jobs=1, class_weight=\"balanced\")\nclf.fit(X_train, y_train)\npred = clf.predict(X_test)\nprint(f\"Test accuracy: {accuracy_score(y_test, pred):.3f}\")\n\n\nTest accuracy: 0.501"
-  },
-  {
-    "objectID": "ML_MODELS/MulticlassClassification.html#evaluation",
-    "href": "ML_MODELS/MulticlassClassification.html#evaluation",
-    "title": "Predicting Body Type with Multiclass Classification",
-    "section": "Evaluation",
-    "text": "Evaluation\nAccuracy lands around 0.50. That may sound low, but with five classes and heavy overlap it is meaningfully better than the naive baseline of always guessing sedan. The confusion matrix shows where the model succeeds and struggles.\n\n\n\n\n\n\n\n\n\n\n\n              precision    recall  f1-score   support\n\n   hatchback       0.51      0.52      0.52      1527\n     minivan       0.33      0.27      0.29       722\n       sedan       0.54      0.61      0.57      2602\n         suv       0.58      0.61      0.60      1033\n   universal       0.35      0.27      0.31      1101\n\n    accuracy                           0.50      6985\n   macro avg       0.46      0.46      0.46      6985\nweighted avg       0.49      0.50      0.49      6985\n\n\n\nThe per-class report reveals that distinctive body types like minivans, with their large size, are recognized more reliably, while sedans and universals, which overlap in price and dimensions, are frequently confused for one another."
-  },
-  {
-    "objectID": "ML_MODELS/MulticlassClassification.html#which-features-matter-most",
-    "href": "ML_MODELS/MulticlassClassification.html#which-features-matter-most",
-    "title": "Predicting Body Type with Multiclass Classification",
+    "objectID": "ML_MODELS/BinaryClassification.html#which-features-matter-most",
+    "href": "ML_MODELS/BinaryClassification.html#which-features-matter-most",
+    "title": "Predicting Smokers with Binary Classification",
     "section": "Which Features Matter Most?",
-    "text": "Which Features Matter Most?"
+    "text": "Which Features Matter Most?\nReading importances back through the pipeline shows which survey answers most separate smokers from non-smokers.\n\n\n\n\n\n\n\n\n\nAlcohol consumption typically rises to the top, which is unsurprising since drinking habits track closely with smoking, alongside personality and lifestyle measures."
   },
   {
-    "objectID": "ML_MODELS/MulticlassClassification.html#takeaway",
-    "href": "ML_MODELS/MulticlassClassification.html#takeaway",
-    "title": "Predicting Body Type with Multiclass Classification",
+    "objectID": "ML_MODELS/BinaryClassification.html#takeaway",
+    "href": "ML_MODELS/BinaryClassification.html#takeaway",
+    "title": "Predicting Smokers with Binary Classification",
     "section": "Takeaway",
-    "text": "Takeaway\nPredicting body type from price, year, mileage, and engine size is only partly possible, at about 50% accuracy across five overlapping classes. The honest conclusion is that these numeric features carry real but limited signal: body types with distinctive size or price stand out, while similar ones blur together. A richer feature set with drivetrain, dimensions, and seat count would be needed to do much better. This page demonstrates the multiclass workflow end to end: stratified splitting, class balancing, and reading a confusion matrix and per-class precision and recall."
+    "text": "Takeaway\nLifestyle and personality carry a real but imperfect signal about smoking. The models distinguish current smokers from never-smokers with about 66% accuracy and an AUC near 0.72, well above chance but far from certain. Notably, the flexible random forest barely edges out simple logistic regression, a useful reminder that a more complex model is not automatically better. This page demonstrates the full binary-classification workflow on messy, mixed-type survey data: a column-transformer pipeline for preprocessing, stratified train/test splitting, class balancing, and threshold-independent evaluation with ROC-AUC."
   },
   {
-    "objectID": "Projects/Model.html",
-    "href": "Projects/Model.html",
-    "title": "Insurance Claims Prediction Model",
+    "objectID": "ML_MODELS/BinaryClassification.html#creditreferences",
+    "href": "ML_MODELS/BinaryClassification.html#creditreferences",
+    "title": "Predicting Smokers with Binary Classification",
+    "section": "Credit/References",
+    "text": "Credit/References\nThis analysis extends my binary Logistic Regression to a multi-feature machine-learning setting and used mild AI assistance for plotting. Data is the Young People Survey from Kaggle.\nYoung People Survey on Kaggle"
+  },
+  {
+    "objectID": "ML_MODELS/DimensionalityReduction.html",
+    "href": "ML_MODELS/DimensionalityReduction.html",
+    "title": "Dimensionality Reduction with PCA",
     "section": "",
-    "text": "precision  recall  f1-score  support\n0                  0.94    0.99      0.96  10969.0\n1                  0.07    0.01      0.01    750.0\naccuracy           0.93     NaN       NaN  11719.0\nmacro avg          0.50    0.50      0.49  11719.0\nweighted avg       0.88    0.93      0.90  11719.0"
+    "text": "Dimensionality reduction compresses many features into just a few new ones while keeping as much information as possible. Principal Component Analysis does this by finding the directions along which the data varies most. It is invaluable for visualization, since we can squeeze four car features down to two principal components and plot every car on a flat two-dimensional map. To make the map meaningful, we color each car by the K-Means segment from my Clustering analysis, showing that the discovered groups really do occupy distinct regions."
+  },
+  {
+    "objectID": "ML_MODELS/DimensionalityReduction.html#background",
+    "href": "ML_MODELS/DimensionalityReduction.html#background",
+    "title": "Dimensionality Reduction with PCA",
+    "section": "",
+    "text": "Dimensionality reduction compresses many features into just a few new ones while keeping as much information as possible. Principal Component Analysis does this by finding the directions along which the data varies most. It is invaluable for visualization, since we can squeeze four car features down to two principal components and plot every car on a flat two-dimensional map. To make the map meaningful, we color each car by the K-Means segment from my Clustering analysis, showing that the discovered groups really do occupy distinct regions."
+  },
+  {
+    "objectID": "ML_MODELS/DimensionalityReduction.html#preparing-the-data",
+    "href": "ML_MODELS/DimensionalityReduction.html#preparing-the-data",
+    "title": "Dimensionality Reduction with PCA",
+    "section": "Preparing the Data",
+    "text": "Preparing the Data\nWe take the same four numeric features, standardize them since PCA is scale-sensitive, and reuse K-Means to label four segments.\n\n\nCode\nfeats = [\"price_usd\", \"odometer_value\", \"year_produced\", \"engine_capacity\"]\ndf = cars.dropna(subset=feats)\ndf = df[df[\"price_usd\"] &lt; 50000].sample(5000, random_state=42).reset_index(drop=True)\n\nX = StandardScaler().fit_transform(df[feats])\ndf[\"cluster\"] = KMeans(n_clusters=4, random_state=42, n_init=10).fit_predict(X)"
+  },
+  {
+    "objectID": "ML_MODELS/DimensionalityReduction.html#running-pca",
+    "href": "ML_MODELS/DimensionalityReduction.html#running-pca",
+    "title": "Dimensionality Reduction with PCA",
+    "section": "Running PCA",
+    "text": "Running PCA\nWe reduce the four standardized features to two principal components and check how much of the original variation they retain.\n\n\nCode\npca = PCA(n_components=2)\ncoords = pca.fit_transform(X)\ndf[\"PC1\"], df[\"PC2\"] = coords[:, 0], coords[:, 1]\n\nvar = pca.explained_variance_ratio_\nprint(f\"PC1 explains {var[0]:.1%} of variance\")\nprint(f\"PC2 explains {var[1]:.1%} of variance\")\nprint(f\"Together: {var[:2].sum():.1%}\")\n\n\nPC1 explains 53.2% of variance\nPC2 explains 27.8% of variance\nTogether: 81.0%\n\n\nJust two components capture about 81% of all the information in the four original features, a big compression with little loss."
+  },
+  {
+    "objectID": "ML_MODELS/DimensionalityReduction.html#the-two-dimensional-map",
+    "href": "ML_MODELS/DimensionalityReduction.html#the-two-dimensional-map",
+    "title": "Dimensionality Reduction with PCA",
+    "section": "The Two-Dimensional Map",
+    "text": "The Two-Dimensional Map\n\n\n\n\n\n\n\n\n\nThe K-Means clusters form clean, largely separate territories on the PCA map, which visually confirms that the segments are genuine structure rather than arbitrary cuts."
+  },
+  {
+    "objectID": "ML_MODELS/DimensionalityReduction.html#what-do-the-components-mean",
+    "href": "ML_MODELS/DimensionalityReduction.html#what-do-the-components-mean",
+    "title": "Dimensionality Reduction with PCA",
+    "section": "What Do the Components Mean?",
+    "text": "What Do the Components Mean?\nEach principal component is a weighted blend of the original features. The loadings below tell us what each axis represents.\n\n\n\n\n\n\n\n\n\nPC1\nPC2\n\n\n\n\nprice_usd\n0.608\n0.227\n\n\nodometer_value\n-0.491\n0.383\n\n\nyear_produced\n0.607\n-0.130\n\n\nengine_capacity\n0.146\n0.886\n\n\n\n\n\n\n\nThe first component tends to contrast newer, pricier cars against older, high-mileage ones, forming a broad value axis, while the second component picks up variation driven more by engine size."
+  },
+  {
+    "objectID": "ML_MODELS/DimensionalityReduction.html#takeaway",
+    "href": "ML_MODELS/DimensionalityReduction.html#takeaway",
+    "title": "Dimensionality Reduction with PCA",
+    "section": "Takeaway",
+    "text": "Takeaway\nPCA turns a four-dimensional dataset into a single readable picture, retaining about 81% of the information in just two components. Plotting cars on that map, colored by their K-Means cluster, confirms visually that the segments from my Clustering analysis are real and well-separated. This closes the unsupervised-learning arc: clustering finds the groups, and PCA lets us see them. The workflow shown here, standardize the data, fit PCA, inspect explained variance and loadings, then visualize, is the standard way to explore and communicate high-dimensional data."
+  },
+  {
+    "objectID": "ML_MODELS/Regression.html",
+    "href": "ML_MODELS/Regression.html",
+    "title": "Predicting Car Prices with Regression",
+    "section": "",
+    "text": "The first classic machine-learning task is regression, which means predicting a continuous number. Here we predict a used car’s price from three features in the Belarus 2019 Kaggle dataset: how new it is, how far it has been driven, and its engine capacity. This is the machine-learning cousin of my Multiple Linear Regression analysis, but instead of focusing on p-values and inference, we focus on predictive accuracy on data the model has never seen.\nWe compare two models: a simple, interpretable linear regression and a more flexible random forest."
+  },
+  {
+    "objectID": "ML_MODELS/Regression.html#background",
+    "href": "ML_MODELS/Regression.html#background",
+    "title": "Predicting Car Prices with Regression",
+    "section": "",
+    "text": "The first classic machine-learning task is regression, which means predicting a continuous number. Here we predict a used car’s price from three features in the Belarus 2019 Kaggle dataset: how new it is, how far it has been driven, and its engine capacity. This is the machine-learning cousin of my Multiple Linear Regression analysis, but instead of focusing on p-values and inference, we focus on predictive accuracy on data the model has never seen.\nWe compare two models: a simple, interpretable linear regression and a more flexible random forest."
+  },
+  {
+    "objectID": "ML_MODELS/Regression.html#preparing-the-data",
+    "href": "ML_MODELS/Regression.html#preparing-the-data",
+    "title": "Predicting Car Prices with Regression",
+    "section": "Preparing the Data",
+    "text": "Preparing the Data\nWe drop rows with missing values and cap prices below $50,000 to keep the target realistic, then split the data 80/20 into training and test sets so we can measure performance honestly on held-out cars.\n\n\nCode\nfeatures = [\"year_produced\", \"odometer_value\", \"engine_capacity\"]\ndf = cars.dropna(subset=features + [\"price_usd\"])\ndf = df[df[\"price_usd\"] &lt; 50000]\n\nX, y = df[features], df[\"price_usd\"]\nX_train, X_test, y_train, y_test = train_test_split(\n    X, y, test_size=0.2, random_state=42)\nprint(f\"Training cars: {len(X_train):,}   Test cars: {len(X_test):,}\")\n\n\nTraining cars: 30,815   Test cars: 7,704"
+  },
+  {
+    "objectID": "ML_MODELS/Regression.html#training-and-comparing-models",
+    "href": "ML_MODELS/Regression.html#training-and-comparing-models",
+    "title": "Predicting Car Prices with Regression",
+    "section": "Training and Comparing Models",
+    "text": "Training and Comparing Models\n\n\nCode\nlin = LinearRegression().fit(X_train, y_train)\nrf = RandomForestRegressor(n_estimators=100, random_state=42,\n                           n_jobs=1).fit(X_train, y_train)\n\ndef report(model, name):\n    pred = model.predict(X_test)\n    return {\"Model\": name,\n            \"R2\": round(r2_score(y_test, pred), 3),\n            \"RMSE ($)\": round(mean_squared_error(y_test, pred) ** 0.5, 0)}\n\nresults = pd.DataFrame([report(lin, \"Linear Regression\"),\n                        report(rf, \"Random Forest\")])\nresults\n\n\n\n\n\n\n\n\n\nModel\nR2\nRMSE ($)\n\n\n\n\n0\nLinear Regression\n0.604\n4116.0\n\n\n1\nRandom Forest\n0.817\n2798.0\n\n\n\n\n\n\n\nThe random forest clearly wins. It explains about 82% of the variation in price versus about 60% for linear regression, and its typical error is roughly $2,800 versus $4,100. The linear model assumes price changes at a constant rate, while the forest captures curved, interacting effects such as mileage mattering more on older cars."
+  },
+  {
+    "objectID": "ML_MODELS/Regression.html#how-good-are-the-predictions",
+    "href": "ML_MODELS/Regression.html#how-good-are-the-predictions",
+    "title": "Predicting Car Prices with Regression",
+    "section": "How Good Are the Predictions?",
+    "text": "How Good Are the Predictions?\nThe scatter of predicted versus actual price shows the random forest’s points hugging the diagonal line of perfect prediction fairly tightly."
+  },
+  {
+    "objectID": "ML_MODELS/Regression.html#which-features-matter-most",
+    "href": "ML_MODELS/Regression.html#which-features-matter-most",
+    "title": "Predicting Car Prices with Regression",
+    "section": "Which Features Matter Most?",
+    "text": "Which Features Matter Most?\nRandom forests report how much each feature contributes to the predictions.\n\n\n\n\n\n\n\n\n\nProduction year dominates. How new a car is drives its price more than mileage or engine size, which echoes the strong year effect I found in the statistical Multiple Linear Regression."
+  },
+  {
+    "objectID": "ML_MODELS/Regression.html#takeaway",
+    "href": "ML_MODELS/Regression.html#takeaway",
+    "title": "Predicting Car Prices with Regression",
+    "section": "Takeaway",
+    "text": "Takeaway\nFramed as a prediction problem, used-car price is learnable with real accuracy. A random forest reaches an R-squared of about 0.82 on unseen cars, a big jump over linear regression, and it identifies production year as the single most important driver of price. This page demonstrates the core supervised-regression workflow: a train/test split, fitting multiple models, and comparing them with held-out metrics like R-squared and RMSE."
+  },
+  {
+    "objectID": "Projects/NFL/NFL.html#model-architecture",
+    "href": "Projects/NFL/NFL.html#model-architecture",
+    "title": "NFL Big Data Bowl 2026: Player Position Prediction",
+    "section": "Model Architecture",
+    "text": "Model Architecture\nWe first tried the Random Forest Regression method with two different models: one for X-coordinate prediction and the other for Y-coordinate prediction. We changed from this to a multivariate neural network architecture that jointly predicts both coordinates (e.g., diagonal trajectories where both dimensions change together) following faculty guidance.\nOur last model is a Feedforward Neural Network (Multi-Layer Perceptron) with the architecture:\n\nInput Layer: 9 features\nHidden Layer 1: 256 neurons with ReLU activation, Batch Normalization, and 30% Dropout\nHidden Layer 2: 128 neurons with ReLU, Batch Normalization, 30% Dropout\nHidden Layer 3: 64 neurons with ReLU activation and 20% Dropout\nHidden Layer 4: 32 neurons using ReLU, 20% Dropout\nOutput Layer: 2 neurons (x_pos, y_pos predictions)\n\nThe model features 46,754 trainable parameters and was optimized with an Adam optimizer with a learning rate of 0.001. In order to avoid overfitting and enhance generalization, we applied a few regularization procedures, these include:\n\nDropout regularization (20-30% to the different layers)\nBatch Normalization for training to stabilize\nStandardScaler normalized input features (essentially useful for performance of neural networks)\nEarly stopping with 15-epoch patience to stop training when validation loss flattens out\nLearning rate scheduling (ReduceLROnPlateau) to dynamically update learning rate and vary learning rate as training progresses\nModel checkpointing to save the best-performing model when the validation loss improves\n\nTraining was done in a 512-size batch for up to a maximum of 100 epochs using early stopping to accelerate convergence without overfitting."
+  },
+  {
+    "objectID": "Projects/NFL/NFL.html#performance-evaluation",
+    "href": "Projects/NFL/NFL.html#performance-evaluation",
+    "title": "NFL Big Data Bowl 2026: Player Position Prediction",
+    "section": "Performance Evaluation",
+    "text": "Performance Evaluation\nFor model performance, we used different regression metrics to measure average error as well as model fit quality. Finally, we performed detailed case study analysis after a single play (Game ID: 2023091000, Play ID: 1240) and analyzed prediction accuracy in-depth, in order to trace systematic features in model behaviors."
+  },
+  {
+    "objectID": "Projects/NFL/NFL.html#key-visualizations",
+    "href": "Projects/NFL/NFL.html#key-visualizations",
+    "title": "NFL Big Data Bowl 2026: Player Position Prediction",
+    "section": "Key Visualizations",
+    "text": "Key Visualizations\nCase study analysis provided visualizations which represent individual play based performance of the model:\nPredicted vs Actual X & Y Positions: The visualization overlays real positions of players (blue) on predicted positions (orange) on the background of the football field for each individual.\n\n  \n\n \nPre-Snap and Post-Snap Comparison: A comparison of Pre-Snap and Post-Snap formations (left) with recorded and predicted locations (right) when a match is in progress and shows how players transition from initial positioning to their positions in flight of the ball.\n\n \n\n \nMovement Vectors: It shows player trajectories, where blue arrows show the players’ actual movement and orange dashed arrows represent predicted movement of the players, from pre-snap to post-snap position. The red line is the ball trajectory from line of scrimmage to landing position.\n\n \n\n \nError Heatmap by Position: The players are color-coded according to value of prediction errors with the use of a yellow-orange-red colormap where spatial order of prediction error could be observed along the field.\n\n\n\n \n\n\n\n\n\n\n \n\nTop Numerical Features:\n\nPre-snap X position (262.16) - 70% of total importance\n\nBy far the dominant predictor\nWhere a player starts on the field is the strongest indicator of where they’ll be when the ball is in flight\nPlayers move along predictable paths from pre-snap positions\nDownfield direction (X-axis) is heavily constrained by play design\n\nBall landing X coordinate (149.11) - 39.8% of total importance\n\nSecond-most important feature\nKnowledge of where the ball will land is highly predictive of player positioning\nReflects players’ natural tendency to converge toward ball trajectory\nReceivers track the ball’s flight path; defenders react to it\n\nBall landing Y coordinate (90.03) - 24.1% of total importance\n\nThird-ranked feature\nLateral position of ball landing is significant for position prediction\nLess important than X coordinate\nDefensive formations more predictable along line of scrimmage than across field width\n\nAbsolute yardline number (21.69) - 5.8% of importance\n\nField context matters\nPlayers’ movements differ based on proximity to end zone\nReflects risk-reward calculations and crowd positioning constraints\n\nPre-snap Y position (20.75) - 5.5% of importance\n\nSecondary positional feature\nMuch weaker than pre-snap X (12X less important)\nLateral starting position less predictive than downfield starting position\n\n\n\n\nSecondary Numerical Features:\n\nDirection (5.52) - 1.5% of importance\nSpeed (2.91) - 0.8% of importance\nOrientation (0.89) - 0.2% of importance\nAcceleration (0.76) - 0.2% of importance\n\n\n\nCategorical Features Are Surprisingly Weak (0.5% of Importance)\nDespite encoding player position, team side, and role, these features contributed minimal predictive power:\n\nPositional dummies (CB, WR, FS, SS, ILB, TE, OLB, MLB, RB, DE, S, DT, FB, QB, NT, T, LB)\n\nMean importance: 0.65\nIndividual importance: &lt; 2.0 for all positions\n\nSide dummies (Defense/Offense)\n\nMean importance: 1.37\nMinimal predictive signal\n\nRole dummies (Defensive Coverage/Targeted Receiver)\n\nMean importance: 1.33\nMinimal predictive signal"
+  },
+  {
+    "objectID": "Projects/NFL/NFL.html#problem-type",
+    "href": "Projects/NFL/NFL.html#problem-type",
+    "title": "NFL Big Data Bowl 2026: Player Position Prediction",
+    "section": "1. Problem Type",
+    "text": "1. Problem Type\nI propose a supervised regression problem based on tabular data, which will then be processed further. The target variables player X and Y coordinates are continuous numbers, thus regression model is the best machine learning model. The model is trained on historical labeled data comprising known input features (pre-snap positions, movement attributes, ball trajectory) and output targets (observed position after snap). This enables the neural network to detect intricate non-linear relationships between player starting condition and the state of each player after ball flight.\nThis is especially important considering the fact that the problem is multivariate. Instead of treating X and Y predictions as independent problems, our neural network architectures collaboratively predict both coordinates together. This design choice allows the model to discover diagonal movements contain correlating transformations in both dimensions, describing realistic physics associated with player movements better than two independent univariate models."
+  },
+  {
+    "objectID": "Projects/NFL/NFL.html#model-architecture-choice",
+    "href": "Projects/NFL/NFL.html#model-architecture-choice",
+    "title": "NFL Big Data Bowl 2026: Player Position Prediction",
+    "section": "2. Model Architecture Choice",
+    "text": "2. Model Architecture Choice\nThe decision to use a feedforward neural network instead of the early Random Forest method was motivated by the necessity to model multivariate output. Although Random Forest Regression has good performance on tabular data, it involved training a pair of models: one for X-coordinate prediction and one to predict Y-coordinate features. This method treats the two spatial dimensions as independent problems, ignoring the correlation between them.\nThe output neurons in a neural network architecture can be found in two and, thus, when in space, the model learns joint representations of player movement. For instance, the X and Y coordinates of a receiver running up to the ball from a diagonal parallel changes side by side (or up to an adjacent direction). A neural network has shared hidden layers that can model these interdependencies, learning that some movement patterns involve certain X-Y coordinate combination and will not be captured by individual models.\nNeural networks also outperform in learning non-linear relationships through activation functions and deep layer structures. Player movement in football is highly non-linear-players speed, turn, turn, respond to the movement of the ball in ways that linear models or tree-based approaches may fail to accurately capture. The 4-layer architecture with ReLU activations provide enough representational capabilities that the complex spatial-temporal dynamics can be considered.\nThe regularizations used (dropout, batch normalization, early stopping) enable the model to generalize to unseen plays rather than to memorize training examples despite its complexity. The high validation performance (R² of 0.974 for X and 0.910 for Y) indicates that the model has learned useful patterns and does not overfit to training noise."
+  },
+  {
+    "objectID": "Projects/NFL/NFL.html#model-confidence-metrics",
+    "href": "Projects/NFL/NFL.html#model-confidence-metrics",
+    "title": "NFL Big Data Bowl 2026: Player Position Prediction",
+    "section": "3. Model Confidence Metrics",
+    "text": "3. Model Confidence Metrics\nWe assessed this model (or using its predictive power) by evaluating its dependability and precision through the use of three related scales: MAE, RMSE, and R².\nMean Absolute Error is an intuitive test of average predictive accuracy. Regarding X-position predictions, the MAE is 3.07 yards where the model’s X-coordinate predictions deviate from actual positions in all instances by an average of about 3 yards. For Y-position predictions, the MAE is 3.05 yards. These numbers carry significant weight in a dynamic environment like football plays where the player may make the jump down 10-15 yards or more in every single pass play so 3-yard errors suggest good predictive power. In practical terms, this precision is adequate for many analytical purposes, giving coaches a window into overall position trends and broadcasters the data they need to provide real-time projections of real-time position.\nRoot Mean Squared Error prioritizes larger mistakes over MAE due to the squaring operation, making it especially helpful for determining if the model produces occasional blundering. RMSE = 4.02 yards at X-position and 3.95 yards at Y-position. The small difference between MAE and RMSE (approximately one yard) indicates that the model’s errors are reasonably consistent, no extreme outliers or catastrophic errors in the prediction. If model errors were to occur extensively, we might see a much larger difference between RMSE and MAE.\nR² Score represents the percentage of variance in the target variable explained with a model. The R² of 0.974 (for X-position) means that we have an extremely good model fit and is explaining 97.4% of the variance in player X-coordinates. For Y-position, with an R² of 0.910, 91.0% of the variance is accounted for. The lower Y-position R² still indicates lateral movement (side-to-side across the field) is harder to predict than downfield movement, but still good. That makes intuitive sense, downfield movement is primarily determined by the direction of the ball’s forward drive, while lateral movement involves more complex decisions of route running and individual tendencies in players.\nTo provide further context to the data we provide a case study of one play (Game ID: 2023091000 and Play ID: 1240) on a specific play can help understand these metrics as well. This play comprised 8 observations from the player-frame area with a mean Euclidean error of 5.26 yards and maximum error of 6.25 yards for this play. The analysis also showed that a systematic trend was there: the model consistently underpredicts forward motion toward the ball landing position. Players in the example were 3.78 yards closer to the ball than the model predicted on average in the case study, with the actual average distance being 4.20 yards and the predicted distance being 7.98 yards.\nThe low MAE (average errors are sub-3 yards), moderate RMSE (there are few extreme errors), and very high R² (more than 90% of variance) score indicates that this model effectively accounts for the basic play dynamics of play by play players during pass plays. For virtually all critical applications, whether evaluating defensive tactics, designing plays, or creating broadcast graphics, this degree of precision yields actionable insights."
+  },
+  {
+    "objectID": "Projects/NFL/NFL.html#limitations-and-future-improvements",
+    "href": "Projects/NFL/NFL.html#limitations-and-future-improvements",
+    "title": "NFL Big Data Bowl 2026: Player Position Prediction",
+    "section": "4. Limitations and Future Improvements",
+    "text": "4. Limitations and Future Improvements\nOur model has strong predictability but there are several limitations with room for a promising design enhancements.\nArchitecture Implications: In our feedforward neural network, spatial relationships are largely captured, however, it does not model player movement (the time-sequence of player movements) explicitly. Playing football happens over time and the players react to how the ball travels and to other players positions dynamically. A Recurrent Neural Network (RNN) or Long Short-Term Memory (LSTM) could model these interrelated temporal dependencies in which it can learn how player velocities evolve in different frame by frame from what it would be as an independent learning model, instead of treating every frame as a single prediction. Or, a Transformer-based architecture was proposed to model player attention mechanisms that capture how defenders respond against receivers and receivers to defenders.\nFeature Engineering Opportunities: In addition to missing more categorical features, we can engineer some more predictive features include:\n\nRelative positions (distance and angle away from each player to the ball landing position)\nBall motion vectors projected\nTime until that ball was actually delivered\nInteraction parameters (e.g., speed × distance to the ball)\nHistorical player-specific tendencies (average routes run, typical speeds)\n\nEnsemble Methods: The combination of multiple models, such as our neural network with gradient boosting machines or other different architectures neural networks, leads it to a more stable prediction with ensemble averaging. Different models could perform quite well at different aspects of the prediction task and together may reduce overall error.\nInsights from the Single-Play Case Study: Not every frame presented a comparable number of prediction errors. Errors rose in distance to the ball (6.25 yards) before decreasing (4.68 yards) as the player took his approach to land. These patterns indicate that there is a strong predictive signal from proximity of the ball. Future models should include distance-to-ball as an explicit variable, or use it for estimating weights differently on frames."
   }
 ]

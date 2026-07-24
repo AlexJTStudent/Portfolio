@@ -249,6 +249,28 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
     </ul>
   </li>
   <li class="nav-item dropdown ">
+    <a class="nav-link dropdown-toggle" href="#" id="nav-menu-sql" role="link" data-bs-toggle="dropdown" aria-expanded="false">
+ <span class="menu-text">SQL</span>
+    </a>
+    <ul class="dropdown-menu" aria-labelledby="nav-menu-sql">    
+        <li>
+    <a class="dropdown-item" href="../SQL/ConsultingDatabase.html">
+ <span class="dropdown-text">Consulting Database Design</span></a>
+  </li>  
+    </ul>
+  </li>
+  <li class="nav-item dropdown ">
+    <a class="nav-link dropdown-toggle" href="#" id="nav-menu-dashboard" role="link" data-bs-toggle="dropdown" aria-expanded="false">
+ <span class="menu-text">DASHBOARD</span>
+    </a>
+    <ul class="dropdown-menu" aria-labelledby="nav-menu-dashboard">    
+        <li>
+    <a class="dropdown-item" href="../DASHBOARDS/OlympicsDashboard.html">
+ <span class="dropdown-text">120 Years of the Olympics</span></a>
+  </li>  
+    </ul>
+  </li>
+  <li class="nav-item dropdown ">
     <a class="nav-link dropdown-toggle" href="#" id="nav-menu-projects" role="link" data-bs-toggle="dropdown" aria-expanded="false">
  <span class="menu-text">Projects</span>
     </a>
@@ -388,7 +410,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <section id="preparing-the-data" class="level2">
 <h2 class="anchored" data-anchor-id="preparing-the-data">Preparing the Data</h2>
 <p>We keep the five most common body types, drop missing values, and split 80/20 with stratification so each body type appears in the same proportion in the training and test sets.</p>
-<div id="72a220fb" class="cell" data-execution_count="2">
+<div id="35a574d9" class="cell" data-execution_count="2">
 <details class="code-fold">
 <summary>Code</summary>
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb1"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a>top <span class="op">=</span> [<span class="st">"sedan"</span>, <span class="st">"suv"</span>, <span class="st">"hatchback"</span>, <span class="st">"minivan"</span>, <span class="st">"universal"</span>]</span>
@@ -413,7 +435,7 @@ Name: count, dtype: int64</code></pre>
 </div>
 </div>
 <p>The classes are imbalanced, with sedans dominating, so we set class balancing to stop the model from simply always guessing the majority class.</p>
-<div id="131833cb" class="cell" data-execution_count="3">
+<div id="5fd26b7c" class="cell" data-execution_count="3">
 <details class="code-fold">
 <summary>Code</summary>
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb3"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a>clf <span class="op">=</span> RandomForestClassifier(n_estimators<span class="op">=</span><span class="dv">200</span>, random_state<span class="op">=</span><span class="dv">42</span>,</span>
@@ -430,7 +452,7 @@ Name: count, dtype: int64</code></pre>
 <section id="evaluation" class="level2">
 <h2 class="anchored" data-anchor-id="evaluation">Evaluation</h2>
 <p>Accuracy lands around 0.50. That may sound low, but with five classes and heavy overlap it is meaningfully better than the naive baseline of always guessing sedan. The confusion matrix shows where the model succeeds and struggles.</p>
-<div id="3d275102" class="cell" data-execution_count="4">
+<div id="43ad0e58" class="cell" data-execution_count="4">
 <div class="cell-output cell-output-display">
 <div class="quarto-figure quarto-figure-center">
 <figure class="figure">
@@ -439,7 +461,7 @@ Name: count, dtype: int64</code></pre>
 </div>
 </div>
 </div>
-<div id="eebf1eef" class="cell" data-execution_count="5">
+<div id="f9b0bc90" class="cell" data-execution_count="5">
 <div class="cell-output cell-output-stdout">
 <pre><code>              precision    recall  f1-score   support
 
@@ -459,7 +481,7 @@ weighted avg       0.49      0.50      0.49      6985
 </section>
 <section id="which-features-matter-most" class="level2">
 <h2 class="anchored" data-anchor-id="which-features-matter-most">Which Features Matter Most?</h2>
-<div id="3fe6785f" class="cell" data-execution_count="6">
+<div id="1853866c" class="cell" data-execution_count="6">
 <div class="cell-output cell-output-display">
 <div class="quarto-figure quarto-figure-center">
 <figure class="figure">

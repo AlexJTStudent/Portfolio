@@ -6,3 +6,26 @@ lambda-docker/
 *.h5
 *.tflite
 .aws/
+
+# Python caches
+__pycache__/
+*.pyc
+
+# Trained model weights. These are large (about 43 MB each) and are reproducible by
+# rerunning Projects/Crash/pytorch/train.py, so they stay out of git history. The
+# Cloud Run build reads model.pt from local disk, and Amplify only serves _site, so
+# nothing in the deploy path needs them to be tracked. The small evidence files in
+# artifacts/ (metrics.json, test_report.txt, training_curve.png) remain tracked.
+Projects/Crash/pytorch/artifacts/model.pt
+Projects/Crash/pytorch/artifacts/model.onnx
+
+# Copies deploy.sh stages next to the Dockerfile for the build context. Its trap
+# removes them on exit, but ignore them so an interrupted deploy cannot leave a
+# 43 MB blob staged for commit.
+Projects/Crash/pytorch/serve/model.pt
+Projects/Crash/pytorch/serve/model.py
+Projects/Crash/pytorch/serve/gradcam.py
+
+# Local virtualenvs
+.venv/
+.venv*/

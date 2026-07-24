@@ -252,6 +252,28 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
     </ul>
   </li>
   <li class="nav-item dropdown ">
+    <a class="nav-link dropdown-toggle" href="#" id="nav-menu-sql" role="link" data-bs-toggle="dropdown" aria-expanded="false">
+ <span class="menu-text">SQL</span>
+    </a>
+    <ul class="dropdown-menu" aria-labelledby="nav-menu-sql">    
+        <li>
+    <a class="dropdown-item" href="../SQL/ConsultingDatabase.html">
+ <span class="dropdown-text">Consulting Database Design</span></a>
+  </li>  
+    </ul>
+  </li>
+  <li class="nav-item dropdown ">
+    <a class="nav-link dropdown-toggle" href="#" id="nav-menu-dashboard" role="link" data-bs-toggle="dropdown" aria-expanded="false">
+ <span class="menu-text">DASHBOARD</span>
+    </a>
+    <ul class="dropdown-menu" aria-labelledby="nav-menu-dashboard">    
+        <li>
+    <a class="dropdown-item" href="../DASHBOARDS/OlympicsDashboard.html">
+ <span class="dropdown-text">120 Years of the Olympics</span></a>
+  </li>  
+    </ul>
+  </li>
+  <li class="nav-item dropdown ">
     <a class="nav-link dropdown-toggle" href="#" id="nav-menu-projects" role="link" data-bs-toggle="dropdown" aria-expanded="false">
  <span class="menu-text">Projects</span>
     </a>
@@ -391,7 +413,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <section id="preparing-the-data" class="level2">
 <h2 class="anchored" data-anchor-id="preparing-the-data">Preparing the Data</h2>
 <p>We take the same four numeric features, standardize them since PCA is scale-sensitive, and reuse K-Means to label four segments.</p>
-<div id="754edf57" class="cell" data-execution_count="2">
+<div id="881e2c45" class="cell" data-execution_count="2">
 <details class="code-fold">
 <summary>Code</summary>
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb1"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a>feats <span class="op">=</span> [<span class="st">"price_usd"</span>, <span class="st">"odometer_value"</span>, <span class="st">"year_produced"</span>, <span class="st">"engine_capacity"</span>]</span>
@@ -406,7 +428,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <section id="running-pca" class="level2">
 <h2 class="anchored" data-anchor-id="running-pca">Running PCA</h2>
 <p>We reduce the four standardized features to two principal components and check how much of the original variation they retain.</p>
-<div id="6359aff4" class="cell" data-execution_count="3">
+<div id="fe51b551" class="cell" data-execution_count="3">
 <details class="code-fold">
 <summary>Code</summary>
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb2"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a>pca <span class="op">=</span> PCA(n_components<span class="op">=</span><span class="dv">2</span>)</span>
@@ -428,7 +450,7 @@ Together: 81.0%</code></pre>
 </section>
 <section id="the-two-dimensional-map" class="level2">
 <h2 class="anchored" data-anchor-id="the-two-dimensional-map">The Two-Dimensional Map</h2>
-<div id="046d3030" class="cell" data-execution_count="4">
+<div id="222e41f0" class="cell" data-execution_count="4">
 <div class="cell-output cell-output-display">
 <div class="quarto-figure quarto-figure-center">
 <figure class="figure">
@@ -442,7 +464,7 @@ Together: 81.0%</code></pre>
 <section id="what-do-the-components-mean" class="level2">
 <h2 class="anchored" data-anchor-id="what-do-the-components-mean">What Do the Components Mean?</h2>
 <p>Each principal component is a weighted blend of the original features. The loadings below tell us what each axis represents.</p>
-<div id="12ced5ea" class="cell" data-execution_count="5">
+<div id="84799310" class="cell" data-execution_count="5">
 <div class="cell-output cell-output-display" data-execution_count="5">
 <div>
 
