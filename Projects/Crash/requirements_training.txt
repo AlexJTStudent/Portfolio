@@ -1,8 +1,0 @@
-# Requirements for training the neural network locally
-# Install these before running train_cnn.py
-
-tensorflow==2.20.0
-numpy==2.2.1
-scikit-learn==1.6.0
-matplotlib>=3.9.0
-pillow>=10.0.0

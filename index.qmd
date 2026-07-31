@@ -547,7 +547,37 @@ This car crash detector was built using a modern tech stack combining **machine 
 
 ### System Architecture & Workflow
 
-![](flowchart.png)
+```{mermaid}
+flowchart TD
+    U["User uploads a photo"] --> FE["Quarto frontend · AWS Amplify"]
+    FE -->|"HTTPS POST, base64 image"| API
+
+    subgraph CR["Google Cloud Run · FastAPI service"]
+        API["1 · Preprocess to 224×224, ImageNet normalization"]
+        API --> BB["2 · ResNet18 backbone, pretrained and frozen → 512-d features"]
+        BB --> HEAD["3 · Classifier head 512→128→1 → class + confidence"]
+        HEAD --> CAM["4 · Grad-CAM, one backward pass → heatmap overlay"]
+        CAM -.->|"optional, rate-limited"| CLAUDE["5 · Claude API → written analysis"]
+    end
+
+    CAM -->|"JSON response"| UI
+    CLAUDE -.-> UI
+    UI["Results: prediction + confidence · Grad-CAM heatmap · Claude analysis"]
+
+    classDef entry fill:#2c3e50,stroke:#1a252f,color:#fff
+    classDef host fill:#e74c3c,stroke:#c0392b,color:#fff
+    classDef step fill:#5b9bd5,stroke:#2e75b6,color:#fff
+    classDef ai fill:#b8762e,stroke:#8a5a22,color:#fff
+    classDef out fill:#18bc9c,stroke:#12907a,color:#fff
+    class U entry
+    class FE host
+    class API,BB,HEAD,CAM step
+    class CLAUDE ai
+    class UI out
+```
+
+The dashed path is the Claude write-up. It is optional and capped per day, so the prediction
+and heatmap always return even when it is unavailable.
 
 **Frontend & Hosting:**
 
